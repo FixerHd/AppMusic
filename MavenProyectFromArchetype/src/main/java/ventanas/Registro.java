@@ -34,6 +34,9 @@ public class Registro extends JFrame {
 	private JTextField textField_3;
 	private JLabel lblNewLabel;
 	private JButton btnNewButton_1;
+	private JLabel lblNewLabel_1;
+	private JLabel lblNewLabel_2;
+	private JLabel lblNewLabel_3;
 
 	/**
 	 * Launch the application.
@@ -67,17 +70,38 @@ public class Registro extends JFrame {
 		contentPane.add(panel, 
 				BorderLayout.SOUTH);
 		
+		btnNewButton_1 = new JButton("Volver");
+		panel.add(btnNewButton_1);
+		btnNewButton_1.setIcon(new ImageIcon(Registro.class.getResource("/recursos/volver (2).png")));
+		
+		btnNewButton_1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Crea y muestra la Ventana2 cuando se presiona el botón
+                Login ventana2 = new Login();
+                ventana2.setVisible();
+                setVisible(false);
+            }
+        });
+		
 		btnNewButton = new JButton("Registro");
 		panel.add(btnNewButton);
 		
 		panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.CENTER);
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
-		gbl_panel_1.columnWidths = new int[]{15, 105, 138, 20, 155, 15, 15, 0};
-		gbl_panel_1.rowHeights = new int[]{15, 0, 0, 0, 0, 0, 15, 0};
-		gbl_panel_1.columnWeights = new double[]{1.0, 1.0, 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
-		gbl_panel_1.rowWeights = new double[]{1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_panel_1.columnWidths = new int[]{15, 100, 100, 100, 100, 0, 15, 0};
+		gbl_panel_1.rowHeights = new int[]{15, 0, 15, 0, 15, 0, 15, 0};
+		gbl_panel_1.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_panel_1.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		panel_1.setLayout(gbl_panel_1);
+		
+		lblNewLabel_1 = new JLabel("Usuario:");
+		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
+		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_1.anchor = GridBagConstraints.EAST;
+		gbc_lblNewLabel_1.gridx = 1;
+		gbc_lblNewLabel_1.gridy = 1;
+		panel_1.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
 		txtUsuario = new JTextField();
 		txtUsuario.setText("usuario");
@@ -89,15 +113,32 @@ public class Registro extends JFrame {
 		panel_1.add(txtUsuario, gbc_txtUsuario);
 		txtUsuario.setColumns(10);
 		
+		lblNewLabel_3 = new JLabel("Contraseña:");
+		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
+		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_3.anchor = GridBagConstraints.EAST;
+		gbc_lblNewLabel_3.gridx = 3;
+		gbc_lblNewLabel_3.gridy = 1;
+		panel_1.add(lblNewLabel_3, gbc_lblNewLabel_3);
+		
 		txtPassword = new JTextField();
-		txtPassword.setText("password");
+		txtPassword.setText("contraseña");
 		GridBagConstraints gbc_txtPassword = new GridBagConstraints();
+		gbc_txtPassword.gridwidth = 2;
 		gbc_txtPassword.insets = new Insets(0, 0, 5, 5);
 		gbc_txtPassword.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtPassword.gridx = 4;
 		gbc_txtPassword.gridy = 1;
 		panel_1.add(txtPassword, gbc_txtPassword);
 		txtPassword.setColumns(10);
+		
+		lblNewLabel_2 = new JLabel("Nombe Completo:");
+		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
+		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_2.anchor = GridBagConstraints.EAST;
+		gbc_lblNewLabel_2.gridx = 1;
+		gbc_lblNewLabel_2.gridy = 3;
+		panel_1.add(lblNewLabel_2, gbc_lblNewLabel_2);
 		
 		txtNombreCompleto = new JTextField();
 		txtNombreCompleto.setText("nombre completo");
@@ -112,12 +153,12 @@ public class Registro extends JFrame {
 		panel_1.add(txtNombreCompleto, gbc_txtNombreCompleto);
 		txtNombreCompleto.setColumns(10);
 		
-		lblNewLabel = new JLabel("fecha nacimiento");
+		lblNewLabel = new JLabel("Fecha Nacimiento:");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel.fill = GridBagConstraints.VERTICAL;
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.gridx = 2;
+		gbc_lblNewLabel.gridx = 3;
 		gbc_lblNewLabel.gridy = 5;
 		panel_1.add(lblNewLabel, gbc_lblNewLabel);
 		
@@ -129,23 +170,6 @@ public class Registro extends JFrame {
 		gbc_textField_3.gridy = 5;
 		panel_1.add(textField_3, gbc_textField_3);
 		textField_3.setColumns(10);
-		
-		btnNewButton_1 = new JButton("Volver");
-		btnNewButton_1.setIcon(new ImageIcon(Registro.class.getResource("/recursos/volver (2).png")));
-		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
-		gbc_btnNewButton_1.insets = new Insets(0, 0, 0, 5);
-		gbc_btnNewButton_1.gridx = 1;
-		gbc_btnNewButton_1.gridy = 6;
-		panel_1.add(btnNewButton_1, gbc_btnNewButton_1);
-		
-		btnNewButton_1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Crea y muestra la Ventana2 cuando se presiona el botón
-                Login ventana2 = new Login();
-                ventana2.setVisible();
-                setVisible(false);
-            }
-        });
 	}
 
 }
