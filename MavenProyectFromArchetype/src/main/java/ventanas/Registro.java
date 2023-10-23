@@ -59,7 +59,7 @@ public class Registro extends JFrame {
 	 */
 	public Registro() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 500, 350);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -91,7 +91,7 @@ public class Registro extends JFrame {
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
 		gbl_panel_1.columnWidths = new int[]{15, 100, 100, 100, 100, 0, 15, 0};
 		gbl_panel_1.rowHeights = new int[]{15, 0, 15, 0, 15, 0, 15, 0};
-		gbl_panel_1.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_panel_1.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		gbl_panel_1.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		panel_1.setLayout(gbl_panel_1);
 		
@@ -132,7 +132,7 @@ public class Registro extends JFrame {
 		panel_1.add(txtPassword, gbc_txtPassword);
 		txtPassword.setColumns(10);
 		
-		lblNewLabel_2 = new JLabel("Nombe Completo:");
+		lblNewLabel_2 = new JLabel("Nombre Completo:");
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
 		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_2.anchor = GridBagConstraints.EAST;
@@ -146,7 +146,7 @@ public class Registro extends JFrame {
 		txtNombreCompleto.setToolTipText("");
 		GridBagConstraints gbc_txtNombreCompleto = new GridBagConstraints();
 		gbc_txtNombreCompleto.insets = new Insets(0, 0, 5, 5);
-		gbc_txtNombreCompleto.gridwidth = 3;
+		gbc_txtNombreCompleto.gridwidth = 4;
 		gbc_txtNombreCompleto.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtNombreCompleto.gridx = 2;
 		gbc_txtNombreCompleto.gridy = 3;
