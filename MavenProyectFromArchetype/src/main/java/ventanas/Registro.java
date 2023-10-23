@@ -20,6 +20,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
+import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.JDateChooser;
+import javax.swing.JPasswordField;
 
 public class Registro extends JFrame {
 
@@ -29,14 +32,14 @@ public class Registro extends JFrame {
 	private JButton btnNewButton;
 	private JPanel panel_1;
 	private JTextField txtUsuario;
-	private JTextField txtPassword;
 	private JTextField txtNombreCompleto;
-	private JTextField textField_3;
 	private JLabel lblNewLabel;
 	private JButton btnNewButton_1;
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_2;
 	private JLabel lblNewLabel_3;
+	private JDateChooser dateChooser;
+	private JPasswordField passwordField;
 
 	/**
 	 * Launch the application.
@@ -89,9 +92,9 @@ public class Registro extends JFrame {
 		panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.CENTER);
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
-		gbl_panel_1.columnWidths = new int[]{15, 100, 100, 100, 100, 0, 15, 0};
+		gbl_panel_1.columnWidths = new int[]{15, 100, 100, 100, 100, 15, 0};
 		gbl_panel_1.rowHeights = new int[]{15, 0, 15, 0, 15, 0, 15, 0};
-		gbl_panel_1.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_panel_1.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
 		gbl_panel_1.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		panel_1.setLayout(gbl_panel_1);
 		
@@ -121,16 +124,13 @@ public class Registro extends JFrame {
 		gbc_lblNewLabel_3.gridy = 1;
 		panel_1.add(lblNewLabel_3, gbc_lblNewLabel_3);
 		
-		txtPassword = new JTextField();
-		txtPassword.setText("contraseña");
-		GridBagConstraints gbc_txtPassword = new GridBagConstraints();
-		gbc_txtPassword.gridwidth = 2;
-		gbc_txtPassword.insets = new Insets(0, 0, 5, 5);
-		gbc_txtPassword.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtPassword.gridx = 4;
-		gbc_txtPassword.gridy = 1;
-		panel_1.add(txtPassword, gbc_txtPassword);
-		txtPassword.setColumns(10);
+		passwordField = new JPasswordField();
+		GridBagConstraints gbc_passwordField = new GridBagConstraints();
+		gbc_passwordField.insets = new Insets(0, 0, 5, 5);
+		gbc_passwordField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_passwordField.gridx = 4;
+		gbc_passwordField.gridy = 1;
+		panel_1.add(passwordField, gbc_passwordField);
 		
 		lblNewLabel_2 = new JLabel("Nombre Completo:");
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
@@ -146,7 +146,7 @@ public class Registro extends JFrame {
 		txtNombreCompleto.setToolTipText("");
 		GridBagConstraints gbc_txtNombreCompleto = new GridBagConstraints();
 		gbc_txtNombreCompleto.insets = new Insets(0, 0, 5, 5);
-		gbc_txtNombreCompleto.gridwidth = 4;
+		gbc_txtNombreCompleto.gridwidth = 3;
 		gbc_txtNombreCompleto.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtNombreCompleto.gridx = 2;
 		gbc_txtNombreCompleto.gridy = 3;
@@ -156,20 +156,18 @@ public class Registro extends JFrame {
 		lblNewLabel = new JLabel("Fecha Nacimiento:");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
-		gbc_lblNewLabel.fill = GridBagConstraints.VERTICAL;
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel.gridx = 3;
 		gbc_lblNewLabel.gridy = 5;
 		panel_1.add(lblNewLabel, gbc_lblNewLabel);
 		
-		textField_3 = new JTextField();
-		GridBagConstraints gbc_textField_3 = new GridBagConstraints();
-		gbc_textField_3.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_3.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_3.gridx = 4;
-		gbc_textField_3.gridy = 5;
-		panel_1.add(textField_3, gbc_textField_3);
-		textField_3.setColumns(10);
+		dateChooser = new JDateChooser();
+		GridBagConstraints gbc_dateChooser = new GridBagConstraints();
+		gbc_dateChooser.insets = new Insets(0, 0, 5, 5);
+		gbc_dateChooser.fill = GridBagConstraints.HORIZONTAL;
+		gbc_dateChooser.gridx = 4;
+		gbc_dateChooser.gridy = 5;
+		panel_1.add(dateChooser, gbc_dateChooser);
 	}
 
 }
