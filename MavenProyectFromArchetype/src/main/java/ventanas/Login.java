@@ -11,9 +11,6 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.border.EtchedBorder;
-
-import Controlador.AppMusic;
-
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JButton;
@@ -79,7 +76,8 @@ public class Login extends JFrame {
 		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnNewButton_2.addActionListener(ev -> {
 			// Crea y muestra la VentanaRegistro cuando se presiona el botón
-			AppMusic()
+			Registro VentanaRegistro = new Registro();
+			VentanaRegistro.setVisible(true);
 			setVisible(false);
 		});
 		Bottons_panel.add(btnNewButton_2);

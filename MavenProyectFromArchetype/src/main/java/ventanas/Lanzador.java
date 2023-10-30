@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
+import Controlador.AppMusic;
+
 public class Lanzador {
 
 	private JFrame frame;
@@ -19,12 +21,14 @@ public class Lanzador {
 					UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
 					Selector selector = new Selector();
 					Login login = new Login();
+					LoginGit loginGit = new LoginGit();
 					Registro registro = new Registro();
 					Principal principal = new Principal();
 					selector.setVisible(true);
 					login.setVisible(false);
 					registro.setVisible(false);
 					principal.setVisible(false);
+					AppMusic AppMusic = new AppMusic(login, loginGit, registro, selector, principal);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
