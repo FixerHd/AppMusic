@@ -73,35 +73,34 @@ public class Registro extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
-		
+
 		panel = new JPanel();
-		contentPane.add(panel, 
-				BorderLayout.SOUTH);
-		
+		contentPane.add(panel, BorderLayout.SOUTH);
+
 		btnNewButton_1 = new JButton("Volver");
 		panel.add(btnNewButton_1);
 		btnNewButton_1.setIcon(new ImageIcon(Registro.class.getResource("/recursos/flecha-hacia-atras.png")));
-		
+
 		btnNewButton_1.addActionListener(ev -> {
 			// Crea y muestra la VentanaLogin cuando se presiona el botón
 			Login VentanaLogin = new Login();
-			VentanaLogin.setVisible();
+			VentanaLogin.setVisible(true);
 			setVisible(false);
 		});
-		
+
 		btnNewButton = new JButton("Registro");
 		btnNewButton.setIcon(new ImageIcon(Registro.class.getResource("/recursos/anadir.png")));
 		panel.add(btnNewButton);
-		
+
 		panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.CENTER);
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
-		gbl_panel_1.columnWidths = new int[]{15, 100, 100, 100, 100, 15, 0};
-		gbl_panel_1.rowHeights = new int[]{15, 0, 15, 0, 15, 0, 15, 0};
-		gbl_panel_1.columnWeights = new double[]{1.0, 0.0, 1.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
-		gbl_panel_1.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_panel_1.columnWidths = new int[] { 15, 100, 100, 100, 100, 15, 0 };
+		gbl_panel_1.rowHeights = new int[] { 15, 0, 15, 0, 15, 0, 15, 0 };
+		gbl_panel_1.columnWeights = new double[] { 1.0, 0.0, 1.0, 0.0, 1.0, 1.0, Double.MIN_VALUE };
+		gbl_panel_1.rowWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
 		panel_1.setLayout(gbl_panel_1);
-		
+
 		lblNewLabel_1 = new JLabel("Usuario:");
 		lblNewLabel_1.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 14));
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
@@ -110,7 +109,7 @@ public class Registro extends JFrame {
 		gbc_lblNewLabel_1.gridx = 1;
 		gbc_lblNewLabel_1.gridy = 1;
 		panel_1.add(lblNewLabel_1, gbc_lblNewLabel_1);
-		
+
 		txtUsuario = new JTextField();
 		txtUsuario.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtUsuario.setText("usuario");
@@ -121,7 +120,7 @@ public class Registro extends JFrame {
 		gbc_txtUsuario.gridy = 1;
 		panel_1.add(txtUsuario, gbc_txtUsuario);
 		txtUsuario.setColumns(10);
-		
+
 		lblNewLabel_3 = new JLabel("Contraseña:");
 		lblNewLabel_3.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 14));
 		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
@@ -130,7 +129,7 @@ public class Registro extends JFrame {
 		gbc_lblNewLabel_3.gridx = 3;
 		gbc_lblNewLabel_3.gridy = 1;
 		panel_1.add(lblNewLabel_3, gbc_lblNewLabel_3);
-		
+
 		passwordField = new JPasswordField();
 		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_passwordField = new GridBagConstraints();
@@ -139,7 +138,7 @@ public class Registro extends JFrame {
 		gbc_passwordField.gridx = 4;
 		gbc_passwordField.gridy = 1;
 		panel_1.add(passwordField, gbc_passwordField);
-		
+
 		lblNewLabel_2 = new JLabel("Nombre Completo:");
 		lblNewLabel_2.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 14));
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
@@ -148,7 +147,7 @@ public class Registro extends JFrame {
 		gbc_lblNewLabel_2.gridx = 1;
 		gbc_lblNewLabel_2.gridy = 3;
 		panel_1.add(lblNewLabel_2, gbc_lblNewLabel_2);
-		
+
 		txtNombreCompleto = new JTextField();
 		txtNombreCompleto.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtNombreCompleto.setText("nombre completo");
@@ -162,7 +161,7 @@ public class Registro extends JFrame {
 		gbc_txtNombreCompleto.gridy = 3;
 		panel_1.add(txtNombreCompleto, gbc_txtNombreCompleto);
 		txtNombreCompleto.setColumns(10);
-		
+
 		lblNewLabel = new JLabel("Fecha Nacimiento:");
 		lblNewLabel.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 14));
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
@@ -171,7 +170,7 @@ public class Registro extends JFrame {
 		gbc_lblNewLabel.gridx = 3;
 		gbc_lblNewLabel.gridy = 5;
 		panel_1.add(lblNewLabel, gbc_lblNewLabel);
-		
+
 		dateChooser = new JDateChooser();
 		GridBagConstraints gbc_dateChooser = new GridBagConstraints();
 		gbc_dateChooser.insets = new Insets(0, 0, 5, 5);
