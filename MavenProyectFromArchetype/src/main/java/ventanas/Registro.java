@@ -51,7 +51,7 @@ public class Registro extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UIManager.setLookAndFeel("com.jtattoo.plaf.texture.TextureLookAndFeel");
+					UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
 					Registro frame = new Registro();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -96,7 +96,7 @@ public class Registro extends JFrame {
 		contentPane.add(panel_1, BorderLayout.CENTER);
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
 		gbl_panel_1.columnWidths = new int[] { 15, 100, 100, 100, 100, 15, 0 };
-		gbl_panel_1.rowHeights = new int[] { 15, 0, 15, 0, 15, 0, 15, 0 };
+		gbl_panel_1.rowHeights = new int[] { 15, 35, 15, 35, 15, 35, 15, 0 };
 		gbl_panel_1.columnWeights = new double[] { 1.0, 0.0, 1.0, 0.0, 1.0, 1.0, Double.MIN_VALUE };
 		gbl_panel_1.rowWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
 		panel_1.setLayout(gbl_panel_1);

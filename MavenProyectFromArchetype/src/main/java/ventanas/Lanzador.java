@@ -16,9 +16,15 @@ public class Lanzador {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UIManager.setLookAndFeel("com.jtattoo.plaf.texture.TextureLookAndFeel");
-					Selector window = new Selector();
-					window.setVisible(true);
+					UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
+					Selector selector = new Selector();
+					Login login = new Login();
+					Registro registro = new Registro();
+					Principal principal = new Principal();
+					selector.setVisible(true);
+					login.setVisible(false);
+					registro.setVisible(false);
+					principal.setVisible(false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

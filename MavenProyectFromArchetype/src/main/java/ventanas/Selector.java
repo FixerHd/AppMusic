@@ -14,6 +14,12 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.FlowLayout;
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+
+import java.awt.Component;
 
 public class Selector extends JFrame {
 
@@ -27,6 +33,7 @@ public class Selector extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
 					Selector frame = new Selector();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -90,15 +97,65 @@ public class Selector extends JFrame {
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{0};
-		gbl_panel.rowHeights = new int[]{0};
-		gbl_panel.columnWeights = new double[]{Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{Double.MIN_VALUE};
+		gbl_panel.columnWidths = new int[]{15, 0, 0, 15, 0};
+		gbl_panel.rowHeights = new int[]{5, 35, 35, 15, 0};
+		gbl_panel.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{1.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
+		
+		JLabel lblNewLabel_1 = new JLabel("Bienvenido de nuevo, usuario");
+		lblNewLabel_1.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 16));
+		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
+		gbc_lblNewLabel_1.gridwidth = 2;
+		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_1.gridx = 1;
+		gbc_lblNewLabel_1.gridy = 1;
+		panel.add(lblNewLabel_1, gbc_lblNewLabel_1);
+		
+		JButton btnNewButton = new JButton("Login");
+		btnNewButton.setIcon(new ImageIcon(Selector.class.getResource("/recursos/usuario.png")));
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
+		gbc_btnNewButton.gridx = 1;
+		gbc_btnNewButton.gridy = 2;
+		btnNewButton.addActionListener(ev ->{
+			// Crea y muestra la VentanaLogin cuando se presiona el botón
+			Login VentanaLogin = new Login();
+			VentanaLogin.setVisible(true);
+			setVisible(false);
+		});
+		panel.add(btnNewButton, gbc_btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("Login con GitHub");
+		btnNewButton_1.setIcon(new ImageIcon(Selector.class.getResource("/recursos/github.png")));
+		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
+		gbc_btnNewButton_1.insets = new Insets(0, 0, 5, 5);
+		gbc_btnNewButton_1.gridx = 2;
+		gbc_btnNewButton_1.gridy = 2;
+		btnNewButton_1.addActionListener(ev ->{
+			// Crea y muestra la VentanaLoginGit cuando se presiona el botón
+			LoginGit VentanaLoginGit = new LoginGit();
+			VentanaLoginGit.setVisible(true);
+			setVisible(false);
+		});
+		panel.add(btnNewButton_1, gbc_btnNewButton_1);
 		
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.SOUTH);
-		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.Y_AXIS));
+		
+		JLabel lblNewLabel_1_1 = new JLabel("Si no tiene una cuenta todavia, registrese");
+		lblNewLabel_1_1.setAlignmentX(Component.CENTER_ALIGNMENT);
+		lblNewLabel_1_1.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 16));
+		panel_1.add(lblNewLabel_1_1);
+		
+		JButton btnNewButton_2 = new JButton("Registro");
+		btnNewButton_2.setIcon(new ImageIcon(Selector.class.getResource("/recursos/editar.png")));
+		btnNewButton_2.setAlignmentX(Component.CENTER_ALIGNMENT);
+		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		panel_1.add(btnNewButton_2);
 	}
 
 }

@@ -11,9 +11,6 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.border.EtchedBorder;
-
-import Controlador.AppMusic;
-
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JButton;
@@ -24,7 +21,7 @@ import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import javax.swing.Action;
 
-public class Login extends JFrame {
+public class LoginGit extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -40,7 +37,7 @@ public class Login extends JFrame {
 			public void run() {
 				try {
 					UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
-					Login frame = new Login();
+					LoginGit frame = new LoginGit();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -52,7 +49,7 @@ public class Login extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Login() {
+	public LoginGit() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -65,21 +62,22 @@ public class Login extends JFrame {
 		contentPane.add(Bottons_panel, BorderLayout.SOUTH);
 
 		JButton btnNewButton = new JButton("Login");
-		btnNewButton.setIcon(new ImageIcon(Login.class.getResource("/recursos/usuario.png")));
+		btnNewButton.setIcon(new ImageIcon(LoginGit.class.getResource("/recursos/usuario.png")));
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		Bottons_panel.add(btnNewButton);
 
 		JButton btnNewButton_1 = new JButton("Login con GitHub");
-		btnNewButton_1.setIcon(new ImageIcon(Login.class.getResource("/recursos/github.png")));
+		btnNewButton_1.setIcon(new ImageIcon(LoginGit.class.getResource("/recursos/github.png")));
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		Bottons_panel.add(btnNewButton_1);
 
 		JButton btnNewButton_2 = new JButton("Registro");
-		btnNewButton_2.setIcon(new ImageIcon(Login.class.getResource("/recursos/editar.png")));
+		btnNewButton_2.setIcon(new ImageIcon(LoginGit.class.getResource("/recursos/editar.png")));
 		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnNewButton_2.addActionListener(ev -> {
 			// Crea y muestra la VentanaRegistro cuando se presiona el botón
-			AppMusic()
+			Registro VentanaRegistro = new Registro();
+			VentanaRegistro.setVisible(true);
 			setVisible(false);
 		});
 		Bottons_panel.add(btnNewButton_2);
