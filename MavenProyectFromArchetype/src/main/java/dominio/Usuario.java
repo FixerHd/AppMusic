@@ -1,6 +1,6 @@
 package dominio;
 
-import java.util.HashSet;
+import java.util.LinkedList;
 
 public class Usuario {
 	private int id;
@@ -9,7 +9,7 @@ public class Usuario {
     private String password;
     private String fechaNacimiento;
     private boolean premium;
-    private HashSet<Playlist> playlists;
+    private LinkedList<Playlist> playlists;
     private Descuento desc;
 
 
@@ -19,7 +19,7 @@ public class Usuario {
         this.password = contraseña;
         this.fechaNacimiento = fechanac;
         premium=false;
-        playlists=new HashSet<Playlist>();
+        playlists=new LinkedList<Playlist>();
     }
 
 
@@ -34,37 +34,36 @@ public class Usuario {
 
 	public String getNombre() {
 		// TODO Auto-generated method stub
-		return null;
+		return nombre;
 	}
 
 
 	public String getEmail() {
 		// TODO Auto-generated method stub
-		return null;
+		return email;
 	}
 
 
 	public String getPassword() {
 		// TODO Auto-generated method stub
-		return null;
+		return password;
 	}
 
 
-	public String getPlayliststoEntity() {
-		// TODO Auto-generated method stub
-		return null;
+	public LinkedList<Playlist> getPlaylists() {
+		return playlists;
 	}
 
 
 	public String getFechaNacimiento() {
 		// TODO Auto-generated method stub
-		return null;
+		return fechaNacimiento;
 	}
 
 
 	public String getPremium() {
 		// TODO Auto-generated method stub
-		return null;
+		return Boolean.toString(premium);
 	}
 
 
@@ -75,6 +74,18 @@ public class Usuario {
 	public void setId(int id) {
 		this.id = id;
 	}
+
+
+	public void setPremium(String premium2) {
+		// TODO Auto-generated method stub
+		premium = Boolean.valueOf(premium2);
+	}
+	
+	public void setPlaylists(LinkedList<Playlist> playlists2) {
+		// TODO Auto-generated method stub
+		playlists = playlists2;
+	}
+
 
 
 }

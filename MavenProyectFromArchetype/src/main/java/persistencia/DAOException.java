@@ -1,10 +1,9 @@
-package dao;
+package persistencia;
 
 @SuppressWarnings("serial")
 public class DAOException extends Exception {
 
-	public DAOException(final String mensaje) {
+	public DAOException(String mensaje) {
 		super(mensaje);
 	}
-
 }
