@@ -81,10 +81,6 @@ public class AppMusic {
 		PlaylistnaActual.setVisible(true);
 	}
 	
-	
-
-
-
 
 
 	public void registrarUsuario(Usuario Usuario) {
