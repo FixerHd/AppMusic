@@ -2,6 +2,8 @@ package dominio;
 
 import java.util.LinkedList;
 
+import Controlador.AppMusic;
+
 public class Usuario {
 	private int id;
     private String nombre;
@@ -84,6 +86,14 @@ public class Usuario {
 	public void setPlaylists(LinkedList<Playlist> playlists2) {
 		// TODO Auto-generated method stub
 		playlists = playlists2;
+	}
+	
+	public void Registrarse() {
+		AppMusic.getUnicaInstancia().registrarUsuario(this);
+	}
+	
+	public void IniciarSesion(){
+		
 	}
 
 

@@ -28,7 +28,8 @@ public class Lanzador {
 					login.setVisible(false);
 					registro.setVisible(false);
 					principal.setVisible(false);
-					AppMusic AppMusic = new AppMusic(login, loginGit, registro, selector, principal);
+					AppMusic AppMusic = Controlador.AppMusic.getUnicaInstancia();
+					AppMusic.Iniciarventanas(login, loginGit, registro, selector, principal);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
