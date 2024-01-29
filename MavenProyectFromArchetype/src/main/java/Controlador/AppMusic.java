@@ -1,14 +1,13 @@
 package Controlador;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.swing.JFrame;
 
 import dominio.Cancion;
 import dominio.Playlist;
-import dominio.RepositorioCanciones;
-import dominio.RepositorioUsuarios;
+import dominio.CatalogoCanciones;
+import dominio.CatalogoUsuarios;
 import dominio.Usuario;
 import persistencia.DAOException;
 import persistencia.FactoriaDAO;
@@ -32,8 +31,8 @@ public class AppMusic {
 	private IAdaptadorCancionDAO adaptadorCancion;
 	private IAdaptadorPlaylistDAO adaptadorPlaylist;
 
-	private RepositorioUsuarios catalogoUsuarios;
-	private RepositorioCanciones catalogoCanciones;
+	private CatalogoUsuarios catalogoUsuarios;
+	private CatalogoCanciones catalogoCanciones;
 
 	private AppMusic() {
 		inicializarAdaptadores(); // debe ser la primera linea para evitar error
@@ -114,12 +113,12 @@ public class AppMusic {
 	}
 
 	private void inicializarCatalogos() {
-		catalogoUsuarios = RepositorioUsuarios.getUnicaInstancia();
-		catalogoCanciones = RepositorioCanciones.getUnicaInstancia();
+		catalogoUsuarios = CatalogoUsuarios.getUnicaInstancia();
+		catalogoCanciones = CatalogoCanciones.getUnicaInstancia();
 	}
 
 	public boolean existeUsuario(String nombre) {
-		return RepositorioUsuarios.getUnicaInstancia().getUsuario(nombre) != null;
+		return CatalogoUsuarios.getUnicaInstancia().getUsuario(nombre) != null;
 	}
 
 	public List<Cancion> getCanciones() {

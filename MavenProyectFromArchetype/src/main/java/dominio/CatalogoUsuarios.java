@@ -1,28 +1,77 @@
 package dominio;
 
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public enum RepositorioUsuarios {
-	;
+import persistencia.DAOException;
+import persistencia.FactoriaDAO;
+import persistencia.IAdaptadorUsuarioDAO;
 
-	public static RepositorioUsuarios getUnicaInstancia() {
-		// TODO Auto-generated method stub
+
+/* El catálogo mantiene los objetos en memoria, en una tabla hash
+ * para mejorar el rendimiento. Esto no se podría hacer en una base de
+ * datos con un número grande de objetos. En ese caso se consultaria
+ * directamente la base de datos
+ */
+public class CatalogoUsuarios {
+	private Map<String,Usuario> Usuarios; 
+	private static CatalogoUsuarios unicaInstancia;
+	
+	private FactoriaDAO dao;
+	private IAdaptadorUsuarioDAO adaptadorUsuario;
+	
+	private CatalogoUsuarios() {
+		try {
+  			dao = FactoriaDAO.getInstancia(FactoriaDAO.DAO_TDS);
+  			adaptadorUsuario = dao.getUsuarioDAO();
+  			Usuarios = new HashMap<String,Usuario>();
+  			this.cargarCatalogo();
+  		} catch (DAOException eDAO) {
+  			eDAO.printStackTrace();
+  		}
+	}
+	
+	public static CatalogoUsuarios getUnicaInstancia() {
+        if (unicaInstancia == null) {
+            unicaInstancia = new CatalogoUsuarios();
+        }
+        return unicaInstancia;
+    }
+
+	
+	/*devuelve todos los Usuarios*/
+	public List<Usuario> getUsuarios(){
+		ArrayList<Usuario> lista = new ArrayList<Usuario>();
+		for (Usuario c:Usuarios.values()) 
+			lista.add(c);
+		return lista;
+	}
+	
+	public Usuario getUsuario(int codigo) {
+		for (Usuario c:Usuarios.values()) {
+			if (c.getId()==codigo) return c;
+		}
 		return null;
 	}
-
-	public Object getUsuario(String nombre) {
-		// TODO Auto-generated method stub
-		return null;
+	public Usuario getUsuario(String nombre) {
+		return Usuarios.get(nombre); 
 	}
-
-	public List<Usuario> getUsuarios() {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public void addUsuario(Usuario cli) {
+		Usuarios.put(cli.getNombre(),cli);
 	}
-
-	public void addUsuario(Usuario usuario) {
-		// TODO Auto-generated method stub
-		
+	public void removeUsuario (Usuario cli) {
+		Usuarios.remove(cli.getNombre());
 	}
-
+	
+	/*Recupera todos los Usuarios para trabajar con ellos en memoria*/
+	private void cargarCatalogo() throws DAOException {
+		 List<Usuario> UsuariosBD = adaptadorUsuario.recuperarTodosUsuarios();
+		 for (Usuario cli: UsuariosBD) 
+			     Usuarios.put(cli.getNombre(),cli);
+	}
+	
 }
