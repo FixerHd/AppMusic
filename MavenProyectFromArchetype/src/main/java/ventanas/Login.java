@@ -20,6 +20,8 @@ import javax.swing.ImageIcon;
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import javax.swing.Action;
+import javax.swing.SwingConstants;
+import java.awt.Toolkit;
 
 public class Login extends JFrame {
 
@@ -50,6 +52,8 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login() {
+		setTitle("Login");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/recursos/Singletune_16.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -60,27 +64,27 @@ public class Login extends JFrame {
 
 		JPanel Bottons_panel = new JPanel();
 		contentPane.add(Bottons_panel, BorderLayout.SOUTH);
+		
+		JButton btnNewButton_1 = new JButton("Volver");
+		btnNewButton_1.setIcon(new ImageIcon(Login.class.getResource("/recursos/flecha-hacia-atras.png")));
+		btnNewButton_1.addActionListener(ev -> {
+			// Crea y muestra la VentanaSelector cuando se presiona el botón
+			Selector VentanaSelector = new Selector();
+			VentanaSelector.setVisible(true);
+			setVisible(false);
+		});
+		Bottons_panel.add(btnNewButton_1);
 
 		JButton btnNewButton = new JButton("Login");
 		btnNewButton.setIcon(new ImageIcon(Login.class.getResource("/recursos/usuario.png")));
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		Bottons_panel.add(btnNewButton);
-
-		JButton btnNewButton_1 = new JButton("Login con GitHub");
-		btnNewButton_1.setIcon(new ImageIcon(Login.class.getResource("/recursos/github.png")));
-		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		Bottons_panel.add(btnNewButton_1);
-
-		JButton btnNewButton_2 = new JButton("Registro");
-		btnNewButton_2.setIcon(new ImageIcon(Login.class.getResource("/recursos/editar.png")));
-		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnNewButton_2.addActionListener(ev -> {
-			// Crea y muestra la VentanaRegistro cuando se presiona el botón
-			Registro VentanaRegistro = new Registro();
-			VentanaRegistro.setVisible(true);
+		btnNewButton.addActionListener(ev -> {
+			// Crea y muestra la VentanaPrincipal cuando se presiona el botón
+			Principal VentanaPrincipal = new Principal();
+			VentanaPrincipal.setVisible(true);
 			setVisible(false);
 		});
-		Bottons_panel.add(btnNewButton_2);
+		Bottons_panel.add(btnNewButton);
 
 		JPanel Text_panel = new JPanel();
 		Text_panel.setBorder(null);
@@ -101,8 +105,7 @@ public class Login extends JFrame {
 		gbc_lblNewLabel_1.gridy = 1;
 		Text_panel.add(lblNewLabel_1, gbc_lblNewLabel_1);
 
-		textField = new JTextField();
-		textField.setText("Usuario");
+		JTextField textField = new HintTextField("Usuario");
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textField.setColumns(4);
 		GridBagConstraints gbc_textField = new GridBagConstraints();
@@ -121,8 +124,7 @@ public class Login extends JFrame {
 		gbc_lblNewLabel_2.gridy = 3;
 		Text_panel.add(lblNewLabel_2, gbc_lblNewLabel_2);
 
-		textField_1 = new JTextField();
-		textField_1.setText("Contraseña");
+		JTextField textField_1 = new HintTextField("Contraseña");
 		textField_1.setSelectedTextColor(Color.WHITE);
 		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textField_1.setColumns(10);
@@ -139,38 +141,50 @@ public class Login extends JFrame {
 		GridBagLayout gbl_Title_panel = new GridBagLayout();
 		gbl_Title_panel.columnWidths = new int[] { 0, 175, 0, 0 };
 		gbl_Title_panel.rowHeights = new int[] { 51, 0, 0 };
-		gbl_Title_panel.columnWeights = new double[] { 1.0, 0.0, 1.0, Double.MIN_VALUE };
-		gbl_Title_panel.rowWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
+		gbl_Title_panel.columnWeights = new double[] { 1.0, 1.0, 1.0, Double.MIN_VALUE };
+		gbl_Title_panel.rowWeights = new double[] { 1.0, 1.0, Double.MIN_VALUE };
 		Title_panel.setLayout(gbl_Title_panel);
-
+		
 		JPanel Space_panel_1 = new JPanel();
 		GridBagConstraints gbc_Space_panel_1 = new GridBagConstraints();
-		gbc_Space_panel_1.fill = GridBagConstraints.BOTH;
 		gbc_Space_panel_1.insets = new Insets(0, 0, 5, 5);
+		gbc_Space_panel_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_Space_panel_1.gridx = 0;
 		gbc_Space_panel_1.gridy = 0;
 		Title_panel.add(Space_panel_1, gbc_Space_panel_1);
-
+		Space_panel_1.setLayout(new BorderLayout(0, 0));
+		
+		JLabel lblNewLabel_3 = new JLabel("");
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_3.setIcon(new ImageIcon(Login.class.getResource("/recursos/floral_I_64.png")));
+		Space_panel_1.add(lblNewLabel_3, BorderLayout.NORTH);
+		
 		JPanel Name_panel = new JPanel();
-		Name_panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		GridBagConstraints gbc_Name_panel = new GridBagConstraints();
-		gbc_Name_panel.fill = GridBagConstraints.BOTH;
 		gbc_Name_panel.insets = new Insets(0, 0, 5, 5);
+		gbc_Name_panel.fill = GridBagConstraints.HORIZONTAL;
 		gbc_Name_panel.gridx = 1;
 		gbc_Name_panel.gridy = 0;
 		Title_panel.add(Name_panel, gbc_Name_panel);
-
-		JLabel lblNewLabel = new JLabel("AppMusic");
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(Login.class.getResource("/recursos/Singletune_128.png")));
 		lblNewLabel.setFont(new Font("Source Sans Pro Black", Font.PLAIN, 40));
 		Name_panel.add(lblNewLabel);
-
+		
 		JPanel Space_panel_2 = new JPanel();
 		GridBagConstraints gbc_Space_panel_2 = new GridBagConstraints();
-		gbc_Space_panel_2.fill = GridBagConstraints.BOTH;
 		gbc_Space_panel_2.insets = new Insets(0, 0, 5, 0);
+		gbc_Space_panel_2.fill = GridBagConstraints.HORIZONTAL;
 		gbc_Space_panel_2.gridx = 2;
 		gbc_Space_panel_2.gridy = 0;
 		Title_panel.add(Space_panel_2, gbc_Space_panel_2);
+		Space_panel_2.setLayout(new BorderLayout(0, 0));
+		
+		JLabel lblNewLabel_4 = new JLabel("");
+		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_4.setIcon(new ImageIcon(Login.class.getResource("/recursos/floral_D_64.png")));
+		Space_panel_2.add(lblNewLabel_4, BorderLayout.NORTH);
 	}
 
 	private class SwingAction extends AbstractAction {

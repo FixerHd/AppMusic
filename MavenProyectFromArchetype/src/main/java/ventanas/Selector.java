@@ -11,6 +11,9 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.border.EtchedBorder;
+
+import Controlador.AppMusic;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.FlowLayout;
@@ -20,6 +23,7 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
 import java.awt.Component;
+import java.awt.Toolkit;
 
 public class Selector extends JFrame {
 
@@ -47,8 +51,11 @@ public class Selector extends JFrame {
 	 * Create the frame.
 	 */
 	public Selector() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Selector.class.getResource("/recursos/Singletune_16.png")));
+		setTitle("Single Tune");
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 400, 350);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -72,9 +79,14 @@ public class Selector extends JFrame {
 		gbc_Space_panel_1.gridx = 0;
 		gbc_Space_panel_1.gridy = 0;
 		Title_panel.add(Space_panel_1, gbc_Space_panel_1);
+		Space_panel_1.setLayout(new BorderLayout(0, 0));
+		
+		JLabel lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setIcon(new ImageIcon(Selector.class.getResource("/recursos/floral_I_64.png")));
+		Space_panel_1.add(lblNewLabel_2);
 		
 		JPanel Name_panel = new JPanel();
-		Name_panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		GridBagConstraints gbc_Name_panel = new GridBagConstraints();
 		gbc_Name_panel.fill = GridBagConstraints.BOTH;
 		gbc_Name_panel.insets = new Insets(0, 0, 5, 5);
@@ -82,7 +94,8 @@ public class Selector extends JFrame {
 		gbc_Name_panel.gridy = 0;
 		Title_panel.add(Name_panel, gbc_Name_panel);
 		
-		JLabel lblNewLabel = new JLabel("AppMusic");
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(Selector.class.getResource("/recursos/Singletune_128.png")));
 		lblNewLabel.setFont(new Font("Source Sans Pro Black", Font.PLAIN, 40));
 		Name_panel.add(lblNewLabel);
 		
@@ -93,6 +106,12 @@ public class Selector extends JFrame {
 		gbc_Space_panel_2.gridx = 2;
 		gbc_Space_panel_2.gridy = 0;
 		Title_panel.add(Space_panel_2, gbc_Space_panel_2);
+		Space_panel_2.setLayout(new BorderLayout(0, 0));
+		
+		JLabel lblNewLabel_3 = new JLabel("");
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_3.setIcon(new ImageIcon(Selector.class.getResource("/recursos/floral_D_64.png")));
+		Space_panel_2.add(lblNewLabel_3);
 		
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
@@ -144,18 +163,37 @@ public class Selector extends JFrame {
 		
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.SOUTH);
-		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.Y_AXIS));
+		GridBagLayout gbl_panel_1 = new GridBagLayout();
+		gbl_panel_1.columnWidths = new int[]{0, 262, 0, 0};
+		gbl_panel_1.rowHeights = new int[]{0, 20, 0, 33, 10, 0};
+		gbl_panel_1.columnWeights = new double[]{1.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_panel_1.rowWeights = new double[]{20.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
+		panel_1.setLayout(gbl_panel_1);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Si no tiene una cuenta todavia, registrese");
 		lblNewLabel_1_1.setAlignmentX(Component.CENTER_ALIGNMENT);
-		lblNewLabel_1_1.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 16));
-		panel_1.add(lblNewLabel_1_1);
+		lblNewLabel_1_1.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
+		GridBagConstraints gbc_lblNewLabel_1_1 = new GridBagConstraints();
+		gbc_lblNewLabel_1_1.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_1_1.gridx = 1;
+		gbc_lblNewLabel_1_1.gridy = 1;
+		panel_1.add(lblNewLabel_1_1, gbc_lblNewLabel_1_1);
 		
 		JButton btnNewButton_2 = new JButton("Registro");
 		btnNewButton_2.setIcon(new ImageIcon(Selector.class.getResource("/recursos/editar.png")));
 		btnNewButton_2.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		panel_1.add(btnNewButton_2);
+		btnNewButton_2.addActionListener(ev ->{
+			// Crea y muestra la VentanaRegistro cuando se presiona el botón
+			Registro VentanaRegistro = new Registro();
+			VentanaRegistro.setVisible(true);
+			setVisible(false);
+		});
+		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
+		gbc_btnNewButton_2.insets = new Insets(0, 0, 5, 5);
+		gbc_btnNewButton_2.gridx = 1;
+		gbc_btnNewButton_2.gridy = 3;
+		panel_1.add(btnNewButton_2, gbc_btnNewButton_2);
 	}
 
 }

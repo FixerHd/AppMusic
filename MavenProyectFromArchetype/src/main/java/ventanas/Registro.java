@@ -24,8 +24,12 @@ import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
+
+import Controlador.AppMusic;
+
 import javax.swing.JPasswordField;
 import java.awt.Font;
+import java.awt.Toolkit;
 
 public class Registro extends JFrame {
 
@@ -65,6 +69,7 @@ public class Registro extends JFrame {
 	 * Create the frame.
 	 */
 	public Registro() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Registro.class.getResource("/recursos/Singletune_16.png")));
 		setTitle("Registro");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 550, 250);
@@ -78,18 +83,23 @@ public class Registro extends JFrame {
 		contentPane.add(panel, BorderLayout.SOUTH);
 
 		btnNewButton_1 = new JButton("Volver");
-		panel.add(btnNewButton_1);
 		btnNewButton_1.setIcon(new ImageIcon(Registro.class.getResource("/recursos/flecha-hacia-atras.png")));
-
 		btnNewButton_1.addActionListener(ev -> {
-			// Crea y muestra la VentanaLogin cuando se presiona el botón
-			Login VentanaLogin = new Login();
-			VentanaLogin.setVisible(true);
+			// Crea y muestra la VentanaSelector cuando se presiona el botón
+			Selector VentanaSelector = new Selector();
+			VentanaSelector.setVisible(true);
 			setVisible(false);
 		});
+		panel.add(btnNewButton_1);
 
 		btnNewButton = new JButton("Registro");
 		btnNewButton.setIcon(new ImageIcon(Registro.class.getResource("/recursos/anadir.png")));
+		btnNewButton.addActionListener(ev -> {
+			// Crea y muestra la VentanaPrincipal cuando se presiona el botón
+			Principal VentanaPrincipal = new Principal();
+			VentanaPrincipal.setVisible(true);
+			setVisible(false);
+		});
 		panel.add(btnNewButton);
 
 		panel_1 = new JPanel();
@@ -110,9 +120,8 @@ public class Registro extends JFrame {
 		gbc_lblNewLabel_1.gridy = 1;
 		panel_1.add(lblNewLabel_1, gbc_lblNewLabel_1);
 
-		txtUsuario = new JTextField();
+		JTextField txtUsuario = new HintTextField("Usuario");
 		txtUsuario.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtUsuario.setText("usuario");
 		GridBagConstraints gbc_txtUsuario = new GridBagConstraints();
 		gbc_txtUsuario.insets = new Insets(0, 0, 5, 5);
 		gbc_txtUsuario.fill = GridBagConstraints.HORIZONTAL;
@@ -130,7 +139,7 @@ public class Registro extends JFrame {
 		gbc_lblNewLabel_3.gridy = 1;
 		panel_1.add(lblNewLabel_3, gbc_lblNewLabel_3);
 
-		passwordField = new JPasswordField();
+		JTextField passwordField = new HintTextField("Contraseña");
 		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_passwordField = new GridBagConstraints();
 		gbc_passwordField.insets = new Insets(0, 0, 5, 5);
@@ -139,7 +148,7 @@ public class Registro extends JFrame {
 		gbc_passwordField.gridy = 1;
 		panel_1.add(passwordField, gbc_passwordField);
 
-		lblNewLabel_2 = new JLabel("Nombre Completo:");
+		lblNewLabel_2 = new JLabel("Nombre:");
 		lblNewLabel_2.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 14));
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
 		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
@@ -148,11 +157,9 @@ public class Registro extends JFrame {
 		gbc_lblNewLabel_2.gridy = 3;
 		panel_1.add(lblNewLabel_2, gbc_lblNewLabel_2);
 
-		txtNombreCompleto = new JTextField();
+		JTextField txtNombreCompleto = new HintTextField("Nombre completo");
 		txtNombreCompleto.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtNombreCompleto.setText("nombre completo");
 		txtNombreCompleto.setHorizontalAlignment(SwingConstants.LEFT);
-		txtNombreCompleto.setToolTipText("");
 		GridBagConstraints gbc_txtNombreCompleto = new GridBagConstraints();
 		gbc_txtNombreCompleto.insets = new Insets(0, 0, 5, 5);
 		gbc_txtNombreCompleto.gridwidth = 3;
