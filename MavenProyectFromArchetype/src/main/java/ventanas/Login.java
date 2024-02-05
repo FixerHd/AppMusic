@@ -11,6 +11,9 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.border.EtchedBorder;
+
+import Controlador.AppMusic;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JButton;
@@ -26,10 +29,19 @@ import java.awt.Toolkit;
 public class Login extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	private static Login unicaInstancia;
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
-	private final Action action = new SwingAction();
+
+	// Singleton
+	public static Login getInstancia() {
+		if (unicaInstancia == null) {
+			unicaInstancia = new Login();
+			AppMusic.getUnicaInstancia().getVentanas().add(unicaInstancia);
+		}
+		return unicaInstancia;
+	}
 
 	/**
 	 * Launch the application.
@@ -64,13 +76,11 @@ public class Login extends JFrame {
 
 		JPanel Bottons_panel = new JPanel();
 		contentPane.add(Bottons_panel, BorderLayout.SOUTH);
-		
+
 		JButton btnNewButton_1 = new JButton("Volver");
 		btnNewButton_1.setIcon(new ImageIcon(Login.class.getResource("/recursos/flecha-hacia-atras.png")));
 		btnNewButton_1.addActionListener(ev -> {
-			// Crea y muestra la VentanaSelector cuando se presiona el botón
-			Selector VentanaSelector = new Selector();
-			VentanaSelector.setVisible(true);
+			Selector.getInstancia().setVisible(true);
 			setVisible(false);
 		});
 		Bottons_panel.add(btnNewButton_1);
@@ -79,9 +89,7 @@ public class Login extends JFrame {
 		btnNewButton.setIcon(new ImageIcon(Login.class.getResource("/recursos/usuario.png")));
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnNewButton.addActionListener(ev -> {
-			// Crea y muestra la VentanaPrincipal cuando se presiona el botón
-			Principal VentanaPrincipal = new Principal();
-			VentanaPrincipal.setVisible(true);
+			Principal.getInstancia().setVisible(true);
 			setVisible(false);
 		});
 		Bottons_panel.add(btnNewButton);
@@ -144,7 +152,7 @@ public class Login extends JFrame {
 		gbl_Title_panel.columnWeights = new double[] { 1.0, 1.0, 1.0, Double.MIN_VALUE };
 		gbl_Title_panel.rowWeights = new double[] { 1.0, 1.0, Double.MIN_VALUE };
 		Title_panel.setLayout(gbl_Title_panel);
-		
+
 		JPanel Space_panel_1 = new JPanel();
 		GridBagConstraints gbc_Space_panel_1 = new GridBagConstraints();
 		gbc_Space_panel_1.insets = new Insets(0, 0, 5, 5);
@@ -153,12 +161,12 @@ public class Login extends JFrame {
 		gbc_Space_panel_1.gridy = 0;
 		Title_panel.add(Space_panel_1, gbc_Space_panel_1);
 		Space_panel_1.setLayout(new BorderLayout(0, 0));
-		
+
 		JLabel lblNewLabel_3 = new JLabel("");
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3.setIcon(new ImageIcon(Login.class.getResource("/recursos/floral_I_64.png")));
 		Space_panel_1.add(lblNewLabel_3, BorderLayout.NORTH);
-		
+
 		JPanel Name_panel = new JPanel();
 		GridBagConstraints gbc_Name_panel = new GridBagConstraints();
 		gbc_Name_panel.insets = new Insets(0, 0, 5, 5);
@@ -166,12 +174,12 @@ public class Login extends JFrame {
 		gbc_Name_panel.gridx = 1;
 		gbc_Name_panel.gridy = 0;
 		Title_panel.add(Name_panel, gbc_Name_panel);
-		
+
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(Login.class.getResource("/recursos/Singletune_128.png")));
 		lblNewLabel.setFont(new Font("Source Sans Pro Black", Font.PLAIN, 40));
 		Name_panel.add(lblNewLabel);
-		
+
 		JPanel Space_panel_2 = new JPanel();
 		GridBagConstraints gbc_Space_panel_2 = new GridBagConstraints();
 		gbc_Space_panel_2.insets = new Insets(0, 0, 5, 0);
@@ -180,20 +188,12 @@ public class Login extends JFrame {
 		gbc_Space_panel_2.gridy = 0;
 		Title_panel.add(Space_panel_2, gbc_Space_panel_2);
 		Space_panel_2.setLayout(new BorderLayout(0, 0));
-		
+
 		JLabel lblNewLabel_4 = new JLabel("");
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4.setIcon(new ImageIcon(Login.class.getResource("/recursos/floral_D_64.png")));
 		Space_panel_2.add(lblNewLabel_4, BorderLayout.NORTH);
+
 	}
 
-	private class SwingAction extends AbstractAction {
-		public SwingAction() {
-			putValue(NAME, "SwingAction");
-			putValue(SHORT_DESCRIPTION, "Some short description");
-		}
-
-		public void actionPerformed(ActionEvent e) {
-		}
-	}
 }

@@ -15,6 +15,9 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
+
+import Controlador.AppMusic;
+
 import java.awt.FlowLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -24,7 +27,17 @@ import javax.swing.ImageIcon;
 public class Opciones extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	private static Opciones unicaInstancia;
 	private JPanel contentPane;
+
+	// Singleton
+	public static Opciones getInstancia() {
+		if (unicaInstancia == null) {
+			unicaInstancia = new Opciones();
+			AppMusic.getUnicaInstancia().getVentanas().add(unicaInstancia);
+		}
+		return unicaInstancia;
+	}
 
 	/**
 	 * Launch the application.
@@ -55,12 +68,12 @@ public class Opciones extends JFrame {
 
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{10, 25, 10, 75, 10, 0};
-		gbl_contentPane.rowHeights = new int[]{10, 25, 10, 25, 10, 25, 10, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 1.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWidths = new int[] { 10, 25, 10, 75, 10, 0 };
+		gbl_contentPane.rowHeights = new int[] { 10, 25, 10, 25, 10, 25, 10, 0 };
+		gbl_contentPane.columnWeights = new double[] { 0.0, 1.0, 1.0, 1.0, 0.0, Double.MIN_VALUE };
+		gbl_contentPane.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		contentPane.setLayout(gbl_contentPane);
-		
+
 		JLabel lblNewLabel_1_1 = new JLabel("Tema:");
 		GridBagConstraints gbc_lblNewLabel_1_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1_1.anchor = GridBagConstraints.EAST;
@@ -70,16 +83,17 @@ public class Opciones extends JFrame {
 		contentPane.add(lblNewLabel_1_1, gbc_lblNewLabel_1_1);
 		lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_1_1.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 14));
-		
+
 		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Texture", "HiFi", "Acry", "Aero", "Mint", "Devil"}));
+		comboBox.setModel(
+				new DefaultComboBoxModel(new String[] {"Texture", "HiFi", "Acry", "Aero", "Mint", "Devil"}));
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.anchor = GridBagConstraints.WEST;
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBox.gridx = 3;
 		gbc_comboBox.gridy = 1;
 		contentPane.add(comboBox, gbc_comboBox);
-		
+
 		JLabel lblNewLabel_1_1_1 = new JLabel("Opción:");
 		GridBagConstraints gbc_lblNewLabel_1_1_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1_1_1.anchor = GridBagConstraints.EAST;
@@ -89,15 +103,14 @@ public class Opciones extends JFrame {
 		contentPane.add(lblNewLabel_1_1_1, gbc_lblNewLabel_1_1_1);
 		lblNewLabel_1_1_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_1_1_1.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 14));
-		
+
 		JButton btnNewButton_1_1 = new JButton("Volver");
 		btnNewButton_1_1.setIcon(new ImageIcon(Opciones.class.getResource("/recursos/flecha-hacia-atras.png")));
 		btnNewButton_1_1.addActionListener(ev -> {
-			// Crea y muestra la VentanaPrincipal cuando se presiona el botón
-			Principal VentanaPrincipal = new Principal();
-			VentanaPrincipal.setVisible(true);
+			Principal.getInstancia().setVisible(true);
 			setVisible(false);
 		});
+		
 		btnNewButton_1_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		GridBagConstraints gbc_btnNewButton_1_1 = new GridBagConstraints();
 		gbc_btnNewButton_1_1.anchor = GridBagConstraints.WEST;

@@ -26,13 +26,23 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import org.eclipse.persistence.internal.libraries.asm.commons.StaticInitMerger;
+
+import Controlador.AppMusic;
+
 import javax.swing.ListSelectionModel;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
+import javax.swing.JToggleButton;
+import javax.swing.JSeparator;
+import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class Principal extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	private static Principal unicaInstancia;
 	private JPanel contentPane;
 	private JTextField txtInterprete;
 	private JTextField txtTitulo;
@@ -40,6 +50,18 @@ public class Principal extends JFrame {
 	private JTable table;
 	private JTextField textField_1;
 	private JTable table_1;
+	private static JPanel Columna;
+	private JPanel Principal;
+	private JPanel Layout;
+
+	// Singleton
+	public static Principal getInstancia() {
+		if (unicaInstancia == null) {
+			unicaInstancia = new Principal();
+			AppMusic.getUnicaInstancia().getVentanas().add(unicaInstancia);
+		}
+		return unicaInstancia;
+	}
 
 	/**
 	 * Launch the application.
@@ -71,192 +93,201 @@ public class Principal extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
-		
-		JPanel panel = new JPanel();
-		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		contentPane.add(panel, BorderLayout.WEST);
-		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{0, 0, 0};
-		gbl_panel.rowHeights = new int[]{10, 32, 10, 32, 10, 32, 10, 32, 10, 10, 32, 10, 0};
-		gbl_panel.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		panel.setLayout(gbl_panel);
-		
-		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon(Principal.class.getResource("/recursos/lupa.png")));
-		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_1.gridx = 0;
-		gbc_lblNewLabel_1.gridy = 1;
-		panel.add(lblNewLabel_1, gbc_lblNewLabel_1);
-		
-		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setIcon(new ImageIcon(Principal.class.getResource("/recursos/editar_2.png")));
-		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
-		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_2.gridx = 0;
-		gbc_lblNewLabel_2.gridy = 3;
-		panel.add(lblNewLabel_2, gbc_lblNewLabel_2);
-		
-		JLabel lblNewLabel_3 = new JLabel("");
-		lblNewLabel_3.setIcon(new ImageIcon(Principal.class.getResource("/recursos/reciente.png")));
-		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
-		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_3.gridx = 0;
-		gbc_lblNewLabel_3.gridy = 5;
-		panel.add(lblNewLabel_3, gbc_lblNewLabel_3);
-		
-		JButton btnNewButton_4 = new JButton("Recientes");
-		GridBagConstraints gbc_btnNewButton_4 = new GridBagConstraints();
-		gbc_btnNewButton_4.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnNewButton_4.insets = new Insets(0, 0, 5, 0);
-		gbc_btnNewButton_4.gridx = 1;
-		gbc_btnNewButton_4.gridy = 5;
-		panel.add(btnNewButton_4, gbc_btnNewButton_4);
-		
-		JLabel lblNewLabel_4 = new JLabel("");
-		lblNewLabel_4.setIcon(new ImageIcon(Principal.class.getResource("/recursos/lista.png")));
-		GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
-		gbc_lblNewLabel_4.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_4.gridx = 0;
-		gbc_lblNewLabel_4.gridy = 7;
-		panel.add(lblNewLabel_4, gbc_lblNewLabel_4);
-		
-		JButton btnNewButton_5 = new JButton("Mis Playlists");
-		GridBagConstraints gbc_btnNewButton_5 = new GridBagConstraints();
-		gbc_btnNewButton_5.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnNewButton_5.insets = new Insets(0, 0, 5, 0);
-		gbc_btnNewButton_5.gridx = 1;
-		gbc_btnNewButton_5.gridy = 7;
-		panel.add(btnNewButton_5, gbc_btnNewButton_5);
-		
-		JLabel lblNewLabel_5 = new JLabel("");
-		lblNewLabel_5.setIcon(new ImageIcon(Principal.class.getResource("/recursos/configuracion.png")));
-		GridBagConstraints gbc_lblNewLabel_5 = new GridBagConstraints();
-		gbc_lblNewLabel_5.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_5.gridx = 0;
-		gbc_lblNewLabel_5.gridy = 10;
-		panel.add(lblNewLabel_5, gbc_lblNewLabel_5);
-		
-		JButton btnNewButton_7 = new JButton("Opciones");
-		GridBagConstraints gbc_btnNewButton_7 = new GridBagConstraints();
-		gbc_btnNewButton_7.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnNewButton_7.insets = new Insets(0, 0, 5, 0);
-		gbc_btnNewButton_7.gridx = 1;
-		gbc_btnNewButton_7.gridy = 10;
-		btnNewButton_7.addActionListener(ev -> {
-			// Crea y muestra la VentanaSelector cuando se presiona el botón
-			Opciones VentanaOpciones = new Opciones();
-			VentanaOpciones.setVisible(true);
-			setVisible(false);
-		});
-		panel.add(btnNewButton_7, gbc_btnNewButton_7);
-		
-		JPanel panel_1 = new JPanel();
-		contentPane.add(panel_1, BorderLayout.CENTER);
-		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.Y_AXIS));
-		
-		JPanel panel_2 = new JPanel();
-		panel_1.add(panel_2);
-		panel_2.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
-		
-		JLabel lblNewLabel = new JLabel("Bienvenido, Usuario");
-		panel_2.add(lblNewLabel);
-		
-		JButton btnNewButton = new JButton("Premium");
-		panel_2.add(btnNewButton);
-		
-		JButton btnNewButton_1 = new JButton("Logout");
-		panel_2.add(btnNewButton_1);
-		btnNewButton_1.addActionListener(ev -> {
-			// Crea y muestra la VentanaSelector cuando se presiona el botón
-			Selector VentanaSelector = new Selector();
-			VentanaSelector.setVisible(true);
-			setVisible(false);
-		});
-		
-		/*
-		Jpanel panelBuscar = new JPanel();
-		panelBuscar.setBorder(new TitledBorder(null, "Buscar", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		GridBagLayout gbl_panelBuscar = new GridBagLayout();
-		gbl_panelBuscar.columnWidths = new int[]{10, 50, 10, 50, 10, 0};
-		gbl_panelBuscar.rowHeights = new int[]{10, 20, 10, 20, 10, 20, 10, 0};
-		gbl_panelBuscar.columnWeights = new double[]{0.0, 1.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_panelBuscar.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		panelBuscar.setLayout(gbl_panelBuscar);
-		
-		
-		txtInterprete = new JTextField();
-		txtInterprete.setText("interprete");
-		GridBagConstraints gbc_txtInterprete = new GridBagConstraints();
-		gbc_txtInterprete.insets = new Insets(0, 0, 5, 5);
-		gbc_txtInterprete.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtInterprete.gridx = 1;
-		gbc_txtInterprete.gridy = 1;
-		panelBuscar.add(txtInterprete, gbc_txtInterprete);
-		txtInterprete.setColumns(10);
-		
-		JCheckBox chckbxNewCheckBox = new JCheckBox("favoritas");
-		GridBagConstraints gbc_chckbxNewCheckBox = new GridBagConstraints();
-		gbc_chckbxNewCheckBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_chckbxNewCheckBox.insets = new Insets(0, 0, 5, 5);
-		gbc_chckbxNewCheckBox.gridx = 3;
-		gbc_chckbxNewCheckBox.gridy = 1;
-		panelBuscar.add(chckbxNewCheckBox, gbc_chckbxNewCheckBox);
-		
-		txtTitulo = new JTextField();
-		txtTitulo.setText("titulo");
-		GridBagConstraints gbc_txtTitulo = new GridBagConstraints();
-		gbc_txtTitulo.insets = new Insets(0, 0, 5, 5);
-		gbc_txtTitulo.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtTitulo.gridx = 1;
-		gbc_txtTitulo.gridy = 3;
-		panelBuscar.add(txtTitulo, gbc_txtTitulo);
-		txtTitulo.setColumns(10);
-		
-		JButton btnNewButton_6 = new JButton("Buscar");
-		GridBagConstraints gbc_btnNewButton_6 = new GridBagConstraints();
-		gbc_btnNewButton_6.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnNewButton_6.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton_6.gridx = 3;
-		gbc_btnNewButton_6.gridy = 3;
-		panelBuscar.add(btnNewButton_6, gbc_btnNewButton_6);
-		
-		JComboBox comboBox = new JComboBox();
-		GridBagConstraints gbc_comboBox = new GridBagConstraints();
-		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox.gridx = 1;
-		gbc_comboBox.gridy = 5;
-		comboBox.addItem("estilo");
-		panelBuscar.add(comboBox, gbc_comboBox);
-		*/
-		
+
+		Columna = new JPanel();
+		Columna.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
+		contentPane.add(Columna, BorderLayout.WEST);
+		GridBagLayout gbl_Columna = new GridBagLayout();
+		gbl_Columna.columnWidths = new int[] { 32, 60, 0 };
+		gbl_Columna.rowHeights = new int[] { 10, 32, 10, 32, 10, 32, 10, 32, 10, 32, 10, 0, 0, 0, 32, 10, 0 };
+		gbl_Columna.columnWeights = new double[] { 1.0, 0.0, Double.MIN_VALUE };
+		gbl_Columna.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0,
+				0.0, 0.0, Double.MIN_VALUE };
+		Columna.setLayout(gbl_Columna);
+
+		Principal = new JPanel();
+		contentPane.add(Principal, BorderLayout.CENTER);
+		Principal.setLayout(new BoxLayout(Principal, BoxLayout.Y_AXIS));
+
+		JLabel Lupa = new JLabel("");
+		Lupa.setIcon(new ImageIcon(Principal.class.getResource("/recursos/lupa.png")));
+		GridBagConstraints gbc_Lupa = new GridBagConstraints();
+		gbc_Lupa.insets = new Insets(0, 0, 5, 5);
+		gbc_Lupa.gridx = 0;
+		gbc_Lupa.gridy = 1;
+		Columna.add(Lupa, gbc_Lupa);
+
+		JToggleButton Botón_Buscar = new JToggleButton("Buscar");
 		PanelBuscar panelBuscar = new PanelBuscar();
-		JButton btnNewButton_2 = new JButton("Buscar");
-		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
-		gbc_btnNewButton_2.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnNewButton_2.insets = new Insets(0, 0, 5, 0);
-		gbc_btnNewButton_2.gridx = 1;
-		gbc_btnNewButton_2.gridy = 1;
-		btnNewButton_2.addActionListener(ev-> {
-			panel_1.add(panelBuscar);
-			panel.revalidate();
-			panel.repaint();
+		GridBagConstraints gbc_Botón_Buscar = new GridBagConstraints();
+		gbc_Botón_Buscar.fill = GridBagConstraints.HORIZONTAL;
+		gbc_Botón_Buscar.insets = new Insets(0, 0, 5, 0);
+		gbc_Botón_Buscar.gridx = 1;
+		gbc_Botón_Buscar.gridy = 1;
+		Botón_Buscar.addActionListener(ev -> {
+			if (!Botón_Buscar.isSelected()) {
+				Principal.remove(panelBuscar);
+				Columna.revalidate();
+				Columna.repaint();
+			} else {
+				Principal.add(panelBuscar);
+				Columna.revalidate();
+				Columna.repaint();
+			}
 		});
-		panel.add(btnNewButton_2, gbc_btnNewButton_2);
-		
+		Columna.add(Botón_Buscar, gbc_Botón_Buscar);
+
+		JLabel Gestión = new JLabel("");
+		Gestión.setIcon(new ImageIcon(Principal.class.getResource("/recursos/editar_2.png")));
+		GridBagConstraints gbc_Gestión = new GridBagConstraints();
+		gbc_Gestión.insets = new Insets(0, 0, 5, 5);
+		gbc_Gestión.gridx = 0;
+		gbc_Gestión.gridy = 3;
+		Columna.add(Gestión, gbc_Gestión);
+
 		PanelGestion panelGestion = new PanelGestion();
-		JButton btnNewButton_3 = new JButton("Gestion Playlist");
-		GridBagConstraints gbc_btnNewButton_3 = new GridBagConstraints();
-		gbc_btnNewButton_3.insets = new Insets(0, 0, 5, 0);
-		gbc_btnNewButton_3.gridx = 1;
-		gbc_btnNewButton_3.gridy = 3;
-		btnNewButton_3.addActionListener(ev-> {
-			panel_1.add(panelGestion, BorderLayout.NORTH);
-			panel.revalidate();
-			panel.repaint();
+		JToggleButton Botón_Gestión = new JToggleButton("Gestion Playlist");
+		GridBagConstraints gbc_Botón_Gestión = new GridBagConstraints();
+		gbc_Botón_Gestión.insets = new Insets(0, 0, 5, 0);
+		gbc_Botón_Gestión.gridx = 1;
+		gbc_Botón_Gestión.gridy = 3;
+		Botón_Gestión.addActionListener(ev -> {
+			if (!Botón_Gestión.isSelected()) {
+				Principal.remove(panelGestion);
+				Columna.revalidate();
+				Columna.repaint();
+			} else {
+				Principal.add(panelGestion, BorderLayout.NORTH);
+				Columna.revalidate();
+				Columna.repaint();
+			}
 		});
-		panel.add(btnNewButton_3, gbc_btnNewButton_3);
+		Columna.add(Botón_Gestión, gbc_Botón_Gestión);
+
+		JLabel Recientes = new JLabel("");
+		Recientes.setIcon(new ImageIcon(Principal.class.getResource("/recursos/reciente.png")));
+		GridBagConstraints gbc_Recientes = new GridBagConstraints();
+		gbc_Recientes.insets = new Insets(0, 0, 5, 5);
+		gbc_Recientes.gridx = 0;
+		gbc_Recientes.gridy = 5;
+		Columna.add(Recientes, gbc_Recientes);
+
+		JToggleButton Botón_Recientes = new JToggleButton("Recientes");
+		PanelRecientes panelRecientes = new PanelRecientes();
+		GridBagConstraints gbc_Botón_Recientes = new GridBagConstraints();
+		gbc_Botón_Recientes.fill = GridBagConstraints.HORIZONTAL;
+		gbc_Botón_Recientes.insets = new Insets(0, 0, 5, 0);
+		gbc_Botón_Recientes.gridx = 1;
+		gbc_Botón_Recientes.gridy = 5;
+		Botón_Recientes.addActionListener(ev -> {
+			if (!Botón_Recientes.isSelected()) {
+				Principal.remove(panelRecientes);
+				Columna.revalidate();
+				Columna.repaint();
+			} else {
+				Principal.add(panelRecientes);
+				Columna.revalidate();
+				Columna.repaint();
+			}
+		});
+		Columna.add(Botón_Recientes, gbc_Botón_Recientes);
+
+		JLabel Playlists = new JLabel("");
+		Playlists.setIcon(new ImageIcon(Principal.class.getResource("/recursos/lista.png")));
+		GridBagConstraints gbc_Playlists = new GridBagConstraints();
+		gbc_Playlists.insets = new Insets(0, 0, 5, 5);
+		gbc_Playlists.gridx = 0;
+		gbc_Playlists.gridy = 7;
+		Columna.add(Playlists, gbc_Playlists);
+
+		JToggleButton Botón_Playlists = new JToggleButton("Mis Playlists");
+		PanelListas panelLista = new PanelListas();
+		GridBagConstraints gbc_Botón_Playlists = new GridBagConstraints();
+		gbc_Botón_Playlists.fill = GridBagConstraints.HORIZONTAL;
+		gbc_Botón_Playlists.insets = new Insets(0, 0, 5, 0);
+		gbc_Botón_Playlists.gridx = 1;
+		gbc_Botón_Playlists.gridy = 7;
+		Botón_Playlists.addActionListener(ev -> {
+
+		});
+		Columna.add(Botón_Playlists, gbc_Botón_Playlists);
+
+		JButton Botón_Premium = new JButton("Premium");
+		GridBagConstraints gbc_Botón_Premium = new GridBagConstraints();
+		gbc_Botón_Premium.fill = GridBagConstraints.HORIZONTAL;
+		gbc_Botón_Premium.insets = new Insets(0, 0, 5, 0);
+		gbc_Botón_Premium.gridx = 1;
+		gbc_Botón_Premium.gridy = 9;
+		Columna.add(Botón_Premium, gbc_Botón_Premium);
+		Botón_Premium.addActionListener(ev -> {
+
+			gbl_Columna.columnWidths = new int[] { 32, 60, 0 };
+			gbl_Columna.rowHeights = new int[] { 10, 32, 10, 32, 10, 32, 10, 32, 10, 32, 10, 32, 10, 0, 32, 10, 0 };
+			gbl_Columna.columnWeights = new double[] { 1.0, 0.0, Double.MIN_VALUE };
+			gbl_Columna.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+					1.0, 0.0, 0.0, Double.MIN_VALUE };
+
+			Columna.remove(Botón_Premium);
+
+			JButton Botón_PDF = new JButton("Generar PDF");
+			GridBagConstraints gbc_Botón_PDF = new GridBagConstraints();
+			gbc_Botón_PDF.fill = GridBagConstraints.HORIZONTAL;
+			gbc_Botón_PDF.gridx = 1;
+			gbc_Botón_PDF.gridy = 9;
+			gbc_Botón_PDF.gridwidth = 1;
+			Columna.setLayout(gbl_Columna);
+			Columna.add(Botón_PDF, gbc_Botón_PDF);
+
+			JButton Botón_Tendencias = new JButton("Tendencias");
+			GridBagConstraints gbc_Botón_Tendencias = new GridBagConstraints();
+			gbc_Botón_Tendencias.fill = GridBagConstraints.HORIZONTAL;
+			gbc_Botón_Tendencias.gridx = 1;
+			gbc_Botón_Tendencias.gridy = 11;
+			gbc_Botón_Tendencias.gridwidth = 1;
+			Columna.setLayout(gbl_Columna);
+			Columna.add(Botón_Tendencias, gbc_Botón_Tendencias);
+
+			Columna.revalidate();
+			Columna.repaint();
+		});
+
+		JButton Botón_Logout = new JButton("Logout");
+		GridBagConstraints gbc_Botón_Logout = new GridBagConstraints();
+		gbc_Botón_Logout.insets = new Insets(0, 0, 5, 0);
+		gbc_Botón_Logout.fill = GridBagConstraints.HORIZONTAL;
+		gbc_Botón_Logout.gridx = 1;
+		gbc_Botón_Logout.gridy = 14;
+		Botón_Logout.addActionListener(ev -> {
+			Selector.getInstancia().setVisible(true);
+			getInstancia().setVisible(false);
+		});
+		Columna.add(Botón_Logout, gbc_Botón_Logout);
+
+		/*
+		 * JLabel Opciones_label = new JLabel(""); Opciones_label.setIcon(new
+		 * ImageIcon(Principal.class.getResource("/recursos/configuracion.png")));
+		 * GridBagConstraints gbc_Opciones = new GridBagConstraints();
+		 * gbc_Opciones.insets = new Insets(0, 0, 5, 5); gbc_Opciones.gridx = 0;
+		 * gbc_Opciones.gridy = 12; Columna.add(Opciones_label, gbc_Opciones);
+		 */
+
+		/*
+		 * JButton Botón_Opciones = new JButton("Opciones"); GridBagConstraints
+		 * gbc_Botón_Opciones = new GridBagConstraints(); gbc_Botón_Opciones.fill =
+		 * GridBagConstraints.HORIZONTAL; gbc_Botón_Opciones.insets = new Insets(0, 0,
+		 * 5, 0); gbc_Botón_Opciones.gridx = 1; gbc_Botón_Opciones.gridy = 12;
+		 * Botón_Opciones.addActionListener(ev -> {
+		 * Opciones.getInstancia().setVisible(true); setVisible(false); });
+		 * Columna.add(Botón_Opciones, gbc_Botón_Opciones);
+		 */
+
+		Layout = new JPanel();
+		Principal.add(Layout);
+		Layout.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
+
+		PanelEstilos panelEstilos = new PanelEstilos();
+		Layout.add(panelEstilos);
+
 	}
+
 }

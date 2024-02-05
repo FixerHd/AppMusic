@@ -34,6 +34,7 @@ import java.awt.Toolkit;
 public class Registro extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	private static Registro unicaInstancia;
 	private JPanel contentPane;
 	private JPanel panel;
 	private JButton btnNewButton;
@@ -48,6 +49,15 @@ public class Registro extends JFrame {
 	private JDateChooser dateChooser;
 	private JPasswordField passwordField;
 
+	// Singleton
+	public static Registro getInstancia() {
+		if (unicaInstancia == null) {
+			unicaInstancia = new Registro();
+			AppMusic.getUnicaInstancia().getVentanas().add(unicaInstancia);
+		}
+		return unicaInstancia;
+	}
+	
 	/**
 	 * Launch the application.
 	 */
@@ -85,9 +95,7 @@ public class Registro extends JFrame {
 		btnNewButton_1 = new JButton("Volver");
 		btnNewButton_1.setIcon(new ImageIcon(Registro.class.getResource("/recursos/flecha-hacia-atras.png")));
 		btnNewButton_1.addActionListener(ev -> {
-			// Crea y muestra la VentanaSelector cuando se presiona el botón
-			Selector VentanaSelector = new Selector();
-			VentanaSelector.setVisible(true);
+			Selector.getInstancia().setVisible(true);
 			setVisible(false);
 		});
 		panel.add(btnNewButton_1);
@@ -95,9 +103,7 @@ public class Registro extends JFrame {
 		btnNewButton = new JButton("Registro");
 		btnNewButton.setIcon(new ImageIcon(Registro.class.getResource("/recursos/anadir.png")));
 		btnNewButton.addActionListener(ev -> {
-			// Crea y muestra la VentanaPrincipal cuando se presiona el botón
-			Principal VentanaPrincipal = new Principal();
-			VentanaPrincipal.setVisible(true);
+			Principal.getInstancia().setVisible(true);
 			setVisible(false);
 		});
 		panel.add(btnNewButton);
