@@ -86,7 +86,7 @@ public class Opciones extends JFrame {
 
 		JComboBox comboBox = new JComboBox();
 		comboBox.setModel(
-				new DefaultComboBoxModel(new String[] {"Texture", "HiFi", "Acry", "Aero", "Mint", "Devil"}));
+				new DefaultComboBoxModel(new String[] { "Texture", "HiFi", "Acry", "Aero", "Mint", "Devil" }));
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.anchor = GridBagConstraints.WEST;
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
@@ -110,7 +110,7 @@ public class Opciones extends JFrame {
 			Principal.getInstancia().setVisible(true);
 			setVisible(false);
 		});
-		
+
 		btnNewButton_1_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		GridBagConstraints gbc_btnNewButton_1_1 = new GridBagConstraints();
 		gbc_btnNewButton_1_1.anchor = GridBagConstraints.WEST;

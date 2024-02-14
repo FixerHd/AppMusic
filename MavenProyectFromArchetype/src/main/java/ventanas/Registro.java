@@ -57,7 +57,7 @@ public class Registro extends JFrame {
 		}
 		return unicaInstancia;
 	}
-	
+
 	/**
 	 * Launch the application.
 	 */

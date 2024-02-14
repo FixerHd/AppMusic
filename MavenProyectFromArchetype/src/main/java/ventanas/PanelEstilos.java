@@ -20,6 +20,7 @@ import javax.swing.border.EtchedBorder;
 public class PanelEstilos extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	private static PanelEstilos unicaInstancia;
 
 	/**
 	 * Create the panel.
@@ -36,7 +37,7 @@ public class PanelEstilos extends JPanel {
 
 		JComboBox comboBox = new JComboBox();
 		comboBox.setModel(
-				new DefaultComboBoxModel(new String[] { "Texture", "HiFi", "Acry", "Aero", "Mint", "Devil" }));
+				new DefaultComboBoxModel(new String[] {"Texture", "HiFi", "Acryl", "Aero", "Mint", "Bernstein", "Fast", "Graphite", "Luna", "McWin", "Noire", "Smart", "Devil"}));
 		comboBox.addActionListener(ev -> {
 			AppMusic.getUnicaInstancia().setEstilo((String) comboBox.getSelectedItem());
 			this.revalidate();

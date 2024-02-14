@@ -18,20 +18,12 @@ import Controlador.AppMusic;
 public class PanelBuscar extends JPanel{
 	
 	private static final long serialVersionUID = 1L;
+	private static PanelBuscar unicaInstancia;
 	private JTextField txtInterprete;
 	private JTextField txtTitulo;
 	private JCheckBox chckbxNewCheckBox;
 	private JButton btnNewButton;
 	private JComboBox comboBox;
-	
-	// Singleton
-		public static Registro getInstancia() {
-			if (unicaInstancia == null) {
-				unicaInstancia = new Registro();
-				AppMusic.getUnicaInstancia().getVentanas().add(unicaInstancia);
-			}
-			return unicaInstancia;
-		}
 
 	public PanelBuscar() {
 		super();

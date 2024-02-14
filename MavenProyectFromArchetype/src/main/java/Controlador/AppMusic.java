@@ -1,12 +1,17 @@
 package Controlador;
 
+import java.awt.Color;
+import java.awt.event.WindowEvent;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
+
+import org.eclipse.persistence.jpa.jpql.utility.iterator.ArrayIterator;
 
 import dominio.Cancion;
 import dominio.Playlist;
@@ -20,8 +25,9 @@ import persistencia.IAdaptadorCancionDAO;
 import persistencia.IAdaptadorPlaylistDAO;
 
 public class AppMusic {
-	
-	private static final String ESTILO_POR_DEFECTO = "com.jtattoo.plaf.texture.TextureLookAndFeel";
+
+	// "com.jtattoo.plaf.texture.TextureLookAndFeel"
+	private static final String ESTILO_POR_DEFECTO = "Texture";
 
 	private static AppMusic unicaInstancia;
 
@@ -29,31 +35,29 @@ public class AppMusic {
 	private IAdaptadorUsuarioDAO adaptadorUsuario;
 	private IAdaptadorCancionDAO adaptadorCancion;
 	private IAdaptadorPlaylistDAO adaptadorPlaylist;
-	
+
 	private static String estilo = ESTILO_POR_DEFECTO;
+	private JFrame ventana_actual;
+
+	// vestigio
 	private ArrayList<JFrame> lista_ventanas = new ArrayList<JFrame>();
-	private ArrayList<JPanel> lista_paneles = new ArrayList<JPanel>();
 
 	private CatalogoUsuarios catalogoUsuarios;
 	private CatalogoCanciones catalogoCanciones;
 
 	public AppMusic() {
-		inicializarAdaptadores(); // debe ser la primera linea para evitar error
-		// de sincronización
+		// Debe ser la primera linea para evitar error de sincronización
+		inicializarAdaptadores();
 		inicializarCatalogos();
 	}
 
 	public static AppMusic getUnicaInstancia() {
 		if (unicaInstancia == null) {
 			unicaInstancia = new AppMusic();
-		}	
+		}
 		return unicaInstancia;
 	}
-	
-	public ArrayList<JPanel> getLista_paneles() {
-		return lista_paneles;
-	}
-	
+
 	public ArrayList<JFrame> getVentanas() {
 		return lista_ventanas;
 	}
@@ -61,26 +65,29 @@ public class AppMusic {
 	public static String getEstilo() {
 		return estilo;
 	}
-	
+
 	public void setEstilo(String estilo) {
+		ventanas.Principal.getInstancia().setVisible(false);
+		ventanas.Principal.getInstancia().removeInstancia();
+		Iterator<JFrame> iter = lista_ventanas.iterator();
+		while (iter.hasNext()) {
+			JFrame v = iter.next();
+			iter.remove();
+		}
+
 		if (estilo.equals("Devil")) {
-			
+			// TODO
 		} else {
-			AppMusic.estilo = "com.jtattoo.plaf." + estilo.toLowerCase() + "." + estilo + "LookAndFeel";
+			AppMusic.estilo = estilo;
+			estilo = "com.jtattoo.plaf." + estilo.toLowerCase() + "." + estilo + "LookAndFeel";
 			try {
-				UIManager.setLookAndFeel(AppMusic.estilo);
+				UIManager.setLookAndFeel(estilo);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		
-		ventanas.Principal.getInstancia().setVisible(false);
-		for (JFrame v : lista_ventanas) {
-			v.revalidate();
-			v.repaint();
-		}
 		ventanas.Principal.getInstancia().setVisible(true);
-		
+
 	}
 
 	public void registrarUsuario(Usuario Usuario) {

@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -61,6 +62,13 @@ public class Principal extends JFrame {
 			AppMusic.getUnicaInstancia().getVentanas().add(unicaInstancia);
 		}
 		return unicaInstancia;
+	}
+	
+	public void removeInstancia() {
+		unicaInstancia.setVisible(false);
+		unicaInstancia.removeAll();
+		unicaInstancia.dispose();
+		unicaInstancia = null;
 	}
 
 	/**
