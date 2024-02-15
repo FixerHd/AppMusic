@@ -39,6 +39,7 @@ import javax.swing.JToggleButton;
 import javax.swing.JSeparator;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import pulsador.Luz;
 
 public class Principal extends JFrame {
 
@@ -63,7 +64,7 @@ public class Principal extends JFrame {
 		}
 		return unicaInstancia;
 	}
-	
+
 	public void removeInstancia() {
 		unicaInstancia.setVisible(false);
 		unicaInstancia.removeAll();
@@ -219,6 +220,14 @@ public class Principal extends JFrame {
 
 		});
 		Columna.add(Botón_Playlists, gbc_Botón_Playlists);
+		
+		JLabel Premium = new JLabel("");
+		Premium.setIcon(new ImageIcon(Principal.class.getResource("/recursos/calidad-premium.png")));
+		GridBagConstraints gbc_Premium = new GridBagConstraints();
+		gbc_Premium.insets = new Insets(0, 0, 5, 5);
+		gbc_Premium.gridx = 0;
+		gbc_Premium.gridy = 9;
+		Columna.add(Premium, gbc_Premium);
 
 		JButton Botón_Premium = new JButton("Premium");
 		GridBagConstraints gbc_Botón_Premium = new GridBagConstraints();
@@ -236,6 +245,15 @@ public class Principal extends JFrame {
 					1.0, 0.0, 0.0, Double.MIN_VALUE };
 
 			Columna.remove(Botón_Premium);
+			Columna.remove(Premium);
+			
+			JLabel PDF = new JLabel("");
+			PDF.setIcon(new ImageIcon(Principal.class.getResource("/recursos/archivo-pdf.png")));
+			GridBagConstraints gbc_PDF = new GridBagConstraints();
+			gbc_PDF.insets = new Insets(0, 0, 5, 5);
+			gbc_PDF.gridx = 0;
+			gbc_PDF.gridy = 9;
+			Columna.add(PDF, gbc_PDF);
 
 			JButton Botón_PDF = new JButton("Generar PDF");
 			GridBagConstraints gbc_Botón_PDF = new GridBagConstraints();
@@ -245,6 +263,14 @@ public class Principal extends JFrame {
 			gbc_Botón_PDF.gridwidth = 1;
 			Columna.setLayout(gbl_Columna);
 			Columna.add(Botón_PDF, gbc_Botón_PDF);
+			
+			JLabel Tendencias = new JLabel("");
+			Tendencias.setIcon(new ImageIcon(Principal.class.getResource("/recursos/fuego.png")));
+			GridBagConstraints gbc_Tendencias = new GridBagConstraints();
+			gbc_Tendencias.insets = new Insets(0, 0, 5, 5);
+			gbc_Tendencias.gridx = 0;
+			gbc_Tendencias.gridy = 11;
+			Columna.add(Tendencias, gbc_Tendencias);
 
 			JButton Botón_Tendencias = new JButton("Tendencias");
 			GridBagConstraints gbc_Botón_Tendencias = new GridBagConstraints();
@@ -269,6 +295,14 @@ public class Principal extends JFrame {
 			Selector.getInstancia().setVisible(true);
 			getInstancia().setVisible(false);
 		});
+		
+		JLabel Logout = new JLabel("");
+		Logout.setIcon(new ImageIcon(Principal.class.getResource("/recursos/cerrar-sesion.png")));
+		GridBagConstraints gbc_Logout = new GridBagConstraints();
+		gbc_Logout.insets = new Insets(0, 0, 5, 5);
+		gbc_Logout.gridx = 0;
+		gbc_Logout.gridy = 14;
+		Columna.add(Logout, gbc_Logout);
 		Columna.add(Botón_Logout, gbc_Botón_Logout);
 
 		/*
@@ -295,6 +329,11 @@ public class Principal extends JFrame {
 
 		PanelEstilos panelEstilos = new PanelEstilos();
 		Layout.add(panelEstilos);
+		
+		Luz luz = new Luz();
+		luz.setEncendido(true);
+		luz.setColor(new Color(0, 128, 0));
+		Layout.add(luz);
 
 	}
 

@@ -4,6 +4,9 @@ import javax.swing.JPanel;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.TitledBorder;
+import javax.swing.text.Utilities;
+
+import org.eclipse.persistence.internal.xr.Util;
 
 import Controlador.AppMusic;
 
@@ -20,7 +23,6 @@ import javax.swing.border.EtchedBorder;
 public class PanelEstilos extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private static PanelEstilos unicaInstancia;
 
 	/**
 	 * Create the panel.
@@ -36,8 +38,7 @@ public class PanelEstilos extends JPanel {
 		setLayout(new BorderLayout(0, 0));
 
 		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(
-				new DefaultComboBoxModel(new String[] {"Texture", "HiFi", "Acryl", "Aero", "Mint", "Bernstein", "Fast", "Graphite", "Luna", "McWin", "Noire", "Smart", "Devil"}));
+		comboBox.setModel(new DefaultComboBoxModel(Constantes.ESTILOS));
 		comboBox.addActionListener(ev -> {
 			AppMusic.getUnicaInstancia().setEstilo((String) comboBox.getSelectedItem());
 			this.revalidate();

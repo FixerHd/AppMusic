@@ -1,17 +1,10 @@
 package Controlador;
 
-import java.awt.Color;
-import java.awt.event.WindowEvent;
-import java.security.Principal;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.UIManager;
-
-import org.eclipse.persistence.jpa.jpql.utility.iterator.ArrayIterator;
 
 import dominio.Cancion;
 import dominio.Playlist;
@@ -21,13 +14,11 @@ import dominio.Usuario;
 import persistencia.DAOException;
 import persistencia.FactoriaDAO;
 import persistencia.IAdaptadorUsuarioDAO;
+import ventanas.Constantes;
 import persistencia.IAdaptadorCancionDAO;
 import persistencia.IAdaptadorPlaylistDAO;
 
 public class AppMusic {
-
-	// "com.jtattoo.plaf.texture.TextureLookAndFeel"
-	private static final String ESTILO_POR_DEFECTO = "Texture";
 
 	private static AppMusic unicaInstancia;
 
@@ -36,8 +27,7 @@ public class AppMusic {
 	private IAdaptadorCancionDAO adaptadorCancion;
 	private IAdaptadorPlaylistDAO adaptadorPlaylist;
 
-	private static String estilo = ESTILO_POR_DEFECTO;
-	private JFrame ventana_actual;
+	private static String estilo = Constantes.ESTILO_POR_DEFECTO;
 
 	// vestigio
 	private ArrayList<JFrame> lista_ventanas = new ArrayList<JFrame>();
@@ -67,26 +57,29 @@ public class AppMusic {
 	}
 
 	public void setEstilo(String estilo) {
-		ventanas.Principal.getInstancia().setVisible(false);
-		ventanas.Principal.getInstancia().removeInstancia();
-		Iterator<JFrame> iter = lista_ventanas.iterator();
-		while (iter.hasNext()) {
-			JFrame v = iter.next();
-			iter.remove();
-		}
 
-		if (estilo.equals("Devil")) {
-			// TODO
+		// Si el estilo eslegido es el acutal, no hacer nada
+		if (estilo.equals(AppMusic.estilo)) {
 		} else {
-			AppMusic.estilo = estilo;
-			estilo = "com.jtattoo.plaf." + estilo.toLowerCase() + "." + estilo + "LookAndFeel";
-			try {
-				UIManager.setLookAndFeel(estilo);
-			} catch (Exception e) {
-				e.printStackTrace();
+			
+			// Se elimina la instancia de la ventana Principal
+			ventanas.Principal.getInstancia().removeInstancia();
+			
+			// Se filtran los estilos manualmente.
+			if (estilo.equals("Devil")) { // Estilos especiales
+				// TODO
+			} else { // Estilos normales
+				AppMusic.estilo = estilo;
+				estilo = "com.jtattoo.plaf." + estilo.toLowerCase() + "." + estilo + "LookAndFeel";
+				try {
+					UIManager.setLookAndFeel(estilo);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
+			// Y se vuelve a crear la instancia, pero ahora con el nuevo estilo seleccionado
+			ventanas.Principal.getInstancia().setVisible(true);
 		}
-		ventanas.Principal.getInstancia().setVisible(true);
 
 	}
 

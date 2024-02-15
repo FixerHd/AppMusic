@@ -1,6 +1,5 @@
 package ventanas;
 
-import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.LayoutManager;
@@ -26,7 +25,6 @@ import javax.swing.border.EtchedBorder;
 public class PanelListas extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private static PanelListas unicaInstancia;
 
 	public PanelListas() {
 		super();

@@ -26,7 +26,6 @@ import javax.swing.border.EtchedBorder;
 public class PanelRecientes extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private static PanelRecientes unicaInstancia;
 	private JTable table;
 	private JPanel panel;
 	private JPanel Panel_Reproducción;
@@ -40,9 +39,9 @@ public class PanelRecientes extends JPanel {
 
 		this.setBorder(new TitledBorder(null, "Recientes", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout gbl_panel_3 = new GridBagLayout();
-		gbl_panel_3.columnWidths = new int[] { 10, 0, 198, 0, 10, 70, 10, 0 };
+		gbl_panel_3.columnWidths = new int[] { 10, 0, 278, 0, 10, 0 };
 		gbl_panel_3.rowHeights = new int[] { 10, 0, 10, 0, 10, 0 };
-		gbl_panel_3.columnWeights = new double[] { 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_panel_3.columnWeights = new double[] { 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE };
 		gbl_panel_3.rowWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		this.setLayout(gbl_panel_3);
 
@@ -63,7 +62,7 @@ public class PanelRecientes extends JPanel {
 			}
 		});
 		GridBagConstraints gbc_table = new GridBagConstraints();
-		gbc_table.gridwidth = 5;
+		gbc_table.gridwidth = 3;
 		gbc_table.insets = new Insets(0, 0, 5, 5);
 		gbc_table.fill = GridBagConstraints.BOTH;
 		gbc_table.gridx = 1;

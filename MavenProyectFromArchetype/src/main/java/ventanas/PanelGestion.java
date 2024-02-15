@@ -3,7 +3,6 @@ package ventanas;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.LayoutManager;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,14 +15,11 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-import Controlador.AppMusic;
-
 import java.awt.BorderLayout;
 
 public class PanelGestion extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private static PanelGestion unicaInstancia;
 	private JButton Crear;
 	private JCheckBox Favoritas_check;
 	private JButton Eliminar;
