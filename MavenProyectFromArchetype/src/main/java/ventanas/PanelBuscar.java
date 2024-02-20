@@ -18,7 +18,6 @@ import Controlador.AppMusic;
 public class PanelBuscar extends JPanel{
 	
 	private static final long serialVersionUID = 1L;
-	private static PanelBuscar unicaInstancia;
 	private JTextField txtInterprete;
 	private JTextField txtTitulo;
 	private JCheckBox chckbxNewCheckBox;

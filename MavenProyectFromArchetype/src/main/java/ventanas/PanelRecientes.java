@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
@@ -61,13 +62,15 @@ public class PanelRecientes extends JPanel {
 				return columnEditables[column];
 			}
 		});
+		JScrollPane scrollPane = new JScrollPane(table);
+		
 		GridBagConstraints gbc_table = new GridBagConstraints();
 		gbc_table.gridwidth = 3;
 		gbc_table.insets = new Insets(0, 0, 5, 5);
 		gbc_table.fill = GridBagConstraints.BOTH;
 		gbc_table.gridx = 1;
 		gbc_table.gridy = 1;
-		this.add(table, gbc_table);
+		this.add(scrollPane, gbc_table);
 
 		panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();

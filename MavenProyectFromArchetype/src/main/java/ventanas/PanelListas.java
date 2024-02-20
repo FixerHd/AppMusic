@@ -1,43 +1,66 @@
 package ventanas;
 
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.LayoutManager;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
-
-import Controlador.AppMusic;
+import javax.swing.JSplitPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 
 import java.awt.BorderLayout;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
-import javax.swing.border.EtchedBorder;
+import javax.swing.JList;
+import javax.swing.AbstractListModel;
+import javax.swing.JScrollPane;
 
 public class PanelListas extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	private JTable table;
 
+	/**
+	 * Create the panel.
+	 */
 	public PanelListas() {
-		super();
+		setBorder(new TitledBorder(null, "Listas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		setLayout(new BorderLayout(0, 0));
+		
+		JSplitPane splitPane = new JSplitPane();
+		add(splitPane);
+		
+		JList list = new JList();
+		list.setVisibleRowCount(4);
+		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		list.setModel(new AbstractListModel() {
+			String[] values = new String[] {"Lista_1", "Lista_2", "Lista_3", "Lista_4", "Lista_5", "Lista_6", "Lista_7", "Lista_8", "Lista_9", "Lista_10"};
+			public int getSize() {
+				return values.length;
+			}
+			public Object getElementAt(int index) {
+				return values[index];
+			}
+		});
+		
+		JScrollPane leftScrollPane = new JScrollPane(list);
+		splitPane.setLeftComponent(leftScrollPane);
+		
+		table = new JTable();
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.setModel(new DefaultTableModel(new Object[][] { { null, null, null, null }, },
+				new String[] { "Titulo", "Interprete", "Estilo", "" }) {
+			Class[] columnTypes = new Class[] { Object.class, Object.class, Object.class, Boolean.class };
 
-		this.setBorder(new TitledBorder(null, "Listas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		GridBagLayout gbl_panel_3 = new GridBagLayout();
-		gbl_panel_3.columnWidths = new int[] { 66, 16, 0 };
-		gbl_panel_3.rowHeights = new int[] { 10, 0, 10, 0, 10, 0 };
-		gbl_panel_3.columnWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
-		gbl_panel_3.rowWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
-		this.setLayout(gbl_panel_3);
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
 
-		this.setVisible(true);
+			boolean[] columnEditables = new boolean[] { false, false, false, true };
+
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		JScrollPane rightScrollPane = new JScrollPane(table);
+		splitPane.setRightComponent(rightScrollPane);
 
 	}
 

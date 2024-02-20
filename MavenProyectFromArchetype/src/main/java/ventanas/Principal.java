@@ -217,7 +217,15 @@ public class Principal extends JFrame {
 		gbc_Botón_Playlists.gridx = 1;
 		gbc_Botón_Playlists.gridy = 7;
 		Botón_Playlists.addActionListener(ev -> {
-
+			if (!Botón_Recientes.isSelected()) {
+				Principal.remove(panelLista);
+				Columna.revalidate();
+				Columna.repaint();
+			} else {
+				Principal.add(panelLista);
+				Columna.revalidate();
+				Columna.repaint();
+			}
 		});
 		Columna.add(Botón_Playlists, gbc_Botón_Playlists);
 		
