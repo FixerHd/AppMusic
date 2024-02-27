@@ -128,4 +128,19 @@ public class AppMusic {
 		return catalogoUsuarios.getUsuarios();
 	}
 
+	public boolean verficarUsuario(String usuario, String contraseña) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean verficarUsuarioGit(String usuario, String contraseña) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean registrarUsuario(String usuario, String email, String contraseña, String fecha) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

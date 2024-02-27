@@ -8,4 +8,5 @@ public class Constantes {
 	public static final String[] ESTILOS_OSCUROS = {"Hifi", "Noire", "Devil"};
 	public static final String[] ESTILOS_CLAROS = {"Texture", "Acryl", "Aero", "Mint", "Bernstein", "Fast", "Graphite", "Luna", "McWin", "Smart"};
 
+	public static final String ERROR_INICIO_SESION = "Los parámetros no son correctos";
 }

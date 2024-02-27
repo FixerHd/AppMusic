@@ -12,46 +12,27 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
-import javax.swing.border.TitledBorder;
-import javax.swing.JTextField;
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.border.BevelBorder;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-
-import org.eclipse.persistence.internal.libraries.asm.commons.StaticInitMerger;
 
 import Controlador.AppMusic;
 
-import javax.swing.ListSelectionModel;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import javax.swing.JToggleButton;
-import javax.swing.JSeparator;
-import java.awt.Font;
-import javax.swing.SwingConstants;
 import pulsador.Luz;
 
 public class Principal extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private static Principal unicaInstancia;
+	private static final int X = 100;
+	private static final int Y = 100;
+	private static final int WIDTH = 600;
+	private static final int HEIGHT = 450;
 	private JPanel contentPane;
-	private JTextField txtInterprete;
-	private JTextField txtTitulo;
-	private JTextField textField;
-	private JTable table;
-	private JTextField textField_1;
-	private JTable table_1;
 	private static JPanel Columna;
 	private JPanel Principal;
 	private JPanel Layout;
@@ -96,7 +77,7 @@ public class Principal extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/recursos/Singletune_16.png")));
 		setTitle("Single Tune");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 600, 450);
+		setBounds(X, Y, WIDTH, HEIGHT);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -217,7 +198,7 @@ public class Principal extends JFrame {
 		gbc_Botón_Playlists.gridx = 1;
 		gbc_Botón_Playlists.gridy = 7;
 		Botón_Playlists.addActionListener(ev -> {
-			if (!Botón_Recientes.isSelected()) {
+			if (!Botón_Playlists.isSelected()) {
 				Principal.remove(panelLista);
 				Columna.revalidate();
 				Columna.repaint();

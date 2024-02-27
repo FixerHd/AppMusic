@@ -11,6 +11,7 @@ import java.awt.BorderLayout;
 import javax.swing.JList;
 import javax.swing.AbstractListModel;
 import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 public class PanelListas extends JPanel {
 
@@ -25,9 +26,11 @@ public class PanelListas extends JPanel {
 		setLayout(new BorderLayout(0, 0));
 		
 		JSplitPane splitPane = new JSplitPane();
+		splitPane.setOneTouchExpandable(true);
 		add(splitPane);
 		
 		JList list = new JList();
+		list.setValueIsAdjusting(true);
 		list.setVisibleRowCount(4);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.setModel(new AbstractListModel() {

@@ -10,7 +10,7 @@ import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import javax.swing.border.EtchedBorder;
+import java.awt.Rectangle;
 
 import Controlador.AppMusic;
 
@@ -18,21 +18,21 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JTextField;
+
 import java.awt.Color;
 import javax.swing.ImageIcon;
-import javax.swing.AbstractAction;
-import java.awt.event.ActionEvent;
-import javax.swing.Action;
 import javax.swing.SwingConstants;
 import java.awt.Toolkit;
 
 public class Login extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	private static final int X = 100;
+	private static final int Y = 100;
+	private static final int WIDTH = 450;
+	private static final int HEIGHT = 300;
 	private static Login unicaInstancia;
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
 
 	// Singleton
 	public static Login getInstancia() {
@@ -67,7 +67,7 @@ public class Login extends JFrame {
 		setTitle("Login");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/recursos/Singletune_16.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(X, Y, WIDTH, HEIGHT);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -76,23 +76,6 @@ public class Login extends JFrame {
 
 		JPanel Bottons_panel = new JPanel();
 		contentPane.add(Bottons_panel, BorderLayout.SOUTH);
-
-		JButton btnNewButton_1 = new JButton("Volver");
-		btnNewButton_1.setIcon(new ImageIcon(Login.class.getResource("/recursos/flecha-hacia-atras.png")));
-		btnNewButton_1.addActionListener(ev -> {
-			Selector.getInstancia().setVisible(true);
-			setVisible(false);
-		});
-		Bottons_panel.add(btnNewButton_1);
-
-		JButton btnNewButton = new JButton("Login");
-		btnNewButton.setIcon(new ImageIcon(Login.class.getResource("/recursos/usuario.png")));
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnNewButton.addActionListener(ev -> {
-			Principal.getInstancia().setVisible(true);
-			setVisible(false);
-		});
-		Bottons_panel.add(btnNewButton);
 
 		JPanel Text_panel = new JPanel();
 		Text_panel.setBorder(null);
@@ -104,44 +87,42 @@ public class Login extends JFrame {
 		gbl_Text_panel.rowWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
 		Text_panel.setLayout(gbl_Text_panel);
 
-		JLabel lblNewLabel_1 = new JLabel("Usuario:");
-		lblNewLabel_1.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 16));
-		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-		gbc_lblNewLabel_1.anchor = GridBagConstraints.EAST;
-		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_1.gridx = 1;
-		gbc_lblNewLabel_1.gridy = 1;
-		Text_panel.add(lblNewLabel_1, gbc_lblNewLabel_1);
+		JLabel Usuario = new JLabel("Usuario:");
+		Usuario.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 16));
+		GridBagConstraints gbc_Usuario = new GridBagConstraints();
+		gbc_Usuario.anchor = GridBagConstraints.EAST;
+		gbc_Usuario.insets = new Insets(0, 0, 5, 5);
+		gbc_Usuario.gridx = 1;
+		gbc_Usuario.gridy = 1;
+		Text_panel.add(Usuario, gbc_Usuario);
 
-		JTextField textField = new HintTextField("Usuario");
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		textField.setColumns(4);
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.fill = GridBagConstraints.BOTH;
-		gbc_textField.insets = new Insets(0, 0, 5, 5);
-		gbc_textField.gridx = 3;
-		gbc_textField.gridy = 1;
-		Text_panel.add(textField, gbc_textField);
+		JTextField Texto_Usuario = new HintTextField("Usuario");
+		Texto_Usuario.setColumns(4);
+		GridBagConstraints gbc_Texto_Usuario = new GridBagConstraints();
+		gbc_Texto_Usuario.fill = GridBagConstraints.BOTH;
+		gbc_Texto_Usuario.insets = new Insets(0, 0, 5, 5);
+		gbc_Texto_Usuario.gridx = 3;
+		gbc_Texto_Usuario.gridy = 1;
+		Text_panel.add(Texto_Usuario, gbc_Texto_Usuario);
 
-		JLabel lblNewLabel_2 = new JLabel("Contraseña:");
-		lblNewLabel_2.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 16));
-		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
-		gbc_lblNewLabel_2.anchor = GridBagConstraints.EAST;
-		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_2.gridx = 1;
-		gbc_lblNewLabel_2.gridy = 3;
-		Text_panel.add(lblNewLabel_2, gbc_lblNewLabel_2);
+		JLabel Contraseña = new JLabel("Contraseña:");
+		Contraseña.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 16));
+		GridBagConstraints gbc_Contraseña = new GridBagConstraints();
+		gbc_Contraseña.anchor = GridBagConstraints.EAST;
+		gbc_Contraseña.insets = new Insets(0, 0, 5, 5);
+		gbc_Contraseña.gridx = 1;
+		gbc_Contraseña.gridy = 3;
+		Text_panel.add(Contraseña, gbc_Contraseña);
 
-		JTextField textField_1 = new HintTextField("Contraseña");
-		textField_1.setSelectedTextColor(Color.WHITE);
-		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		textField_1.setColumns(10);
-		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-		gbc_textField_1.fill = GridBagConstraints.BOTH;
-		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_1.gridx = 3;
-		gbc_textField_1.gridy = 3;
-		Text_panel.add(textField_1, gbc_textField_1);
+		JTextField Texto_Contraseña = new HintTextField("Contraseña");
+		Texto_Contraseña.setSelectedTextColor(Color.WHITE);
+		Texto_Contraseña.setColumns(10);
+		GridBagConstraints gbc_Texto_Contraseña = new GridBagConstraints();
+		gbc_Texto_Contraseña.fill = GridBagConstraints.BOTH;
+		gbc_Texto_Contraseña.insets = new Insets(0, 0, 5, 5);
+		gbc_Texto_Contraseña.gridx = 3;
+		gbc_Texto_Contraseña.gridy = 3;
+		Text_panel.add(Texto_Contraseña, gbc_Texto_Contraseña);
 
 		JPanel Title_panel = new JPanel();
 		Title_panel.setBorder(null);
@@ -162,23 +143,23 @@ public class Login extends JFrame {
 		Title_panel.add(Space_panel_1, gbc_Space_panel_1);
 		Space_panel_1.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblNewLabel_3 = new JLabel("");
-		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_3.setIcon(new ImageIcon(Login.class.getResource("/recursos/floral_I_64.png")));
-		Space_panel_1.add(lblNewLabel_3, BorderLayout.NORTH);
+		JLabel Decorado_Izquierdo = new JLabel("");
+		Decorado_Izquierdo.setHorizontalAlignment(SwingConstants.CENTER);
+		Decorado_Izquierdo.setIcon(new ImageIcon(Login.class.getResource("/recursos/floral_I_64.png")));
+		Space_panel_1.add(Decorado_Izquierdo, BorderLayout.NORTH);
 
-		JPanel Name_panel = new JPanel();
-		GridBagConstraints gbc_Name_panel = new GridBagConstraints();
-		gbc_Name_panel.insets = new Insets(0, 0, 5, 5);
-		gbc_Name_panel.fill = GridBagConstraints.HORIZONTAL;
-		gbc_Name_panel.gridx = 1;
-		gbc_Name_panel.gridy = 0;
-		Title_panel.add(Name_panel, gbc_Name_panel);
+		JPanel Logo_panel = new JPanel();
+		GridBagConstraints gbc_Logo_panel = new GridBagConstraints();
+		gbc_Logo_panel.insets = new Insets(0, 0, 5, 5);
+		gbc_Logo_panel.fill = GridBagConstraints.HORIZONTAL;
+		gbc_Logo_panel.gridx = 1;
+		gbc_Logo_panel.gridy = 0;
+		Title_panel.add(Logo_panel, gbc_Logo_panel);
 
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(Login.class.getResource("/recursos/Singletune_128.png")));
-		lblNewLabel.setFont(new Font("Source Sans Pro Black", Font.PLAIN, 40));
-		Name_panel.add(lblNewLabel);
+		JLabel Logo = new JLabel("");
+		Logo.setIcon(new ImageIcon(Login.class.getResource("/recursos/Singletune_128.png")));
+		Logo.setFont(new Font("Source Sans Pro Black", Font.PLAIN, 40));
+		Logo_panel.add(Logo);
 
 		JPanel Space_panel_2 = new JPanel();
 		GridBagConstraints gbc_Space_panel_2 = new GridBagConstraints();
@@ -189,10 +170,32 @@ public class Login extends JFrame {
 		Title_panel.add(Space_panel_2, gbc_Space_panel_2);
 		Space_panel_2.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblNewLabel_4 = new JLabel("");
-		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_4.setIcon(new ImageIcon(Login.class.getResource("/recursos/floral_D_64.png")));
-		Space_panel_2.add(lblNewLabel_4, BorderLayout.NORTH);
+		JLabel Decorado_Derecho = new JLabel("");
+		Decorado_Derecho.setHorizontalAlignment(SwingConstants.CENTER);
+		Decorado_Derecho.setIcon(new ImageIcon(Login.class.getResource("/recursos/floral_D_64.png")));
+		Space_panel_2.add(Decorado_Derecho, BorderLayout.NORTH);
+		
+		JButton Botón_Volver = new JButton("Volver");
+		Botón_Volver.setIcon(new ImageIcon(Login.class.getResource("/recursos/flecha-hacia-atras.png")));
+		Botón_Volver.addActionListener(ev -> {
+			Selector.getInstancia().setVisible(true);
+			setVisible(false);
+		});
+		Bottons_panel.add(Botón_Volver);
+
+		JButton Botón_Login = new JButton("Login");
+		Botón_Login.setIcon(new ImageIcon(Login.class.getResource("/recursos/usuario.png")));
+		Botón_Login.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		Botón_Login.addActionListener(ev -> {
+			if(AppMusic.getUnicaInstancia().verficarUsuario(Texto_Usuario.getText(), Texto_Contraseña.getText())) {
+				Principal.getInstancia().setVisible(true);
+				setVisible(false);
+			}
+			Rectangle r = new Rectangle(X + WIDTH/2 - 250/2, Y + HEIGHT/2 - 100/2, 250, 100);
+			AppPopup p = new AppPopup(Constantes.ERROR_INICIO_SESION, r);
+			p.setVisible(true);
+		});
+		Bottons_panel.add(Botón_Login);
 
 	}
 

@@ -10,7 +10,7 @@ import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import javax.swing.border.EtchedBorder;
+import java.awt.Rectangle;
 
 import Controlador.AppMusic;
 
@@ -20,18 +20,17 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.Color;
 import javax.swing.ImageIcon;
-import javax.swing.AbstractAction;
-import java.awt.event.ActionEvent;
-import javax.swing.Action;
 import java.awt.Toolkit;
 
 public class LoginGit extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	private static final int X = 100;
+	private static final int Y = 100;
+	private static final int WIDTH = 450;
+	private static final int HEIGHT = 300;
 	private static LoginGit unicaInstancia;
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
 
 	// Singleton
 	public static LoginGit getInstancia() {
@@ -66,7 +65,7 @@ public class LoginGit extends JFrame {
 		setTitle("Login Git");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginGit.class.getResource("/recursos/Singletune_16.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(X, Y, WIDTH, HEIGHT);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -76,22 +75,13 @@ public class LoginGit extends JFrame {
 		JPanel Bottons_panel = new JPanel();
 		contentPane.add(Bottons_panel, BorderLayout.SOUTH);
 
-		JButton btnNewButton_1_1 = new JButton("Volver");
-		btnNewButton_1_1.setIcon(new ImageIcon(LoginGit.class.getResource("/recursos/flecha-hacia-atras.png")));
-		btnNewButton_1_1.addActionListener(ev -> {
+		JButton Botón_Volver = new JButton("Volver");
+		Botón_Volver.setIcon(new ImageIcon(LoginGit.class.getResource("/recursos/flecha-hacia-atras.png")));
+		Botón_Volver.addActionListener(ev -> {
 			Selector.getInstancia().setVisible(true);
 			setVisible(false);
 		});
-		Bottons_panel.add(btnNewButton_1_1);
-
-		JButton btnNewButton_1 = new JButton("Login con GitHub");
-		btnNewButton_1.setIcon(new ImageIcon(LoginGit.class.getResource("/recursos/github.png")));
-		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnNewButton_1.addActionListener(ev -> {
-			Principal.getInstancia().setVisible(true);
-			setVisible(false);
-		});
-		Bottons_panel.add(btnNewButton_1);
+		Bottons_panel.add(Botón_Volver);
 
 		JPanel Text_panel = new JPanel();
 		Text_panel.setBorder(null);
@@ -103,44 +93,42 @@ public class LoginGit extends JFrame {
 		gbl_Text_panel.rowWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
 		Text_panel.setLayout(gbl_Text_panel);
 
-		JLabel lblNewLabel_1 = new JLabel("Usuario Git:");
-		lblNewLabel_1.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 16));
-		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-		gbc_lblNewLabel_1.anchor = GridBagConstraints.EAST;
-		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_1.gridx = 1;
-		gbc_lblNewLabel_1.gridy = 1;
-		Text_panel.add(lblNewLabel_1, gbc_lblNewLabel_1);
+		JLabel Usuario_Git = new JLabel("Usuario Git:");
+		Usuario_Git.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 16));
+		GridBagConstraints gbc_Usuario_Git = new GridBagConstraints();
+		gbc_Usuario_Git.anchor = GridBagConstraints.EAST;
+		gbc_Usuario_Git.insets = new Insets(0, 0, 5, 5);
+		gbc_Usuario_Git.gridx = 1;
+		gbc_Usuario_Git.gridy = 1;
+		Text_panel.add(Usuario_Git, gbc_Usuario_Git);
 
-		JTextField textField = new HintTextField("Usuario");
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		textField.setColumns(4);
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.fill = GridBagConstraints.BOTH;
-		gbc_textField.insets = new Insets(0, 0, 5, 5);
-		gbc_textField.gridx = 3;
-		gbc_textField.gridy = 1;
-		Text_panel.add(textField, gbc_textField);
+		JTextField Texto_Usuario = new HintTextField("Usuario");
+		Texto_Usuario.setColumns(4);
+		GridBagConstraints gbc_Texto_Usuario = new GridBagConstraints();
+		gbc_Texto_Usuario.fill = GridBagConstraints.BOTH;
+		gbc_Texto_Usuario.insets = new Insets(0, 0, 5, 5);
+		gbc_Texto_Usuario.gridx = 3;
+		gbc_Texto_Usuario.gridy = 1;
+		Text_panel.add(Texto_Usuario, gbc_Texto_Usuario);
 
-		JLabel lblNewLabel_2 = new JLabel("Contraseña:");
-		lblNewLabel_2.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 16));
-		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
-		gbc_lblNewLabel_2.anchor = GridBagConstraints.EAST;
-		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_2.gridx = 1;
-		gbc_lblNewLabel_2.gridy = 3;
-		Text_panel.add(lblNewLabel_2, gbc_lblNewLabel_2);
+		JLabel Contraseña = new JLabel("Contraseña:");
+		Contraseña.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 16));
+		GridBagConstraints gbc_Contraseña = new GridBagConstraints();
+		gbc_Contraseña.anchor = GridBagConstraints.EAST;
+		gbc_Contraseña.insets = new Insets(0, 0, 5, 5);
+		gbc_Contraseña.gridx = 1;
+		gbc_Contraseña.gridy = 3;
+		Text_panel.add(Contraseña, gbc_Contraseña);
 
-		JTextField textField_1 = new HintTextField("Contraseña");
-		textField_1.setSelectedTextColor(Color.WHITE);
-		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		textField_1.setColumns(10);
-		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-		gbc_textField_1.fill = GridBagConstraints.BOTH;
-		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_1.gridx = 3;
-		gbc_textField_1.gridy = 3;
-		Text_panel.add(textField_1, gbc_textField_1);
+		JTextField Texto_Contraseña = new HintTextField("Contraseña");
+		Texto_Contraseña.setSelectedTextColor(Color.WHITE);
+		Texto_Contraseña.setColumns(10);
+		GridBagConstraints gbc_Texto_Contraseña = new GridBagConstraints();
+		gbc_Texto_Contraseña.fill = GridBagConstraints.BOTH;
+		gbc_Texto_Contraseña.insets = new Insets(0, 0, 5, 5);
+		gbc_Texto_Contraseña.gridx = 3;
+		gbc_Texto_Contraseña.gridy = 3;
+		Text_panel.add(Texto_Contraseña, gbc_Texto_Contraseña);
 
 		JPanel Title_panel = new JPanel();
 		Title_panel.setBorder(null);
@@ -160,9 +148,9 @@ public class LoginGit extends JFrame {
 		gbc_Space_panel_1.gridy = 1;
 		Title_panel.add(Space_panel_1, gbc_Space_panel_1);
 
-		JLabel lblNewLabel_7 = new JLabel("");
-		lblNewLabel_7.setIcon(new ImageIcon(LoginGit.class.getResource("/recursos/floral_I_32.png")));
-		Space_panel_1.add(lblNewLabel_7);
+		JLabel Decorado_Izquierdo = new JLabel("");
+		Decorado_Izquierdo.setIcon(new ImageIcon(LoginGit.class.getResource("/recursos/floral_I_32.png")));
+		Space_panel_1.add(Decorado_Izquierdo);
 
 		JPanel Name_panel = new JPanel();
 		GridBagConstraints gbc_Name_panel = new GridBagConstraints();
@@ -187,32 +175,32 @@ public class LoginGit extends JFrame {
 		gbc_lblNewLabel.gridy = 0;
 		Name_panel.add(lblNewLabel, gbc_lblNewLabel);
 
-		JLabel lblNewLabel_6 = new JLabel("");
-		lblNewLabel_6.setIcon(new ImageIcon(LoginGit.class.getResource("/recursos/Singletune_64.png")));
-		GridBagConstraints gbc_lblNewLabel_6 = new GridBagConstraints();
-		gbc_lblNewLabel_6.anchor = GridBagConstraints.NORTHWEST;
-		gbc_lblNewLabel_6.insets = new Insets(0, 0, 0, 5);
-		gbc_lblNewLabel_6.gridx = 1;
-		gbc_lblNewLabel_6.gridy = 0;
-		Name_panel.add(lblNewLabel_6, gbc_lblNewLabel_6);
+		JLabel Logo_Singletune = new JLabel("");
+		Logo_Singletune.setIcon(new ImageIcon(LoginGit.class.getResource("/recursos/Singletune_64.png")));
+		GridBagConstraints gbc_Logo_Singletune = new GridBagConstraints();
+		gbc_Logo_Singletune.anchor = GridBagConstraints.NORTHWEST;
+		gbc_Logo_Singletune.insets = new Insets(0, 0, 0, 5);
+		gbc_Logo_Singletune.gridx = 1;
+		gbc_Logo_Singletune.gridy = 0;
+		Name_panel.add(Logo_Singletune, gbc_Logo_Singletune);
 
-		JLabel lblNewLabel_5 = new JLabel("");
-		lblNewLabel_5.setIcon(new ImageIcon(LoginGit.class.getResource("/recursos/enlace.png")));
-		GridBagConstraints gbc_lblNewLabel_5 = new GridBagConstraints();
-		gbc_lblNewLabel_5.anchor = GridBagConstraints.WEST;
-		gbc_lblNewLabel_5.insets = new Insets(0, 0, 0, 5);
-		gbc_lblNewLabel_5.gridx = 3;
-		gbc_lblNewLabel_5.gridy = 0;
-		Name_panel.add(lblNewLabel_5, gbc_lblNewLabel_5);
+		JLabel Cadena = new JLabel("");
+		Cadena.setIcon(new ImageIcon(LoginGit.class.getResource("/recursos/enlace.png")));
+		GridBagConstraints gbc_Cadena = new GridBagConstraints();
+		gbc_Cadena.anchor = GridBagConstraints.WEST;
+		gbc_Cadena.insets = new Insets(0, 0, 0, 5);
+		gbc_Cadena.gridx = 3;
+		gbc_Cadena.gridy = 0;
+		Name_panel.add(Cadena, gbc_Cadena);
 
-		JLabel lblNewLabel_3 = new JLabel("");
-		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
-		gbc_lblNewLabel_3.anchor = GridBagConstraints.NORTHWEST;
-		gbc_lblNewLabel_3.insets = new Insets(0, 0, 0, 5);
-		gbc_lblNewLabel_3.gridx = 5;
-		gbc_lblNewLabel_3.gridy = 0;
-		Name_panel.add(lblNewLabel_3, gbc_lblNewLabel_3);
-		lblNewLabel_3.setIcon(new ImageIcon(LoginGit.class.getResource("/recursos/github_color_2.png")));
+		JLabel Logo_Github = new JLabel("");
+		GridBagConstraints gbc_Logo_Github = new GridBagConstraints();
+		gbc_Logo_Github.anchor = GridBagConstraints.NORTHWEST;
+		gbc_Logo_Github.insets = new Insets(0, 0, 0, 5);
+		gbc_Logo_Github.gridx = 5;
+		gbc_Logo_Github.gridy = 0;
+		Name_panel.add(Logo_Github, gbc_Logo_Github);
+		Logo_Github.setIcon(new ImageIcon(LoginGit.class.getResource("/recursos/github_color_2.png")));
 
 		JLabel lblNewLabel_4 = new JLabel("");
 		GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
@@ -229,9 +217,23 @@ public class LoginGit extends JFrame {
 		gbc_Space_panel_2.gridy = 1;
 		Title_panel.add(Space_panel_2, gbc_Space_panel_2);
 
-		JLabel lblNewLabel_8 = new JLabel("");
-		lblNewLabel_8.setIcon(new ImageIcon(LoginGit.class.getResource("/recursos/floral_D_32.png")));
-		Space_panel_2.add(lblNewLabel_8);
+		JLabel Decorado_Derecho = new JLabel("");
+		Decorado_Derecho.setIcon(new ImageIcon(LoginGit.class.getResource("/recursos/floral_D_32.png")));
+		Space_panel_2.add(Decorado_Derecho);
+		
+		JButton Botón_Login_Git = new JButton("Login con GitHub");
+		Botón_Login_Git.setIcon(new ImageIcon(LoginGit.class.getResource("/recursos/github.png")));
+		Botón_Login_Git.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		Botón_Login_Git.addActionListener(ev -> {
+			if(AppMusic.getUnicaInstancia().verficarUsuarioGit(Texto_Usuario.getText(), Texto_Contraseña.getText())) {
+				Principal.getInstancia().setVisible(true);
+				setVisible(false);
+			}
+			Rectangle r = new Rectangle(X + WIDTH/2 - 250/2, Y + HEIGHT/2 - 100/2, 250, 100);
+			AppPopup p = new AppPopup(Constantes.ERROR_INICIO_SESION, r);
+			p.setVisible(true);
+		});
+		Bottons_panel.add(Botón_Login_Git);
 	}
 
 }
