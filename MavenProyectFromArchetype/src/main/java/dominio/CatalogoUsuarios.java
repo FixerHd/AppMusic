@@ -73,5 +73,20 @@ public class CatalogoUsuarios {
 		 for (Usuario cli: UsuariosBD) 
 			     Usuarios.put(cli.getNombre(),cli);
 	}
+
+	public boolean exists(String usuario, String contraseña) {
+		for(String s: Usuarios.keySet()) {
+			if(Usuarios.get(s).getPassword().equals(contraseña) && Usuarios.get(s).getNombre().equals(usuario)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean addUsuario(String usuario, String email, String contraseña, String fecha) {
+		Usuario cli = new Usuario(usuario, email, contraseña, fecha);
+		addUsuario(cli);
+		return cli != null;
+	}
 	
 }

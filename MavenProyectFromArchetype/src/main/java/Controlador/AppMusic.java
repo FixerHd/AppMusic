@@ -17,7 +17,6 @@ import dominio.Usuario;
 import persistencia.DAOException;
 import persistencia.FactoriaDAO;
 import persistencia.IAdaptadorUsuarioDAO;
-import ventanas.Login;
 import persistencia.IAdaptadorCancionDAO;
 import persistencia.IAdaptadorPlaylistDAO;
 
@@ -132,8 +131,7 @@ public class AppMusic {
 	}
 
 	public boolean verficarUsuario(String usuario, String contraseña) {
-		// TODO Auto-generated method stub
-		return false;
+		return catalogoUsuarios.exists(usuario, contraseña);
 	}
 
 	public boolean verficarUsuarioGit(String usuario, String contraseña) {
