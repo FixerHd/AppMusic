@@ -144,10 +144,7 @@ public class AppMusic {
 
 	public int registrarUsuario(String usuario, String email, String contraseña, String fecha, String nombre_completo) {
 		// Prueba tonta, comprobar las constantes en "ventanas.Constantes"
-		int resultado = Constantes.ERROR_REGISTRO_CAMPOS;
-		if (usuario.compareTo("a") == 0) {
-			resultado = Constantes.OKAY;
-		}
+		int resultado = Constantes.OKAY;
 		catalogoUsuarios.addUsuario(usuario, email, contraseña, fecha);
 		// TODO Auto-generated method stub
 		return resultado;
@@ -161,7 +158,7 @@ public class AppMusic {
 		// La idea es devolver el JTable con todos los datos ya metidos
 		// Ahora si, los datos los tienes que recopilar individualemente e insertalos en la tabla aqui, en el controlador
 		JTable nuevaTabla = tabla;
-		// TODO Auto-generated method stub
+		List<Cancion> canciones = catalogoCanciones.filtrarCanciones(interprete, titulo, estilo, favoritas);
 		return nuevaTabla;
 	}
 

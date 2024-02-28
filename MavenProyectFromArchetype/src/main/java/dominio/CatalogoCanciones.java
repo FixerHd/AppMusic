@@ -72,5 +72,10 @@ public class CatalogoCanciones {
 		 for (Cancion pro: CancionesBD) 
 			     Canciones.put(pro.getTitulo(),pro);
 	}
+
+    public List<Cancion> filtrarCanciones(String interprete, String titulo, Object estilo, boolean favoritas) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'filtrarCanciones'");
+    }
 	
 }
