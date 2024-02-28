@@ -1,11 +1,14 @@
 package Controlador;
 
+import java.awt.Container;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
+import Utilidades.Constantes;
 import dominio.Cancion;
 import dominio.Playlist;
 import dominio.CatalogoCanciones;
@@ -14,7 +17,7 @@ import dominio.Usuario;
 import persistencia.DAOException;
 import persistencia.FactoriaDAO;
 import persistencia.IAdaptadorUsuarioDAO;
-import ventanas.Constantes;
+import ventanas.Login;
 import persistencia.IAdaptadorCancionDAO;
 import persistencia.IAdaptadorPlaylistDAO;
 
@@ -138,9 +141,23 @@ public class AppMusic {
 		return false;
 	}
 
-	public boolean registrarUsuario(String usuario, String email, String contraseña, String fecha) {
+	public int registrarUsuario(String usuario, String email, String contraseña, String fecha, String nombre_completo) {
+		// Prueba tonta, comprobar las constantes en "ventanas.Constantes"
+		int resultado = Constantes.ERROR_REGISTRO_CAMPOS;
+		if (usuario.compareTo("a") == 0) {
+			resultado = Constantes.OKAY;
+		}
 		// TODO Auto-generated method stub
-		return false;
+		return resultado;
+	}
+
+	public void showPopup(Container container, String mensaje) {
+		JOptionPane.showMessageDialog(container, mensaje, Constantes.NOMBRE_APLICACION, JOptionPane.INFORMATION_MESSAGE, null);
+	}
+
+	public Object buscarCanciones(String interprete, String titulo, Object estilo, boolean favoritas) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

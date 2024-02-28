@@ -21,6 +21,7 @@ import javax.swing.ImageIcon;
 import com.toedter.calendar.JDateChooser;
 
 import Controlador.AppMusic;
+import Utilidades.Constantes;
 
 import java.awt.Font;
 import java.awt.Toolkit;
@@ -35,16 +36,19 @@ public class Registro extends JFrame {
 	private static final int HEIGHT = 275;
 	private JPanel contentPane;
 	private JPanel panel;
-	private JButton btnNewButton;
+	private JButton Botón_Registro;
 	private JPanel panel_1;
 	private JLabel Fecha_Nacimiento;
-	private JButton btnNewButton_1;
+	private JButton Botón_Volver;
 	private JLabel Usuario;
 	private JLabel Nombre;
 	private JLabel Contraseña;
 	private JDateChooser Seleccionador_Fecha;
 	private JLabel Email;
 	private HintTextField Texto_Email;
+	private HintTextField Texto_Nombre;
+	private HintTextField Texto_Contraseña;
+	private HintTextField Texto_Usuario;
 
 	// Singleton
 	public static Registro getInstancia() {
@@ -89,13 +93,13 @@ public class Registro extends JFrame {
 		panel = new JPanel();
 		contentPane.add(panel, BorderLayout.SOUTH);
 
-		btnNewButton_1 = new JButton("Volver");
-		btnNewButton_1.setIcon(new ImageIcon(Registro.class.getResource("/recursos/flecha-hacia-atras.png")));
-		btnNewButton_1.addActionListener(ev -> {
+		Botón_Volver = new JButton("Volver");
+		Botón_Volver.setIcon(new ImageIcon(Registro.class.getResource("/recursos/flecha-hacia-atras.png")));
+		Botón_Volver.addActionListener(ev -> {
 			Selector.getInstancia().setVisible(true);
 			setVisible(false);
 		});
-		panel.add(btnNewButton_1);
+		panel.add(Botón_Volver);
 
 		panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.CENTER);
@@ -115,7 +119,7 @@ public class Registro extends JFrame {
 		gbc_Usuario.gridy = 2;
 		panel_1.add(Usuario, gbc_Usuario);
 
-		JTextField Texto_Usuario = new HintTextField("Usuario");
+		Texto_Usuario = new HintTextField("Usuario");
 		GridBagConstraints gbc_Texto_Usuario = new GridBagConstraints();
 		gbc_Texto_Usuario.insets = new Insets(0, 0, 5, 5);
 		gbc_Texto_Usuario.fill = GridBagConstraints.HORIZONTAL;
@@ -133,7 +137,7 @@ public class Registro extends JFrame {
 		gbc_Contraseña.gridy = 2;
 		panel_1.add(Contraseña, gbc_Contraseña);
 
-		JTextField Texto_Contraseña = new HintTextField("Contraseña");
+		Texto_Contraseña = new HintTextField("Contraseña");
 		GridBagConstraints gbc_Texto_Contraseña = new GridBagConstraints();
 		gbc_Texto_Contraseña.insets = new Insets(0, 0, 5, 5);
 		gbc_Texto_Contraseña.fill = GridBagConstraints.HORIZONTAL;
@@ -150,7 +154,7 @@ public class Registro extends JFrame {
 		gbc_Nombre.gridy = 5;
 		panel_1.add(Nombre, gbc_Nombre);
 
-		JTextField Texto_Nombre = new HintTextField("Nombre completo");
+		Texto_Nombre = new HintTextField("Nombre completo");
 		Texto_Nombre.setHorizontalAlignment(SwingConstants.LEFT);
 		GridBagConstraints gbc_Texto_Nombre = new GridBagConstraints();
 		gbc_Texto_Nombre.insets = new Insets(0, 0, 5, 5);
@@ -196,18 +200,32 @@ public class Registro extends JFrame {
 		gbc_Seleccionador_Fecha.gridy = 9;
 		panel_1.add(Seleccionador_Fecha, gbc_Seleccionador_Fecha);
 		
-		btnNewButton = new JButton("Registro");
-		btnNewButton.setIcon(new ImageIcon(Registro.class.getResource("/recursos/anadir.png")));
-		btnNewButton.addActionListener(ev -> {
-			if(AppMusic.getUnicaInstancia().registrarUsuario(Texto_Nombre.getText(), Texto_Email.getText(), Texto_Contraseña.getText(), Seleccionador_Fecha.getDateFormatString())) {
+		Botón_Registro = new JButton("Registro");
+		Botón_Registro.setIcon(new ImageIcon(Registro.class.getResource("/recursos/anadir.png")));
+		Botón_Registro.addActionListener(ev -> {
+			int resultado = AppMusic.getUnicaInstancia().registrarUsuario(Texto_Usuario.getText(), Texto_Email.getText(), Texto_Contraseña.getText(), Seleccionador_Fecha.getDateFormatString(), Texto_Nombre.getText());
+			
+			switch (resultado) {
+			case Constantes.ERROR_REGISTRO_CAMPOS:
+				AppMusic.getUnicaInstancia().showPopup(this, Constantes.ERROR_REGISTRO_CAMPOS_MENSAJE);
+				break;
+			case Constantes.ERROR_REGISTRO_CORREO:
+				AppMusic.getUnicaInstancia().showPopup(this, Constantes.ERROR_REGISTRO_CORREO_MENSAJE);
+				break;
+			case Constantes.ERROR_REGISTRO_FECHA:
+				AppMusic.getUnicaInstancia().showPopup(this, Constantes.ERROR_REGISTRO_FECHA_MENSAJE);
+				break;
+			case Constantes.OKAY:
 				Principal.getInstancia().setVisible(true);
 				setVisible(false);
+				Texto_Usuario.setText("");
+				Texto_Contraseña.setText("");
+				Texto_Email.setText("");
+				Texto_Nombre.setText("");
+				Seleccionador_Fecha.setDateFormatString("");
 			}
-			Rectangle r = new Rectangle(X + WIDTH/2 - 250/2, Y + HEIGHT/2 - 100/2, 250, 100);
-			AppPopup p = new AppPopup(Constantes.ERROR_INICIO_SESION, r);
-			p.setVisible(true);
 		});
-		panel.add(btnNewButton);
+		panel.add(Botón_Registro);
 	}
 
 }

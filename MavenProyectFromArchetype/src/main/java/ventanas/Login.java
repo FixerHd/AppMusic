@@ -13,8 +13,11 @@ import java.awt.Insets;
 import java.awt.Rectangle;
 
 import Controlador.AppMusic;
+import Utilidades.Constantes;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -190,10 +193,10 @@ public class Login extends JFrame {
 			if(AppMusic.getUnicaInstancia().verficarUsuario(Texto_Usuario.getText(), Texto_Contraseña.getText())) {
 				Principal.getInstancia().setVisible(true);
 				setVisible(false);
+				Texto_Usuario.setText("");
+				Texto_Contraseña.setText("");
 			}
-			Rectangle r = new Rectangle(X + WIDTH/2 - 250/2, Y + HEIGHT/2 - 100/2, 250, 100);
-			AppPopup p = new AppPopup(Constantes.ERROR_INICIO_SESION, r);
-			p.setVisible(true);
+			AppMusic.getUnicaInstancia().showPopup(this, Constantes.ERROR_INICIO_SESION_MENSAJE);
 		});
 		Bottons_panel.add(Botón_Login);
 
