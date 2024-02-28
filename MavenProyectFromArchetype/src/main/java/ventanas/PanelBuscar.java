@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
@@ -81,8 +82,8 @@ public class PanelBuscar extends JPanel{
 		gbc_Botón_Buscar.gridx = 5;
 		gbc_Botón_Buscar.gridy = 3;
 		Botón_Buscar.addActionListener(ev-> {
-			
-			if (AppMusic.getUnicaInstancia().buscarCanciones(Texto_Interprete.getText(), Texto_Titulo.getText(), Estilo.getSelectedItem(), Botón_Favoritas.isSelected()) != null) {
+			JTable table = AppMusic.getUnicaInstancia().buscarCanciones(Texto_Interprete.getText(), Texto_Titulo.getText(), Estilo.getSelectedItem(), Botón_Favoritas.isSelected(), panelResultado.getTable());
+			if (table != null) {
 				gbl_panelBuscar.columnWidths = new int[]{20, 10, 198, 0, 30, 50, 10, 20, 0};
 				gbl_panelBuscar.rowHeights = new int[]{10, 20, 10, 20, 10, 20, 10, 0, 10, 0};
 				gbl_panelBuscar.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
@@ -92,6 +93,7 @@ public class PanelBuscar extends JPanel{
 				gbc_panelResultado.gridx = 1;
 				gbc_panelResultado.gridy = 7;
 				gbc_panelResultado.gridwidth = 6;
+				panelResultado.setTable(table);
 				this.setLayout(gbl_panelBuscar);
 				this.add(panelResultado, gbc_panelResultado);
 				this.revalidate();

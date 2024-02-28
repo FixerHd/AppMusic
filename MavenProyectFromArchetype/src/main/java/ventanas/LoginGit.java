@@ -231,8 +231,9 @@ public class LoginGit extends JFrame {
 				setVisible(false);
 				Texto_Usuario.setText("");
 				Texto_Contraseña.setText("");
+			} else {
+				AppMusic.getUnicaInstancia().showPopup(this, Constantes.ERROR_INICIO_SESION_MENSAJE);	
 			}
-			AppMusic.getUnicaInstancia().showPopup(this, Constantes.ERROR_INICIO_SESION_MENSAJE);
 		});
 		Bottons_panel.add(Botón_Login_Git);
 	}

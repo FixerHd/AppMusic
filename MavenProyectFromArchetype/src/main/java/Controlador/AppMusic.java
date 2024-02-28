@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.UIManager;
 
 import Utilidades.Constantes;
@@ -37,6 +38,7 @@ public class AppMusic {
 
 	private CatalogoUsuarios catalogoUsuarios;
 	private CatalogoCanciones catalogoCanciones;
+	private Usuario usuarioActivo;
 
 	public AppMusic() {
 		// Debe ser la primera linea para evitar error de sincronización
@@ -154,9 +156,12 @@ public class AppMusic {
 		JOptionPane.showMessageDialog(container, mensaje, Constantes.NOMBRE_APLICACION, JOptionPane.INFORMATION_MESSAGE, null);
 	}
 
-	public Object buscarCanciones(String interprete, String titulo, Object estilo, boolean favoritas) {
+	public JTable buscarCanciones(String interprete, String titulo, Object estilo, boolean favoritas, JTable tabla) {
+		// La idea es devolver el JTable con todos los datos ya metidos
+		// Ahora si, los datos los tienes que recopilar individualemente e insertalos en la tabla aqui, en el controlador
+		JTable nuevaTabla = tabla;
 		// TODO Auto-generated method stub
-		return null;
+		return nuevaTabla;
 	}
 
 }

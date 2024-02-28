@@ -27,7 +27,6 @@ import javax.swing.border.EtchedBorder;
 public class PanelResultado extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private static PanelResultado unicaInstancia;
 	private JTable table;
 	private JButton Eliminar_Canción;
 	private JPanel panel;
@@ -36,6 +35,7 @@ public class PanelResultado extends JPanel {
 	private JLabel Restart;
 	private JLabel Play_Stop;
 	private JLabel Choose_next;
+	private JScrollPane scrollPane;
 
 	public PanelResultado() {
 		super();
@@ -64,7 +64,7 @@ public class PanelResultado extends JPanel {
 				return columnEditables[column];
 			}
 		});
-		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane = new JScrollPane(table);
 		
 		GridBagConstraints gbc_table = new GridBagConstraints();
 		gbc_table.gridwidth = 5;
@@ -139,7 +139,23 @@ public class PanelResultado extends JPanel {
 		this.add(Eliminar_Canción, gbc_Eliminar_Canción);
 
 		this.setVisible(true);
-
+	}
+	
+	public JTable getTable() {
+		return table;
+	}
+	
+	public void setTable(JTable table) {
+		this.table = table;
+		this.remove(scrollPane);
+		scrollPane = new JScrollPane(table);
+		GridBagConstraints gbc_table = new GridBagConstraints();
+		gbc_table.gridwidth = 5;
+		gbc_table.insets = new Insets(0, 0, 5, 5);
+		gbc_table.fill = GridBagConstraints.BOTH;
+		gbc_table.gridx = 1;
+		gbc_table.gridy = 1;
+		this.add(scrollPane, gbc_table);
 	}
 
 }

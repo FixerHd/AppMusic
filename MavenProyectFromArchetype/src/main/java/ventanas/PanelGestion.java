@@ -21,11 +21,11 @@ import java.awt.BorderLayout;
 public class PanelGestion extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JButton Crear;
-	private JCheckBox Favoritas_check;
-	private JButton Eliminar;
+	private JButton Botón_Crear;
+	private JCheckBox Botón_Favoritas;
+	private JButton Botón_Eliminar;
 	private JTable table;
-	private JButton Eliminar_Canción;
+	private JButton Botón_Eliminar_Canción;
 	private JPanel panel;
 	private JPanel Panel_Reproducción;
 	private JLabel Choose_previous;
@@ -44,42 +44,42 @@ public class PanelGestion extends JPanel {
 		gbl_panel_3.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		this.setLayout(gbl_panel_3);
 
-		JTextField Título = new HintTextField("Nombre completo");
-		Título.setText("Título");
-		GridBagConstraints gbc_Título = new GridBagConstraints();
-		gbc_Título.gridwidth = 3;
-		gbc_Título.insets = new Insets(0, 0, 5, 5);
-		gbc_Título.fill = GridBagConstraints.HORIZONTAL;
-		gbc_Título.gridx = 1;
-		gbc_Título.gridy = 1;
-		this.add(Título, gbc_Título);
-		Título.setColumns(10);
+		JTextField Texto_Título = new HintTextField("Nombre completo");
+		Texto_Título.setText("Título");
+		GridBagConstraints gbc_Texto_Título = new GridBagConstraints();
+		gbc_Texto_Título.gridwidth = 3;
+		gbc_Texto_Título.insets = new Insets(0, 0, 5, 5);
+		gbc_Texto_Título.fill = GridBagConstraints.HORIZONTAL;
+		gbc_Texto_Título.gridx = 1;
+		gbc_Texto_Título.gridy = 1;
+		this.add(Texto_Título, gbc_Texto_Título);
+		Texto_Título.setColumns(10);
 
-		Crear = new JButton("Crear");
-		GridBagConstraints gbc_Crear = new GridBagConstraints();
-		gbc_Crear.fill = GridBagConstraints.HORIZONTAL;
-		gbc_Crear.insets = new Insets(0, 0, 5, 5);
-		gbc_Crear.gridx = 5;
-		gbc_Crear.gridy = 1;
-		this.add(Crear, gbc_Crear);
+		Botón_Crear = new JButton("Crear");
+		GridBagConstraints gbc_Botón_Crear = new GridBagConstraints();
+		gbc_Botón_Crear.fill = GridBagConstraints.HORIZONTAL;
+		gbc_Botón_Crear.insets = new Insets(0, 0, 5, 5);
+		gbc_Botón_Crear.gridx = 5;
+		gbc_Botón_Crear.gridy = 1;
+		this.add(Botón_Crear, gbc_Botón_Crear);
 
-		Favoritas_check = new JCheckBox("Favoritas");
-		GridBagConstraints gbc_Favoritas_check = new GridBagConstraints();
-		gbc_Favoritas_check.fill = GridBagConstraints.VERTICAL;
-		gbc_Favoritas_check.anchor = GridBagConstraints.WEST;
-		gbc_Favoritas_check.gridwidth = 3;
-		gbc_Favoritas_check.insets = new Insets(0, 0, 5, 5);
-		gbc_Favoritas_check.gridx = 1;
-		gbc_Favoritas_check.gridy = 3;
-		this.add(Favoritas_check, gbc_Favoritas_check);
+		Botón_Favoritas = new JCheckBox("Favoritas");
+		GridBagConstraints gbc_Botón_Favoritas = new GridBagConstraints();
+		gbc_Botón_Favoritas.fill = GridBagConstraints.VERTICAL;
+		gbc_Botón_Favoritas.anchor = GridBagConstraints.WEST;
+		gbc_Botón_Favoritas.gridwidth = 3;
+		gbc_Botón_Favoritas.insets = new Insets(0, 0, 5, 5);
+		gbc_Botón_Favoritas.gridx = 1;
+		gbc_Botón_Favoritas.gridy = 3;
+		this.add(Botón_Favoritas, gbc_Botón_Favoritas);
 
-		Eliminar = new JButton("Eliminar");
-		GridBagConstraints gbc_Eliminar = new GridBagConstraints();
-		gbc_Eliminar.fill = GridBagConstraints.HORIZONTAL;
-		gbc_Eliminar.insets = new Insets(0, 0, 5, 5);
-		gbc_Eliminar.gridx = 5;
-		gbc_Eliminar.gridy = 3;
-		this.add(Eliminar, gbc_Eliminar);
+		Botón_Eliminar = new JButton("Eliminar");
+		GridBagConstraints gbc_Botón_Eliminar = new GridBagConstraints();
+		gbc_Botón_Eliminar.fill = GridBagConstraints.HORIZONTAL;
+		gbc_Botón_Eliminar.insets = new Insets(0, 0, 5, 5);
+		gbc_Botón_Eliminar.gridx = 5;
+		gbc_Botón_Eliminar.gridy = 3;
+		this.add(Botón_Eliminar, gbc_Botón_Eliminar);
 
 		table = new JTable();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -162,13 +162,13 @@ public class PanelGestion extends JPanel {
 		gbc_Choose_next.gridy = 0;
 		Panel_Reproducción.add(Choose_next, gbc_Choose_next);
 
-		Eliminar_Canción = new JButton("Eliminar Canción");
-		GridBagConstraints gbc_Eliminar_Canción = new GridBagConstraints();
-		gbc_Eliminar_Canción.fill = GridBagConstraints.HORIZONTAL;
-		gbc_Eliminar_Canción.insets = new Insets(0, 0, 5, 5);
-		gbc_Eliminar_Canción.gridx = 5;
-		gbc_Eliminar_Canción.gridy = 7;
-		this.add(Eliminar_Canción, gbc_Eliminar_Canción);
+		Botón_Eliminar_Canción = new JButton("Eliminar Canción");
+		GridBagConstraints gbc_Botón_Eliminar_Canción = new GridBagConstraints();
+		gbc_Botón_Eliminar_Canción.fill = GridBagConstraints.HORIZONTAL;
+		gbc_Botón_Eliminar_Canción.insets = new Insets(0, 0, 5, 5);
+		gbc_Botón_Eliminar_Canción.gridx = 5;
+		gbc_Botón_Eliminar_Canción.gridy = 7;
+		this.add(Botón_Eliminar_Canción, gbc_Botón_Eliminar_Canción);
 
 		this.setVisible(true);
 
