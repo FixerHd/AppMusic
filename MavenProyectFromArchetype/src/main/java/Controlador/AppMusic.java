@@ -129,8 +129,7 @@ public class AppMusic {
 	}
 
 	public boolean verficarUsuario(String usuario, String contraseña) {
-		// TODO Auto-generated method stub
-		return false;
+		return catalogoUsuarios.exists(usuario, contraseña);
 	}
 
 	public boolean verficarUsuarioGit(String usuario, String contraseña) {
@@ -139,8 +138,7 @@ public class AppMusic {
 	}
 
 	public boolean registrarUsuario(String usuario, String email, String contraseña, String fecha) {
-		// TODO Auto-generated method stub
-		return false;
+		return catalogoUsuarios.addUsuario(usuario, email, contraseña, fecha);
 	}
 
 }
