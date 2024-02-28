@@ -148,6 +148,7 @@ public class AppMusic {
 		if (usuario.compareTo("a") == 0) {
 			resultado = Constantes.OKAY;
 		}
+		catalogoUsuarios.addUsuario(usuario, email, contraseña, fecha);
 		// TODO Auto-generated method stub
 		return resultado;
 	}
@@ -163,5 +164,7 @@ public class AppMusic {
 		// TODO Auto-generated method stub
 		return nuevaTabla;
 	}
+
+	
 
 }
