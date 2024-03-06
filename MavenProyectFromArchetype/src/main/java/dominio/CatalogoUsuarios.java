@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import Controlador.AppMusic;
 import persistencia.DAOException;
 import persistencia.FactoriaDAO;
 import persistencia.IAdaptadorUsuarioDAO;
@@ -85,7 +86,7 @@ public class CatalogoUsuarios {
 
 	public boolean addUsuario(String usuario, String email, String contraseña, String fecha) {
 		Usuario cli = new Usuario(usuario, email, contraseña, fecha);
-		addUsuario(cli);
+		AppMusic.getUnicaInstancia().registrarUsuario(cli);
 		return cli != null;
 	}
 	
