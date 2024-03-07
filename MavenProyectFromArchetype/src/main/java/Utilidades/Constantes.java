@@ -20,6 +20,9 @@ public class Constantes {
 	public static final String ERROR_REGISTRO_CAMPOS_MENSAJE = "Hay campos por rellenar";
 	public static final String ERROR_REGISTRO_CORREO_MENSAJE = "El correo ya está asociado a un usuario";
 	public static final String ERROR_REGISTRO_FECHA_MENSAJE = "La fecha de nacimiento es incorrecta";
+	public static final String ERROR_BUSQUEDA_TITULO_MENSAJE = "Se debe añadir un título para crear una playlist";
+	public static final String ERROR_TABLA_VACIA_MENSAJE = "Ha ocurrido algún problema rellenando la tabla";
+	public static final String ERROR_LISTA_VACIA_MENSAJE = "Ha ocurrido algún problema rellenando la lista";
 	
 	// JOptionPane.showMessageDialog(...);
 }

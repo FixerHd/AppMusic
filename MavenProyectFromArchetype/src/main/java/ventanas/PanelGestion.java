@@ -16,13 +16,15 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import Controlador.AppMusic;
+import Utilidades.Constantes;
+
 import java.awt.BorderLayout;
 
 public class PanelGestion extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JButton Botón_Crear;
-	private JCheckBox Botón_Favoritas;
+	private JButton Botón_Seleccionar;
 	private JButton Botón_Eliminar;
 	private JTable table;
 	private JButton Botón_Eliminar_Canción;
@@ -32,75 +34,80 @@ public class PanelGestion extends JPanel {
 	private JLabel Restart;
 	private JLabel Play_Stop;
 	private JLabel Choose_next;
+	private JCheckBox Botón_Favoritas;
+	private JButton Botón_Crear;
 
 	public PanelGestion() {
 		super();
 
 		this.setBorder(new TitledBorder(null, "Gesti\u00F3n", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout gbl_panel_3 = new GridBagLayout();
-		gbl_panel_3.columnWidths = new int[] { 30, 15, 178, 0, 10, 70, 30, 0 };
+		gbl_panel_3.columnWidths = new int[] { 30, 70, 10, 10, 70, 0, 10, 70, 30, 0 };
 		gbl_panel_3.rowHeights = new int[] { 10, 0, 10, 0, 10, 0, 10, 0, 10, 0 };
-		gbl_panel_3.columnWeights = new double[] { 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_panel_3.columnWeights = new double[] { 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		gbl_panel_3.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		this.setLayout(gbl_panel_3);
 
 		JTextField Texto_Título = new HintTextField("Nombre completo");
 		Texto_Título.setText("Título");
 		GridBagConstraints gbc_Texto_Título = new GridBagConstraints();
-		gbc_Texto_Título.gridwidth = 3;
+		gbc_Texto_Título.gridwidth = 5;
 		gbc_Texto_Título.insets = new Insets(0, 0, 5, 5);
 		gbc_Texto_Título.fill = GridBagConstraints.HORIZONTAL;
 		gbc_Texto_Título.gridx = 1;
 		gbc_Texto_Título.gridy = 1;
 		this.add(Texto_Título, gbc_Texto_Título);
 		Texto_Título.setColumns(10);
-
+		
+				Botón_Seleccionar = new JButton("Seleccionar");
+				Botón_Seleccionar.setToolTipText("Al presionar este botón, se selecciona la playlist escrita en \"titulo\" para mostrarla en la tabla. En caso de que no exista saltará una ventana de selección");
+				GridBagConstraints gbc_Botón_Seleccionar = new GridBagConstraints();
+				gbc_Botón_Seleccionar.gridwidth = 2;
+				gbc_Botón_Seleccionar.fill = GridBagConstraints.HORIZONTAL;
+				gbc_Botón_Seleccionar.insets = new Insets(0, 0, 5, 5);
+				gbc_Botón_Seleccionar.gridx = 1;
+				gbc_Botón_Seleccionar.gridy = 3;
+				Botón_Seleccionar.addActionListener(ev -> {
+					if (!Texto_Título.getText().isEmpty()) {
+						
+					} else {
+						AppMusic.getUnicaInstancia().showPopup(this, Constantes.ERROR_BUSQUEDA_TITULO_MENSAJE);
+					}
+				});
+				
+				Botón_Favoritas = new JCheckBox("Favoritas");
+				GridBagConstraints gbc_Botón_Favoritas = new GridBagConstraints();
+				gbc_Botón_Favoritas.anchor = GridBagConstraints.WEST;
+				gbc_Botón_Favoritas.insets = new Insets(0, 0, 5, 5);
+				gbc_Botón_Favoritas.gridx = 7;
+				gbc_Botón_Favoritas.gridy = 1;
+				add(Botón_Favoritas, gbc_Botón_Favoritas);
+				this.add(Botón_Seleccionar, gbc_Botón_Seleccionar);
+		
 		Botón_Crear = new JButton("Crear");
+		Botón_Crear.setToolTipText("Si no existe una playlist con el nombre escrito en \"titulo\", pulsando este botón se crea");
 		GridBagConstraints gbc_Botón_Crear = new GridBagConstraints();
+		gbc_Botón_Crear.gridwidth = 2;
 		gbc_Botón_Crear.fill = GridBagConstraints.HORIZONTAL;
 		gbc_Botón_Crear.insets = new Insets(0, 0, 5, 5);
-		gbc_Botón_Crear.gridx = 5;
-		gbc_Botón_Crear.gridy = 1;
-		this.add(Botón_Crear, gbc_Botón_Crear);
-
-		Botón_Favoritas = new JCheckBox("Favoritas");
-		GridBagConstraints gbc_Botón_Favoritas = new GridBagConstraints();
-		gbc_Botón_Favoritas.fill = GridBagConstraints.VERTICAL;
-		gbc_Botón_Favoritas.anchor = GridBagConstraints.WEST;
-		gbc_Botón_Favoritas.gridwidth = 3;
-		gbc_Botón_Favoritas.insets = new Insets(0, 0, 5, 5);
-		gbc_Botón_Favoritas.gridx = 1;
-		gbc_Botón_Favoritas.gridy = 3;
-		this.add(Botón_Favoritas, gbc_Botón_Favoritas);
+		gbc_Botón_Crear.gridx = 4;
+		gbc_Botón_Crear.gridy = 3;
+		add(Botón_Crear, gbc_Botón_Crear);
 
 		Botón_Eliminar = new JButton("Eliminar");
+		Botón_Eliminar.setToolTipText("Al pulsar este botón se elimina la playlist escrita en \"titulo\". En caso de que no exista, saltará una ventana de selección");
 		GridBagConstraints gbc_Botón_Eliminar = new GridBagConstraints();
 		gbc_Botón_Eliminar.fill = GridBagConstraints.HORIZONTAL;
 		gbc_Botón_Eliminar.insets = new Insets(0, 0, 5, 5);
-		gbc_Botón_Eliminar.gridx = 5;
+		gbc_Botón_Eliminar.gridx = 7;
 		gbc_Botón_Eliminar.gridy = 3;
 		this.add(Botón_Eliminar, gbc_Botón_Eliminar);
 
-		table = new JTable();
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.setModel(new DefaultTableModel(new Object[][] { { null, null, null, null }, },
-				new String[] { "Titulo", "Interprete", "Estilo", "" }) {
-			Class[] columnTypes = new Class[] { Object.class, Object.class, Object.class, Boolean.class };
-
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-
-			boolean[] columnEditables = new boolean[] { false, false, false, true };
-
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
+		table = new AppTabla();
 		JScrollPane scrollPane = new JScrollPane(table);
 		
 		GridBagConstraints gbc_table = new GridBagConstraints();
-		gbc_table.gridwidth = 5;
+		gbc_table.gridwidth = 7;
 		gbc_table.insets = new Insets(0, 0, 5, 5);
 		gbc_table.fill = GridBagConstraints.BOTH;
 		gbc_table.gridx = 1;
@@ -109,9 +116,10 @@ public class PanelGestion extends JPanel {
 
 		panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.gridwidth = 2;
+		gbc_panel.fill = GridBagConstraints.HORIZONTAL;
+		gbc_panel.gridwidth = 5;
 		gbc_panel.insets = new Insets(0, 0, 5, 5);
-		gbc_panel.gridx = 2;
+		gbc_panel.gridx = 1;
 		gbc_panel.gridy = 7;
 		add(panel, gbc_panel);
 		panel.setLayout(new BorderLayout(0, 0));
@@ -163,15 +171,15 @@ public class PanelGestion extends JPanel {
 		Panel_Reproducción.add(Choose_next, gbc_Choose_next);
 
 		Botón_Eliminar_Canción = new JButton("Eliminar Canción");
+		Botón_Eliminar_Canción.setToolTipText("Al presionar este botón se eliminar la canción seleccionada en la tabla");
 		GridBagConstraints gbc_Botón_Eliminar_Canción = new GridBagConstraints();
 		gbc_Botón_Eliminar_Canción.fill = GridBagConstraints.HORIZONTAL;
 		gbc_Botón_Eliminar_Canción.insets = new Insets(0, 0, 5, 5);
-		gbc_Botón_Eliminar_Canción.gridx = 5;
+		gbc_Botón_Eliminar_Canción.gridx = 7;
 		gbc_Botón_Eliminar_Canción.gridy = 7;
 		this.add(Botón_Eliminar_Canción, gbc_Botón_Eliminar_Canción);
 
 		this.setVisible(true);
 
 	}
-
 }

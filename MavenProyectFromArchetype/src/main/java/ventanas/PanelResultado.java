@@ -18,6 +18,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import Controlador.AppMusic;
+import dominio.DatosTabla;
 
 import java.awt.BorderLayout;
 import javax.swing.border.LineBorder;
@@ -48,22 +49,7 @@ public class PanelResultado extends JPanel {
 		gbl_panel_3.rowWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		this.setLayout(gbl_panel_3);
 
-		table = new JTable();
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.setModel(new DefaultTableModel(new Object[][] { { null, null, null, null }, },
-				new String[] { "Titulo", "Interprete", "Estilo", "" }) {
-			Class[] columnTypes = new Class[] { Object.class, Object.class, Object.class, Boolean.class };
-
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-
-			boolean[] columnEditables = new boolean[] { false, false, false, true };
-
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
+		table = new AppTabla();
 		scrollPane = new JScrollPane(table);
 		
 		GridBagConstraints gbc_table = new GridBagConstraints();
@@ -145,8 +131,8 @@ public class PanelResultado extends JPanel {
 		return table;
 	}
 	
-	public void setTable(JTable table) {
-		this.table = table;
+	public void setTable(DatosTabla datos) {
+		table = new AppTabla(datos);
 		this.remove(scrollPane);
 		scrollPane = new JScrollPane(table);
 		GridBagConstraints gbc_table = new GridBagConstraints();

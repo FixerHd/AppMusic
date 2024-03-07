@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.ListModel;
 import javax.swing.UIManager;
 
 import Utilidades.Constantes;
@@ -14,6 +16,8 @@ import dominio.Cancion;
 import dominio.Playlist;
 import dominio.CatalogoCanciones;
 import dominio.CatalogoUsuarios;
+import dominio.DatosLista;
+import dominio.DatosTabla;
 import dominio.Usuario;
 import persistencia.DAOException;
 import persistencia.FactoriaDAO;
@@ -157,12 +161,46 @@ public class AppMusic {
 		JOptionPane.showMessageDialog(container, mensaje, Constantes.NOMBRE_APLICACION, JOptionPane.INFORMATION_MESSAGE, null);
 	}
 
-	public JTable buscarCanciones(String interprete, String titulo, Object estilo, boolean favoritas, JTable tabla) {
-		// La idea es devolver el JTable con todos los datos ya metidos
-		// Ahora si, los datos los tienes que recopilar individualemente e insertalos en la tabla aqui, en el controlador
-		JTable nuevaTabla = tabla;
+	public DatosTabla buscarCanciones(String interprete, String titulo, Object estilo, boolean favoritas) {
+		// La idea es devolver los datos dentro de la estructura de datos
+		DatosTabla nuevos_datos = new DatosTabla();
+		nuevos_datos.getTitulos().add("fart");
+		nuevos_datos.getInterpretes().add("Visen");
+		nuevos_datos.getEstilos().add("fart2");
+		nuevos_datos.getFavoritas().add(false);
 		// TODO Auto-generated method stub
-		return nuevaTabla;
+		return nuevos_datos;
+	}
+
+	public DatosTabla buscarTendencias() {
+		// La idea es devolver los datos dentro de la estructura de datos
+		DatosTabla nuevos_datos = new DatosTabla();
+		nuevos_datos.getTitulos().add("fart");
+		nuevos_datos.getInterpretes().add("Visen");
+		nuevos_datos.getEstilos().add("fart2");
+		nuevos_datos.getFavoritas().add(false);
+		// TODO Auto-generated method stub
+		return nuevos_datos;
+	}
+
+	public DatosTabla buscarRecientes() {
+		// La idea es devolver los datos dentro de la estructura de datos
+		DatosTabla nuevos_datos = new DatosTabla();
+		nuevos_datos.getTitulos().add("fart");
+		nuevos_datos.getInterpretes().add("Visen");
+		nuevos_datos.getEstilos().add("fart2");
+		nuevos_datos.getFavoritas().add(false);
+		// TODO Auto-generated method stub
+		return nuevos_datos;
+	}
+
+	public DatosLista getMisPlaylists() {
+		// La idea es devolver los nombres y los identificadores
+		DatosLista nuevos_datos = new DatosLista();
+		nuevos_datos.getNombres().add("farts");
+		nuevos_datos.getIdentificadores().add("Visen");
+		// TODO Auto-generated method stub
+		return nuevos_datos;
 	}
 
 	

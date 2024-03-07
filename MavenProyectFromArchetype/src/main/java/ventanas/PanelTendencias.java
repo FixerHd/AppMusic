@@ -25,7 +25,7 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.border.EtchedBorder;
 
-public class PanelRecientes extends JPanel {
+public class PanelTendencias extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JTable table;
@@ -37,7 +37,7 @@ public class PanelRecientes extends JPanel {
 	private JLabel Choose_next;
 	private JScrollPane scrollPane;
 
-	public PanelRecientes() {
+	public PanelTendencias() {
 		super();
 
 		this.setBorder(new TitledBorder(null, "Recientes", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -79,7 +79,7 @@ public class PanelRecientes extends JPanel {
 		Panel_Reproducción.setLayout(gbl_Panel_Reproducción);
 
 		Choose_previous = new JLabel("");
-		Choose_previous.setIcon(new ImageIcon(PanelRecientes.class.getResource("/recursos/anterior.png")));
+		Choose_previous.setIcon(new ImageIcon(PanelTendencias.class.getResource("/recursos/anterior.png")));
 		GridBagConstraints gbc_Choose_previous = new GridBagConstraints();
 		gbc_Choose_previous.anchor = GridBagConstraints.NORTHWEST;
 		gbc_Choose_previous.insets = new Insets(0, 0, 0, 5);
@@ -89,7 +89,7 @@ public class PanelRecientes extends JPanel {
 
 		Restart = new JLabel("");
 		Restart.setIcon(
-				new ImageIcon(PanelRecientes.class.getResource("/recursos/forma-cuadrada-negra-redondeada.png")));
+				new ImageIcon(PanelTendencias.class.getResource("/recursos/forma-cuadrada-negra-redondeada.png")));
 		GridBagConstraints gbc_Restart = new GridBagConstraints();
 		gbc_Restart.anchor = GridBagConstraints.NORTHWEST;
 		gbc_Restart.insets = new Insets(0, 0, 0, 5);
@@ -98,7 +98,7 @@ public class PanelRecientes extends JPanel {
 		Panel_Reproducción.add(Restart, gbc_Restart);
 
 		Play_Stop = new JLabel("");
-		Play_Stop.setIcon(new ImageIcon(PanelRecientes.class.getResource("/recursos/jugar.png")));
+		Play_Stop.setIcon(new ImageIcon(PanelTendencias.class.getResource("/recursos/jugar.png")));
 		GridBagConstraints gbc_Play_Stop = new GridBagConstraints();
 		gbc_Play_Stop.anchor = GridBagConstraints.NORTHWEST;
 		gbc_Play_Stop.insets = new Insets(0, 0, 0, 5);
@@ -107,7 +107,7 @@ public class PanelRecientes extends JPanel {
 		Panel_Reproducción.add(Play_Stop, gbc_Play_Stop);
 
 		Choose_next = new JLabel("");
-		Choose_next.setIcon(new ImageIcon(PanelRecientes.class.getResource("/recursos/proximo.png")));
+		Choose_next.setIcon(new ImageIcon(PanelTendencias.class.getResource("/recursos/proximo.png")));
 		GridBagConstraints gbc_Choose_next = new GridBagConstraints();
 		gbc_Choose_next.anchor = GridBagConstraints.NORTHWEST;
 		gbc_Choose_next.insets = new Insets(0, 0, 0, 5);
@@ -124,11 +124,7 @@ public class PanelRecientes extends JPanel {
 	}
 	
 	public void setTable(DatosTabla datos) {
-		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		for (int i = 0; i < datos.getTitulos().size(); i++) {
-			model.addRow(new Object[]{datos.getTitulos().get(i),datos.getInterpretes().get(i),datos.getEstilos().get(i),datos.getFavoritas().get(i)});
-		}
-		this.table.setModel(model);
+		table = new AppTabla(datos);
 		this.remove(scrollPane);
 		scrollPane = new JScrollPane(table);
 		GridBagConstraints gbc_table = new GridBagConstraints();

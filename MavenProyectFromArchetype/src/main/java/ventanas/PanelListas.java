@@ -8,8 +8,11 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
 import java.awt.BorderLayout;
+import java.util.List;
+
 import javax.swing.JList;
 import javax.swing.AbstractListModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
@@ -17,6 +20,7 @@ public class PanelListas extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JTable table;
+	private JList<String> lista;
 
 	/**
 	 * Create the panel.
@@ -29,12 +33,12 @@ public class PanelListas extends JPanel {
 		splitPane.setOneTouchExpandable(true);
 		add(splitPane);
 		
-		JList list = new JList();
-		list.setValueIsAdjusting(true);
-		list.setVisibleRowCount(4);
-		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		list.setModel(new AbstractListModel() {
-			String[] values = new String[] {"Lista_1", "Lista_2", "Lista_3", "Lista_4", "Lista_5", "Lista_6", "Lista_7", "Lista_8", "Lista_9", "Lista_10"};
+		lista = new JList<String>();
+		lista.setValueIsAdjusting(true);
+		lista.setVisibleRowCount(4);
+		lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		lista.setModel(new AbstractListModel() {
+			String[] values = new String[] {};
 			public int getSize() {
 				return values.length;
 			}
@@ -43,7 +47,7 @@ public class PanelListas extends JPanel {
 			}
 		});
 		
-		JScrollPane leftScrollPane = new JScrollPane(list);
+		JScrollPane leftScrollPane = new JScrollPane(lista);
 		splitPane.setLeftComponent(leftScrollPane);
 		
 		table = new JTable();
@@ -65,6 +69,18 @@ public class PanelListas extends JPanel {
 		JScrollPane rightScrollPane = new JScrollPane(table);
 		splitPane.setRightComponent(rightScrollPane);
 
+	}
+	
+	public JList<String> getLista() {
+		return lista;
+	}
+	
+	public void setLista(List<String> new_values) {
+		DefaultListModel<String> model = new DefaultListModel<String>();
+		for (String s : new_values) {
+			model.addElement(s);
+		}
+		this.lista.setModel(model);
 	}
 
 }

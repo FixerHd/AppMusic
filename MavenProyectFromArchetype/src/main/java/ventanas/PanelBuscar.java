@@ -15,6 +15,8 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import Controlador.AppMusic;
+import Utilidades.Constantes;
+import dominio.DatosTabla;
 
 public class PanelBuscar extends JPanel{
 	
@@ -82,8 +84,8 @@ public class PanelBuscar extends JPanel{
 		gbc_Botón_Buscar.gridx = 5;
 		gbc_Botón_Buscar.gridy = 3;
 		Botón_Buscar.addActionListener(ev-> {
-			JTable table = AppMusic.getUnicaInstancia().buscarCanciones(Texto_Interprete.getText(), Texto_Titulo.getText(), Estilo.getSelectedItem(), Botón_Favoritas.isSelected(), panelResultado.getTable());
-			if (table != null) {
+			DatosTabla datos = AppMusic.getUnicaInstancia().buscarCanciones(Texto_Interprete.getText(), Texto_Titulo.getText(), Estilo.getSelectedItem(), Botón_Favoritas.isSelected());
+			if (datos != null) {
 				gbl_panelBuscar.columnWidths = new int[]{20, 10, 198, 0, 30, 50, 10, 20, 0};
 				gbl_panelBuscar.rowHeights = new int[]{10, 20, 10, 20, 10, 20, 10, 0, 10, 0};
 				gbl_panelBuscar.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
@@ -93,13 +95,13 @@ public class PanelBuscar extends JPanel{
 				gbc_panelResultado.gridx = 1;
 				gbc_panelResultado.gridy = 7;
 				gbc_panelResultado.gridwidth = 6;
-				panelResultado.setTable(table);
+				panelResultado.setTable(datos);
 				this.setLayout(gbl_panelBuscar);
 				this.add(panelResultado, gbc_panelResultado);
 				this.revalidate();
 				this.repaint();
 			} else {
-				
+				AppMusic.getUnicaInstancia().showPopup(Principal.getInstancia(), Constantes.ERROR_TABLA_VACIA_MENSAJE);
 			}
 		});
 		this.add(Botón_Buscar, gbc_Botón_Buscar);
