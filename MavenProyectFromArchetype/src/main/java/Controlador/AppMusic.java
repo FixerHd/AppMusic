@@ -148,10 +148,7 @@ public class AppMusic {
 
 	public int registrarUsuario(String usuario, String email, String contraseña, String fecha, String nombre_completo) {
 		// Prueba tonta, comprobar las constantes en "ventanas.Constantes"
-		int resultado = Constantes.ERROR_REGISTRO_CAMPOS;
-		if (usuario.compareTo("a") == 0) {
-			resultado = Constantes.OKAY;
-		}
+		int resultado = Constantes.OKAY;
 		catalogoUsuarios.addUsuario(usuario, email, contraseña, fecha);
 		// TODO Auto-generated method stub
 		return resultado;
