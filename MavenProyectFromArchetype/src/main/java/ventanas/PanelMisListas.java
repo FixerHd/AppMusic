@@ -4,11 +4,14 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.LayoutManager;
+import java.util.List;
 
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -25,48 +28,45 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.border.EtchedBorder;
 
-public class PanelTendencias extends JPanel {
+public class PanelMisListas extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JTable table;
 	private JPanel panel;
 	private JPanel Panel_Reproducción;
 	private JLabel Choose_previous;
 	private JLabel Restart;
 	private JLabel Play_Stop;
 	private JLabel Choose_next;
-	private JScrollPane scrollPane;
+	private PanelListas panelListas;
 
-	public PanelTendencias() {
+	public PanelMisListas() {
 		super();
 
-		this.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Tendencias", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		this.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "MisPlaylists", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		GridBagLayout gbl_panel_3 = new GridBagLayout();
-		gbl_panel_3.columnWidths = new int[] { 10, 0, 278, 0, 10, 0 };
+		gbl_panel_3.columnWidths = new int[] { 10, 278, 0, 10, 0 };
 		gbl_panel_3.rowHeights = new int[] { 10, 0, 10, 0, 10, 0 };
-		gbl_panel_3.columnWeights = new double[] { 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE };
+		gbl_panel_3.columnWeights = new double[] { 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE };
 		gbl_panel_3.rowWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		this.setLayout(gbl_panel_3);
-
-		table = new AppTabla();
-		scrollPane = new JScrollPane(table);
-		
-		GridBagConstraints gbc_table = new GridBagConstraints();
-		gbc_table.gridwidth = 3;
-		gbc_table.insets = new Insets(0, 0, 5, 5);
-		gbc_table.fill = GridBagConstraints.BOTH;
-		gbc_table.gridx = 1;
-		gbc_table.gridy = 1;
-		this.add(scrollPane, gbc_table);
 
 		panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.gridwidth = 2;
 		gbc_panel.insets = new Insets(0, 0, 5, 5);
-		gbc_panel.gridx = 2;
+		gbc_panel.gridx = 1;
 		gbc_panel.gridy = 3;
 		add(panel, gbc_panel);
 		panel.setLayout(new BorderLayout(0, 0));
+		
+		panelListas = new PanelListas();
+		GridBagConstraints gbc_listas = new GridBagConstraints();
+		gbc_listas.gridwidth = 2;
+		gbc_listas.fill = GridBagConstraints.BOTH;
+		gbc_listas.insets = new Insets(0, 0, 5, 5);
+		gbc_listas.gridx = 1;
+		gbc_listas.gridy = 1;
+		add(panelListas, gbc_listas);
 
 		Panel_Reproducción = new JPanel();
 		panel.add(Panel_Reproducción, BorderLayout.NORTH);
@@ -79,7 +79,7 @@ public class PanelTendencias extends JPanel {
 		Panel_Reproducción.setLayout(gbl_Panel_Reproducción);
 
 		Choose_previous = new JLabel("");
-		Choose_previous.setIcon(new ImageIcon(PanelTendencias.class.getResource("/recursos/anterior.png")));
+		Choose_previous.setIcon(new ImageIcon(PanelMisListas.class.getResource("/recursos/anterior.png")));
 		GridBagConstraints gbc_Choose_previous = new GridBagConstraints();
 		gbc_Choose_previous.anchor = GridBagConstraints.NORTHWEST;
 		gbc_Choose_previous.insets = new Insets(0, 0, 0, 5);
@@ -89,7 +89,7 @@ public class PanelTendencias extends JPanel {
 
 		Restart = new JLabel("");
 		Restart.setIcon(
-				new ImageIcon(PanelTendencias.class.getResource("/recursos/forma-cuadrada-negra-redondeada.png")));
+				new ImageIcon(PanelMisListas.class.getResource("/recursos/forma-cuadrada-negra-redondeada.png")));
 		GridBagConstraints gbc_Restart = new GridBagConstraints();
 		gbc_Restart.anchor = GridBagConstraints.NORTHWEST;
 		gbc_Restart.insets = new Insets(0, 0, 0, 5);
@@ -98,7 +98,7 @@ public class PanelTendencias extends JPanel {
 		Panel_Reproducción.add(Restart, gbc_Restart);
 
 		Play_Stop = new JLabel("");
-		Play_Stop.setIcon(new ImageIcon(PanelTendencias.class.getResource("/recursos/jugar.png")));
+		Play_Stop.setIcon(new ImageIcon(PanelMisListas.class.getResource("/recursos/jugar.png")));
 		GridBagConstraints gbc_Play_Stop = new GridBagConstraints();
 		gbc_Play_Stop.anchor = GridBagConstraints.NORTHWEST;
 		gbc_Play_Stop.insets = new Insets(0, 0, 0, 5);
@@ -107,7 +107,7 @@ public class PanelTendencias extends JPanel {
 		Panel_Reproducción.add(Play_Stop, gbc_Play_Stop);
 
 		Choose_next = new JLabel("");
-		Choose_next.setIcon(new ImageIcon(PanelTendencias.class.getResource("/recursos/proximo.png")));
+		Choose_next.setIcon(new ImageIcon(PanelMisListas.class.getResource("/recursos/proximo.png")));
 		GridBagConstraints gbc_Choose_next = new GridBagConstraints();
 		gbc_Choose_next.anchor = GridBagConstraints.NORTHWEST;
 		gbc_Choose_next.insets = new Insets(0, 0, 0, 5);
@@ -119,21 +119,20 @@ public class PanelTendencias extends JPanel {
 
 	}
 	
+	public JList<String> getLista() {
+		return panelListas.getLista();
+	}
+	
+	public void setLista(List<String> new_values) {
+		panelListas.setLista(new_values);
+	}
+	
 	public JTable getTable() {
-		return table;
+		return panelListas.getTable();
 	}
 	
 	public void setTable(DatosTabla datos) {
-		table = new AppTabla(datos);
-		this.remove(scrollPane);
-		scrollPane = new JScrollPane(table);
-		GridBagConstraints gbc_table = new GridBagConstraints();
-		gbc_table.gridwidth = 3;
-		gbc_table.insets = new Insets(0, 0, 5, 5);
-		gbc_table.fill = GridBagConstraints.BOTH;
-		gbc_table.gridx = 1;
-		gbc_table.gridy = 1;
-		this.add(scrollPane, gbc_table);
+		panelListas.setTable(datos);
 	}
 
 }

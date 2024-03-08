@@ -3,11 +3,16 @@ package ventanas;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+
+import dominio.DatosTabla;
+
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
 import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 import java.util.List;
 
 import javax.swing.JList;
@@ -21,12 +26,14 @@ public class PanelListas extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTable table;
 	private JList<String> lista;
+	private JScrollPane leftScrollPane;
+	private JScrollPane rightScrollPane;
 
 	/**
 	 * Create the panel.
 	 */
 	public PanelListas() {
-		setBorder(new TitledBorder(null, "Listas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		setBorder(null);
 		setLayout(new BorderLayout(0, 0));
 		
 		JSplitPane splitPane = new JSplitPane();
@@ -47,7 +54,7 @@ public class PanelListas extends JPanel {
 			}
 		});
 		
-		JScrollPane leftScrollPane = new JScrollPane(lista);
+		leftScrollPane = new JScrollPane(lista);
 		splitPane.setLeftComponent(leftScrollPane);
 		
 		table = new JTable();
@@ -66,7 +73,7 @@ public class PanelListas extends JPanel {
 				return columnEditables[column];
 			}
 		});
-		JScrollPane rightScrollPane = new JScrollPane(table);
+		rightScrollPane = new JScrollPane(table);
 		splitPane.setRightComponent(rightScrollPane);
 
 	}
@@ -81,6 +88,17 @@ public class PanelListas extends JPanel {
 			model.addElement(s);
 		}
 		this.lista.setModel(model);
+	}
+	
+	public JTable getTable() {
+		return table;
+	}
+	
+	public void setTable(DatosTabla datos) {
+		table = new AppTabla(datos);
+		remove(rightScrollPane);
+		rightScrollPane = new JScrollPane(table);
+		add(rightScrollPane);
 	}
 
 }

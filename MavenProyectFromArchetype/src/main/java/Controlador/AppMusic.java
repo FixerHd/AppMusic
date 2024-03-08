@@ -70,10 +70,10 @@ public class AppMusic {
 		// Si el estilo eslegido es el acutal, no hacer nada
 		if (estilo.equals(AppMusic.estilo)) {
 		} else {
-			
+
 			// Se elimina la instancia de la ventana Principal
 			ventanas.Principal.getInstancia().removeInstancia();
-			
+
 			// Se filtran los estilos manualmente.
 			if (estilo.equals("Devil")) { // Estilos especiales
 				// TODO
@@ -155,13 +155,14 @@ public class AppMusic {
 	}
 
 	public void showPopup(Container container, String mensaje) {
-		JOptionPane.showMessageDialog(container, mensaje, Constantes.NOMBRE_APLICACION, JOptionPane.INFORMATION_MESSAGE, null);
+		JOptionPane.showMessageDialog(container, mensaje, Constantes.NOMBRE_APLICACION, JOptionPane.INFORMATION_MESSAGE,
+				null);
 	}
 
 	public DatosTabla buscarCanciones(String interprete, String titulo, Object estilo, boolean favoritas) {
 		// La idea es devolver los datos dentro de la estructura de datos
 		DatosTabla nuevos_datos = new DatosTabla();
-		nuevos_datos.getTitulos().add("fart");
+		nuevos_datos.getTitulos().add("fart1");
 		nuevos_datos.getInterpretes().add("Visen");
 		nuevos_datos.getEstilos().add("fart2");
 		nuevos_datos.getFavoritas().add(false);
@@ -172,9 +173,9 @@ public class AppMusic {
 	public DatosTabla buscarTendencias() {
 		// La idea es devolver los datos dentro de la estructura de datos
 		DatosTabla nuevos_datos = new DatosTabla();
-		nuevos_datos.getTitulos().add("fart");
-		nuevos_datos.getInterpretes().add("Visen");
-		nuevos_datos.getEstilos().add("fart2");
+		nuevos_datos.getTitulos().add("fart3");
+		nuevos_datos.getInterpretes().add("Vicento");
+		nuevos_datos.getEstilos().add("fart4");
 		nuevos_datos.getFavoritas().add(false);
 		// TODO Auto-generated method stub
 		return nuevos_datos;
@@ -183,15 +184,15 @@ public class AppMusic {
 	public DatosTabla buscarRecientes() {
 		// La idea es devolver los datos dentro de la estructura de datos
 		DatosTabla nuevos_datos = new DatosTabla();
-		nuevos_datos.getTitulos().add("fart");
-		nuevos_datos.getInterpretes().add("Visen");
-		nuevos_datos.getEstilos().add("fart2");
-		nuevos_datos.getFavoritas().add(false);
+		nuevos_datos.getTitulos().add("fart5");
+		nuevos_datos.getInterpretes().add("Valentus");
+		nuevos_datos.getEstilos().add("fart6");
+		nuevos_datos.getFavoritas().add(true);
 		// TODO Auto-generated method stub
 		return nuevos_datos;
 	}
 
-	public DatosLista getMisPlaylists() {
+	public DatosLista getMisPlaylists(boolean favoritas) {
 		// La idea es devolver los nombres y los identificadores
 		DatosLista nuevos_datos = new DatosLista();
 		nuevos_datos.getNombres().add("farts");
@@ -200,6 +201,56 @@ public class AppMusic {
 		return nuevos_datos;
 	}
 
-	
+	public DatosTabla getPlaylist(String selectedValue) {
+		// La idea es devolver los datos dentro de la estructura de datos
+		DatosTabla nuevos_datos = new DatosTabla();
+		nuevos_datos.getTitulos().add("fart7");
+		nuevos_datos.getInterpretes().add("VicenVives");
+		nuevos_datos.getEstilos().add("fart8");
+		nuevos_datos.getFavoritas().add(false);
+		// TODO Auto-generated method stub
+		return nuevos_datos;
+	}
 
+	public boolean crearPDF() {
+		// Se quiere crear un documento PDF 
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean existePlaylist(String playlist) {
+		// El objetivo es buscar si el usuario activo tiene la playlist pasada por
+		// parametro
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean añadirPlaylist(String titulo) {
+		// Se quiere crea una nueva playlist con el titulo recivido en la lista de
+		// playlists del usuario activo
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean eliminarPlaylist(String titulo) {
+		// Se quiere eliminar la playlist con el titulo recivido de la lista de
+		// playlists del usuario activo
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean eliminarCancionPlaylist(String titulo, String playlist) {
+		// Se quiere eliminar la cancion con el titulo recivido de la playlist recivida
+		// del usuario activo
+		// TODO Auto-generated method stub
+		return false;
+
+	}
+
+	public boolean actualizarPlaylist(String playlist, DatosTabla datos) {
+		// Se quiere actualizar la playlist del usuario activo recivida con los datos
+		// recividos
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

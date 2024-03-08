@@ -124,11 +124,7 @@ public class PanelRecientes extends JPanel {
 	}
 	
 	public void setTable(DatosTabla datos) {
-		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		for (int i = 0; i < datos.getTitulos().size(); i++) {
-			model.addRow(new Object[]{datos.getTitulos().get(i),datos.getInterpretes().get(i),datos.getEstilos().get(i),datos.getFavoritas().get(i)});
-		}
-		this.table.setModel(model);
+		table = new AppTabla(datos);
 		this.remove(scrollPane);
 		scrollPane = new JScrollPane(table);
 		GridBagConstraints gbc_table = new GridBagConstraints();

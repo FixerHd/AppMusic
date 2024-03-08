@@ -10,8 +10,7 @@ public class Constantes {
 	public static final String[] ESTILOS_OSCUROS = {"Hifi", "Noire", "Devil"};
 	public static final String[] ESTILOS_CLAROS = {"Texture", "Acryl", "Aero", "Mint", "Bernstein", "Fast", "Graphite", "Luna", "McWin", "Smart"};
 
-	public static final int OKAY = -1;
-	public static final int ERROR_INICIO_SESION = 0;
+	public static final int OKAY = 0;
 	public static final int ERROR_REGISTRO_CAMPOS = 1;
 	public static final int ERROR_REGISTRO_CORREO = 2;
 	public static final int ERROR_REGISTRO_FECHA = 3;
@@ -23,6 +22,14 @@ public class Constantes {
 	public static final String ERROR_BUSQUEDA_TITULO_MENSAJE = "Se debe añadir un título para crear una playlist";
 	public static final String ERROR_TABLA_VACIA_MENSAJE = "Ha ocurrido algún problema rellenando la tabla";
 	public static final String ERROR_LISTA_VACIA_MENSAJE = "Ha ocurrido algún problema rellenando la lista";
+	public static final String ERROR_CREAR_PDF_MENSAJE = "Ha ocurrido algún problema al crear el PDF";
+	public static final String ERROR_TITULO_VACIO_MENSAJE = "El campo \"titulo\" está vacio";
+	public static final String ERROR_ELIMINAR_PLAYLIST_MENSAJE = "Ha ocurrido algún problema al eliminar la playlist";
+	public static final String ERROR_CREAR_PLAYLIST_MENSAJE = "Ha ocurrido algún problema al crear la playlist";
+	public static final String ERROR_ACTUALIZAR_PLAYLIST_MENSAJE = "Ha ocurrido algún problema actualizando la playlist";
 	
-	// JOptionPane.showMessageDialog(...);
+	public static final String EXITO_CREAR_PDF_MENSAJE = "El PDF ha sido creado exitosamente";
+	public static final String EXITO_ELIMINAR_PLAYLIST_MENSAJE = "La playlist ha sido eliminada exitosamente";
+	public static final String EXITO_CREAR_PLAYLIST_MENSAJE = "La playlist ha sido creada exitosamente";
+	public static final String EXITO_ACTUALIZAR_PLAYLIST_MENSAJE = "La playlist ha sido actualizada exitosamente";
 }
