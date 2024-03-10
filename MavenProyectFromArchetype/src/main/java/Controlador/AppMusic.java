@@ -3,6 +3,7 @@ package Controlador;
 import java.awt.Container;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -36,6 +37,7 @@ public class AppMusic {
 	private IAdaptadorPlaylistDAO adaptadorPlaylist;
 
 	private static String estilo = Constantes.ESTILO_POR_DEFECTO;
+	public ReentrantLock playLock = new ReentrantLock();
 
 	// vestigio
 	private ArrayList<JFrame> lista_ventanas = new ArrayList<JFrame>();
@@ -48,6 +50,7 @@ public class AppMusic {
 		// Debe ser la primera linea para evitar error de sincronización
 		inicializarAdaptadores();
 		inicializarCatalogos();
+		playLock.unlock();
 	}
 
 	public static AppMusic getUnicaInstancia() {
@@ -55,6 +58,10 @@ public class AppMusic {
 			unicaInstancia = new AppMusic();
 		}
 		return unicaInstancia;
+	}
+	
+	public ReentrantLock getPlayLock() {
+		return playLock;
 	}
 
 	public ArrayList<JFrame> getVentanas() {
@@ -159,7 +166,7 @@ public class AppMusic {
 				null);
 	}
 
-	public DatosTabla buscarCanciones(String interprete, String titulo, Object estilo, boolean favoritas) {
+	public DatosTabla buscarCanciones(String titulo, String interprete, Object estilo, boolean favoritas) {
 		// La idea es devolver los datos dentro de la estructura de datos
 		DatosTabla nuevos_datos = new DatosTabla();
 		nuevos_datos.getTitulos().add("fart1");
@@ -232,7 +239,7 @@ public class AppMusic {
 		return false;
 	}
 
-	public boolean eliminarPlaylist(String titulo) {
+	public boolean eliminarPlaylist(String playlist) {
 		// Se quiere eliminar la playlist con el titulo recivido de la lista de
 		// playlists del usuario activo
 		// TODO Auto-generated method stub
@@ -252,5 +259,10 @@ public class AppMusic {
 		// recividos
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public void añadirCancionPlaylist(String playlist, Object valueAt) {
+		// TODO Auto-generated method stub
+		
 	}
 }

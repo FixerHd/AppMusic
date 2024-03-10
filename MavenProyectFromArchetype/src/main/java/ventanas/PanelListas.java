@@ -75,7 +75,8 @@ public class PanelListas extends JPanel {
 		});
 		rightScrollPane = new JScrollPane(table);
 		splitPane.setRightComponent(rightScrollPane);
-
+		
+		setVisible(true);
 	}
 	
 	public JList<String> getLista() {

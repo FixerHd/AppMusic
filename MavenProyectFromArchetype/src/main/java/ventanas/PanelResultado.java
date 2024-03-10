@@ -4,43 +4,53 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.LayoutManager;
+import java.awt.Toolkit;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.swing.AbstractListModel;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.JToggleButton;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import Controlador.AppMusic;
+import Utilidades.Constantes;
+import dominio.DatosLista;
 import dominio.DatosTabla;
 
 import java.awt.BorderLayout;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 
-public class PanelResultado extends JPanel {
+public class PanelResultado extends JPanel implements PlayObserver {
 
 	private static final long serialVersionUID = 1L;
 	private JTable table;
-	private JButton Eliminar_Canción;
 	private JPanel panel;
 	private JPanel Panel_Reproducción;
-	private JLabel Choose_previous;
-	private JLabel Restart;
 	private JLabel Play_Stop;
-	private JLabel Choose_next;
+	private String playlist = null;
 	private JScrollPane scrollPane;
+	private JToggleButton Boton_Play_Stop;
 
 	public PanelResultado() {
 		super();
-
+		
 		this.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(0, 0, 0)));
 		GridBagLayout gbl_panel_3 = new GridBagLayout();
 		gbl_panel_3.columnWidths = new int[] { 10, 0, 198, 0, 10, 70, 10, 0 };
@@ -79,7 +89,7 @@ public class PanelResultado extends JPanel {
 		gbl_Panel_Reproducción.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
 		Panel_Reproducción.setLayout(gbl_Panel_Reproducción);
 
-		Choose_previous = new JLabel("");
+		JLabel Choose_previous = new JLabel("");
 		Choose_previous.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/anterior.png")));
 		GridBagConstraints gbc_Choose_previous = new GridBagConstraints();
 		gbc_Choose_previous.anchor = GridBagConstraints.NORTHWEST;
@@ -88,7 +98,7 @@ public class PanelResultado extends JPanel {
 		gbc_Choose_previous.gridy = 0;
 		Panel_Reproducción.add(Choose_previous, gbc_Choose_previous);
 
-		Restart = new JLabel("");
+		JLabel Restart = new JLabel("");
 		Restart.setIcon(
 				new ImageIcon(PanelResultado.class.getResource("/recursos/forma-cuadrada-negra-redondeada.png")));
 		GridBagConstraints gbc_Restart = new GridBagConstraints();
@@ -97,7 +107,7 @@ public class PanelResultado extends JPanel {
 		gbc_Restart.gridx = 3;
 		gbc_Restart.gridy = 0;
 		Panel_Reproducción.add(Restart, gbc_Restart);
-
+		
 		Play_Stop = new JLabel("");
 		Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/jugar.png")));
 		GridBagConstraints gbc_Play_Stop = new GridBagConstraints();
@@ -106,8 +116,22 @@ public class PanelResultado extends JPanel {
 		gbc_Play_Stop.gridx = 5;
 		gbc_Play_Stop.gridy = 0;
 		Panel_Reproducción.add(Play_Stop, gbc_Play_Stop);
+		
+		// Añadir boton invisible
+		Boton_Play_Stop = new JToggleButton();
+		Boton_Play_Stop.setEnabled(true);
+		Boton_Play_Stop.setVisible(false);
+		
+		Boton_Play_Stop.addActionListener(ev -> {
+			if (!Boton_Play_Stop.isSelected()) {
+				Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/jugar.png")));
+			} else {
+				Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/pausa.png")));
+			}
+		});
+		Panel_Reproducción.add(Boton_Play_Stop, gbc_Play_Stop);
 
-		Choose_next = new JLabel("");
+		JLabel Choose_next = new JLabel("");
 		Choose_next.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/proximo.png")));
 		GridBagConstraints gbc_Choose_next = new GridBagConstraints();
 		gbc_Choose_next.anchor = GridBagConstraints.NORTHWEST;
@@ -116,15 +140,28 @@ public class PanelResultado extends JPanel {
 		gbc_Choose_next.gridy = 0;
 		Panel_Reproducción.add(Choose_next, gbc_Choose_next);
 
-		Eliminar_Canción = new JButton("Añadir a Lista");
+		JButton Añadir_Canción = new JButton("Añadir a Lista");
 		GridBagConstraints gbc_Eliminar_Canción = new GridBagConstraints();
 		gbc_Eliminar_Canción.fill = GridBagConstraints.HORIZONTAL;
 		gbc_Eliminar_Canción.insets = new Insets(0, 0, 5, 5);
 		gbc_Eliminar_Canción.gridx = 5;
 		gbc_Eliminar_Canción.gridy = 3;
-		this.add(Eliminar_Canción, gbc_Eliminar_Canción);
+		Añadir_Canción.addActionListener(ev -> {
+			VentanaSeleccion selección = new VentanaSeleccion(this);
+			selección.setVisible(true);
+			Principal.getInstancia().setEnabled(false);
+			while(playlist == null) {;}
+			AppMusic.getUnicaInstancia().añadirCancionPlaylist(playlist, table.getValueAt(table.getSelectedRow(),0));
+			Principal.getInstancia().setEnabled(true);
+			playlist = null;
+		});
+		this.add(Añadir_Canción, gbc_Eliminar_Canción);
 
 		this.setVisible(true);
+	}
+	
+	public void setPlaylist(String playlist) {
+		this.playlist = playlist;
 	}
 	
 	public JTable getTable() {
@@ -142,6 +179,12 @@ public class PanelResultado extends JPanel {
 		gbc_table.gridx = 1;
 		gbc_table.gridy = 1;
 		this.add(scrollPane, gbc_table);
+	}
+
+	@Override
+	public void update() {
+		Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/jugar.png")));
+		Boton_Play_Stop.setSelected(false);
 	}
 
 }

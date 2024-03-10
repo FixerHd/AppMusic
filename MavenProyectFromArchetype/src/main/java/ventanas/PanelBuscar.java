@@ -84,7 +84,7 @@ public class PanelBuscar extends JPanel{
 		gbc_Botón_Buscar.gridx = 5;
 		gbc_Botón_Buscar.gridy = 3;
 		Botón_Buscar.addActionListener(ev-> {
-			DatosTabla datos = AppMusic.getUnicaInstancia().buscarCanciones(Texto_Interprete.getText(), Texto_Titulo.getText(), Estilo.getSelectedItem(), Botón_Favoritas.isSelected());
+			DatosTabla datos = AppMusic.getUnicaInstancia().buscarCanciones(Texto_Titulo.getText(), Texto_Interprete.getText(), Estilo.getSelectedItem(), Botón_Favoritas.isSelected());
 			if (datos != null) {
 				gbl_panelBuscar.columnWidths = new int[]{20, 10, 198, 0, 30, 50, 10, 20, 0};
 				gbl_panelBuscar.rowHeights = new int[]{10, 20, 10, 20, 10, 20, 10, 0, 10, 0};
