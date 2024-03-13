@@ -42,7 +42,7 @@ public class AdaptadorCancionTDS implements IAdaptadorCancionDAO {
 		eCancion = new Entidad();
 		eCancion.setNombre("Cancion");
 		eCancion.setPropiedades(new ArrayList<Propiedad>(
-				Arrays.asList(new Propiedad("titulo", Cancion.getTitulo()), new Propiedad("rutaFichero", Cancion.getrutaFichero()), new Propiedad("numReproducciones", String.valueOf(Cancion.getnumReproducciones())), new Propiedad("estilomusical", Cancion.getEstilomusical()), new Propiedad("interprete", Cancion.getInterprete())
+				Arrays.asList(new Propiedad("titulo", Cancion.getTitulo()), new Propiedad("rutaFichero", Cancion.getrutaFichero()), new Propiedad("numReproducciones", String.valueOf(Cancion.getnumReproducciones())), new Propiedad("estilomusical", Cancion.getEstilomusical()), new Propiedad("interprete", Cancion.getInterprete()), new Propiedad("favorita", Cancion.isFavorita().toString())
 						)));
 
 		// registrar entidad Cancion

@@ -7,6 +7,7 @@ public class Cancion {
     private String estilomusical;
     private String interprete;
     private int id;
+	private boolean favorita;
 
     public Cancion(String titulo, String rutaFichero) {
         this.titulo = titulo;
@@ -60,6 +61,10 @@ public class Cancion {
 	public String getEstilomusical() {
 		return estilomusical;
 	}
+
+    public Boolean isFavorita() {
+        return favorita;
+    }
 
  
 }
