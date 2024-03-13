@@ -90,6 +90,7 @@ public class Usuario {
 	
 	public void Registrarse() {
 		AppMusic.getUnicaInstancia().registrarUsuario(this);
+		playlists.add(new Playlist("recientes"));
 	}
 	
 	public void IniciarSesion(){
