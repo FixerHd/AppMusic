@@ -309,6 +309,7 @@ public class AppMusic {
 	public boolean añadirPlaylist(String titulo) {
 		Playlist nuevaPlaylist = new Playlist(titulo);
 		usuarioActivo.addPlaylist(nuevaPlaylist);
+		adaptadorPlaylist.registrarPlaylist(nuevaPlaylist);
 		return true;
 	}
 
@@ -319,6 +320,7 @@ public class AppMusic {
 			Playlist p = iterator.next();
 			if (p.getNombre().equals(playlist)) {
 				iterator.remove();
+				adaptadorPlaylist.borrarPlaylist(p);
 				return true;
 			}
 		}
@@ -331,7 +333,7 @@ public class AppMusic {
 		// TODO Auto-generated method stub
 		for(Playlist p : usuarioActivo.getPlaylists()){
 			if(p.getNombre().equals(playlist)){
-				Iterator<Cancion> iterator = p.getCanciones().iterator()
+				Iterator<Cancion> iterator = p.getCanciones().iterator();
 				while (iterator.hasNext()) {
 					Cancion c = iterator.next();
 					if (c.getTitulo().equals(titulo)) {
@@ -376,6 +378,5 @@ public class AppMusic {
 				break;
 			}
 		}
-
 }
 
