@@ -2,9 +2,11 @@ package dominio;
 
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import persistencia.DAOException;
 import persistencia.FactoriaDAO;
@@ -73,9 +75,11 @@ public class CatalogoCanciones {
 			     Canciones.put(pro.getTitulo(),pro);
 	}
 
-    public List<Cancion> filtrarCanciones(String interprete, String titulo, Object estilo, boolean favoritas) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'filtrarCanciones'");
-    }
+	public List<Cancion> cancionesOrdenadas(){
+		return this.getCanciones().stream()
+		.sorted(Comparator.comparingInt(c -> c.getnumReproducciones()))
+		.collect(Collectors.toList());
+	
+	}
 	
 }

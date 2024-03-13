@@ -2,8 +2,10 @@ package Controlador;
 
 import java.awt.Container;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.Collectors;
 import java.util.Iterator;
 
 import javax.swing.JFrame;
@@ -170,10 +172,21 @@ public class AppMusic {
 	public DatosTabla buscarCanciones(String titulo, String interprete, Object estilo, boolean favoritas) {
 		// La idea es devolver los datos dentro de la estructura de datos
 		DatosTabla nuevos_datos = new DatosTabla();
+		/* 
 		nuevos_datos.getTitulos().add("fart1");
 		nuevos_datos.getInterpretes().add("Visen");
 		nuevos_datos.getEstilos().add("fart2");
 		nuevos_datos.getFavoritas().add(false);
+		*/
+		catalogoCanciones.getCanciones().forEach(c -> {
+			if (c.getTitulo().contains(titulo) && c.getInterprete().contains(interprete)
+					&& c.getEstilomusical().contains((String) estilo) && c.isFavorita() == favoritas) {
+				nuevos_datos.getTitulos().add(c.getTitulo());
+				nuevos_datos.getInterpretes().add(c.getInterprete());
+				nuevos_datos.getEstilos().add(c.getEstilomusical());
+				nuevos_datos.getFavoritas().add(c.isFavorita());
+			}
+		});
 		// TODO Auto-generated method stub
 		return nuevos_datos;
 	}
@@ -181,12 +194,23 @@ public class AppMusic {
 	public DatosTabla buscarTendencias() {
 		// La idea es devolver los datos dentro de la estructura de datos
 		DatosTabla nuevos_datos = new DatosTabla();
+		/* 
 		nuevos_datos.getTitulos().add("fart3");
-		nuevos_datos.getInterpretes().add("Vicento");
+		nuevos_datos.getInterpretes().add("Valentus");
 		nuevos_datos.getEstilos().add("fart4");
-		nuevos_datos.getFavoritas().add(false);
-		// TODO Auto-generated method stub
+		nuevos_datos.getFavoritas().add(true);
+		*/
+		List<Cancion> cancionesOrdenadas = catalogoCanciones.cancionesOrdenadas();
+
+		for (Cancion c : cancionesOrdenadas) {
+    	nuevos_datos.getTitulos().add(c.getTitulo());
+    	nuevos_datos.getInterpretes().add(c.getInterprete());
+    	nuevos_datos.getEstilos().add(c.getEstilomusical());
+    	nuevos_datos.getFavoritas().add(c.isFavorita());
+		}
+
 		return nuevos_datos;
+
 	}
 
 	public DatosTabla buscarRecientes() {
@@ -234,11 +258,23 @@ public class AppMusic {
 	public DatosTabla getPlaylist(String selectedValue) {
 		// La idea es devolver los datos dentro de la estructura de datos
 		DatosTabla nuevos_datos = new DatosTabla();
+		/*
 		nuevos_datos.getTitulos().add("fart7");
 		nuevos_datos.getInterpretes().add("VicenVives");
 		nuevos_datos.getEstilos().add("fart8");
 		nuevos_datos.getFavoritas().add(false);
-		// TODO Auto-generated method stub
+		 */
+		for(Playlist p : usuarioActivo.getPlaylists()){
+			if(p.getNombre().equals(selectedValue)){
+				for(Cancion c : p.getCanciones()){
+					nuevos_datos.getTitulos().add(c.getTitulo());
+					nuevos_datos.getInterpretes().add(c.getInterprete());
+					nuevos_datos.getEstilos().add(c.getEstilomusical());
+					nuevos_datos.getFavoritas().add(c.isFavorita());
+				}
+				break;
+			}
+		}
 		return nuevos_datos;
 	}
 
@@ -293,19 +329,53 @@ public class AppMusic {
 		// Se quiere eliminar la cancion con el titulo recivido de la playlist recivida
 		// del usuario activo
 		// TODO Auto-generated method stub
+		for(Playlist p : usuarioActivo.getPlaylists()){
+			if(p.getNombre().equals(playlist)){
+				Iterator<Cancion> iterator = p.getCanciones().iterator()
+				while (iterator.hasNext()) {
+					Cancion c = iterator.next();
+					if (c.getTitulo().equals(titulo)) {
+						iterator.remove();
+						return true;
+			}
+		}
+		
+			}
+		}
 		return false;
-
 	}
 
 	public boolean actualizarPlaylist(String playlist, DatosTabla datos) {
 		// Se quiere actualizar la playlist del usuario activo recivida con los datos
 		// recividos
 		// TODO Auto-generated method stub
+		for(Playlist p : usuarioActivo.getPlaylists()){
+			if(p.getNombre().equals(playlist)){
+				datos.getTitulos().clear();
+				datos.getEstilos().clear();
+				datos.getInterpretes().clear();
+				datos.getFavoritas().clear();
+				for(Cancion c : p.getCanciones()){
+					datos.getTitulos().add(c.getTitulo());
+					datos.getInterpretes().add(c.getInterprete());
+					datos.getEstilos().add(c.getEstilomusical());
+					datos.getFavoritas().add(c.isFavorita());
+				}
+				break;
+			}
+		}
 		return false;
 	}
 
 	public void añadirCancionPlaylist(String playlist, Object valueAt) {
 		// TODO Auto-generated method stub
-		
-	}
+		for(Playlist p : usuarioActivo.getPlaylists()){
+			if(p.getNombre().equals(playlist)){
+				p.addCancion((Cancion)valueAt);
+				}
+				break;
+			}
+		}
+
 }
+

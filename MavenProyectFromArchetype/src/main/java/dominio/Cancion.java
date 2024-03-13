@@ -66,5 +66,9 @@ public class Cancion {
         return favorita;
     }
 
+    public void setFavorita(Boolean valueOf) {
+        favorita=valueOf;
+    }
+
  
 }
