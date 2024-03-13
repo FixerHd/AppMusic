@@ -37,7 +37,6 @@ public class AppMusic {
 	private IAdaptadorPlaylistDAO adaptadorPlaylist;
 
 	private static String estilo = Constantes.ESTILO_POR_DEFECTO;
-	public ReentrantLock playLock = new ReentrantLock();
 
 	// vestigio
 	private ArrayList<JFrame> lista_ventanas = new ArrayList<JFrame>();
@@ -50,7 +49,6 @@ public class AppMusic {
 		// Debe ser la primera linea para evitar error de sincronización
 		inicializarAdaptadores();
 		inicializarCatalogos();
-		playLock.unlock();
 	}
 
 	public static AppMusic getUnicaInstancia() {
@@ -58,10 +56,6 @@ public class AppMusic {
 			unicaInstancia = new AppMusic();
 		}
 		return unicaInstancia;
-	}
-	
-	public ReentrantLock getPlayLock() {
-		return playLock;
 	}
 
 	public ArrayList<JFrame> getVentanas() {
