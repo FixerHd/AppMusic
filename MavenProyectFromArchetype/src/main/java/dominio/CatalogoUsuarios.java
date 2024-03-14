@@ -84,10 +84,10 @@ public class CatalogoUsuarios {
 		return false;
 	}
 
-	public boolean addUsuario(String usuario, String email, String contraseña, String fecha) {
+	public Usuario addUsuario(String usuario, String email, String contraseña, String fecha) {
 		Usuario cli = new Usuario(usuario, email, contraseña, fecha);
 		AppMusic.getUnicaInstancia().registrarUsuario(cli);
-		return cli != null;
+		return cli;
 	}
 	
 }
