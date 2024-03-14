@@ -94,7 +94,8 @@ public class Usuario {
 		playlists.add(new Playlist("recientes"));
 	}
 	
-	public void IniciarSesion(){
+	public void AnadirRecientes(Cancion c) {
+		playlists.get(0).addCancion(c);
 		
 	}
 

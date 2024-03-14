@@ -85,10 +85,20 @@ public class CatalogoUsuarios {
 		return false;
 	}
 
-	public boolean addUsuario(String usuario, String email, String contraseña, String fecha) {
+	public Usuario addUsuario(String usuario, String email, String contraseña, String fecha) {
 		Usuario cli = new Usuario(usuario, email, contraseña, fecha);
-		AppMusic.getUnicaInstancia().registrarUsuario(cli);
-		return cli != null;
+		adaptadorUsuario.registrarUsuario(cli);
+		Usuarios.put(cli.getNombre(),cli);
+		return cli;
+	}
+
+	public boolean EmailenUso(String email) {
+		for (Usuario c : Usuarios.values()) {
+			if (c.getEmail().equals(email)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public boolean emailEnUso(String email) {

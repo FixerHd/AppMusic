@@ -1,6 +1,8 @@
 package Controlador;
 
 import java.awt.Container;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
@@ -98,10 +100,6 @@ public class AppMusic {
 
 	}
 
-	public void registrarUsuario(Usuario Usuario) {
-		adaptadorUsuario.registrarUsuario(Usuario);
-		catalogoUsuarios.addUsuario(Usuario);
-	}
 
 	public void registrarCancion(Cancion Cancion) {
 		adaptadorCancion.registrarCancion(Cancion);
@@ -153,76 +151,29 @@ public class AppMusic {
 	}
 
 	public int registrarUsuario(String usuario, String email, String contraseña, String fecha, String nombre_completo) {
-		if (usuario.isEmpty() || email.isEmpty() || contraseña.isEmpty() || fecha.isEmpty() || nombre_completo.isEmpty()) {
+		if(usuario.isEmpty() || email.isEmpty() || contraseña.isEmpty() || fecha.isEmpty() || nombre_completo.isEmpty()) {
 			return Constantes.ERROR_REGISTRO_CAMPOS;
 		}
-		if (catalogoUsuarios.emailEnUso(email)) {
+		if(catalogoUsuarios.EmailenUso(email)) {
 			return Constantes.ERROR_REGISTRO_CORREO;
 		}
-		if (isFechaInvalida(fecha)) {
+		if(isFechaInvalida(fecha)) {
 			return Constantes.ERROR_REGISTRO_FECHA;
 		}
-		catalogoUsuarios.addUsuario(usuario, email, contraseña, fecha);
+		usuarioActivo = catalogoUsuarios.addUsuario(usuario, email, contraseña, fecha);
 		return Constantes.OKAY;
 	}
-	
+
 	private boolean isFechaInvalida(String fecha) {
-		String s_dia = fecha.substring(0,1);
-		String s_mes = fecha.substring(3,5);
-		String s_año = fecha.substring(7,10);
-		
-		int año = Integer.parseInt(s_año);
-		int dia = Integer.parseInt(s_dia);
-		
-		int mes = 0;
-		switch (s_mes) {
-		case "ene":
-			mes = 0;
-			break;
-		case "feb":
-			mes = 1;
-			break;
-		case "mar":
-			mes = 2;
-			break;
-		case "abr":
-			 mes = 3;
-			break;
-		case "may":
-			 mes = 4;
-			break;
-		case "jun":
-			 mes = 5;
-			break;
-		case "jul":
-			 mes = 6;
-			break;
-		case "ago":
-			 mes = 7;
-			break;
-		case "sep":
-			 mes = 8;
-			break;
-		case "oct":
-			 mes = 9;
-			break;
-		case "nov":
-			 mes = 10;
-			break;
-		case "dic":
-			 mes = 11;
-			break;
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		Date fechaActual = new Date();
+		try {
+			Date fechaIngresada = sdf.parse(fecha);
+			return fechaIngresada.after(fechaActual);
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return true;
 		}
-		
-		if (año > Calendar.getInstance().get(Calendar.YEAR) && mes > Calendar.getInstance().get(Calendar.MONTH)) {
-			if (mes == Calendar.getInstance().get(Calendar.MONTH)) {
-				if (dia > Calendar.getInstance().get(Calendar.DAY_OF_MONTH)) {
-					return true;
-				}
-			}
-		}
-		
-		return false;
 	}
 
 	public void showPopup(Container container, String mensaje) {
@@ -368,6 +319,7 @@ public class AppMusic {
 					Cancion c = iterator.next();
 					if (c.getTitulo().equals(titulo)) {
 						iterator.remove();
+						adaptadorPlaylist.modificarPlaylist(p);
 						return true;
 					}
 				}
@@ -403,6 +355,7 @@ public class AppMusic {
 		for(Playlist p : usuarioActivo.getPlaylists()){
 			if(p.getNombre().equals(playlist)){
 				p.addCancion((Cancion)valueAt);
+				adaptadorPlaylist.modificarPlaylist(p);
 				}
 				break;
 			}
