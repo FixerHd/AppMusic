@@ -154,7 +154,7 @@ public class AppMusic {
 		if(usuario.isEmpty() || email.isEmpty() || contraseña.isEmpty() || fecha.isEmpty() || nombre_completo.isEmpty()) {
 			return Constantes.ERROR_REGISTRO_CAMPOS;
 		}
-		if(catalogoUsuarios.EmailenUso(email)) {
+		if(catalogoUsuarios.emailEnUso(email)) {
 			return Constantes.ERROR_REGISTRO_CORREO;
 		}
 		if(isFechaInvalida(fecha)) {
@@ -165,7 +165,7 @@ public class AppMusic {
 	}
 
 	private boolean isFechaInvalida(String fecha) {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd mmm yyyy");
 		Date fechaActual = new Date();
 		try {
 			Date fechaIngresada = sdf.parse(fecha);

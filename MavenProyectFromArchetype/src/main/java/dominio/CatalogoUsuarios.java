@@ -92,18 +92,11 @@ public class CatalogoUsuarios {
 		return cli;
 	}
 
-	public boolean EmailenUso(String email) {
+	public boolean emailEnUso(String email) {
 		for (Usuario c : Usuarios.values()) {
 			if (c.getEmail().equals(email)) {
 				return true;
 			}
-		}
-		return false;
-	}
-
-	public boolean emailEnUso(String email) {
-		for(Usuario u : Usuarios.values()) {
-			if(u.getEmail().equals(email)) return true;
 		}
 		return false;
 	}
