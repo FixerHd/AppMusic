@@ -2,7 +2,9 @@ package Controlador;
 
 import java.awt.Container;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
@@ -52,7 +54,6 @@ public class AppMusic {
 		// Debe ser la primera linea para evitar error de sincronización
 		inicializarAdaptadores();
 		inicializarCatalogos();
-		//playLock.unlock();
 	}
 
 	public static AppMusic getUnicaInstancia() {
@@ -152,11 +153,76 @@ public class AppMusic {
 	}
 
 	public int registrarUsuario(String usuario, String email, String contraseña, String fecha, String nombre_completo) {
-		// Prueba tonta, comprobar las constantes en "ventanas.Constantes"
-		int resultado = Constantes.OKAY;
+		if (usuario.isEmpty() || email.isEmpty() || contraseña.isEmpty() || fecha.isEmpty() || nombre_completo.isEmpty()) {
+			return Constantes.ERROR_REGISTRO_CAMPOS;
+		}
+		if (catalogoUsuarios.emailEnUso(email)) {
+			return Constantes.ERROR_REGISTRO_CORREO;
+		}
+		if (isFechaInvalida(fecha)) {
+			return Constantes.ERROR_REGISTRO_FECHA;
+		}
 		catalogoUsuarios.addUsuario(usuario, email, contraseña, fecha);
-		// TODO Auto-generated method stub
-		return resultado;
+		return Constantes.OKAY;
+	}
+	
+	private boolean isFechaInvalida(String fecha) {
+		String s_dia = fecha.substring(0,1);
+		String s_mes = fecha.substring(3,5);
+		String s_año = fecha.substring(7,10);
+		
+		int año = Integer.parseInt(s_año);
+		int dia = Integer.parseInt(s_dia);
+		
+		int mes = 0;
+		switch (s_mes) {
+		case "ene":
+			mes = 0;
+			break;
+		case "feb":
+			mes = 1;
+			break;
+		case "mar":
+			mes = 2;
+			break;
+		case "abr":
+			 mes = 3;
+			break;
+		case "may":
+			 mes = 4;
+			break;
+		case "jun":
+			 mes = 5;
+			break;
+		case "jul":
+			 mes = 6;
+			break;
+		case "ago":
+			 mes = 7;
+			break;
+		case "sep":
+			 mes = 8;
+			break;
+		case "oct":
+			 mes = 9;
+			break;
+		case "nov":
+			 mes = 10;
+			break;
+		case "dic":
+			 mes = 11;
+			break;
+		}
+		
+		if (año > Calendar.getInstance().get(Calendar.YEAR) && mes > Calendar.getInstance().get(Calendar.MONTH)) {
+			if (mes == Calendar.getInstance().get(Calendar.MONTH)) {
+				if (dia > Calendar.getInstance().get(Calendar.DAY_OF_MONTH)) {
+					return true;
+				}
+			}
+		}
+		
+		return false;
 	}
 
 	public void showPopup(Container container, String mensaje) {
@@ -167,12 +233,6 @@ public class AppMusic {
 	public DatosTabla buscarCanciones(String titulo, String interprete, Object estilo, boolean favoritas) {
 		// La idea es devolver los datos dentro de la estructura de datos
 		DatosTabla nuevos_datos = new DatosTabla();
-		/* 
-		nuevos_datos.getTitulos().add("fart1");
-		nuevos_datos.getInterpretes().add("Visen");
-		nuevos_datos.getEstilos().add("fart2");
-		nuevos_datos.getFavoritas().add(false);
-		*/
 		catalogoCanciones.getCanciones().forEach(c -> {
 			if (c.getTitulo().contains(titulo) && c.getInterprete().contains(interprete)
 					&& c.getEstilomusical().contains((String) estilo) && c.isFavorita() == favoritas) {
@@ -182,19 +242,12 @@ public class AppMusic {
 				nuevos_datos.getFavoritas().add(c.isFavorita());
 			}
 		});
-		// TODO Auto-generated method stub
 		return nuevos_datos;
 	}
 
 	public DatosTabla buscarTendencias() {
 		// La idea es devolver los datos dentro de la estructura de datos
 		DatosTabla nuevos_datos = new DatosTabla();
-		/* 
-		nuevos_datos.getTitulos().add("fart3");
-		nuevos_datos.getInterpretes().add("Valentus");
-		nuevos_datos.getEstilos().add("fart4");
-		nuevos_datos.getFavoritas().add(true);
-		*/
 		List<Cancion> cancionesOrdenadas = catalogoCanciones.cancionesOrdenadas();
 
 		for (Cancion c : cancionesOrdenadas) {
@@ -211,12 +264,6 @@ public class AppMusic {
 	public DatosTabla buscarRecientes() {
 		// La idea es devolver los datos dentro de la estructura de datos
 		DatosTabla nuevos_datos = new DatosTabla();
-		/* 
-		nuevos_datos.getTitulos().add("fart5");
-		nuevos_datos.getInterpretes().add("Valentus");
-		nuevos_datos.getEstilos().add("fart6");
-		nuevos_datos.getFavoritas().add(true);
-		*/
 		for(Playlist p : usuarioActivo.getPlaylists()){
 			if(p.getNombre().equals("recientes")){
 				for(Cancion c : p.getCanciones()){
@@ -238,27 +285,16 @@ public class AppMusic {
 	public DatosLista getMisPlaylists(boolean favoritas) {
 		// La idea es devolver los nombres y los identificadores
 		DatosLista nuevos_datos = new DatosLista();
-		/* 
-		nuevos_datos.getNombres().add("farts");
-		nuevos_datos.getIdentificadores().add("Visen");
-		*/
 		for(Playlist p : usuarioActivo.getPlaylists()){
 			nuevos_datos.getNombres().add(p.getNombre());
 			nuevos_datos.getIdentificadores().add(Integer.valueOf(p.getId()).toString());
 		}
-		// TODO Auto-generated method stub
 		return nuevos_datos;
 	}
 
 	public DatosTabla getPlaylist(String selectedValue) {
 		// La idea es devolver los datos dentro de la estructura de datos
 		DatosTabla nuevos_datos = new DatosTabla();
-		/*
-		nuevos_datos.getTitulos().add("fart7");
-		nuevos_datos.getInterpretes().add("VicenVives");
-		nuevos_datos.getEstilos().add("fart8");
-		nuevos_datos.getFavoritas().add(false);
-		 */
 		for(Playlist p : usuarioActivo.getPlaylists()){
 			if(p.getNombre().equals(selectedValue)){
 				for(Cancion c : p.getCanciones()){
@@ -325,7 +361,6 @@ public class AppMusic {
 	public boolean eliminarCancionPlaylist(String titulo, String playlist) {
 		// Se quiere eliminar la cancion con el titulo recivido de la playlist recivida
 		// del usuario activo
-		// TODO Auto-generated method stub
 		for(Playlist p : usuarioActivo.getPlaylists()){
 			if(p.getNombre().equals(playlist)){
 				Iterator<Cancion> iterator = p.getCanciones().iterator();
@@ -334,9 +369,8 @@ public class AppMusic {
 					if (c.getTitulo().equals(titulo)) {
 						iterator.remove();
 						return true;
-			}
-		}
-		
+					}
+				}
 			}
 		}
 		return false;

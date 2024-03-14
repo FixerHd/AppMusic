@@ -2,6 +2,7 @@ package dominio;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -88,6 +89,13 @@ public class CatalogoUsuarios {
 		Usuario cli = new Usuario(usuario, email, contraseña, fecha);
 		AppMusic.getUnicaInstancia().registrarUsuario(cli);
 		return cli != null;
+	}
+
+	public boolean emailEnUso(String email) {
+		for(Usuario u : Usuarios.values()) {
+			if(u.getEmail().equals(email)) return true;
+		}
+		return false;
 	}
 	
 }
