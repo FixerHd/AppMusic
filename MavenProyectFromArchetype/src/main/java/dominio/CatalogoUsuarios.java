@@ -86,8 +86,18 @@ public class CatalogoUsuarios {
 
 	public Usuario addUsuario(String usuario, String email, String contraseña, String fecha) {
 		Usuario cli = new Usuario(usuario, email, contraseña, fecha);
-		AppMusic.getUnicaInstancia().registrarUsuario(cli);
+		adaptadorUsuario.registrarUsuario(cli);
+		Usuarios.put(cli.getNombre(),cli);
 		return cli;
+	}
+
+	public boolean EmailenUso(String email) {
+		for (Usuario c : Usuarios.values()) {
+			if (c.getEmail().equals(email)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 }

@@ -1,8 +1,11 @@
 package Controlador;
 
 import java.awt.Container;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
@@ -97,10 +100,6 @@ public class AppMusic {
 
 	}
 
-	public void registrarUsuario(Usuario Usuario) {
-		adaptadorUsuario.registrarUsuario(Usuario);
-		catalogoUsuarios.addUsuario(Usuario);
-	}
 
 	public void registrarCancion(Cancion Cancion) {
 		adaptadorCancion.registrarCancion(Cancion);
@@ -153,10 +152,31 @@ public class AppMusic {
 
 	public int registrarUsuario(String usuario, String email, String contraseña, String fecha, String nombre_completo) {
 		// Prueba tonta, comprobar las constantes en "ventanas.Constantes"
+		if(usuario.isEmpty() || email.isEmpty() || contraseña.isEmpty() || fecha.isEmpty() || nombre_completo.isEmpty()) {
+			return Constantes.ERROR_REGISTRO_CAMPOS;
+		}
+		if(catalogoUsuarios.EmailenUso(email)) {
+			return Constantes.ERROR_REGISTRO_CORREO;
+		}
+		if(isFechaInvalida(fecha)) {
+			return Constantes.ERROR_REGISTRO_FECHA;
+		}
 		int resultado = Constantes.OKAY;
 		usuarioActivo = catalogoUsuarios.addUsuario(usuario, email, contraseña, fecha);
 		// TODO Auto-generated method stub
 		return resultado;
+	}
+
+	private boolean isFechaInvalida(String fecha) {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		Date fechaActual = new Date();
+		try {
+			Date fechaIngresada = sdf.parse(fecha);
+			return fechaIngresada.after(fechaActual);
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return true;
+		}
 	}
 
 	public void showPopup(Container container, String mensaje) {
@@ -333,6 +353,7 @@ public class AppMusic {
 					Cancion c = iterator.next();
 					if (c.getTitulo().equals(titulo)) {
 						iterator.remove();
+						adaptadorPlaylist.modificarPlaylist(p);
 						return true;
 			}
 		}
@@ -369,6 +390,7 @@ public class AppMusic {
 		for(Playlist p : usuarioActivo.getPlaylists()){
 			if(p.getNombre().equals(playlist)){
 				p.addCancion((Cancion)valueAt);
+				adaptadorPlaylist.modificarPlaylist(p);
 				}
 				break;
 			}
