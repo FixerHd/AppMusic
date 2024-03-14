@@ -76,13 +76,13 @@ public class CatalogoUsuarios {
 			     Usuarios.put(cli.getNombre(),cli);
 	}
 
-	public boolean exists(String usuario, String contraseña) {
+	public Usuario exists(String usuario, String contraseña) {
 		for(String s: Usuarios.keySet()) {
 			if(Usuarios.get(s).getPassword().equals(contraseña) && Usuarios.get(s).getNombre().equals(usuario)) {
-				return true;
+				return Usuarios.get(contraseña);
 			}
 		}
-		return false;
+		return null;
 	}
 
 	public Usuario addUsuario(String usuario, String email, String contraseña, String fecha) {

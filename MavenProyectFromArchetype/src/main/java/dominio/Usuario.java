@@ -91,6 +91,7 @@ public class Usuario {
 	
 	public void Registrarse() {
 		playlists.add(new Playlist("recientes"));
+		//chochon
 	}
 	
 	public void AnadirRecientes(Cancion c) {
