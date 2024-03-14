@@ -1,6 +1,7 @@
 package Controlador;
 
 import java.awt.Container;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -150,30 +151,22 @@ public class AppMusic {
 		return false;
 	}
 
-	public int registrarUsuario(String usuario, String email, String contraseña, String fecha, String nombre_completo) {
-		if(usuario.isEmpty() || email.isEmpty() || contraseña.isEmpty() || fecha.isEmpty() || nombre_completo.isEmpty()) {
+	public int registrarUsuario(String usuario, String email, String contraseña, Date fecha, String nombre_completo) {
+		String s_fecha = fecha.toString();
+		if(usuario.isBlank() || email.isBlank() || contraseña.isBlank() || s_fecha.isBlank() || nombre_completo.isBlank()) {
+			return Constantes.ERROR_REGISTRO_CAMPOS;
+		}
+		if(usuario.equals("Usuario") || email.equals("Email") || contraseña.equals("Contraseña") || fecha.equals("d MMM y") || nombre_completo.equals("Nombre completo")) {
 			return Constantes.ERROR_REGISTRO_CAMPOS;
 		}
 		if(catalogoUsuarios.emailEnUso(email)) {
 			return Constantes.ERROR_REGISTRO_CORREO;
 		}
-		if(isFechaInvalida(fecha)) {
+		if(fecha.after(new Date())) {
 			return Constantes.ERROR_REGISTRO_FECHA;
 		}
-		usuarioActivo = catalogoUsuarios.addUsuario(usuario, email, contraseña, fecha);
+		usuarioActivo = catalogoUsuarios.addUsuario(usuario, email, contraseña, s_fecha);
 		return Constantes.OKAY;
-	}
-
-	private boolean isFechaInvalida(String fecha) {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd mmm yyyy");
-		Date fechaActual = new Date();
-		try {
-			Date fechaIngresada = sdf.parse(fecha);
-			return fechaIngresada.after(fechaActual);
-		} catch (ParseException e) {
-			e.printStackTrace();
-			return true;
-		}
 	}
 
 	public void showPopup(Container container, String mensaje) {

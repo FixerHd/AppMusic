@@ -203,7 +203,7 @@ public class Registro extends JFrame {
 		Botón_Registro = new JButton("Registro");
 		Botón_Registro.setIcon(new ImageIcon(Registro.class.getResource("/recursos/anadir.png")));
 		Botón_Registro.addActionListener(ev -> {
-			int resultado = AppMusic.getUnicaInstancia().registrarUsuario(Texto_Usuario.getText(), Texto_Email.getText(), Texto_Contraseña.getText(), Seleccionador_Fecha.getDateFormatString(), Texto_Nombre.getText());
+			int resultado = AppMusic.getUnicaInstancia().registrarUsuario(Texto_Usuario.getText(), Texto_Email.getText(), Texto_Contraseña.getText(), Seleccionador_Fecha.getDate(), Texto_Nombre.getText());
 			
 			switch (resultado) {
 			case Constantes.ERROR_REGISTRO_CAMPOS:
@@ -222,7 +222,6 @@ public class Registro extends JFrame {
 				Texto_Contraseña.setText("");
 				Texto_Email.setText("");
 				Texto_Nombre.setText("");
-				Seleccionador_Fecha.setDateFormatString("");
 			}
 		});
 		panel.add(Botón_Registro);

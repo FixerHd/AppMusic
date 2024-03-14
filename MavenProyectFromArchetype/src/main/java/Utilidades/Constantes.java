@@ -16,7 +16,7 @@ public class Constantes {
 	public static final int ERROR_REGISTRO_FECHA = 3;
 	
 	public static final String ERROR_INICIO_SESION_MENSAJE = "Los parámetros no son correctos";
-	public static final String ERROR_REGISTRO_CAMPOS_MENSAJE = "Hay campos por rellenar";
+	public static final String ERROR_REGISTRO_CAMPOS_MENSAJE = "Hay campos por rellenar o alguno contiene valores invalidos";
 	public static final String ERROR_REGISTRO_CORREO_MENSAJE = "El correo ya está asociado a un usuario";
 	public static final String ERROR_REGISTRO_FECHA_MENSAJE = "La fecha de nacimiento es incorrecta";
 	public static final String ERROR_BUSQUEDA_TITULO_MENSAJE = "Se debe añadir un título para crear una playlist";
