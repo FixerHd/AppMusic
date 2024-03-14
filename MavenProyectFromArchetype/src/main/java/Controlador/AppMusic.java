@@ -142,7 +142,8 @@ public class AppMusic {
 	}
 
 	public boolean verficarUsuario(String usuario, String contraseña) {
-		return catalogoUsuarios.exists(usuario, contraseña);
+		usuarioActivo = catalogoUsuarios.exists(usuario, contraseña);
+		return usuarioActivo != null;
 	}
 
 	public boolean verficarUsuarioGit(String usuario, String contraseña) {
