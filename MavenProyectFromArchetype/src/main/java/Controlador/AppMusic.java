@@ -159,6 +159,7 @@ public class AppMusic {
 				GHUser ghuser = github.getMyself();
 				System.out.println("Validado! " + ghuser.getLogin());
 				System.out.println("¿Login válido?: true");
+				usuarioActivo = catalogoUsuarios.addUsuario(usuario, null, contraseña, null);
 
 				return (ghuser.getLogin().equals(usuario) && github.isCredentialValid());
 			}
@@ -167,6 +168,7 @@ public class AppMusic {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 		return false;
 	}
 
