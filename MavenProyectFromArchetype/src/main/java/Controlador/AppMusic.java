@@ -1,6 +1,7 @@
 package Controlador;
 
 import java.awt.Container;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,6 +19,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListModel;
 import javax.swing.UIManager;
+
+import org.kohsuke.github.GHUser;
+import org.kohsuke.github.GitHub;
+import org.kohsuke.github.GitHubBuilder;
 
 import Utilidades.Constantes;
 import dominio.Cancion;
@@ -147,7 +152,21 @@ public class AppMusic {
 	}
 
 	public boolean verficarUsuarioGit(String usuario, String contraseña) {
-		// TODO Auto-generated method stub
+		try {
+			GitHub github = GitHubBuilder.fromEnvironment().build();
+
+			if (github.isCredentialValid()) {
+				GHUser ghuser = github.getMyself();
+				System.out.println("Validado! " + ghuser.getLogin());
+				System.out.println("¿Login válido?: true");
+
+				return (ghuser.getLogin().equals(usuario) && github.isCredentialValid());
+			}
+			return false;
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 
