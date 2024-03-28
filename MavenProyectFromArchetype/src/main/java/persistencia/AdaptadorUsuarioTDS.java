@@ -88,8 +88,8 @@ public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
 				String Playlists = obtenerIdPlaylist(Usuario.getPlaylists());
 				prop.setValor(Playlists);
 			}  else if (prop.getNombre().equals("recientes")) {
-				String Playlists = obtenerIdPlaylistReciente(Usuario.getRecientes());
-				prop.setValor(Playlists);
+				String re = obtenerIdPlaylistReciente(Usuario.getRecientes());
+				prop.setValor(re);
 			}
 			servPersistencia.modificarPropiedad(prop);
 		}
