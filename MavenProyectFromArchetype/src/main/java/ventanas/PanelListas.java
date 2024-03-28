@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import Controlador.AppMusic;
 import dominio.DatosTabla;
 
 import javax.swing.JSplitPane;
@@ -35,31 +36,33 @@ public class PanelListas extends JPanel {
 	public PanelListas() {
 		setBorder(null);
 		setLayout(new BorderLayout(0, 0));
-		
+
 		JSplitPane splitPane = new JSplitPane();
 		splitPane.setOneTouchExpandable(true);
 		add(splitPane);
-		
+
 		lista = new JList<String>();
 		lista.setValueIsAdjusting(true);
 		lista.setVisibleRowCount(4);
 		lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		lista.setModel(new AbstractListModel() {
 			String[] values = new String[] {};
+
 			public int getSize() {
 				return values.length;
 			}
+
 			public Object getElementAt(int index) {
 				return values[index];
 			}
 		});
-		
+
 		leftScrollPane = new JScrollPane(lista);
 		splitPane.setLeftComponent(leftScrollPane);
-		
+
 		table = new JTable();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.setModel(new DefaultTableModel(new Object[][] { { null, null, null, null }, },
+		DefaultTableModel model = new DefaultTableModel(new Object[][] { { null, null, null, null }, },
 				new String[] { "Titulo", "Interprete", "Estilo", "" }) {
 			Class[] columnTypes = new Class[] { Object.class, Object.class, Object.class, Boolean.class };
 
@@ -72,17 +75,20 @@ public class PanelListas extends JPanel {
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
 			}
-		});
+		};
+		model.removeRow(0);
+		table.setModel(model);
+
 		rightScrollPane = new JScrollPane(table);
 		splitPane.setRightComponent(rightScrollPane);
-		
+
 		setVisible(true);
 	}
-	
+
 	public JList<String> getLista() {
 		return lista;
 	}
-	
+
 	public void setLista(List<String> new_values) {
 		DefaultListModel<String> model = new DefaultListModel<String>();
 		for (String s : new_values) {
@@ -90,11 +96,11 @@ public class PanelListas extends JPanel {
 		}
 		this.lista.setModel(model);
 	}
-	
+
 	public JTable getTable() {
 		return table;
 	}
-	
+
 	public void setTable(DatosTabla datos) {
 		table = new AppTabla(datos);
 		remove(rightScrollPane);

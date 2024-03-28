@@ -3,6 +3,7 @@ package ventanas;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -74,6 +75,14 @@ public class PanelGestion extends JPanel {
 			String titulo = Texto_Título.getText();
 			if (!titulo.isEmpty()) {
 				añadirPlaylist(titulo);
+				DatosLista datos = AppMusic.getUnicaInstancia().getMisPlaylists(false);
+				if (datos != null) {
+					panelLista.setLista(datos.getNombres());
+					this.revalidate();
+					this.repaint();
+				} else {
+					AppMusic.getUnicaInstancia().showPopup(Principal.getInstancia(), Constantes.ERROR_LISTA_VACIA_MENSAJE);
+				}
 			} else {
 				AppMusic.getUnicaInstancia().showPopup(Principal.getInstancia(), Constantes.ERROR_TITULO_VACIO_MENSAJE);
 			}
@@ -108,6 +117,14 @@ public class PanelGestion extends JPanel {
 		gbc_Boton_Eliminar.gridy = 3;
 		Boton_Eliminar.addActionListener(ev -> {
 			eliminarPlaylist(panelLista.getLista().getSelectedValue());
+			DatosLista datos2 = AppMusic.getUnicaInstancia().getMisPlaylists(Boton_Favoritas.isSelected());
+			if (datos2 != null) {
+				panelLista.setLista(datos2.getNombres());
+				this.revalidate();
+				this.repaint();
+			} else {
+				AppMusic.getUnicaInstancia().showPopup(Principal.getInstancia(), Constantes.ERROR_LISTA_VACIA_MENSAJE);
+			}
 		});
 		add(Boton_Eliminar, gbc_Boton_Eliminar);
 		

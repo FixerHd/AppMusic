@@ -152,17 +152,13 @@ public class PanelResultado extends JPanel implements PlayObserver {
 		gbc_Eliminar_Canción.gridx = 5;
 		gbc_Eliminar_Canción.gridy = 3;
 		Añadir_Canción.addActionListener(ev -> {
-			VentanaSeleccion selección = new VentanaSeleccion(this);
-			selección.setVisible(true);
-			Principal.getInstancia().setEnabled(false);
-			while(playlist == null) {;}
+			playlist = (String) PanelBuscar.getInstancia().getSelección_Playlist().getSelectedItem();
+			if (playlist != null) {
 			AppMusic.getUnicaInstancia().añadirCancionPlaylist(playlist, table.getValueAt(table.getSelectedRow(),0));
-			Principal.getInstancia().setEnabled(true);
 			playlist = null;
+			}
 		});
 		this.add(Añadir_Canción, gbc_Eliminar_Canción);
-
-		this.setVisible(true);
 	}
 	
 	public void setPlaylist(String playlist) {

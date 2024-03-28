@@ -127,6 +127,7 @@ public class Principal extends JFrame {
 				principal.revalidate();
 				principal.repaint();
 			} else {
+				panelBuscar.updateSelector();
 				principal.add(panelBuscar);
 				principal.revalidate();
 				principal.repaint();
