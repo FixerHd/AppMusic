@@ -163,8 +163,8 @@ public class AppMusic {
 
 	public int registrarUsuario(String usuario, String email, String contraseña, Date fecha, String nombre_completo) {
 		String s_fecha = fecha.toString();
-		if (usuario.isBlank() || email.isBlank() || contraseña.isBlank() || s_fecha.isBlank()
-				|| nombre_completo.isBlank()) {
+		if (usuario.isEmpty() || email.isEmpty() || contraseña.isEmpty() || s_fecha.isEmpty()
+				|| nombre_completo.isEmpty()) {
 			return Constantes.ERROR_REGISTRO_CAMPOS;
 		}
 		if (usuario.equals("Usuario") || email.equals("Email") || contraseña.equals("Contraseña")
@@ -203,35 +203,29 @@ public class AppMusic {
 	}
 
 	public DatosTabla buscarTendencias() {
-		// La idea es devolver los datos dentro de la estructura de datos
 		DatosTabla nuevos_datos = new DatosTabla();
 		List<Cancion> cancionesOrdenadas = catalogoCanciones.cancionesOrdenadas();
 
-		for (Cancion c : cancionesOrdenadas) {
+		cancionesOrdenadas.stream().forEach(c -> {
 			nuevos_datos.getTitulos().add(c.getTitulo());
 			nuevos_datos.getInterpretes().add(c.getInterprete());
 			nuevos_datos.getEstilos().add(c.getEstilomusical());
 			nuevos_datos.getFavoritas().add(c.isFavorita());
-		}
+		});
 
 		return nuevos_datos;
-
 	}
-
 	public DatosTabla buscarRecientes() {
-		// La idea es devolver los datos dentro de la estructura de datos
 		DatosTabla nuevos_datos = new DatosTabla();
-		for (Playlist p : usuarioActivo.getPlaylists()) {
-			if (p.getNombre().equals("recientes")) {
-				for (Cancion c : p.getCanciones()) {
-					nuevos_datos.getTitulos().add(c.getTitulo());
-					nuevos_datos.getInterpretes().add(c.getInterprete());
-					nuevos_datos.getEstilos().add(c.getEstilomusical());
-					nuevos_datos.getFavoritas().add(c.isFavorita());
-				}
-				break;
-			}
-		}
+		usuarioActivo.getPlaylists().stream()
+			.filter(p -> p.getNombre().equals("recientes"))
+			.findFirst()
+			.ifPresent(p -> p.getCanciones().forEach(c -> {
+				nuevos_datos.getTitulos().add(c.getTitulo());
+				nuevos_datos.getInterpretes().add(c.getInterprete());
+				nuevos_datos.getEstilos().add(c.getEstilomusical());
+				nuevos_datos.getFavoritas().add(c.isFavorita());
+			}));
 		return nuevos_datos;
 	}
 
