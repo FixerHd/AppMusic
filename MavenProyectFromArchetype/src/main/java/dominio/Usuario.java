@@ -17,15 +17,17 @@ public class Usuario {
 	private Playlist recientes;
 
 
-    public Usuario(String nombre, String email, String contraseña, String fechanac) {
+
+
+
+	public Usuario(String nombre, String email, String contraseña, String fechanac) {
         this.nombre = nombre;
         this.email = email;
         this.password = contraseña;
         this.fechaNacimiento = fechanac;
         premium=false;
         playlists=new LinkedList<Playlist>();
-		playlists.add(new Playlist("recientes"));
-		recientes = playlists.get(0);
+		recientes = new Playlist("Recientes");
     }
 
 
@@ -96,6 +98,15 @@ public class Usuario {
 	public void AnadirRecientes(Cancion c) {
 		recientes.addCancion(c);
 		
+	}
+
+	public void setRecientes(Playlist recientes) {
+		this.recientes = recientes;
+	}
+
+
+	public Playlist getRecientes() {
+		return recientes;
 	}
 
 

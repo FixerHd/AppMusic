@@ -51,7 +51,7 @@ public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
 		eUsuario.setNombre("Usuario");
 		eUsuario.setPropiedades(new ArrayList<Propiedad>(
 				Arrays.asList(new Propiedad("nombre", Usuario.getNombre()), new Propiedad("email", Usuario.getEmail()), new Propiedad("password", Usuario.getPassword()), new Propiedad("fechaNacimiento", Usuario.getFechaNacimiento()), new Propiedad("premium", Usuario.getPremium()),
-						new Propiedad("playlists", obtenerIdPlaylist(Usuario.getPlaylists())))));
+						new Propiedad("playlists", obtenerIdPlaylist(Usuario.getPlaylists())), new Propiedad("recientes", obtenerIdPlaylistReciente(Usuario.getRecientes())))));
 
 		// registrar entidad Usuario
 		eUsuario = servPersistencia.registrarEntidad(eUsuario);
@@ -87,6 +87,9 @@ public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
 			} else if (prop.getNombre().equals("playlists")) {
 				String Playlists = obtenerIdPlaylist(Usuario.getPlaylists());
 				prop.setValor(Playlists);
+			}  else if (prop.getNombre().equals("recientes")) {
+				String Playlists = obtenerIdPlaylistReciente(Usuario.getRecientes());
+				prop.setValor(Playlists);
 			}
 			servPersistencia.modificarPropiedad(prop);
 		}
@@ -102,6 +105,7 @@ public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
 		// si no, la recupera de la base de datos
 		Entidad eUsuario;
 		List<Playlist> Playlists = new LinkedList<Playlist>();
+		Playlist recientes = new Playlist("Recientes");
 		String nombre;
 		String email;
 		String password;
@@ -118,6 +122,7 @@ public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
 		fechaNacimiento = servPersistencia.recuperarPropiedadEntidad(eUsuario, "fechaNacimiento");
 		premium = servPersistencia.recuperarPropiedadEntidad(eUsuario, "premium");
 
+
 		Usuario Usuario = new Usuario(nombre, email, password, fechaNacimiento);
 		Usuario.setId(Id);
 		Usuario.setPremium(premium);
@@ -129,6 +134,10 @@ public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
 		// recuperar propiedades que son objetos llamando a adaptadores
 		// Playlists
 		Playlists = obtenerPlaylistsDesdeIds(servPersistencia.recuperarPropiedadEntidad(eUsuario, "playlists"));
+
+		recientes = obtenerPlaylistsDesdeIds(servPersistencia.recuperarPropiedadEntidad(eUsuario, "recientes")).get(0);
+
+		Usuario.setRecientes(recientes);
 
 		for (Playlist v : Playlists)
 			Usuario.addPlaylist(v);
@@ -153,6 +162,13 @@ public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
 		for (Playlist p : listaPlaylist) {
 			aux += p.getId() + " ";
 		}
+		return aux.trim();
+	}
+
+	private String obtenerIdPlaylistReciente(Playlist p) {
+		String aux = "";
+			aux += p.getId() + " ";
+		
 		return aux.trim();
 	}
 
