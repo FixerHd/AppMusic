@@ -14,6 +14,7 @@ public class Usuario {
     private boolean premium;
     private LinkedList<Playlist> playlists;
     private Descuento desc;
+	private Playlist recientes;
 
 
     public Usuario(String nombre, String email, String contraseña, String fechanac) {
@@ -23,6 +24,8 @@ public class Usuario {
         this.fechaNacimiento = fechanac;
         premium=false;
         playlists=new LinkedList<Playlist>();
+		playlists.add(new Playlist("recientes"));
+		recientes = playlists.get(0);
     }
 
 
@@ -89,13 +92,8 @@ public class Usuario {
 		playlists = playlists2;
 	}
 	
-	public void Registrarse() {
-		playlists.add(new Playlist("recientes"));
-		//chochon
-	}
-	
 	public void AnadirRecientes(Cancion c) {
-		playlists.get(0).addCancion(c);
+		recientes.addCancion(c);
 		
 	}
 
