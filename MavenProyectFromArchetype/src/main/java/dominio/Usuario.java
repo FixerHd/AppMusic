@@ -14,15 +14,20 @@ public class Usuario {
     private boolean premium;
     private LinkedList<Playlist> playlists;
     private Descuento desc;
+	private Playlist recientes;
 
 
-    public Usuario(String nombre, String email, String contraseña, String fechanac) {
+
+
+
+	public Usuario(String nombre, String email, String contraseña, String fechanac) {
         this.nombre = nombre;
         this.email = email;
         this.password = contraseña;
         this.fechaNacimiento = fechanac;
         premium=false;
         playlists=new LinkedList<Playlist>();
+		recientes = new Playlist("Recientes");
     }
 
 
@@ -87,16 +92,21 @@ public class Usuario {
 	public void setPlaylists(LinkedList<Playlist> playlists2) {
 		// TODO Auto-generated method stub
 		playlists = playlists2;
-	}
-	
-	public void Registrarse() {
-		playlists.add(new Playlist("recientes"));
-		//chochon
+		recientes = playlists.get(0);
 	}
 	
 	public void AnadirRecientes(Cancion c) {
-		playlists.get(0).addCancion(c);
+		recientes.addCancion(c);
 		
+	}
+
+	public void setRecientes(Playlist recientes) {
+		this.recientes = recientes;
+	}
+
+
+	public Playlist getRecientes() {
+		return recientes;
 	}
 
 
