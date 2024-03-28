@@ -14,6 +14,17 @@ import beans.Propiedad;
 
 import dominio.Usuario;
 import dominio.Playlist;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.StringTokenizer;
+import tds.driver.FactoriaServicioPersistencia;
+import tds.driver.ServicioPersistencia;
+import beans.Entidad;
+import beans.Propiedad;
+import dominio.Usuario;
+import dominio.Playlist;
 
 //Usa un pool para evitar problemas doble referencia con Playlists
 public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
@@ -135,7 +146,7 @@ public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
 		// Playlists
 		Playlists = obtenerPlaylistsDesdeIds(servPersistencia.recuperarPropiedadEntidad(eUsuario, "playlists"));
 
-		recientes = obtenerPlaylistsDesdeIds(servPersistencia.recuperarPropiedadEntidad(eUsuario, "recientes")).get(0);
+		recientes = obtenerPlaylistRecienteDesdeId(servPersistencia.recuperarPropiedadEntidad(eUsuario, "recientes"));
 
 		Usuario.setRecientes(recientes);
 
@@ -166,10 +177,12 @@ public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
 	}
 
 	private String obtenerIdPlaylistReciente(Playlist p) {
-		String aux = "";
-			aux += p.getId() + " ";
-		
-		return aux.trim();
+		return Integer.toString(p.getId());
+	}
+
+	private Playlist obtenerPlaylistRecienteDesdeId(String Playlist) {
+		AdaptadorPlaylistTDS adaptadorP = AdaptadorPlaylistTDS.getUnicaInstancia();
+		return adaptadorP.recuperarPlaylist(Integer.valueOf(Playlist));
 	}
 
 	private List<Playlist> obtenerPlaylistsDesdeIds(String Playlists) {

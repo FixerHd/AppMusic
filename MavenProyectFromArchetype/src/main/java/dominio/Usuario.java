@@ -109,6 +109,12 @@ public class Usuario {
 		return recientes;
 	}
 
+	public LinkedList<Playlist> getReciente() {
+		LinkedList<Playlist> reciente = new LinkedList<Playlist>();
+		reciente.add(recientes);
+		return reciente;
+	}
+
 
 
 }
