@@ -121,7 +121,12 @@ public class PanelResultado extends JPanel implements PlayObserver {
 		Boton_Play_Stop = new JToggleButton();
 		Boton_Play_Stop.setEnabled(true);
 		Boton_Play_Stop.setVisible(false);
-		
+		GridBagConstraints gbc_Botón_Play_Stop = new GridBagConstraints();
+		gbc_Botón_Play_Stop.anchor = GridBagConstraints.NORTHWEST;
+		gbc_Botón_Play_Stop.fill = GridBagConstraints.BOTH;
+		gbc_Botón_Play_Stop.insets = new Insets(0, 0, 0, 5);
+		gbc_Botón_Play_Stop.gridx = 5;
+		gbc_Botón_Play_Stop.gridy = 0;
 		Boton_Play_Stop.addActionListener(ev -> {
 			if (!Boton_Play_Stop.isSelected()) {
 				Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/jugar.png")));
@@ -129,7 +134,7 @@ public class PanelResultado extends JPanel implements PlayObserver {
 				Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/pausa.png")));
 			}
 		});
-		Panel_Reproducción.add(Boton_Play_Stop, gbc_Play_Stop);
+		Panel_Reproducción.add(Boton_Play_Stop, gbc_Botón_Play_Stop);
 
 		JLabel Choose_next = new JLabel("");
 		Choose_next.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/proximo.png")));

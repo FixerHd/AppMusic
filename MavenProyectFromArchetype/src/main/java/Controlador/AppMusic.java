@@ -1,24 +1,14 @@
 package Controlador;
 
 import java.awt.Container;
-import java.text.DateFormat;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.locks.ReentrantLock;
-import java.util.stream.Collectors;
 import java.util.Iterator;
 
 import javax.swing.JFrame;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.ListModel;
 import javax.swing.UIManager;
 
 import org.kohsuke.github.GHUser;
@@ -36,7 +26,6 @@ import dominio.Usuario;
 import persistencia.DAOException;
 import persistencia.FactoriaDAO;
 import persistencia.IAdaptadorUsuarioDAO;
-import ventanas.Login;
 import persistencia.IAdaptadorCancionDAO;
 import persistencia.IAdaptadorPlaylistDAO;
 
@@ -45,7 +34,7 @@ public class AppMusic {
 	private static AppMusic unicaInstancia;
 
 	// Atributos compartidos
-	private IAdaptadorUsuarioDAO adaptadorUsuario;
+	private IAdaptadorUsuarioDAO adaptadorUsuario; // No se utiliza actualmente
 	private IAdaptadorCancionDAO adaptadorCancion;
 	private IAdaptadorPlaylistDAO adaptadorPlaylist;
 
@@ -105,7 +94,6 @@ public class AppMusic {
 		}
 
 	}
-
 
 	public void registrarCancion(Cancion Cancion) {
 		adaptadorCancion.registrarCancion(Cancion);
@@ -175,16 +163,18 @@ public class AppMusic {
 
 	public int registrarUsuario(String usuario, String email, String contraseña, Date fecha, String nombre_completo) {
 		String s_fecha = fecha.toString();
-		if(usuario.isBlank() || email.isBlank() || contraseña.isBlank() || s_fecha.isBlank() || nombre_completo.isBlank()) {
+		if (usuario.isBlank() || email.isBlank() || contraseña.isBlank() || s_fecha.isBlank()
+				|| nombre_completo.isBlank()) {
 			return Constantes.ERROR_REGISTRO_CAMPOS;
 		}
-		if(usuario.equals("Usuario") || email.equals("Email") || contraseña.equals("Contraseña") || fecha.equals("d MMM y") || nombre_completo.equals("Nombre completo")) {
+		if (usuario.equals("Usuario") || email.equals("Email") || contraseña.equals("Contraseña")
+				|| fecha.equals("d MMM y") || nombre_completo.equals("Nombre completo")) {
 			return Constantes.ERROR_REGISTRO_CAMPOS;
 		}
-		if(catalogoUsuarios.emailEnUso(email)) {
+		if (catalogoUsuarios.emailEnUso(email)) {
 			return Constantes.ERROR_REGISTRO_CORREO;
 		}
-		if(fecha.after(new Date())) {
+		if (fecha.after(new Date())) {
 			return Constantes.ERROR_REGISTRO_FECHA;
 		}
 		usuarioActivo = catalogoUsuarios.addUsuario(usuario, email, contraseña, s_fecha);
@@ -200,12 +190,13 @@ public class AppMusic {
 		// La idea es devolver los datos dentro de la estructura de datos
 		DatosTabla nuevos_datos = new DatosTabla();
 		catalogoCanciones.getCanciones().forEach(c -> {
-			if (c.getTitulo().contains(titulo) && c.getInterprete().contains(interprete)
-					&& c.getEstilomusical().contains((String) estilo) && c.isFavorita() == favoritas) {
-				nuevos_datos.getTitulos().add(c.getTitulo());
-				nuevos_datos.getInterpretes().add(c.getInterprete());
-				nuevos_datos.getEstilos().add(c.getEstilomusical());
-				nuevos_datos.getFavoritas().add(c.isFavorita());
+			if (c.getTitulo().startsWith(titulo) && c.getInterprete().startsWith(interprete) && c.isFavorita() == favoritas) {
+				if (c.getEstilomusical().isEmpty() || c.getEstilomusical().contains((String) estilo)) {
+					nuevos_datos.getTitulos().add(c.getTitulo());
+					nuevos_datos.getInterpretes().add(c.getInterprete());
+					nuevos_datos.getEstilos().add(c.getEstilomusical());
+					nuevos_datos.getFavoritas().add(c.isFavorita());
+				}
 			}
 		});
 		return nuevos_datos;
@@ -217,10 +208,10 @@ public class AppMusic {
 		List<Cancion> cancionesOrdenadas = catalogoCanciones.cancionesOrdenadas();
 
 		for (Cancion c : cancionesOrdenadas) {
-    	nuevos_datos.getTitulos().add(c.getTitulo());
-    	nuevos_datos.getInterpretes().add(c.getInterprete());
-    	nuevos_datos.getEstilos().add(c.getEstilomusical());
-    	nuevos_datos.getFavoritas().add(c.isFavorita());
+			nuevos_datos.getTitulos().add(c.getTitulo());
+			nuevos_datos.getInterpretes().add(c.getInterprete());
+			nuevos_datos.getEstilos().add(c.getEstilomusical());
+			nuevos_datos.getFavoritas().add(c.isFavorita());
 		}
 
 		return nuevos_datos;
@@ -230,9 +221,9 @@ public class AppMusic {
 	public DatosTabla buscarRecientes() {
 		// La idea es devolver los datos dentro de la estructura de datos
 		DatosTabla nuevos_datos = new DatosTabla();
-		for(Playlist p : usuarioActivo.getPlaylists()){
-			if(p.getNombre().equals("recientes")){
-				for(Cancion c : p.getCanciones()){
+		for (Playlist p : usuarioActivo.getPlaylists()) {
+			if (p.getNombre().equals("recientes")) {
+				for (Cancion c : p.getCanciones()) {
 					nuevos_datos.getTitulos().add(c.getTitulo());
 					nuevos_datos.getInterpretes().add(c.getInterprete());
 					nuevos_datos.getEstilos().add(c.getEstilomusical());
@@ -251,7 +242,7 @@ public class AppMusic {
 	public DatosLista getMisPlaylists(boolean favoritas) {
 		// La idea es devolver los nombres y los identificadores
 		DatosLista nuevos_datos = new DatosLista();
-		for(Playlist p : usuarioActivo.getPlaylists()){
+		for (Playlist p : usuarioActivo.getPlaylists()) {
 			nuevos_datos.getNombres().add(p.getNombre());
 			nuevos_datos.getIdentificadores().add(Integer.valueOf(p.getId()).toString());
 		}
@@ -261,9 +252,9 @@ public class AppMusic {
 	public DatosTabla getPlaylist(String selectedValue) {
 		// La idea es devolver los datos dentro de la estructura de datos
 		DatosTabla nuevos_datos = new DatosTabla();
-		for(Playlist p : usuarioActivo.getPlaylists()){
-			if(p.getNombre().equals(selectedValue)){
-				for(Cancion c : p.getCanciones()){
+		for (Playlist p : usuarioActivo.getPlaylists()) {
+			if (p.getNombre().equals(selectedValue)) {
+				for (Cancion c : p.getCanciones()) {
 					nuevos_datos.getTitulos().add(c.getTitulo());
 					nuevos_datos.getInterpretes().add(c.getInterprete());
 					nuevos_datos.getEstilos().add(c.getEstilomusical());
@@ -277,6 +268,7 @@ public class AppMusic {
 
 	/**
 	 * Creates a PDF document.
+	 * 
 	 * @return true if the PDF document is created successfully, false otherwise.
 	 */
 	public boolean crearPDF() {
@@ -286,6 +278,7 @@ public class AppMusic {
 
 	/**
 	 * Checks if the active user has the specified playlist.
+	 * 
 	 * @param playlist The playlist to check.
 	 * @return true if the active user has the playlist, false otherwise.
 	 */
@@ -299,7 +292,9 @@ public class AppMusic {
 	}
 
 	/**
-	 * Adds a new playlist with the specified title to the active user's playlist list.
+	 * Adds a new playlist with the specified title to the active user's playlist
+	 * list.
+	 * 
 	 * @param titulo The title of the playlist to add.
 	 * @return true if the playlist is added successfully, false otherwise.
 	 */
@@ -311,7 +306,8 @@ public class AppMusic {
 	}
 
 	public boolean eliminarPlaylist(String playlist) {
-		// Se quiere eliminar la playlist con el titulo recibido de la lista de playlists del usuario activo
+		// Se quiere eliminar la playlist con el titulo recibido de la lista de
+		// playlists del usuario activo
 		Iterator<Playlist> iterator = usuarioActivo.getPlaylists().iterator();
 		while (iterator.hasNext()) {
 			Playlist p = iterator.next();
@@ -327,8 +323,8 @@ public class AppMusic {
 	public boolean eliminarCancionPlaylist(String titulo, String playlist) {
 		// Se quiere eliminar la cancion con el titulo recivido de la playlist recivida
 		// del usuario activo
-		for(Playlist p : usuarioActivo.getPlaylists()){
-			if(p.getNombre().equals(playlist)){
+		for (Playlist p : usuarioActivo.getPlaylists()) {
+			if (p.getNombre().equals(playlist)) {
 				Iterator<Cancion> iterator = p.getCanciones().iterator();
 				while (iterator.hasNext()) {
 					Cancion c = iterator.next();
@@ -346,14 +342,13 @@ public class AppMusic {
 	public boolean actualizarPlaylist(String playlist, DatosTabla datos) {
 		// Se quiere actualizar la playlist del usuario activo recivida con los datos
 		// recividos
-		// TODO Auto-generated method stub
-		for(Playlist p : usuarioActivo.getPlaylists()){
-			if(p.getNombre().equals(playlist)){
+		for (Playlist p : usuarioActivo.getPlaylists()) {
+			if (p.getNombre().equals(playlist)) {
 				datos.getTitulos().clear();
 				datos.getEstilos().clear();
 				datos.getInterpretes().clear();
 				datos.getFavoritas().clear();
-				for(Cancion c : p.getCanciones()){
+				for (Cancion c : p.getCanciones()) {
 					datos.getTitulos().add(c.getTitulo());
 					datos.getInterpretes().add(c.getInterprete());
 					datos.getEstilos().add(c.getEstilomusical());
@@ -366,14 +361,12 @@ public class AppMusic {
 	}
 
 	public void añadirCancionPlaylist(String playlist, Object valueAt) {
-		// TODO Auto-generated method stub
-		for(Playlist p : usuarioActivo.getPlaylists()){
-			if(p.getNombre().equals(playlist)){
-				p.addCancion((Cancion)valueAt);
+		for (Playlist p : usuarioActivo.getPlaylists()) {
+			if (p.getNombre().equals(playlist)) {
+				p.addCancion((Cancion) valueAt);
 				adaptadorPlaylist.modificarPlaylist(p);
-				}
-				break;
 			}
+			break;
 		}
+	}
 }
-
