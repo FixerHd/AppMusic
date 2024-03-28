@@ -90,6 +90,7 @@ public class Usuario {
 	public void setPlaylists(LinkedList<Playlist> playlists2) {
 		// TODO Auto-generated method stub
 		playlists = playlists2;
+		recientes = playlists.get(0);
 	}
 	
 	public void AnadirRecientes(Cancion c) {
