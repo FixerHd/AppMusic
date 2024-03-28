@@ -88,7 +88,6 @@ public class CatalogoUsuarios {
 	public Usuario addUsuario(String usuario, String email, String contraseña, String fecha) {
 		Usuario cli = new Usuario(usuario, email, contraseña, fecha);
 		adaptadorUsuario.registrarUsuario(cli);
-		cli.Registrarse();
 		Usuarios.put(cli.getNombre(),cli);
 		return cli;
 	}
