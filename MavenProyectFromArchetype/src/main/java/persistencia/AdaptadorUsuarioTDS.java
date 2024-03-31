@@ -182,7 +182,8 @@ public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
 
 	private Playlist obtenerPlaylistRecienteDesdeId(String Playlist) {
 		AdaptadorPlaylistTDS adaptadorP = AdaptadorPlaylistTDS.getUnicaInstancia();
-		return adaptadorP.recuperarPlaylist(Integer.valueOf(Playlist));
+		if (Playlist != null) return adaptadorP.recuperarPlaylist(Integer.valueOf(Playlist));
+		else return new Playlist("Recientes");
 	}
 
 	private List<Playlist> obtenerPlaylistsDesdeIds(String Playlists) {
