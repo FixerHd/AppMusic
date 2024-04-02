@@ -23,22 +23,7 @@ public class Lanzador {
 		
 		MapperCancionesXMLtoJava.cargarCanciones(tempPath + "/canciones.xml");
 		
-		//Reproductor.getUnicaInstancia().playCancion("https://dn720300.ca.archive.org/0/items/va-caribe-mix-ibiza-2015-2015/04.%20Amador%20Rivas%20-%20Mandanga%20Style%20%28Jose%20AM%20%26%20Albert%20Kick%20Remix%29.mp3");
-		
-		try {
-			com.sun.javafx.application.PlatformImpl.startup(()->{});
-			} catch(Exception ex) {
-			ex.printStackTrace();
-			System.out.println("Exception: " + ex.getMessage());
-			 }
-			// reproducir una canción
-
-			String rutaCancion = "D:/leche.mp3";
-			URL resourceURL = new URL(rutaCancion);
-			if (resourceURL == null)
-			throw new FileNotFoundException("Fichero canción no encontrado: " + rutaCancion);
-			Media hit = new Media(resourceURL.toExternalForm());
-			MediaPlayer mediaPlayer = new MediaPlayer(hit);
+		Reproductor.getUnicaInstancia().playCancion("https://dn720300.ca.archive.org/0/items/va-caribe-mix-ibiza-2015-2015/04.%20Amador%20Rivas%20-%20Mandanga%20Style%20%28Jose%20AM%20%26%20Albert%20Kick%20Remix%29.mp3");
 		
 		String estilo = "com.jtattoo.plaf." + AppMusic.getEstilo().toLowerCase() + "." + AppMusic.getEstilo()
 				+ "LookAndFeel";
