@@ -206,7 +206,8 @@ public class AppMusic {
 		DatosTabla nuevos_datos = new DatosTabla();
 		List<Cancion> cancionesOrdenadas = catalogoCanciones.cancionesOrdenadas();
 
-		cancionesOrdenadas.stream().forEach(c -> {
+		cancionesOrdenadas.stream()
+		.forEach(c -> {
 			nuevos_datos.getTitulos().add(c.getTitulo());
 			nuevos_datos.getInterpretes().add(c.getInterprete());
 			nuevos_datos.getEstilos().add(c.getEstilomusical());
@@ -217,15 +218,12 @@ public class AppMusic {
 	}
 	public DatosTabla buscarRecientes() {
 		DatosTabla nuevos_datos = new DatosTabla();
-		usuarioActivo.getPlaylists().stream()
-			.filter(p -> p.getNombre().equals("recientes"))
-			.findFirst()
-			.ifPresent(p -> p.getCanciones().forEach(c -> {
-				nuevos_datos.getTitulos().add(c.getTitulo());
-				nuevos_datos.getInterpretes().add(c.getInterprete());
-				nuevos_datos.getEstilos().add(c.getEstilomusical());
-				nuevos_datos.getFavoritas().add(c.isFavorita());
-			}));
+		for (Cancion c : usuarioActivo.getRecientes().getCanciones()) {
+			nuevos_datos.getTitulos().add(c.getTitulo());
+			nuevos_datos.getInterpretes().add(c.getInterprete());
+			nuevos_datos.getEstilos().add(c.getEstilomusical());
+			nuevos_datos.getFavoritas().add(c.isFavorita());
+		}
 		return nuevos_datos;
 	}
 
