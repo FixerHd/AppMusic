@@ -31,6 +31,7 @@ import java.io.FileFilter;
 
 import javax.swing.JToggleButton;
 import pulsador.Luz;
+import javax.swing.border.TitledBorder;
 
 public class Principal extends JFrame {
 
@@ -92,14 +93,14 @@ public class Principal extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 
 		Columna = new JPanel();
-		Columna.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
+		Columna.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		contentPane.add(Columna, BorderLayout.WEST);
 		GridBagLayout gbl_Columna = new GridBagLayout();
-		gbl_Columna.columnWidths = new int[] { 32, 60, 0 };
-		gbl_Columna.rowHeights = new int[] { 10, 32, 10, 32, 10, 32, 10, 32, 10, 32, 10, 0, 0, 0, 32, 10, 0 };
-		gbl_Columna.columnWeights = new double[] { 1.0, 0.0, Double.MIN_VALUE };
-		gbl_Columna.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0,
-				0.0, 0.0, Double.MIN_VALUE };
+		gbl_Columna.columnWidths = new int[] { 2, 32, 60, 1, 0 };
+		gbl_Columna.rowHeights = new int[] { 10, 32, 10, 32, 10, 32, 10, 32, 10, 32, 10, 32, 10, 0, 0, 0, 32, 10, 0 };
+		gbl_Columna.columnWeights = new double[] { 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_Columna.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+				0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
 		Columna.setLayout(gbl_Columna);
 
 		principal = new JPanel();
@@ -110,7 +111,7 @@ public class Principal extends JFrame {
 		Lupa.setIcon(new ImageIcon(Principal.class.getResource("/recursos/lupa.png")));
 		GridBagConstraints gbc_Lupa = new GridBagConstraints();
 		gbc_Lupa.insets = new Insets(0, 0, 5, 5);
-		gbc_Lupa.gridx = 0;
+		gbc_Lupa.gridx = 1;
 		gbc_Lupa.gridy = 1;
 		Columna.add(Lupa, gbc_Lupa);
 
@@ -118,8 +119,8 @@ public class Principal extends JFrame {
 		PanelBuscar panelBuscar = new PanelBuscar();
 		GridBagConstraints gbc_Botón_Buscar = new GridBagConstraints();
 		gbc_Botón_Buscar.fill = GridBagConstraints.HORIZONTAL;
-		gbc_Botón_Buscar.insets = new Insets(0, 0, 5, 0);
-		gbc_Botón_Buscar.gridx = 1;
+		gbc_Botón_Buscar.insets = new Insets(0, 0, 5, 5);
+		gbc_Botón_Buscar.gridx = 2;
 		gbc_Botón_Buscar.gridy = 1;
 		Botón_Buscar.addActionListener(ev -> {
 			if (!Botón_Buscar.isSelected()) {
@@ -139,15 +140,15 @@ public class Principal extends JFrame {
 		Gestión.setIcon(new ImageIcon(Principal.class.getResource("/recursos/editar_2.png")));
 		GridBagConstraints gbc_Gestión = new GridBagConstraints();
 		gbc_Gestión.insets = new Insets(0, 0, 5, 5);
-		gbc_Gestión.gridx = 0;
+		gbc_Gestión.gridx = 1;
 		gbc_Gestión.gridy = 3;
 		Columna.add(Gestión, gbc_Gestión);
 
 		PanelGestion panelGestion = new PanelGestion();
 		JToggleButton Botón_Gestión = new JToggleButton("Gestion Playlist");
 		GridBagConstraints gbc_Botón_Gestión = new GridBagConstraints();
-		gbc_Botón_Gestión.insets = new Insets(0, 0, 5, 0);
-		gbc_Botón_Gestión.gridx = 1;
+		gbc_Botón_Gestión.insets = new Insets(0, 0, 5, 5);
+		gbc_Botón_Gestión.gridx = 2;
 		gbc_Botón_Gestión.gridy = 3;
 		Botón_Gestión.addActionListener(ev -> {
 			if (!Botón_Gestión.isSelected()) {
@@ -166,7 +167,7 @@ public class Principal extends JFrame {
 		Recientes.setIcon(new ImageIcon(Principal.class.getResource("/recursos/reciente.png")));
 		GridBagConstraints gbc_Recientes = new GridBagConstraints();
 		gbc_Recientes.insets = new Insets(0, 0, 5, 5);
-		gbc_Recientes.gridx = 0;
+		gbc_Recientes.gridx = 1;
 		gbc_Recientes.gridy = 5;
 		Columna.add(Recientes, gbc_Recientes);
 
@@ -174,8 +175,8 @@ public class Principal extends JFrame {
 		PanelRecientes panelRecientes = new PanelRecientes();
 		GridBagConstraints gbc_Botón_Recientes = new GridBagConstraints();
 		gbc_Botón_Recientes.fill = GridBagConstraints.HORIZONTAL;
-		gbc_Botón_Recientes.insets = new Insets(0, 0, 5, 0);
-		gbc_Botón_Recientes.gridx = 1;
+		gbc_Botón_Recientes.insets = new Insets(0, 0, 5, 5);
+		gbc_Botón_Recientes.gridx = 2;
 		gbc_Botón_Recientes.gridy = 5;
 		Botón_Recientes.addActionListener(ev -> {
 			if (!Botón_Recientes.isSelected()) {
@@ -190,7 +191,8 @@ public class Principal extends JFrame {
 					principal.revalidate();
 					principal.repaint();
 				} else {
-					AppMusic.getUnicaInstancia().showPopup(Principal.getInstancia(), Constantes.ERROR_TABLA_VACIA_MENSAJE);
+					AppMusic.getUnicaInstancia().showPopup(Principal.getInstancia(),
+							Constantes.ERROR_TABLA_VACIA_MENSAJE);
 				}
 			}
 		});
@@ -200,7 +202,7 @@ public class Principal extends JFrame {
 		Playlists.setIcon(new ImageIcon(Principal.class.getResource("/recursos/lista.png")));
 		GridBagConstraints gbc_Playlists = new GridBagConstraints();
 		gbc_Playlists.insets = new Insets(0, 0, 5, 5);
-		gbc_Playlists.gridx = 0;
+		gbc_Playlists.gridx = 1;
 		gbc_Playlists.gridy = 7;
 		Columna.add(Playlists, gbc_Playlists);
 
@@ -208,8 +210,8 @@ public class Principal extends JFrame {
 		PanelMisListas panelLista = new PanelMisListas();
 		GridBagConstraints gbc_Botón_Playlists = new GridBagConstraints();
 		gbc_Botón_Playlists.fill = GridBagConstraints.HORIZONTAL;
-		gbc_Botón_Playlists.insets = new Insets(0, 0, 5, 0);
-		gbc_Botón_Playlists.gridx = 1;
+		gbc_Botón_Playlists.insets = new Insets(0, 0, 5, 5);
+		gbc_Botón_Playlists.gridx = 2;
 		gbc_Botón_Playlists.gridy = 7;
 		Botón_Playlists.addActionListener(ev -> {
 			if (!Botón_Playlists.isSelected()) {
@@ -218,85 +220,114 @@ public class Principal extends JFrame {
 				principal.repaint();
 			} else {
 				DatosLista datos = AppMusic.getUnicaInstancia().getMisPlaylists(false);
-				if(datos != null) {
+				if (datos != null) {
 					panelLista.setLista(datos.getNombres());
 					principal.add(panelLista);
 					principal.revalidate();
 					principal.repaint();
 				} else {
-					AppMusic.getUnicaInstancia().showPopup(Principal.getInstancia(), Constantes.ERROR_LISTA_VACIA_MENSAJE);
+					AppMusic.getUnicaInstancia().showPopup(Principal.getInstancia(),
+							Constantes.ERROR_LISTA_VACIA_MENSAJE);
 				}
 			}
 		});
 		Columna.add(Botón_Playlists, gbc_Botón_Playlists);
-		
+
+		JButton Botón_Logout = new JButton("Logout");
+		GridBagConstraints gbc_Botón_Logout = new GridBagConstraints();
+		gbc_Botón_Logout.insets = new Insets(0, 0, 5, 5);
+		gbc_Botón_Logout.fill = GridBagConstraints.HORIZONTAL;
+		gbc_Botón_Logout.gridx = 2;
+		gbc_Botón_Logout.gridy = 16;
+		Botón_Logout.addActionListener(ev -> {
+			Selector.getInstancia().setVisible(true);
+			getInstancia().setVisible(false);
+		});
+
+		JLabel URL = new JLabel("");
+		URL.setIcon(new ImageIcon(Principal.class.getResource("/recursos/enlace.png")));
+		GridBagConstraints gbc_URL = new GridBagConstraints();
+		gbc_URL.insets = new Insets(0, 0, 5, 5);
+		gbc_URL.gridx = 1;
+		gbc_URL.gridy = 9;
+		Columna.add(URL, gbc_URL);
+
+		JToggleButton Boton_URL = new JToggleButton("URL");
+		GridBagConstraints gbc_Boton_URL = new GridBagConstraints();
+		gbc_Boton_URL.fill = GridBagConstraints.HORIZONTAL;
+		gbc_Boton_URL.insets = new Insets(0, 0, 5, 5);
+		gbc_Boton_URL.gridx = 2;
+		gbc_Boton_URL.gridy = 9;
+		Columna.add(Boton_URL, gbc_Boton_URL);
+
 		JLabel Premium = new JLabel("");
 		Premium.setIcon(new ImageIcon(Principal.class.getResource("/recursos/calidad-premium.png")));
 		GridBagConstraints gbc_Premium = new GridBagConstraints();
 		gbc_Premium.insets = new Insets(0, 0, 5, 5);
-		gbc_Premium.gridx = 0;
-		gbc_Premium.gridy = 9;
+		gbc_Premium.gridx = 1;
+		gbc_Premium.gridy = 11;
 		Columna.add(Premium, gbc_Premium);
 
 		JButton Botón_Premium = new JButton("Premium");
 		GridBagConstraints gbc_Botón_Premium = new GridBagConstraints();
 		gbc_Botón_Premium.fill = GridBagConstraints.HORIZONTAL;
-		gbc_Botón_Premium.insets = new Insets(0, 0, 5, 0);
-		gbc_Botón_Premium.gridx = 1;
-		gbc_Botón_Premium.gridy = 9;
+		gbc_Botón_Premium.insets = new Insets(0, 0, 5, 5);
+		gbc_Botón_Premium.gridx = 2;
+		gbc_Botón_Premium.gridy = 11;
 		Columna.add(Botón_Premium, gbc_Botón_Premium);
 		Botón_Premium.addActionListener(ev -> {
-			gbl_Columna.columnWidths = new int[] { 32, 60, 0 };
-			gbl_Columna.rowHeights = new int[] { 10, 32, 10, 32, 10, 32, 10, 32, 10, 32, 10, 32, 10, 0, 32, 10, 0 };
-			gbl_Columna.columnWeights = new double[] { 1.0, 0.0, Double.MIN_VALUE };
+			gbl_Columna.columnWidths = new int[] { 2, 32, 60, 1, 0 };
+			gbl_Columna.rowHeights = new int[] { 10, 32, 10, 32, 10, 32, 10, 32, 10, 32, 10, 32, 10, 32, 10, 0, 32, 10,
+					0 };
+			gbl_Columna.columnWeights = new double[] { 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
 			gbl_Columna.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-					1.0, 0.0, 0.0, Double.MIN_VALUE };
+					0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
 
 			Columna.remove(Botón_Premium);
 			Columna.remove(Premium);
-			
+
 			JLabel PDF = new JLabel("");
 			PDF.setIcon(new ImageIcon(Principal.class.getResource("/recursos/archivo-pdf.png")));
 			GridBagConstraints gbc_PDF = new GridBagConstraints();
 			gbc_PDF.insets = new Insets(0, 0, 5, 5);
-			gbc_PDF.gridx = 0;
-			gbc_PDF.gridy = 9;
+			gbc_PDF.gridx = 1;
+			gbc_PDF.gridy = 11;
 			Columna.add(PDF, gbc_PDF);
 
 			JButton Botón_PDF = new JButton("Generar PDF");
 			GridBagConstraints gbc_Botón_PDF = new GridBagConstraints();
 			gbc_Botón_PDF.fill = GridBagConstraints.HORIZONTAL;
-			gbc_Botón_PDF.gridx = 1;
-			gbc_Botón_PDF.gridy = 9;
+			gbc_Botón_PDF.gridx = 2;
+			gbc_Botón_PDF.gridy = 11;
 			gbc_Botón_PDF.gridwidth = 1;
 			Columna.setLayout(gbl_Columna);
 			Botón_PDF.addActionListener(ev2 -> {
-				if (AppMusic.getUnicaInstancia().crearPDF()){
+				if (AppMusic.getUnicaInstancia().crearPDF()) {
 					AppMusic.getUnicaInstancia().showPopup(this, Constantes.EXITO_CREAR_PDF_MENSAJE);
 				} else {
 					AppMusic.getUnicaInstancia().showPopup(this, Constantes.ERROR_CREAR_PDF_MENSAJE);
 				}
 			});
 			Columna.add(Botón_PDF, gbc_Botón_PDF);
-			
+
 			JLabel Tendencias = new JLabel("");
 			Tendencias.setIcon(new ImageIcon(Principal.class.getResource("/recursos/fuego.png")));
 			GridBagConstraints gbc_Tendencias = new GridBagConstraints();
 			gbc_Tendencias.insets = new Insets(0, 0, 5, 5);
-			gbc_Tendencias.gridx = 0;
-			gbc_Tendencias.gridy = 11;
+			gbc_Tendencias.gridx = 1;
+			gbc_Tendencias.gridy = 13;
 			Columna.add(Tendencias, gbc_Tendencias);
 
 			JToggleButton Botón_Tendencias = new JToggleButton("Tendencias");
 			PanelTendencias panelTendencias = new PanelTendencias();
 			GridBagConstraints gbc_Botón_Tendencias = new GridBagConstraints();
 			gbc_Botón_Tendencias.fill = GridBagConstraints.HORIZONTAL;
-			gbc_Botón_Tendencias.gridx = 1;
-			gbc_Botón_Tendencias.gridy = 11;
+			gbc_Botón_Tendencias.gridx = 2;
+			gbc_Botón_Tendencias.gridy = 13;
 			gbc_Botón_Tendencias.gridwidth = 1;
 			Columna.setLayout(gbl_Columna);
 			Botón_Tendencias.addActionListener(ev2 -> {
-				if(!Botón_Tendencias.isSelected()) {
+				if (!Botón_Tendencias.isSelected()) {
 					principal.remove(panelTendencias);
 					principal.revalidate();
 					principal.repaint();
@@ -318,23 +349,12 @@ public class Principal extends JFrame {
 			Columna.repaint();
 		});
 
-		JButton Botón_Logout = new JButton("Logout");
-		GridBagConstraints gbc_Botón_Logout = new GridBagConstraints();
-		gbc_Botón_Logout.insets = new Insets(0, 0, 5, 0);
-		gbc_Botón_Logout.fill = GridBagConstraints.HORIZONTAL;
-		gbc_Botón_Logout.gridx = 1;
-		gbc_Botón_Logout.gridy = 14;
-		Botón_Logout.addActionListener(ev -> {
-			Selector.getInstancia().setVisible(true);
-			getInstancia().setVisible(false);
-		});
-		
 		JLabel Logout = new JLabel("");
 		Logout.setIcon(new ImageIcon(Principal.class.getResource("/recursos/cerrar-sesion.png")));
 		GridBagConstraints gbc_Logout = new GridBagConstraints();
 		gbc_Logout.insets = new Insets(0, 0, 5, 5);
-		gbc_Logout.gridx = 0;
-		gbc_Logout.gridy = 14;
+		gbc_Logout.gridx = 1;
+		gbc_Logout.gridy = 16;
 		Columna.add(Logout, gbc_Logout);
 		Columna.add(Botón_Logout, gbc_Botón_Logout);
 
@@ -344,7 +364,7 @@ public class Principal extends JFrame {
 
 		PanelEstilos panelEstilos = new PanelEstilos();
 		Layout.add(panelEstilos);
-		
+
 		Luz luz = new Luz();
 		luz.setEncendido(true);
 		luz.setColor(new Color(0, 128, 0));
@@ -352,11 +372,9 @@ public class Principal extends JFrame {
 			luz.setEncendido(true);
 			JFileChooser filechooser = new JFileChooser();
 			/*
-			javax.swing.filechooser.FileFilter mp3FileFilter = (file) -> {
-				  return file.getName().endsWith(".mp3");
-				};
-			filechooser.setFileFilter(mp3FileFilter);
-			*/
+			 * javax.swing.filechooser.FileFilter mp3FileFilter = (file) -> { return
+			 * file.getName().endsWith(".mp3"); }; filechooser.setFileFilter(mp3FileFilter);
+			 */
 			filechooser.showOpenDialog(filechooser);
 			// String ruta = filechooser.getSelectedFile();
 		});

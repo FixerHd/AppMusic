@@ -34,7 +34,7 @@ public class PanelListas extends JPanel {
 	 * Create the panel.
 	 */
 	public PanelListas() {
-		setBorder(null);
+		setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setLayout(new BorderLayout(0, 0));
 
 		JSplitPane splitPane = new JSplitPane();
@@ -60,25 +60,7 @@ public class PanelListas extends JPanel {
 		leftScrollPane = new JScrollPane(lista);
 		splitPane.setLeftComponent(leftScrollPane);
 
-		table = new JTable();
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		DefaultTableModel model = new DefaultTableModel(new Object[][] { { null, null, null, null }, },
-				new String[] { "Titulo", "Interprete", "Estilo", "" }) {
-			Class[] columnTypes = new Class[] { Object.class, Object.class, Object.class, Boolean.class };
-
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-
-			boolean[] columnEditables = new boolean[] { false, false, false, true };
-
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		};
-		model.removeRow(0);
-		table.setModel(model);
-
+		table = new AppTabla();
 		rightScrollPane = new JScrollPane(table);
 		splitPane.setRightComponent(rightScrollPane);
 

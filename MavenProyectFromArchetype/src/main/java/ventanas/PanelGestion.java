@@ -150,51 +150,8 @@ public class PanelGestion extends JPanel {
 		add(panel, gbc_panel);
 		panel.setLayout(new BorderLayout(0, 0));
 
-		JPanel Panel_Reproducción = new JPanel();
+		JPanel Panel_Reproducción = new PanelReproduccion();
 		panel.add(Panel_Reproducción, BorderLayout.NORTH);
-		GridBagLayout gbl_Panel_Reproducción = new GridBagLayout();
-		gbl_Panel_Reproducción.columnWidths = new int[] { 10, 32, 10, 32, 10, 32, 10, 32, 10, 0 };
-		gbl_Panel_Reproducción.rowHeights = new int[] { 32, 0 };
-		gbl_Panel_Reproducción.columnWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0,
-				Double.MIN_VALUE };
-		gbl_Panel_Reproducción.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
-		Panel_Reproducción.setLayout(gbl_Panel_Reproducción);
-
-		JLabel Choose_previous = new JLabel("");
-		Choose_previous.setIcon(new ImageIcon(PanelGestion.class.getResource("/recursos/anterior.png")));
-		GridBagConstraints gbc_Choose_previous = new GridBagConstraints();
-		gbc_Choose_previous.anchor = GridBagConstraints.NORTHWEST;
-		gbc_Choose_previous.insets = new Insets(0, 0, 0, 5);
-		gbc_Choose_previous.gridx = 1;
-		gbc_Choose_previous.gridy = 0;
-		Panel_Reproducción.add(Choose_previous, gbc_Choose_previous);
-
-		JLabel Restart = new JLabel("");
-		Restart.setIcon(new ImageIcon(PanelGestion.class.getResource("/recursos/forma-cuadrada-negra-redondeada.png")));
-		GridBagConstraints gbc_Restart = new GridBagConstraints();
-		gbc_Restart.anchor = GridBagConstraints.NORTHWEST;
-		gbc_Restart.insets = new Insets(0, 0, 0, 5);
-		gbc_Restart.gridx = 3;
-		gbc_Restart.gridy = 0;
-		Panel_Reproducción.add(Restart, gbc_Restart);
-
-		JLabel Play_Stop = new JLabel("");
-		Play_Stop.setIcon(new ImageIcon(PanelGestion.class.getResource("/recursos/jugar.png")));
-		GridBagConstraints gbc_Play_Stop = new GridBagConstraints();
-		gbc_Play_Stop.anchor = GridBagConstraints.NORTHWEST;
-		gbc_Play_Stop.insets = new Insets(0, 0, 0, 5);
-		gbc_Play_Stop.gridx = 5;
-		gbc_Play_Stop.gridy = 0;
-		Panel_Reproducción.add(Play_Stop, gbc_Play_Stop);
-
-		JLabel Choose_next = new JLabel("");
-		Choose_next.setIcon(new ImageIcon(PanelGestion.class.getResource("/recursos/proximo.png")));
-		GridBagConstraints gbc_Choose_next = new GridBagConstraints();
-		gbc_Choose_next.anchor = GridBagConstraints.NORTHWEST;
-		gbc_Choose_next.insets = new Insets(0, 0, 0, 5);
-		gbc_Choose_next.gridx = 7;
-		gbc_Choose_next.gridy = 0;
-		Panel_Reproducción.add(Choose_next, gbc_Choose_next);
 
 		JButton Boton_Eliminar_Canción = new JButton("Eliminar Canción");
 		Boton_Eliminar_Canción
