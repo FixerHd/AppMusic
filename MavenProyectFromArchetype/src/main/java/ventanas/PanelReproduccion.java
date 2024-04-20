@@ -3,7 +3,6 @@ package ventanas;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.util.concurrent.locks.ReentrantLock;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -17,23 +16,16 @@ import javax.swing.border.TitledBorder;
 
 import Controlador.AppMusic;
 
-public abstract class PanelReproduccion extends JPanel implements PlayObserver {
+public class PanelReproduccion extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	protected JToggleButton Play_Stop;
-	protected String cancion = null;
-	protected JButton Choose_previous;
-	protected JButton Choose_next;
-	protected JButton Restart;
-	protected PlayNotificationService playService;
+	private JToggleButton Play_Stop;
+	private String cancionURL;
 
 	/**
 	 * Create the panel.
 	 */
-	public PanelReproduccion(PlayNotificationService playService) {
-		this.playService = playService;
-		this.playService.subscribe(this);
-		
+	public PanelReproduccion() {
 		setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 
 		GridBagLayout gbl_Panel_Reproducción = new GridBagLayout();
@@ -44,7 +36,7 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 		gbl_Panel_Reproducción.rowWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
 		this.setLayout(gbl_Panel_Reproducción);
 
-		Choose_previous = new JButton("");
+		JButton Choose_previous = new JButton("");
 		Choose_previous.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/anterior.png")));
 		GridBagConstraints gbc_Choose_previous = new GridBagConstraints();
 		gbc_Choose_previous.anchor = GridBagConstraints.NORTHWEST;
@@ -53,7 +45,7 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 		gbc_Choose_previous.gridy = 1;
 		this.add(Choose_previous, gbc_Choose_previous);
 
-		Restart = new JButton("");
+		JButton Restart = new JButton("");
 		Restart.setIcon(
 				new ImageIcon(PanelResultado.class.getResource("/recursos/forma-cuadrada-negra-redondeada.png")));
 		GridBagConstraints gbc_Restart = new GridBagConstraints();
@@ -72,19 +64,14 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 		gbc_Play_Stop.gridy = 1;
 		Play_Stop.addActionListener(ev -> {
 			if (!Play_Stop.isSelected()) {
-				if(stopCancion()) {
-					Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/jugar.png")));
-				}
+				Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/jugar.png")));
 			} else {
-				if(playCancion()) {
-					this.playService.notifyPlaylist();
-					Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/pausa.png")));
-				}
+				Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/pausa.png")));
 			}
 		});
 		this.add(Play_Stop, gbc_Play_Stop);
 
-		Choose_next = new JButton("");
+		JButton Choose_next = new JButton("");
 		Choose_next.setIcon(new ImageIcon(PanelRecientes.class.getResource("/recursos/proximo.png")));
 		GridBagConstraints gbc_Choose_next = new GridBagConstraints();
 		gbc_Choose_next.anchor = GridBagConstraints.NORTHWEST;
@@ -94,29 +81,49 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 		this.add(Choose_next, gbc_Choose_next);
 
 	}
-
+	
 	public JToggleButton getPlay_Stop() {
 		return Play_Stop;
 	}
-
+	
 	public String getCancion() {
-		return cancion;
+		return cancionURL;
 	}
 
 	public void setCancion(String cancion) {
-		this.cancion = cancion;
+		this.cancionURL = cancion;
 	}
-
-	public abstract boolean playCancion();
-
-	public abstract boolean playCancion(String cancion);
-
-	public abstract boolean stopCancion();
 	
-	@Override
-	public void update() {
-		Play_Stop.setSelected(false);
-		Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/jugar.png")));
+	public boolean playCancionURL() {
+		boolean resultado = dominio.Reproductor.getUnicaInstancia().playCancion(cancionURL);
+		if (resultado == false) {
+			AppMusic.getUnicaInstancia().showPopup(this, Utilidades.Constantes.ERROR_PLAY_URL_MENSAJE);
+		} else {
+			Play_Stop.setSelected(true);
+		}
+		return resultado;
+	}
+	
+	public boolean playCancionURL(String cancionURL) {
+		boolean resultado = dominio.Reproductor.getUnicaInstancia().playCancion(cancionURL);
+		if (resultado == false) {
+			AppMusic.getUnicaInstancia().showPopup(this, Utilidades.Constantes.ERROR_PLAY_URL_MENSAJE);
+		} else {
+			// Solo si se consigue reproducir la canción se establece la canción recibida como la canción a reproducir
+			this.cancionURL = cancionURL;
+			Play_Stop.setSelected(true);
+		}
+		return resultado;
+	}
+	
+	public boolean stopCancionURL() {
+		boolean resultado = dominio.Reproductor.getUnicaInstancia().stopCancion();
+		if (resultado == false) {
+			AppMusic.getUnicaInstancia().showPopup(this, Utilidades.Constantes.ERROR_STOP_URL_MENSAJE);
+		} else {
+			Play_Stop.setSelected(false);
+		}
+		return resultado;
 	}
 
 }

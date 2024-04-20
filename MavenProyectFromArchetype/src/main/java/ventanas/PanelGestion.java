@@ -150,7 +150,7 @@ public class PanelGestion extends JPanel {
 		add(panel, gbc_panel);
 		panel.setLayout(new BorderLayout(0, 0));
 
-		JPanel Panel_Reproducción = new PanelReproduccionMP3(AppMusic.getUnicaInstancia().getPlayService());
+		JPanel Panel_Reproducción = new PanelReproduccion();
 		panel.add(Panel_Reproducción, BorderLayout.NORTH);
 
 		JButton Boton_Eliminar_Canción = new JButton("Eliminar Canción");

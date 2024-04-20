@@ -31,6 +31,10 @@ public class PanelRecientes extends JPanel {
 	private JTable table;
 	private JPanel panel;
 	private JPanel Panel_Reproducción;
+	private JLabel Choose_previous;
+	private JLabel Restart;
+	private JLabel Play_Stop;
+	private JLabel Choose_next;
 	private JScrollPane scrollPane;
 
 	public PanelRecientes() {
@@ -64,7 +68,7 @@ public class PanelRecientes extends JPanel {
 		add(panel, gbc_panel);
 		panel.setLayout(new BorderLayout(0, 0));
 
-		Panel_Reproducción = new PanelReproduccionMP3(AppMusic.getUnicaInstancia().getPlayService());
+		Panel_Reproducción = new PanelReproduccion();
 		panel.add(Panel_Reproducción, BorderLayout.NORTH);
 
 		this.setVisible(true);

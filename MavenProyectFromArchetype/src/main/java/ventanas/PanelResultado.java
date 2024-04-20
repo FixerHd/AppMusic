@@ -37,7 +37,7 @@ import java.awt.Color;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 
-public class PanelResultado extends JPanel {
+public class PanelResultado extends JPanel implements PlayObserver {
 
 	private static final long serialVersionUID = 1L;
 	private JTable table;
@@ -79,7 +79,7 @@ public class PanelResultado extends JPanel {
 		add(panel, gbc_panel);
 		panel.setLayout(new BorderLayout(0, 0));
 
-		Panel_Reproducción = new PanelReproduccionMP3(AppMusic.getUnicaInstancia().getPlayService());
+		Panel_Reproducción = new PanelReproduccion();
 		panel.add(Panel_Reproducción, BorderLayout.NORTH);
 
 		JButton Añadir_Canción = new JButton("Añadir a Lista");
@@ -117,6 +117,12 @@ public class PanelResultado extends JPanel {
 		gbc_table.gridx = 1;
 		gbc_table.gridy = 1;
 		this.add(scrollPane, gbc_table);
+	}
+
+	@Override
+	public void update() {
+		Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/jugar.png")));
+		Boton_Play_Stop.setSelected(false);
 	}
 
 }

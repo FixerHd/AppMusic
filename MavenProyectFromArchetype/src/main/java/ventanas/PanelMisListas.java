@@ -68,7 +68,7 @@ public class PanelMisListas extends JPanel {
 		gbc_listas.gridy = 1;
 		add(panelListas, gbc_listas);
 
-		Panel_Reproducción = new PanelReproduccionMP3(AppMusic.getUnicaInstancia().getPlayService());
+		Panel_Reproducción = new PanelReproduccion();
 		panel.add(Panel_Reproducción, BorderLayout.NORTH);
 
 		this.setVisible(true);
