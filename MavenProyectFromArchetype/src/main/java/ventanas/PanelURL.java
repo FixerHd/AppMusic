@@ -34,10 +34,6 @@ public class PanelURL extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JPanel panel;
 	private PanelReproduccion Panel_Reproducción;
-	private JLabel Choose_previous;
-	private JLabel Restart;
-	private JLabel Play_Stop;
-	private JLabel Choose_next;
 	private JLabel URL;
 	private HintTextField Texto_URL;
 	private JButton Boton_Buscar;
@@ -57,7 +53,7 @@ public class PanelURL extends JPanel {
 		gbl_panel_3.rowWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE };
 		this.setLayout(gbl_panel_3);
 
-		Nombre = new JLabel("Nombre");
+		Nombre = new JLabel("URL Actual");
 		Nombre.setFont(new Font("Tahoma", Font.BOLD, 14));
 		GridBagConstraints gbc_Nombre = new GridBagConstraints();
 		gbc_Nombre.gridwidth = 2;
@@ -90,7 +86,9 @@ public class PanelURL extends JPanel {
 		gbc_Boton_Buscar.gridx = 2;
 		gbc_Boton_Buscar.gridy = 5;
 		Boton_Buscar.addActionListener(ev -> {
-			Panel_Reproducción.playCancionURL(Texto_URL.getText());
+			if (Panel_Reproducción.playCancion(Texto_URL.getText())) {
+				Nombre.setText(Texto_URL.getText());
+			};
 		});
 		add(Boton_Buscar, gbc_Boton_Buscar);
 
@@ -114,7 +112,7 @@ public class PanelURL extends JPanel {
 		add(panel, gbc_panel);
 		panel.setLayout(new BorderLayout(0, 0));
 
-		Panel_Reproducción = new PanelReproduccion();
+		Panel_Reproducción = new PanelReproduccionURL(AppMusic.getUnicaInstancia().getPlayService());
 		panel.add(Panel_Reproducción, BorderLayout.NORTH);
 
 		this.setVisible(true);
