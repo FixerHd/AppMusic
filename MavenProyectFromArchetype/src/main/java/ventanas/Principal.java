@@ -258,6 +258,18 @@ public class Principal extends JFrame {
 		gbc_Boton_URL.insets = new Insets(0, 0, 5, 5);
 		gbc_Boton_URL.gridx = 2;
 		gbc_Boton_URL.gridy = 9;
+		PanelURL panelURL = new PanelURL();
+		Boton_URL.addActionListener(e -> {
+			if(!Boton_URL.isSelected()) {
+				principal.remove(panelURL);
+				principal.revalidate();
+				principal.repaint();
+			} else {
+				principal.add(panelURL);
+				principal.revalidate();
+				principal.repaint();
+			}
+		});
 		Columna.add(Boton_URL, gbc_Boton_URL);
 
 		JLabel Premium = new JLabel("");
