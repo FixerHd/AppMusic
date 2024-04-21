@@ -26,6 +26,7 @@ import dominio.Usuario;
 import persistencia.DAOException;
 import persistencia.FactoriaDAO;
 import persistencia.IAdaptadorUsuarioDAO;
+import ventanas.PlayNotificationService;
 import persistencia.IAdaptadorCancionDAO;
 import persistencia.IAdaptadorPlaylistDAO;
 
@@ -55,6 +56,8 @@ public class AppMusic {
 	private CatalogoUsuarios catalogoUsuarios;
 	private CatalogoCanciones catalogoCanciones;
 	private Usuario usuarioActivo;
+	
+	private PlayNotificationService playService = new PlayNotificationService();
 
 	public AppMusic() {
 		// Debe ser la primera linea para evitar error de sincronización
@@ -67,6 +70,10 @@ public class AppMusic {
 			unicaInstancia = new AppMusic();
 		}
 		return unicaInstancia;
+	}
+	
+	public PlayNotificationService getPlayService() {
+		return playService;
 	}
 
 	public ArrayList<JFrame> getVentanas() {

@@ -16,16 +16,22 @@ import javax.swing.border.TitledBorder;
 
 import Controlador.AppMusic;
 
-public class PanelReproduccion extends JPanel {
+public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 
 	private static final long serialVersionUID = 1L;
-	private JToggleButton Play_Stop;
-	private String cancionURL;
+	protected JToggleButton Play_Stop;
+	protected String cancion = null;
+	protected JButton Choose_previous;
+	protected JButton Choose_next;
+	protected JButton Restart;
+	protected PlayNotificationService playService;
 
 	/**
 	 * Create the panel.
 	 */
-	public PanelReproduccion() {
+	public PanelReproduccion(PlayNotificationService playService) {
+		this.playService = playService;
+		this.playService.subscribe(this);
 		setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 
 		GridBagLayout gbl_Panel_Reproducción = new GridBagLayout();
@@ -36,7 +42,7 @@ public class PanelReproduccion extends JPanel {
 		gbl_Panel_Reproducción.rowWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
 		this.setLayout(gbl_Panel_Reproducción);
 
-		JButton Choose_previous = new JButton("");
+		Choose_previous = new JButton("");
 		Choose_previous.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/anterior.png")));
 		GridBagConstraints gbc_Choose_previous = new GridBagConstraints();
 		gbc_Choose_previous.anchor = GridBagConstraints.NORTHWEST;
@@ -45,7 +51,7 @@ public class PanelReproduccion extends JPanel {
 		gbc_Choose_previous.gridy = 1;
 		this.add(Choose_previous, gbc_Choose_previous);
 
-		JButton Restart = new JButton("");
+		Restart = new JButton("");
 		Restart.setIcon(
 				new ImageIcon(PanelResultado.class.getResource("/recursos/forma-cuadrada-negra-redondeada.png")));
 		GridBagConstraints gbc_Restart = new GridBagConstraints();
@@ -65,13 +71,20 @@ public class PanelReproduccion extends JPanel {
 		Play_Stop.addActionListener(ev -> {
 			if (!Play_Stop.isSelected()) {
 				Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/jugar.png")));
+				if(stopCancion()) {
+					Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/jugar.png")));
+				}
 			} else {
 				Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/pausa.png")));
+				if(playCancion()) {
+					this.playService.notifyPlaylist();
+					Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/pausa.png")));
+				}
 			}
 		});
 		this.add(Play_Stop, gbc_Play_Stop);
 
-		JButton Choose_next = new JButton("");
+		Choose_next = new JButton("");
 		Choose_next.setIcon(new ImageIcon(PanelRecientes.class.getResource("/recursos/proximo.png")));
 		GridBagConstraints gbc_Choose_next = new GridBagConstraints();
 		gbc_Choose_next.anchor = GridBagConstraints.NORTHWEST;
@@ -87,43 +100,25 @@ public class PanelReproduccion extends JPanel {
 	}
 	
 	public String getCancion() {
-		return cancionURL;
+		return cancion;
 	}
 
 	public void setCancion(String cancion) {
-		this.cancionURL = cancion;
+		this.cancion = cancion;
 	}
 	
-	public boolean playCancionURL() {
-		boolean resultado = dominio.Reproductor.getUnicaInstancia().playCancion(cancionURL);
-		if (resultado == false) {
-			AppMusic.getUnicaInstancia().showPopup(this, Utilidades.Constantes.ERROR_PLAY_URL_MENSAJE);
-		} else {
-			Play_Stop.setSelected(true);
-		}
-		return resultado;
-	}
+	public abstract boolean playCancion();
+
+	public abstract boolean playCancion(String cancion);
+
+	public abstract boolean stopCancion();
 	
-	public boolean playCancionURL(String cancionURL) {
-		boolean resultado = dominio.Reproductor.getUnicaInstancia().playCancion(cancionURL);
-		if (resultado == false) {
-			AppMusic.getUnicaInstancia().showPopup(this, Utilidades.Constantes.ERROR_PLAY_URL_MENSAJE);
-		} else {
-			// Solo si se consigue reproducir la canción se establece la canción recibida como la canción a reproducir
-			this.cancionURL = cancionURL;
-			Play_Stop.setSelected(true);
-		}
-		return resultado;
-	}
-	
-	public boolean stopCancionURL() {
-		boolean resultado = dominio.Reproductor.getUnicaInstancia().stopCancion();
-		if (resultado == false) {
-			AppMusic.getUnicaInstancia().showPopup(this, Utilidades.Constantes.ERROR_STOP_URL_MENSAJE);
-		} else {
-			Play_Stop.setSelected(false);
-		}
-		return resultado;
+	@Override
+	public void update() {
+		Play_Stop.setSelected(false);
+		Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/jugar.png")));
+		revalidate();
+		repaint();
 	}
 
 }

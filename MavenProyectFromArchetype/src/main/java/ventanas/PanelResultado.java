@@ -79,7 +79,7 @@ public class PanelResultado extends JPanel implements PlayObserver {
 		add(panel, gbc_panel);
 		panel.setLayout(new BorderLayout(0, 0));
 
-		Panel_Reproducción = new PanelReproduccion();
+		Panel_Reproducción = new PanelReproduccionMP3(AppMusic.getUnicaInstancia().getPlayService());
 		panel.add(Panel_Reproducción, BorderLayout.NORTH);
 
 		JButton Añadir_Canción = new JButton("Añadir a Lista");
