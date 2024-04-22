@@ -29,7 +29,7 @@ import java.awt.Color;
 import javax.swing.border.EtchedBorder;
 import java.awt.Font;
 
-public class PanelURL extends JPanel {
+public class PanelURL extends JPanel implements NextPreviousObserver {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel panel;
@@ -88,7 +88,8 @@ public class PanelURL extends JPanel {
 		Boton_Buscar.addActionListener(ev -> {
 			if (Panel_Reproducción.playCancion(Texto_URL.getText())) {
 				Nombre.setText(Texto_URL.getText());
-			};
+			}
+			;
 		});
 		add(Boton_Buscar, gbc_Boton_Buscar);
 
@@ -112,10 +113,18 @@ public class PanelURL extends JPanel {
 		add(panel, gbc_panel);
 		panel.setLayout(new BorderLayout(0, 0));
 
-		Panel_Reproducción = new PanelReproduccionURL(AppMusic.getUnicaInstancia().getPlayService());
+		Panel_Reproducción = new PanelReproduccionURL(AppMusic.getUnicaInstancia().getPlayService(), this);
 		panel.add(Panel_Reproducción, BorderLayout.NORTH);
 
 		this.setVisible(true);
 
+	}
+
+	@Override
+	public void nextUpdate() {
+	}
+
+	@Override
+	public void previousUpdate() {
 	}
 }

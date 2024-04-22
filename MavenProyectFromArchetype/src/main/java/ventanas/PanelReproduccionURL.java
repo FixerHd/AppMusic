@@ -11,8 +11,8 @@ public class PanelReproduccionURL extends PanelReproduccion {
 	/**
 	 * Create the panel.
 	 */
-	public PanelReproduccionURL(PlayNotificationService playService) {
-		super(playService);
+	public PanelReproduccionURL(NextPreviousObserver nextPreviousObserver) {
+		super(nextPreviousObserver);
 
 		this.remove(Choose_next);
 		this.remove(Choose_previous);

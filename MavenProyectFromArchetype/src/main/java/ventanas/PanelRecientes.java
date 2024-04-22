@@ -3,29 +3,16 @@ package ventanas;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.LayoutManager;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 import javax.swing.border.TitledBorder;
-import javax.swing.table.DefaultTableModel;
-
-import Controlador.AppMusic;
 import dominio.DatosTabla;
 
 import java.awt.BorderLayout;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
-import javax.swing.border.EtchedBorder;
 
-public class PanelRecientes extends JPanel {
+public class PanelRecientes extends JPanel implements NextPreviousObserver {
 
 	private static final long serialVersionUID = 1L;
 	private JTable table;
@@ -46,7 +33,7 @@ public class PanelRecientes extends JPanel {
 
 		table = new AppTabla();
 		scrollPane = new JScrollPane(table);
-		
+
 		GridBagConstraints gbc_table = new GridBagConstraints();
 		gbc_table.gridwidth = 3;
 		gbc_table.insets = new Insets(0, 0, 5, 5);
@@ -64,17 +51,17 @@ public class PanelRecientes extends JPanel {
 		add(panel, gbc_panel);
 		panel.setLayout(new BorderLayout(0, 0));
 
-		Panel_Reproducción = new PanelReproduccionMP3(AppMusic.getUnicaInstancia().getPlayService());
+		Panel_Reproducción = new PanelReproduccionMP3(this);
 		panel.add(Panel_Reproducción, BorderLayout.NORTH);
 
 		this.setVisible(true);
 
 	}
-	
+
 	public JTable getTable() {
 		return table;
 	}
-	
+
 	public void setTable(DatosTabla datos) {
 		table = new AppTabla(datos);
 		this.remove(scrollPane);
@@ -86,6 +73,18 @@ public class PanelRecientes extends JPanel {
 		gbc_table.gridx = 1;
 		gbc_table.gridy = 1;
 		this.add(scrollPane, gbc_table);
+	}
+
+	@Override
+	public void nextUpdate() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void previousUpdate() {
+		// TODO Auto-generated method stub
+
 	}
 
 }

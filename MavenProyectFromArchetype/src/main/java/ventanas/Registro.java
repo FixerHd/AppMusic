@@ -12,9 +12,7 @@ import javax.swing.UIManager;
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
-import javax.swing.JTextField;
 import java.awt.Insets;
-import java.awt.Rectangle;
 
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
@@ -107,7 +105,8 @@ public class Registro extends JFrame {
 		gbl_panel_1.columnWidths = new int[] { 15, 100, 100, 100, 100, 15, 0 };
 		gbl_panel_1.rowHeights = new int[] { 15, 15, 35, 0, 15, 35, 15, 35, 15, 35, 15, 15, 0 };
 		gbl_panel_1.columnWeights = new double[] { 1.0, 0.0, 1.0, 0.0, 1.0, 1.0, Double.MIN_VALUE };
-		gbl_panel_1.rowWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
+		gbl_panel_1.rowWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0,
+				Double.MIN_VALUE };
 		panel_1.setLayout(gbl_panel_1);
 
 		Usuario = new JLabel("Usuario:");
@@ -164,7 +163,7 @@ public class Registro extends JFrame {
 		gbc_Texto_Nombre.gridy = 5;
 		panel_1.add(Texto_Nombre, gbc_Texto_Nombre);
 		Texto_Nombre.setColumns(10);
-		
+
 		Email = new JLabel("Email:");
 		Email.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 14));
 		GridBagConstraints gbc_Email = new GridBagConstraints();
@@ -173,7 +172,7 @@ public class Registro extends JFrame {
 		gbc_Email.gridx = 1;
 		gbc_Email.gridy = 7;
 		panel_1.add(Email, gbc_Email);
-		
+
 		Texto_Email = new HintTextField("Email");
 		GridBagConstraints gbc_Texto_Email = new GridBagConstraints();
 		gbc_Texto_Email.gridwidth = 3;
@@ -199,12 +198,14 @@ public class Registro extends JFrame {
 		gbc_Seleccionador_Fecha.gridx = 4;
 		gbc_Seleccionador_Fecha.gridy = 9;
 		panel_1.add(Seleccionador_Fecha, gbc_Seleccionador_Fecha);
-		
+
 		Botón_Registro = new JButton("Registro");
 		Botón_Registro.setIcon(new ImageIcon(Registro.class.getResource("/recursos/anadir.png")));
 		Botón_Registro.addActionListener(ev -> {
-			int resultado = AppMusic.getUnicaInstancia().registrarUsuario(Texto_Usuario.getText(), Texto_Email.getText(), Texto_Contraseña.getText(), Seleccionador_Fecha.getDate(), Texto_Nombre.getText());
-			
+			int resultado = AppMusic.getUnicaInstancia().registrarUsuario(Texto_Usuario.getText(),
+					Texto_Email.getText(), Texto_Contraseña.getText(), Seleccionador_Fecha.getDate(),
+					Texto_Nombre.getText());
+
 			switch (resultado) {
 			case Constantes.ERROR_REGISTRO_CAMPOS:
 				AppMusic.getUnicaInstancia().showPopup(this, Constantes.ERROR_REGISTRO_CAMPOS_MENSAJE);

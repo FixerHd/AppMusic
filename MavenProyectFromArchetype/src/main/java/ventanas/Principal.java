@@ -4,16 +4,13 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.BoxLayout;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
-import javax.swing.border.LineBorder;
 import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -27,7 +24,6 @@ import dominio.DatosTabla;
 
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
-import java.io.FileFilter;
 
 import javax.swing.JToggleButton;
 import pulsador.Luz;
@@ -260,7 +256,7 @@ public class Principal extends JFrame {
 		gbc_Boton_URL.gridy = 9;
 		PanelURL panelURL = new PanelURL();
 		Boton_URL.addActionListener(e -> {
-			if(!Boton_URL.isSelected()) {
+			if (!Boton_URL.isSelected()) {
 				principal.remove(panelURL);
 				principal.revalidate();
 				principal.repaint();

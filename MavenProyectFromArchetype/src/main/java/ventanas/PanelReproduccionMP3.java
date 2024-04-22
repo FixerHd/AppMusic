@@ -9,8 +9,8 @@ public class PanelReproduccionMP3 extends PanelReproduccion {
 	/**
 	 * Create the panel.
 	 */
-	public PanelReproduccionMP3(PlayNotificationService playService) {
-		super(playService);
+	public PanelReproduccionMP3(NextPreviousObserver nextPreviousObserver) {
+		super(nextPreviousObserver);
 	}
 
 	public boolean playCancion(){

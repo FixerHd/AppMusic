@@ -6,12 +6,8 @@ import java.awt.Insets;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
-import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 import Controlador.AppMusic;
@@ -19,18 +15,19 @@ import Controlador.AppMusic;
 public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 
 	private static final long serialVersionUID = 1L;
-	protected JToggleButton Play_Stop;
 	protected String cancion = null;
+	protected JToggleButton Play_Stop;
 	protected JButton Choose_previous;
 	protected JButton Choose_next;
 	protected JButton Restart;
-	protected PlayNotificationService playService;
+	protected PlayNotificationService playService = AppMusic.getUnicaInstancia().getPlayService();
+	protected NextPreviousNotificationService nextPreviousService;
 
 	/**
 	 * Create the panel.
 	 */
-	public PanelReproduccion(PlayNotificationService playService) {
-		this.playService = playService;
+	public PanelReproduccion(NextPreviousObserver nextPreviousObserver) {
+		this.nextPreviousService = new NextPreviousNotificationService(nextPreviousObserver);
 		this.playService.subscribe(this);
 		setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 
@@ -49,6 +46,9 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 		gbc_Choose_previous.insets = new Insets(0, 0, 0, 5);
 		gbc_Choose_previous.gridx = 2;
 		gbc_Choose_previous.gridy = 1;
+		Choose_previous.addActionListener(ev -> {
+			nextPreviousService.notifyPrevious();
+		});
 		this.add(Choose_previous, gbc_Choose_previous);
 
 		Restart = new JButton("");
@@ -71,12 +71,12 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 		Play_Stop.addActionListener(ev -> {
 			if (!Play_Stop.isSelected()) {
 				Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/jugar.png")));
-				if(stopCancion()) {
+				if (stopCancion()) {
 					Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/jugar.png")));
 				}
 			} else {
 				Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/pausa.png")));
-				if(playCancion()) {
+				if (playCancion()) {
 					this.playService.notifyPlaylist();
 					Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/pausa.png")));
 				}
@@ -91,14 +91,16 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 		gbc_Choose_next.insets = new Insets(0, 0, 0, 5);
 		gbc_Choose_next.gridx = 8;
 		gbc_Choose_next.gridy = 1;
+		Choose_next.addActionListener(ev -> {
+			nextPreviousService.notifyNext();
+		});
 		this.add(Choose_next, gbc_Choose_next);
-
 	}
-	
+
 	public JToggleButton getPlay_Stop() {
 		return Play_Stop;
 	}
-	
+
 	public String getCancion() {
 		return cancion;
 	}
@@ -106,13 +108,13 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 	public void setCancion(String cancion) {
 		this.cancion = cancion;
 	}
-	
+
 	public abstract boolean playCancion();
 
 	public abstract boolean playCancion(String cancion);
 
 	public abstract boolean stopCancion();
-	
+
 	@Override
 	public void update() {
 		Play_Stop.setSelected(false);

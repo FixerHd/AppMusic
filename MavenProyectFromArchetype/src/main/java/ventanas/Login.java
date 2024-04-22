@@ -10,13 +10,11 @@ import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.Rectangle;
 
 import Controlador.AppMusic;
 import Utilidades.Constantes;
 
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import javax.swing.JButton;
@@ -177,7 +175,7 @@ public class Login extends JFrame {
 		Decorado_Derecho.setHorizontalAlignment(SwingConstants.CENTER);
 		Decorado_Derecho.setIcon(new ImageIcon(Login.class.getResource("/recursos/floral_D_64.png")));
 		Space_panel_2.add(Decorado_Derecho, BorderLayout.NORTH);
-		
+
 		JButton Botón_Volver = new JButton("Volver");
 		Botón_Volver.setIcon(new ImageIcon(Login.class.getResource("/recursos/flecha-hacia-atras.png")));
 		Botón_Volver.addActionListener(ev -> {
@@ -190,13 +188,13 @@ public class Login extends JFrame {
 		Botón_Login.setIcon(new ImageIcon(Login.class.getResource("/recursos/usuario.png")));
 		Botón_Login.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		Botón_Login.addActionListener(ev -> {
-			if(AppMusic.getUnicaInstancia().verficarUsuario(Texto_Usuario.getText(), Texto_Contraseña.getText())) {
+			if (AppMusic.getUnicaInstancia().verficarUsuario(Texto_Usuario.getText(), Texto_Contraseña.getText())) {
 				Principal.getInstancia().setVisible(true);
 				setVisible(false);
 				Texto_Usuario.setText("");
 				Texto_Contraseña.setText("");
 			} else {
-				AppMusic.getUnicaInstancia().showPopup(this, Constantes.ERROR_INICIO_SESION_MENSAJE);	
+				AppMusic.getUnicaInstancia().showPopup(this, Constantes.ERROR_INICIO_SESION_MENSAJE);
 			}
 		});
 		Bottons_panel.add(Botón_Login);

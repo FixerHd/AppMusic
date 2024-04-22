@@ -26,6 +26,8 @@ import dominio.Usuario;
 import persistencia.DAOException;
 import persistencia.FactoriaDAO;
 import persistencia.IAdaptadorUsuarioDAO;
+import ventanas.NextPreviousNotificationService;
+import ventanas.NextPreviousObserver;
 import ventanas.PlayNotificationService;
 import persistencia.IAdaptadorCancionDAO;
 import persistencia.IAdaptadorPlaylistDAO;

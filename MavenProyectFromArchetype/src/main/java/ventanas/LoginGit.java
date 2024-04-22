@@ -10,7 +10,6 @@ import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.Rectangle;
 
 import Controlador.AppMusic;
 import Utilidades.Constantes;
@@ -221,18 +220,18 @@ public class LoginGit extends JFrame {
 		JLabel Decorado_Derecho = new JLabel("");
 		Decorado_Derecho.setIcon(new ImageIcon(LoginGit.class.getResource("/recursos/floral_D_32.png")));
 		Space_panel_2.add(Decorado_Derecho);
-		
+
 		JButton Botón_Login_Git = new JButton("Login con GitHub");
 		Botón_Login_Git.setIcon(new ImageIcon(LoginGit.class.getResource("/recursos/github.png")));
 		Botón_Login_Git.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		Botón_Login_Git.addActionListener(ev -> {
-			if(AppMusic.getUnicaInstancia().verficarUsuarioGit(Texto_Usuario.getText(), Texto_Contraseña.getText())) {
+			if (AppMusic.getUnicaInstancia().verficarUsuarioGit(Texto_Usuario.getText(), Texto_Contraseña.getText())) {
 				Principal.getInstancia().setVisible(true);
 				setVisible(false);
 				Texto_Usuario.setText("");
 				Texto_Contraseña.setText("");
 			} else {
-				AppMusic.getUnicaInstancia().showPopup(this, Constantes.ERROR_INICIO_SESION_MENSAJE);	
+				AppMusic.getUnicaInstancia().showPopup(this, Constantes.ERROR_INICIO_SESION_MENSAJE);
 			}
 		});
 		Bottons_panel.add(Botón_Login_Git);
