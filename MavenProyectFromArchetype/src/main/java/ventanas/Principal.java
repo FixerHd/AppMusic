@@ -24,10 +24,14 @@ import dominio.DatosTabla;
 
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
+import java.io.File;
 
 import javax.swing.JToggleButton;
 import pulsador.Luz;
+import ventanas.Inicio.Selector;
+
 import javax.swing.border.TitledBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Principal extends JFrame {
 
@@ -378,13 +382,14 @@ public class Principal extends JFrame {
 		luz.setColor(new Color(0, 128, 0));
 		luz.addEncendidoListener(ev -> {
 			luz.setEncendido(true);
-			JFileChooser filechooser = new JFileChooser();
-			/*
-			 * javax.swing.filechooser.FileFilter mp3FileFilter = (file) -> { return
-			 * file.getName().endsWith(".mp3"); }; filechooser.setFileFilter(mp3FileFilter);
-			 */
-			filechooser.showOpenDialog(filechooser);
-			// String ruta = filechooser.getSelectedFile();
+			JFileChooser chooser = new JFileChooser();
+		    FileNameExtensionFilter filter = new FileNameExtensionFilter(
+		        "MP3 Audios", "mp3");
+		    chooser.setFileFilter(filter);
+		    int returnVal = chooser.showOpenDialog(this);
+		    if(returnVal == JFileChooser.APPROVE_OPTION) {
+		    	File ruta = chooser.getSelectedFile();
+		    }
 		});
 		Layout.add(luz);
 

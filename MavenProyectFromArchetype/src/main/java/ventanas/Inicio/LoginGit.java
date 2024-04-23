@@ -1,4 +1,4 @@
-package ventanas;
+package ventanas.Inicio;
 
 import java.awt.EventQueue;
 
@@ -13,6 +13,8 @@ import java.awt.Insets;
 
 import Controlador.AppMusic;
 import Utilidades.Constantes;
+import ventanas.HintTextField;
+import ventanas.Principal;
 
 import javax.swing.JLabel;
 import java.awt.Font;

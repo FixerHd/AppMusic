@@ -113,7 +113,7 @@ public class PanelURL extends JPanel implements NextPreviousObserver {
 		add(panel, gbc_panel);
 		panel.setLayout(new BorderLayout(0, 0));
 
-		Panel_Reproducción = new PanelReproduccionURL(AppMusic.getUnicaInstancia().getPlayService(), this);
+		Panel_Reproducción = new PanelReproduccionURL(this);
 		panel.add(Panel_Reproducción, BorderLayout.NORTH);
 
 		this.setVisible(true);

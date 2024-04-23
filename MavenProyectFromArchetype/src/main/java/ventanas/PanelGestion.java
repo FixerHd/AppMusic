@@ -26,6 +26,7 @@ public class PanelGestion extends JPanel implements NextPreviousObserver {
 	private JPanel panel;
 	private JScrollPane scrollPane;
 	private PanelListas panelLista;
+	private PanelReproduccionMP3 Panel_Reproducción;
 
 	public PanelGestion() {
 		super();
@@ -149,7 +150,7 @@ public class PanelGestion extends JPanel implements NextPreviousObserver {
 		add(panel, gbc_panel);
 		panel.setLayout(new BorderLayout(0, 0));
 
-		JPanel Panel_Reproducción = new PanelReproduccionMP3(this);
+		Panel_Reproducción = new PanelReproduccionMP3(this);
 		panel.add(Panel_Reproducción, BorderLayout.NORTH);
 
 		JButton Boton_Eliminar_Canción = new JButton("Eliminar Canción");
@@ -224,12 +225,13 @@ public class PanelGestion extends JPanel implements NextPreviousObserver {
 
 	@Override
 	public void nextUpdate() {
-
+		// TODO Terminar
+		panelLista.getTable().nextCancionId();
 	}
 
 	@Override
 	public void previousUpdate() {
-		// TODO Auto-generated method stub
-
+		// TODO Terminar
+		panelLista.getTable().previousCancionId();
 	}
 }

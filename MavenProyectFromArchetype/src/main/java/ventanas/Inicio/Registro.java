@@ -1,4 +1,4 @@
-package ventanas;
+package ventanas.Inicio;
 
 import java.awt.EventQueue;
 
@@ -20,6 +20,8 @@ import com.toedter.calendar.JDateChooser;
 
 import Controlador.AppMusic;
 import Utilidades.Constantes;
+import ventanas.HintTextField;
+import ventanas.Principal;
 
 import java.awt.Font;
 import java.awt.Toolkit;
@@ -217,7 +219,7 @@ public class Registro extends JFrame {
 				AppMusic.getUnicaInstancia().showPopup(this, Constantes.ERROR_REGISTRO_FECHA_MENSAJE);
 				break;
 			case Constantes.OKAY:
-				Principal.getInstancia().setVisible(true);
+				Login.getInstancia().setVisible(true);
 				setVisible(false);
 				Texto_Usuario.setText("");
 				Texto_Contraseña.setText("");
