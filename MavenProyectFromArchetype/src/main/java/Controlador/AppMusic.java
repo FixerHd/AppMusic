@@ -16,6 +16,7 @@ import org.kohsuke.github.GitHub;
 import org.kohsuke.github.GitHubBuilder;
 
 import Utilidades.Constantes;
+import Utilidades.CargadorCanciones;
 import dominio.Cancion;
 import dominio.Playlist;
 import dominio.CatalogoCanciones;
@@ -65,6 +66,13 @@ public class AppMusic {
 		// Debe ser la primera linea para evitar error de sincronización
 		inicializarAdaptadores();
 		inicializarCatalogos();
+		try {
+			CargadorCanciones.INSTANCE.cargarCanciones();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	public static AppMusic getUnicaInstancia() {
