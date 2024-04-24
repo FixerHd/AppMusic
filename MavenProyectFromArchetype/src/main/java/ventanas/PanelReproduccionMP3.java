@@ -14,9 +14,9 @@ public class PanelReproduccionMP3 extends PanelReproduccion {
 	}
 
 	public boolean playCancion(){
-		if (cancionActual == null)
+		if (cancion == null)
 			return false;
-		boolean resultado = dominio.Reproductor.getUnicaInstancia().playCancion(cancionActual);
+		boolean resultado = dominio.Reproductor.getUnicaInstancia().playCancion(cancion);
 		if (resultado == false) {
 			AppMusic.getUnicaInstancia().showPopup(this, Utilidades.Constantes.ERROR_PLAY_MP3_MENSAJE);
 		} else {
@@ -32,14 +32,14 @@ public class PanelReproduccionMP3 extends PanelReproduccion {
 		} else {
 			// Solo si se consigue reproducir la canción se establece la canción recibida
 			// como la canción a reproducir
-			this.cancionActual = cancionMP3;
+			this.cancion = cancionMP3;
 			Play_Stop.setSelected(true);
 		}
 		return resultado;
 	}
 
 	public boolean stopCancion() {
-		if (cancionActual == null)
+		if (cancion == null)
 			return false;
 		boolean resultado = dominio.Reproductor.getUnicaInstancia().stopCancion();
 		if (resultado == false) {

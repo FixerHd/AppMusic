@@ -1,5 +1,7 @@
 package ventanas;
 
+import java.awt.GridBagLayout;
+
 import Controlador.AppMusic;
 
 public class PanelReproduccionURL extends PanelReproduccion {
@@ -11,12 +13,24 @@ public class PanelReproduccionURL extends PanelReproduccion {
 	 */
 	public PanelReproduccionURL(NextPreviousObserver nextPreviousObserver) {
 		super(nextPreviousObserver);
+
+		this.remove(Choose_next);
+		this.remove(Choose_previous);
+
+		// TODO Revisar
+		GridBagLayout gbl_Panel_Reproducción = new GridBagLayout();
+		gbl_Panel_Reproducción.columnWidths = new int[] { 1, 0, 0, 0, 32, 10, 32, 0, 0, 0, 1, 0 };
+		gbl_Panel_Reproducción.rowHeights = new int[] { 1, 32, 0 };
+		gbl_Panel_Reproducción.columnWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0,
+				Double.MIN_VALUE };
+		gbl_Panel_Reproducción.rowWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
+		this.setLayout(gbl_Panel_Reproducción);
 	}
 
 	public boolean playCancion() {
-		if (cancionActual == null)
+		if (cancion == null)
 			return false;
-		boolean resultado = dominio.Reproductor.getUnicaInstancia().playCancion(cancionActual);
+		boolean resultado = dominio.Reproductor.getUnicaInstancia().playCancion(cancion);
 		if (resultado == false) {
 			AppMusic.getUnicaInstancia().showPopup(this, Utilidades.Constantes.ERROR_PLAY_URL_MENSAJE);
 		} else {
@@ -32,14 +46,14 @@ public class PanelReproduccionURL extends PanelReproduccion {
 		} else {
 			// Solo si se consigue reproducir la canción se establece la canción recibida
 			// como la canción a reproducir
-			this.cancionActual = cancion;
+			this.cancion = cancion;
 			Play_Stop.setSelected(true);
 		}
 		return resultado;
 	}
 
 	public boolean stopCancion() {
-		if (cancionActual == null)
+		if (cancion == null)
 			return false;
 		boolean resultado = dominio.Reproductor.getUnicaInstancia().stopCancion();
 		if (resultado == false) {
