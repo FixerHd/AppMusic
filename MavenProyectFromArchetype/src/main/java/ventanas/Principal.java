@@ -389,6 +389,7 @@ public class Principal extends JFrame {
 		    int returnVal = chooser.showOpenDialog(this);
 		    if(returnVal == JFileChooser.APPROVE_OPTION) {
 		    	File ruta = chooser.getSelectedFile();
+		    	// TODO
 		    }
 		});
 		Layout.add(luz);

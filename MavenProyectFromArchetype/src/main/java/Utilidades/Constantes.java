@@ -30,6 +30,8 @@ public class Constantes {
 	public static final String ERROR_PLAY_URL_MENSAJE = "Ha ocurrido algún problema reconociendo la url";
 	public static final String ERROR_PLAY_MP3_MENSAJE = "Ha ocurrido algún problema reconociendo el archivo mp3";
 	public static final String ERROR_STOP_MENSAJE = "Ha ocurrido algún problema mientras se detenia la canción";
+	public static final String ERROR_NEXT_MENSAJE = "Ha ocurrido algún problema buscando la siguiente canción";
+	public static final String ERROR_PREVIOUS_MENSAJE = "Ha ocurrido algún problema buscando la canción anterior";
 	
 	public static final String EXITO_CREAR_PDF_MENSAJE = "El PDF ha sido creado exitosamente";
 	public static final String EXITO_ELIMINAR_PLAYLIST_MENSAJE = "La playlist ha sido eliminada exitosamente";

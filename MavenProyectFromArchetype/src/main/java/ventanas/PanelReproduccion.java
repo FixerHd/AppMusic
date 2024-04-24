@@ -15,7 +15,7 @@ import Controlador.AppMusic;
 public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 
 	private static final long serialVersionUID = 1L;
-	protected String cancion = null;
+	protected String cancionActual = null;
 	protected JToggleButton Play_Stop;
 	protected JButton Choose_previous;
 	protected JButton Choose_next;
@@ -102,11 +102,11 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 	}
 
 	public String getCancion() {
-		return cancion;
+		return cancionActual;
 	}
 
 	public void setCancion(String cancion) {
-		this.cancion = cancion;
+		this.cancionActual = cancion;
 	}
 
 	public abstract boolean playCancion();
