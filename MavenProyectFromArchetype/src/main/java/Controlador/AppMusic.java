@@ -428,4 +428,10 @@ public class AppMusic {
 			break;
 		}
 	}
+
+	public String buscarRutaCancion(int id) {
+		return catalogoCanciones.getCancion(id).getrutaFichero();
+	}
+
+	
 }
