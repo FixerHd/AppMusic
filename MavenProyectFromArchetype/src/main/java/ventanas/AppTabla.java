@@ -1,5 +1,7 @@
 package ventanas;
 
+import java.util.ArrayList;
+
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
@@ -8,10 +10,14 @@ import Controlador.AppMusic;
 import dominio.DatosTabla;
 
 public class AppTabla extends JTable {
-	
-	private String playlist = new String();
 
-	public AppTabla () {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private ArrayList<String> ids = new ArrayList<String>();
+
+	public AppTabla() {
 		setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		DefaultTableModel model = new DefaultTableModel(new Object[][] { { null, null, null, null }, },
 				new String[] { "Titulo", "Interprete", "Estilo", "Favorita" }) {
@@ -30,8 +36,8 @@ public class AppTabla extends JTable {
 		model.removeRow(0);
 		setModel(model);
 	}
-	
-	public AppTabla (DatosTabla datos) {
+
+	public AppTabla(DatosTabla datos) {
 		setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		DefaultTableModel model = new DefaultTableModel(new Object[][] { { null, null, null, null }, },
 				new String[] { "Titulo", "Interprete", "Estilo", "Favorita" }) {
@@ -49,12 +55,20 @@ public class AppTabla extends JTable {
 		};
 		model.removeRow(0);
 		for (int i = 0; i < datos.getTitulos().size(); i++) {
-			model.addRow(new Object[]{datos.getTitulos().get(i),datos.getInterpretes().get(i),datos.getEstilos().get(i),datos.getFavoritas().get(i)});
+			model.addRow(new Object[] { datos.getTitulos().get(i), datos.getInterpretes().get(i),
+					datos.getEstilos().get(i), datos.getFavoritas().get(i) });
+			ids.add(datos.getIds().get(i));
 		}
 		setModel(model);
 	}
 	
-	public void setPlaylist(String playlist) {
-		this.playlist = playlist;
+	public String nextCancionId() {
+		int index = (getSelectedRow() + 1) % getRowCount();
+		return ids.get(index);
+	}
+	
+	public String previousCancionId() {
+		int index = (getSelectedRow() - 1) % getRowCount();
+		return ids.get(index);
 	}
 }

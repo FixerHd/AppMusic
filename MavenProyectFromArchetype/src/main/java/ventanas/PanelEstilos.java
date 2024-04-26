@@ -4,20 +4,11 @@ import javax.swing.JPanel;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.TitledBorder;
-import javax.swing.text.Utilities;
-
-import org.eclipse.persistence.internal.xr.Util;
 
 import Controlador.AppMusic;
 import Utilidades.Constantes;
 
-import javax.swing.BoxLayout;
-import java.awt.FlowLayout;
 import java.awt.BorderLayout;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-import javax.swing.border.CompoundBorder;
-import javax.swing.UIManager;
 import java.awt.Color;
 import javax.swing.border.EtchedBorder;
 
