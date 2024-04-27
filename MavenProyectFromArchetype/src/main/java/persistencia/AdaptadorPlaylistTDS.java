@@ -21,9 +21,8 @@ public class AdaptadorPlaylistTDS implements IAdaptadorPlaylistDAO {
 
 	public static AdaptadorPlaylistTDS getUnicaInstancia() { // patron singleton
 		if (unicaInstancia == null)
-			return new AdaptadorPlaylistTDS();
-		else
-			return unicaInstancia;
+			unicaInstancia = new AdaptadorPlaylistTDS();
+		return unicaInstancia;
 	}
 
 	private AdaptadorPlaylistTDS() {

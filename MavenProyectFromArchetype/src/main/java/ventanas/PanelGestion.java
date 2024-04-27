@@ -3,12 +3,9 @@ package ventanas;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.util.List;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -23,12 +20,13 @@ import dominio.DatosTabla;
 
 import java.awt.BorderLayout;
 
-public class PanelGestion extends JPanel {
+public class PanelGestion extends JPanel implements NextPreviousObserver {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel panel;
 	private JScrollPane scrollPane;
 	private PanelListas panelLista;
+	private PanelReproduccionMP3 Panel_Reproducción;
 
 	public PanelGestion() {
 		super();
@@ -58,7 +56,7 @@ public class PanelGestion extends JPanel {
 		gbc_Boton_Favoritas.gridx = 7;
 		gbc_Boton_Favoritas.gridy = 1;
 		Boton_Favoritas.addActionListener(ev -> {
-			
+
 		});
 		add(Boton_Favoritas, gbc_Boton_Favoritas);
 
@@ -81,7 +79,8 @@ public class PanelGestion extends JPanel {
 					this.revalidate();
 					this.repaint();
 				} else {
-					AppMusic.getUnicaInstancia().showPopup(Principal.getInstancia(), Constantes.ERROR_LISTA_VACIA_MENSAJE);
+					AppMusic.getUnicaInstancia().showPopup(Principal.getInstancia(),
+							Constantes.ERROR_LISTA_VACIA_MENSAJE);
 				}
 			} else {
 				AppMusic.getUnicaInstancia().showPopup(Principal.getInstancia(), Constantes.ERROR_TITULO_VACIO_MENSAJE);
@@ -127,9 +126,10 @@ public class PanelGestion extends JPanel {
 			}
 		});
 		add(Boton_Eliminar, gbc_Boton_Eliminar);
-		
+
 		JButton Boton_Guardar = new JButton("Guardar");
-		Boton_Guardar.setToolTipText("Al pulsar este boton se guardan los cambios realizados en la playlist seleccionada");
+		Boton_Guardar
+				.setToolTipText("Al pulsar este boton se guardan los cambios realizados en la playlist seleccionada");
 		GridBagConstraints gbc_Boton_Guardar = new GridBagConstraints();
 		gbc_Boton_Guardar.insets = new Insets(0, 0, 5, 5);
 		gbc_Boton_Guardar.fill = GridBagConstraints.HORIZONTAL;
@@ -150,7 +150,7 @@ public class PanelGestion extends JPanel {
 		add(panel, gbc_panel);
 		panel.setLayout(new BorderLayout(0, 0));
 
-		JPanel Panel_Reproducción = new PanelReproduccion();
+		Panel_Reproducción = new PanelReproduccionMP3(this);
 		panel.add(Panel_Reproducción, BorderLayout.NORTH);
 
 		JButton Boton_Eliminar_Canción = new JButton("Eliminar Canción");
@@ -162,7 +162,7 @@ public class PanelGestion extends JPanel {
 		gbc_Boton_Eliminar_Canción.gridx = 7;
 		gbc_Boton_Eliminar_Canción.gridy = 7;
 		Boton_Eliminar_Canción.addActionListener(ev -> {
-			((DefaultTableModel)panelLista.getTable().getModel()).removeRow(panelLista.getTable().getSelectedRow());
+			((DefaultTableModel) panelLista.getTable().getModel()).removeRow(panelLista.getTable().getSelectedRow());
 		});
 		this.add(Boton_Eliminar_Canción, gbc_Boton_Eliminar_Canción);
 
@@ -174,15 +174,17 @@ public class PanelGestion extends JPanel {
 		DatosTabla datos = new DatosTabla();
 		JTable table = panelLista.getTable();
 		for (int i = 0; i < panelLista.getTable().getRowCount(); i++) {
-			datos.getTitulos().add((String)table.getValueAt(i, 0));
-			datos.getInterpretes().add((String)table.getValueAt(i, 1));
-			datos.getEstilos().add((String)table.getValueAt(i, 2));
-			datos.getFavoritas().add((boolean)table.getValueAt(i, 3));
+			datos.getTitulos().add((String) table.getValueAt(i, 0));
+			datos.getInterpretes().add((String) table.getValueAt(i, 1));
+			datos.getEstilos().add((String) table.getValueAt(i, 2));
+			datos.getFavoritas().add((boolean) table.getValueAt(i, 3));
 		}
 		if (AppMusic.getUnicaInstancia().actualizarPlaylist(panelLista.getLista().getSelectedValue(), datos)) {
-			AppMusic.getUnicaInstancia().showPopup(Principal.getInstancia(), Constantes.EXITO_ACTUALIZAR_PLAYLIST_MENSAJE);
+			AppMusic.getUnicaInstancia().showPopup(Principal.getInstancia(),
+					Constantes.EXITO_ACTUALIZAR_PLAYLIST_MENSAJE);
 		} else {
-			AppMusic.getUnicaInstancia().showPopup(Principal.getInstancia(), Constantes.ERROR_ACTUALIZAR_PLAYLIST_MENSAJE);
+			AppMusic.getUnicaInstancia().showPopup(Principal.getInstancia(),
+					Constantes.ERROR_ACTUALIZAR_PLAYLIST_MENSAJE);
 		}
 	}
 
@@ -219,5 +221,17 @@ public class PanelGestion extends JPanel {
 		gbc_table.gridx = 1;
 		gbc_table.gridy = 1;
 		this.add(scrollPane, gbc_table);
+	}
+
+	@Override
+	public void nextUpdate() {
+		// TODO Terminar
+		panelLista.getTable().nextCancionId();
+	}
+
+	@Override
+	public void previousUpdate() {
+		// TODO Terminar
+		panelLista.getTable().previousCancionId();
 	}
 }

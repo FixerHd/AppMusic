@@ -1,20 +1,14 @@
 package ventanas;
 
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.LayoutManager;
 import java.util.List;
 
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import Controlador.AppMusic;
@@ -29,7 +23,7 @@ public class PanelBuscar extends JPanel {
 	private JButton Botón_Buscar;
 	private HintTextField Texto_Titulo;
 	private HintTextField Texto_Interprete;
-	private JComboBox Estilo;
+	private JComboBox<String> Estilo;
 	private JComboBox<String> Selección_Playlist = new JComboBox<String>();
 
 	// Singleton
@@ -79,14 +73,17 @@ public class PanelBuscar extends JPanel {
 		this.add(Texto_Titulo, gbc_Texto_Titulo);
 		Texto_Titulo.setColumns(10);
 
-		Estilo = new JComboBox();
+		Estilo = new JComboBox<String>();
 		GridBagConstraints gbc_Estilo = new GridBagConstraints();
 		gbc_Estilo.gridwidth = 2;
 		gbc_Estilo.insets = new Insets(0, 0, 5, 5);
 		gbc_Estilo.fill = GridBagConstraints.HORIZONTAL;
 		gbc_Estilo.gridx = 2;
 		gbc_Estilo.gridy = 5;
-		Estilo.addItem("Estilo");
+		Estilo.addItem("");
+		for (String s : Constantes.ESTILOS_MUSICALES) {
+			Estilo.addItem(s);
+		}
 		this.add(Estilo, gbc_Estilo);
 
 		Botón_Buscar = new JButton("Buscar");

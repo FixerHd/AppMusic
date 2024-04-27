@@ -19,9 +19,8 @@ public class AdaptadorCancionTDS implements IAdaptadorCancionDAO {
 
 	public static AdaptadorCancionTDS getUnicaInstancia() { // patron singleton
 		if (unicaInstancia == null)
-			return new AdaptadorCancionTDS();
-		else
-			return unicaInstancia;
+			unicaInstancia = new AdaptadorCancionTDS();
+		return unicaInstancia;
 	}
 
 	private AdaptadorCancionTDS() {
