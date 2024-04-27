@@ -27,9 +27,8 @@ public class Constantes {
 	public static final String ERROR_ELIMINAR_PLAYLIST_MENSAJE = "Ha ocurrido algún problema al eliminar la playlist";
 	public static final String ERROR_CREAR_PLAYLIST_MENSAJE = "Ha ocurrido algún problema al crear la playlist";
 	public static final String ERROR_ACTUALIZAR_PLAYLIST_MENSAJE = "Ha ocurrido algún problema actualizando la playlist";
-	public static final String ERROR_PLAY_URL_MENSAJE = "Ha ocurrido algún problema reconociendo la url";
-	public static final String ERROR_PLAY_MP3_MENSAJE = "Ha ocurrido algún problema reconociendo el archivo mp3";
-	public static final String ERROR_STOP_MENSAJE = "Ha ocurrido algún problema mientras se detenia la canción";
+	public static final String ERROR_PLAY_URL_MENSAJE = "No se ha reconocido la url";
+	public static final String ERROR_STOP_URL_MENSAJE = "Ha ocurrido algún problema mientras se detenia la canción";
 	
 	public static final String EXITO_CREAR_PDF_MENSAJE = "El PDF ha sido creado exitosamente";
 	public static final String EXITO_ELIMINAR_PLAYLIST_MENSAJE = "La playlist ha sido eliminada exitosamente";

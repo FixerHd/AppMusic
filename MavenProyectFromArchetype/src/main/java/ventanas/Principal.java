@@ -4,13 +4,16 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.BoxLayout;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.border.LineBorder;
 import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -24,14 +27,11 @@ import dominio.DatosTabla;
 
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
-import java.io.File;
+import java.io.FileFilter;
 
 import javax.swing.JToggleButton;
 import pulsador.Luz;
-import ventanas.Inicio.Selector;
-
 import javax.swing.border.TitledBorder;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Principal extends JFrame {
 
@@ -258,18 +258,6 @@ public class Principal extends JFrame {
 		gbc_Boton_URL.insets = new Insets(0, 0, 5, 5);
 		gbc_Boton_URL.gridx = 2;
 		gbc_Boton_URL.gridy = 9;
-		PanelURL panelURL = new PanelURL();
-		Boton_URL.addActionListener(e -> {
-			if (!Boton_URL.isSelected()) {
-				principal.remove(panelURL);
-				principal.revalidate();
-				principal.repaint();
-			} else {
-				principal.add(panelURL);
-				principal.revalidate();
-				principal.repaint();
-			}
-		});
 		Columna.add(Boton_URL, gbc_Boton_URL);
 
 		JLabel Premium = new JLabel("");
@@ -382,14 +370,13 @@ public class Principal extends JFrame {
 		luz.setColor(new Color(0, 128, 0));
 		luz.addEncendidoListener(ev -> {
 			luz.setEncendido(true);
-			JFileChooser chooser = new JFileChooser();
-		    FileNameExtensionFilter filter = new FileNameExtensionFilter(
-		        "MP3 Audios", "mp3");
-		    chooser.setFileFilter(filter);
-		    int returnVal = chooser.showOpenDialog(this);
-		    if(returnVal == JFileChooser.APPROVE_OPTION) {
-		    	File ruta = chooser.getSelectedFile();
-		    }
+			JFileChooser filechooser = new JFileChooser();
+			/*
+			 * javax.swing.filechooser.FileFilter mp3FileFilter = (file) -> { return
+			 * file.getName().endsWith(".mp3"); }; filechooser.setFileFilter(mp3FileFilter);
+			 */
+			filechooser.showOpenDialog(filechooser);
+			// String ruta = filechooser.getSelectedFile();
 		});
 		Layout.add(luz);
 

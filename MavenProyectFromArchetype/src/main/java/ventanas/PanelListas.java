@@ -25,7 +25,7 @@ import javax.swing.ScrollPaneConstants;
 public class PanelListas extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private AppTabla table;
+	private JTable table;
 	private JList<String> lista;
 	private JScrollPane leftScrollPane;
 	private JScrollPane rightScrollPane;
@@ -79,7 +79,7 @@ public class PanelListas extends JPanel {
 		this.lista.setModel(model);
 	}
 
-	public AppTabla getTable() {
+	public JTable getTable() {
 		return table;
 	}
 

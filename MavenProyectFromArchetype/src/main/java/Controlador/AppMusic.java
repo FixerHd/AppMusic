@@ -16,7 +16,6 @@ import org.kohsuke.github.GitHub;
 import org.kohsuke.github.GitHubBuilder;
 
 import Utilidades.Constantes;
-import Utilidades.CargadorCanciones;
 import dominio.Cancion;
 import dominio.Playlist;
 import dominio.CatalogoCanciones;
@@ -27,9 +26,6 @@ import dominio.Usuario;
 import persistencia.DAOException;
 import persistencia.FactoriaDAO;
 import persistencia.IAdaptadorUsuarioDAO;
-import ventanas.NextPreviousNotificationService;
-import ventanas.NextPreviousObserver;
-import ventanas.PlayNotificationService;
 import persistencia.IAdaptadorCancionDAO;
 import persistencia.IAdaptadorPlaylistDAO;
 
@@ -59,20 +55,11 @@ public class AppMusic {
 	private CatalogoUsuarios catalogoUsuarios;
 	private CatalogoCanciones catalogoCanciones;
 	private Usuario usuarioActivo;
-	
-	private PlayNotificationService playService = new PlayNotificationService();
 
 	public AppMusic() {
 		// Debe ser la primera linea para evitar error de sincronización
 		inicializarAdaptadores();
 		inicializarCatalogos();
-		try {
-			CargadorCanciones.INSTANCE.cargarCanciones();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
 	}
 
 	public static AppMusic getUnicaInstancia() {
@@ -80,10 +67,6 @@ public class AppMusic {
 			unicaInstancia = new AppMusic();
 		}
 		return unicaInstancia;
-	}
-	
-	public PlayNotificationService getPlayService() {
-		return playService;
 	}
 
 	public ArrayList<JFrame> getVentanas() {
@@ -436,10 +419,4 @@ public class AppMusic {
 			break;
 		}
 	}
-
-	public String buscarRutaCancion(int id) {
-		return catalogoCanciones.getCancion(id).getrutaFichero();
-	}
-
-	
 }

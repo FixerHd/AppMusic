@@ -3,32 +3,46 @@ package ventanas;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.LayoutManager;
 import java.util.List;
 
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
+import Controlador.AppMusic;
 import dominio.DatosTabla;
 
 import java.awt.BorderLayout;
+import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.border.EtchedBorder;
 
-public class PanelMisListas extends JPanel implements NextPreviousObserver {
+public class PanelMisListas extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel panel;
 	private JPanel Panel_Reproducción;
+	private JLabel Choose_previous;
+	private JLabel Restart;
+	private JLabel Play_Stop;
+	private JLabel Choose_next;
 	private PanelListas panelListas;
 
 	public PanelMisListas() {
 		super();
 
-		this.setBorder(new TitledBorder(
-				new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)),
-				"MisPlaylists", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		this.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "MisPlaylists", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		GridBagLayout gbl_panel_3 = new GridBagLayout();
 		gbl_panel_3.columnWidths = new int[] { 10, 278, 0, 10, 0 };
 		gbl_panel_3.rowHeights = new int[] { 10, 0, 10, 0, 10, 0 };
@@ -44,7 +58,7 @@ public class PanelMisListas extends JPanel implements NextPreviousObserver {
 		gbc_panel.gridy = 3;
 		add(panel, gbc_panel);
 		panel.setLayout(new BorderLayout(0, 0));
-
+		
 		panelListas = new PanelListas();
 		GridBagConstraints gbc_listas = new GridBagConstraints();
 		gbc_listas.gridwidth = 2;
@@ -54,39 +68,27 @@ public class PanelMisListas extends JPanel implements NextPreviousObserver {
 		gbc_listas.gridy = 1;
 		add(panelListas, gbc_listas);
 
-		Panel_Reproducción = new PanelReproduccionMP3(this);
+		Panel_Reproducción = new PanelReproduccion();
 		panel.add(Panel_Reproducción, BorderLayout.NORTH);
 
 		this.setVisible(true);
 
 	}
-
+	
 	public JList<String> getLista() {
 		return panelListas.getLista();
 	}
-
+	
 	public void setLista(List<String> new_values) {
 		panelListas.setLista(new_values);
 	}
-
+	
 	public JTable getTable() {
 		return panelListas.getTable();
 	}
-
+	
 	public void setTable(DatosTabla datos) {
 		panelListas.setTable(datos);
-	}
-
-	@Override
-	public void nextUpdate() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void previousUpdate() {
-		// TODO Auto-generated method stub
-
 	}
 
 }
