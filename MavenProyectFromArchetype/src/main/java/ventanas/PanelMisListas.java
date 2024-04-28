@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 
+import Controlador.AppMusic;
 import dominio.DatosTabla;
 
 import java.awt.BorderLayout;
@@ -20,7 +21,7 @@ public class PanelMisListas extends JPanel implements NextPreviousObserver {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel panel;
-	private JPanel Panel_Reproducción;
+	private PanelReproduccionMP3 Panel_Reproducción;
 	private PanelListas panelListas;
 
 	public PanelMisListas() {
@@ -79,14 +80,14 @@ public class PanelMisListas extends JPanel implements NextPreviousObserver {
 
 	@Override
 	public void nextUpdate() {
-		// TODO Auto-generated method stub
-
+		String ruta = AppMusic.getUnicaInstancia().buscarRutaCancion(panelListas.getTable().nextCancionId());
+		Panel_Reproducción.playCancion(ruta);
 	}
 
 	@Override
 	public void previousUpdate() {
-		// TODO Auto-generated method stub
-
+		String ruta = AppMusic.getUnicaInstancia().buscarRutaCancion(panelListas.getTable().previousCancionId());
+		Panel_Reproducción.playCancion(ruta);
 	}
 
 }

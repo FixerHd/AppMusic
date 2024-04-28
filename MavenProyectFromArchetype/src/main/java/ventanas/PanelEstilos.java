@@ -29,8 +29,8 @@ public class PanelEstilos extends JPanel {
 						"Estilo", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		setLayout(new BorderLayout(0, 0));
 
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(Constantes.ESTILOS_INTERFAZ));
+		JComboBox<String> comboBox = new JComboBox<String>();
+		comboBox.setModel(new DefaultComboBoxModel<String>(Constantes.ESTILOS_INTERFAZ));
 		comboBox.addActionListener(ev -> {
 			AppMusic.getUnicaInstancia().setEstilo((String) comboBox.getSelectedItem());
 			this.revalidate();

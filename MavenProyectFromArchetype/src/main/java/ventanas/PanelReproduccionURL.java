@@ -1,7 +1,5 @@
 package ventanas;
 
-import java.awt.GridBagLayout;
-
 import Controlador.AppMusic;
 
 public class PanelReproduccionURL extends PanelReproduccion {

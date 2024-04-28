@@ -8,12 +8,12 @@ public class DatosTabla {
 	private ArrayList<String> interpretes = new ArrayList<String>();
 	private ArrayList<String> estilos = new ArrayList<String>();
 	private ArrayList<Boolean> favoritas = new ArrayList<Boolean>();
-	private ArrayList<String> ids = new ArrayList<String>();
+	private ArrayList<Integer> ids = new ArrayList<Integer>();
 	
-	public ArrayList<String> getIds() {
+	public ArrayList<Integer> getIds() {
 		return ids;
 	}
-	public void setIds(ArrayList<String> ids) {
+	public void setIds(ArrayList<Integer> ids) {
 		this.ids = ids;
 	}
 	public ArrayList<String> getTitulos() {

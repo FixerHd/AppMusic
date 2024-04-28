@@ -28,6 +28,7 @@ import java.io.File;
 
 import javax.swing.JToggleButton;
 import pulsador.Luz;
+import ventanas.Inicio.AppVentana;
 import ventanas.Inicio.Selector;
 
 import javax.swing.border.TitledBorder;

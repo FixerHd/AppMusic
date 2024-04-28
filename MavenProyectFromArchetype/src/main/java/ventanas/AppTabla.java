@@ -6,7 +6,6 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
-import Controlador.AppMusic;
 import dominio.DatosTabla;
 
 public class AppTabla extends JTable {
@@ -15,15 +14,17 @@ public class AppTabla extends JTable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private ArrayList<String> ids = new ArrayList<String>();
+	private ArrayList<Integer> ids = new ArrayList<Integer>();
 
 	public AppTabla() {
 		setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		DefaultTableModel model = new DefaultTableModel(new Object[][] { { null, null, null, null }, },
 				new String[] { "Titulo", "Interprete", "Estilo", "Favorita" }) {
-			Class[] columnTypes = new Class[] { Object.class, Object.class, Object.class, Boolean.class };
+			private static final long serialVersionUID = 1L;
+			@SuppressWarnings("rawtypes")
+			Class[] columnTypes = new Class[] { String.class, String.class, String.class, Boolean.class };
 
-			public Class getColumnClass(int columnIndex) {
+			public Class<?> getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
 
@@ -41,9 +42,11 @@ public class AppTabla extends JTable {
 		setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		DefaultTableModel model = new DefaultTableModel(new Object[][] { { null, null, null, null }, },
 				new String[] { "Titulo", "Interprete", "Estilo", "Favorita" }) {
-			Class[] columnTypes = new Class[] { Object.class, Object.class, Object.class, Boolean.class };
+			private static final long serialVersionUID = 1L;
+			@SuppressWarnings("rawtypes")
+			Class[] columnTypes = new Class[] { String.class, String.class, String.class, Boolean.class };
 
-			public Class getColumnClass(int columnIndex) {
+			public Class<?> getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
 
@@ -61,13 +64,13 @@ public class AppTabla extends JTable {
 		}
 		setModel(model);
 	}
-	
-	public String nextCancionId() {
+
+	public int nextCancionId() {
 		int index = (getSelectedRow() + 1) % getRowCount();
 		return ids.get(index);
 	}
-	
-	public String previousCancionId() {
+
+	public int previousCancionId() {
 		int index = (getSelectedRow() - 1) % getRowCount();
 		return ids.get(index);
 	}
