@@ -233,12 +233,13 @@ public class AppMusic {
 		List<Cancion> cancionesOrdenadas = catalogoCanciones.cancionesOrdenadas();
 
 		cancionesOrdenadas.stream()
-		.forEach(c -> {
-			nuevos_datos.getTitulos().add(c.getTitulo());
-			nuevos_datos.getInterpretes().add(c.getInterprete());
-			nuevos_datos.getEstilos().add(c.getEstilomusical());
-			nuevos_datos.getFavoritas().add(c.isFavorita());
-		});
+			.limit(10)
+			.forEach(c -> {
+				nuevos_datos.getTitulos().add(c.getTitulo());
+				nuevos_datos.getInterpretes().add(c.getInterprete());
+				nuevos_datos.getEstilos().add(c.getEstilomusical());
+				nuevos_datos.getFavoritas().add(c.isFavorita());
+			});
 
 		return nuevos_datos;
 	}
