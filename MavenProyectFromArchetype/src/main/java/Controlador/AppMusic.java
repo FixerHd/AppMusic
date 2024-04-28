@@ -19,6 +19,7 @@ import Utilidades.Constantes;
 import Utilidades.CargadorCanciones;
 import dominio.Cancion;
 import dominio.Playlist;
+import dominio.Reproductor;
 import dominio.CatalogoCanciones;
 import dominio.CatalogoUsuarios;
 import dominio.DatosLista;
@@ -461,6 +462,19 @@ public class AppMusic {
 		// Registrar la canción y añadirla al catálogo
 		adaptadorCancion.registrarCancion(nuevaCancion);
 		catalogoCanciones.addCancion(nuevaCancion);
+	}
+
+	public void reproducircancion(String rutaFichero) {
+		Reproductor.getUnicaInstancia().playCancionFich(rutaFichero);
+
+	}
+
+	public void reproducircancionURL(String i) {
+		Reproductor.getUnicaInstancia().playCancion(i);
+	}
+
+	public void stopCancion() {
+		Reproductor.getUnicaInstancia().stopCancion();
 	}
 
 	

@@ -59,6 +59,23 @@ public class Reproductor {
 		return false;
 	}
 
+	public boolean playCancionFich(String rutaFichero) {
+		try {
+			com.sun.javafx.application.PlatformImpl.startup(() -> {
+			});
+	
+			// Crear un objeto Media desde la ruta del fichero
+			Media media = new Media(new File(rutaFichero).toURI().toString());
+			mediaPlayer = new MediaPlayer(media);
+	
+			mediaPlayer.play();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 	public boolean stopCancion() {
 		try {
 			if (mediaPlayer != null)
