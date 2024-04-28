@@ -2,25 +2,19 @@ package ventanas;
 
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
-import javax.swing.table.DefaultTableModel;
 
-import Controlador.AppMusic;
 import dominio.DatosTabla;
 
 import javax.swing.JSplitPane;
-import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
 import java.awt.BorderLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import java.util.List;
 
 import javax.swing.JList;
 import javax.swing.AbstractListModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 
 public class PanelListas extends JPanel {
 
@@ -45,14 +39,15 @@ public class PanelListas extends JPanel {
 		lista.setValueIsAdjusting(true);
 		lista.setVisibleRowCount(4);
 		lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		lista.setModel(new AbstractListModel() {
+		lista.setModel(new AbstractListModel<String>() {
+			private static final long serialVersionUID = 1L;
 			String[] values = new String[] {};
 
 			public int getSize() {
 				return values.length;
 			}
 
-			public Object getElementAt(int index) {
+			public String getElementAt(int index) {
 				return values[index];
 			}
 		});

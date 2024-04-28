@@ -19,9 +19,9 @@ import javax.swing.border.EtchedBorder;
 public class PanelResultado extends JPanel implements NextPreviousObserver {
 
 	private static final long serialVersionUID = 1L;
-	private JTable table;
+	private AppTabla table;
 	private JPanel panel;
-	private JPanel Panel_Reproducción;
+	private PanelReproduccionMP3 Panel_Reproducción;
 	private String playlist = null;
 	private JScrollPane scrollPane;
 
@@ -99,14 +99,14 @@ public class PanelResultado extends JPanel implements NextPreviousObserver {
 
 	@Override
 	public void nextUpdate() {
-		// TODO Auto-generated method stub
-
+		String ruta = AppMusic.getUnicaInstancia().buscarRutaCancion(table.nextCancionId());
+		Panel_Reproducción.playCancion(ruta);
 	}
 
 	@Override
 	public void previousUpdate() {
-		// TODO Auto-generated method stub
-
+		String ruta = AppMusic.getUnicaInstancia().buscarRutaCancion(table.previousCancionId());
+		Panel_Reproducción.playCancion(ruta);
 	}
 
 }

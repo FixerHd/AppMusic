@@ -225,13 +225,13 @@ public class PanelGestion extends JPanel implements NextPreviousObserver {
 
 	@Override
 	public void nextUpdate() {
-		// TODO Terminar
-		panelLista.getTable().nextCancionId();
+		String ruta = AppMusic.getUnicaInstancia().buscarRutaCancion(panelLista.getTable().nextCancionId());
+		Panel_Reproducción.playCancion(ruta);
 	}
 
 	@Override
 	public void previousUpdate() {
-		// TODO Terminar
-		panelLista.getTable().previousCancionId();
+		String ruta = AppMusic.getUnicaInstancia().buscarRutaCancion(panelLista.getTable().previousCancionId());
+		Panel_Reproducción.playCancion(ruta);
 	}
 }

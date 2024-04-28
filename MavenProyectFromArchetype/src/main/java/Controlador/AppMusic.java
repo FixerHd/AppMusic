@@ -217,7 +217,7 @@ public class AppMusic {
 		DatosTabla nuevos_datos = new DatosTabla();
 		catalogoCanciones.getCanciones().forEach(c -> {
 			if (c.getTitulo().startsWith(titulo) && c.getInterprete().startsWith(interprete) && c.isFavorita() == favoritas) {
-				if (c.getEstilomusical().isEmpty() || c.getEstilomusical().contains((String) estilo)) {
+				if (c.getEstilomusical().isEmpty() || c.getEstilomusical() == estilo) {
 					nuevos_datos.getTitulos().add(c.getTitulo());
 					nuevos_datos.getInterpretes().add(c.getInterprete());
 					nuevos_datos.getEstilos().add(c.getEstilomusical());
