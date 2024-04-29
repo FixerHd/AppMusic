@@ -24,6 +24,7 @@ import dominio.CatalogoCanciones;
 import dominio.CatalogoUsuarios;
 import dominio.DatosLista;
 import dominio.DatosTabla;
+import dominio.Descuento;
 import dominio.Usuario;
 import persistencia.DAOException;
 import persistencia.FactoriaDAO;
@@ -199,7 +200,7 @@ public class AppMusic {
 		return false;
 	}
 
-	public int registrarUsuario(String usuario, String email, String contraseña, Date fecha, String nombre_completo) {
+	public int registrarUsuario(String usuario, String email, String contraseña, Date fecha, String nombre_completo, Descuento desc) {
 		String s_fecha = fecha.toString();
 		if (usuario.isEmpty() || email.isEmpty() || contraseña.isEmpty() || s_fecha.isEmpty()
 				|| nombre_completo.isEmpty()) {
@@ -215,7 +216,8 @@ public class AppMusic {
 		if (fecha.after(new Date())) {
 			return Constantes.ERROR_REGISTRO_FECHA;
 		}
-		usuarioActivo = catalogoUsuarios.addUsuario(usuario, email, contraseña, s_fecha);
+		Usuario usuario2 = catalogoUsuarios.addUsuario(usuario, email, contraseña, s_fecha);
+		setDescuentoUsuario(usuario2, desc);
 		return Constantes.OKAY;
 	}
 
@@ -494,5 +496,12 @@ public class AppMusic {
 		return Reproductor.getUnicaInstancia().stopCancion();
 	}
 
+	public Descuento getDescuentoUsuario() {
+		return usuarioActivo.getDesc();
+	}
+	
+	public void setDescuentoUsuario(Usuario usuario, Descuento desc) {
+		usuario.setDesc(desc);
+	}
 	
 }
