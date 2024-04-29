@@ -70,16 +70,11 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 		gbc_Play_Stop.gridy = 1;
 		Play_Stop.addActionListener(ev -> {
 			if (!Play_Stop.isSelected()) {
-				Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/jugar.png")));
-				if (stopCancion()) {
-					Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/jugar.png")));
-				}
+				// Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/jugar.png")));
+				stopCancion();
 			} else {
-				Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/pausa.png")));
-				if (playCancion()) {
-					this.playService.notifyPlaylist();
-					Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/pausa.png")));
-				}
+				// Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/pausa.png")));
+				playCancion();
 			}
 		});
 		this.add(Play_Stop, gbc_Play_Stop);

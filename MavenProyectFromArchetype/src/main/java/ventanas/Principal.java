@@ -24,7 +24,6 @@ import dominio.DatosTabla;
 
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
-import java.io.File;
 
 import javax.swing.JToggleButton;
 import pulsador.Luz;
@@ -387,7 +386,8 @@ public class Principal extends JFrame {
 			chooser.setFileFilter(filter);
 			int returnVal = chooser.showOpenDialog(this);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
-				File ruta = chooser.getSelectedFile();
+				String ruta = chooser.getSelectedFile().getPath();
+				AppMusic.getUnicaInstancia().añadirCancion(ruta);
 			}
 		});
 		Layout.add(luz);
