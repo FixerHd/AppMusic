@@ -14,7 +14,6 @@ import java.awt.Insets;
 import Controlador.AppMusic;
 import Utilidades.Constantes;
 import ventanas.HintTextField;
-import ventanas.Principal;
 
 import javax.swing.JLabel;
 
@@ -30,11 +29,11 @@ import java.awt.Toolkit;
 public class Login extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	protected static Login unicaInstancia = null;
 	private static final int X = 100;
 	private static final int Y = 100;
 	private static final int WIDTH = 450;
 	private static final int HEIGHT = 300;
-	private static Login unicaInstancia;
 	private JPanel contentPane;
 
 	// Singleton
@@ -44,6 +43,13 @@ public class Login extends JFrame {
 			AppMusic.getUnicaInstancia().getVentanas().add(unicaInstancia);
 		}
 		return unicaInstancia;
+	}
+
+	public void removeInstancia() {
+		unicaInstancia.setVisible(false);
+		unicaInstancia.removeAll();
+		unicaInstancia.dispose();
+		unicaInstancia = null;
 	}
 
 	/**
@@ -191,10 +197,7 @@ public class Login extends JFrame {
 		Botón_Login.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		Botón_Login.addActionListener(ev -> {
 			if (AppMusic.getUnicaInstancia().verficarUsuario(Texto_Usuario.getText(), Texto_Contraseña.getText())) {
-				Principal.getInstancia().setVisible(true);
-				setVisible(false);
-				Texto_Usuario.setText("");
-				Texto_Contraseña.setText("");
+				AppMusic.getUnicaInstancia().mostrarVentanaPrincipal();
 			} else {
 				AppMusic.getUnicaInstancia().showPopup(this, Constantes.ERROR_INICIO_SESION_MENSAJE);
 			}

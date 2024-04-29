@@ -28,7 +28,6 @@ import java.io.File;
 
 import javax.swing.JToggleButton;
 import pulsador.Luz;
-import ventanas.Inicio.AppVentana;
 import ventanas.Inicio.Selector;
 
 import javax.swing.border.TitledBorder;
@@ -37,7 +36,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class Principal extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private static Principal unicaInstancia;
+	protected static Principal unicaInstancia = null;
 	private static final int X = 100;
 	private static final int Y = 100;
 	private static final int WIDTH = 600;
@@ -384,13 +383,12 @@ public class Principal extends JFrame {
 		luz.addEncendidoListener(ev -> {
 			luz.setEncendido(true);
 			JFileChooser chooser = new JFileChooser();
-		    FileNameExtensionFilter filter = new FileNameExtensionFilter(
-		        "MP3 Audios", "mp3");
-		    chooser.setFileFilter(filter);
-		    int returnVal = chooser.showOpenDialog(this);
-		    if(returnVal == JFileChooser.APPROVE_OPTION) {
-		    	File ruta = chooser.getSelectedFile();
-		    }
+			FileNameExtensionFilter filter = new FileNameExtensionFilter("MP3 Audios", "mp3");
+			chooser.setFileFilter(filter);
+			int returnVal = chooser.showOpenDialog(this);
+			if (returnVal == JFileChooser.APPROVE_OPTION) {
+				File ruta = chooser.getSelectedFile();
+			}
 		});
 		Layout.add(luz);
 

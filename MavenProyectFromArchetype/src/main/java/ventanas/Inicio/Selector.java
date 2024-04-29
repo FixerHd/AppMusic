@@ -25,7 +25,7 @@ import java.awt.Toolkit;
 public class Selector extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private static Selector unicaInstancia;
+	protected static Selector unicaInstancia = null;
 	private JPanel contentPane;
 
 	// Singleton
@@ -35,6 +35,13 @@ public class Selector extends JFrame {
 			AppMusic.getUnicaInstancia().getVentanas().add(unicaInstancia);
 		}
 		return unicaInstancia;
+	}
+
+	public void removeInstancia() {
+		unicaInstancia.setVisible(false);
+		unicaInstancia.removeAll();
+		unicaInstancia.dispose();
+		unicaInstancia = null;
 	}
 
 	/**

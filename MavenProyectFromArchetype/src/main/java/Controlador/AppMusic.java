@@ -27,21 +27,18 @@ import dominio.Usuario;
 import persistencia.DAOException;
 import persistencia.FactoriaDAO;
 import persistencia.IAdaptadorUsuarioDAO;
-import ventanas.NextPreviousNotificationService;
-import ventanas.NextPreviousObserver;
 import ventanas.PlayNotificationService;
 import persistencia.IAdaptadorCancionDAO;
 import persistencia.IAdaptadorPlaylistDAO;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+
 public class AppMusic {
 
 	private static AppMusic unicaInstancia;
@@ -54,12 +51,12 @@ public class AppMusic {
 	private static String estilo = Constantes.ESTILO_POR_DEFECTO;
 
 	// vestigio
-	private ArrayList<JFrame> lista_ventanas = new ArrayList<JFrame>();
+	private ArrayList<JFrame> ventanasActivas = new ArrayList<JFrame>();
 
 	private CatalogoUsuarios catalogoUsuarios;
 	private CatalogoCanciones catalogoCanciones;
 	private Usuario usuarioActivo;
-	
+
 	private PlayNotificationService playService = new PlayNotificationService();
 
 	public AppMusic() {
@@ -81,16 +78,16 @@ public class AppMusic {
 		}
 		return unicaInstancia;
 	}
-	
+
 	public PlayNotificationService getPlayService() {
 		return playService;
 	}
 
 	public ArrayList<JFrame> getVentanas() {
-		return lista_ventanas;
+		return ventanasActivas;
 	}
 
-	public static String getEstilo() {
+	public String getEstilo() {
 		return estilo;
 	}
 
@@ -101,6 +98,7 @@ public class AppMusic {
 		} else {
 
 			// Se elimina la instancia de la ventana Principal
+			// limpiarVentanas();
 			ventanas.Principal.getInstancia().removeInstancia();
 
 			// Se filtran los estilos manualmente.
@@ -116,9 +114,22 @@ public class AppMusic {
 				}
 			}
 			// Y se vuelve a crear la instancia, pero ahora con el nuevo estilo seleccionado
-			ventanas.Principal.getInstancia().setVisible(true);
+			mostrarVentanaPrincipal();
 		}
+	}
 
+	public void limpiarVentanas() {
+		// Se incluyen manualmente debido a problemas de herencia
+		ventanas.Principal.getInstancia().removeInstancia();
+		ventanas.Inicio.Selector.getInstancia().removeInstancia();
+		ventanas.Inicio.Login.getInstancia().removeInstancia();
+		ventanas.Inicio.LoginGit.getInstancia().removeInstancia();
+		ventanas.Inicio.Registro.getInstancia().removeInstancia();
+	}
+
+	public void mostrarVentanaPrincipal() {
+		limpiarVentanas();
+		ventanas.Principal.getInstancia().setVisible(true);
 	}
 
 	public void registrarCancion(Cancion Cancion) {
@@ -216,7 +227,8 @@ public class AppMusic {
 		// La idea es devolver los datos dentro de la estructura de datos
 		DatosTabla nuevos_datos = new DatosTabla();
 		catalogoCanciones.getCanciones().forEach(c -> {
-			if (c.getTitulo().startsWith(titulo) && c.getInterprete().startsWith(interprete) && c.isFavorita() == favoritas) {
+			if (c.getTitulo().startsWith(titulo) && c.getInterprete().startsWith(interprete)
+					&& c.isFavorita() == favoritas) {
 				if (c.getEstilomusical().isEmpty() || c.getEstilomusical() == estilo) {
 					nuevos_datos.getTitulos().add(c.getTitulo());
 					nuevos_datos.getInterpretes().add(c.getInterprete());
@@ -232,8 +244,7 @@ public class AppMusic {
 		DatosTabla nuevos_datos = new DatosTabla();
 		List<Cancion> cancionesOrdenadas = catalogoCanciones.cancionesOrdenadas();
 
-		cancionesOrdenadas.stream()
-		.forEach(c -> {
+		cancionesOrdenadas.stream().forEach(c -> {
 			nuevos_datos.getTitulos().add(c.getTitulo());
 			nuevos_datos.getInterpretes().add(c.getInterprete());
 			nuevos_datos.getEstilos().add(c.getEstilomusical());
@@ -242,6 +253,7 @@ public class AppMusic {
 
 		return nuevos_datos;
 	}
+
 	public DatosTabla buscarRecientes() {
 		DatosTabla nuevos_datos = new DatosTabla();
 		for (Cancion c : usuarioActivo.getRecientes().getCanciones()) {
@@ -441,5 +453,4 @@ public class AppMusic {
 		return catalogoCanciones.getCancion(id).getrutaFichero();
 	}
 
-	
 }

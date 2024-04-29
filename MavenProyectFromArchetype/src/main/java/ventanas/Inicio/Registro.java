@@ -28,7 +28,7 @@ import java.awt.Toolkit;
 public class Registro extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private static Registro unicaInstancia;
+	protected static Registro unicaInstancia = null;
 	private static final int X = 100;
 	private static final int Y = 100;
 	private static final int WIDTH = 550;
@@ -56,6 +56,13 @@ public class Registro extends JFrame {
 			AppMusic.getUnicaInstancia().getVentanas().add(unicaInstancia);
 		}
 		return unicaInstancia;
+	}
+
+	public void removeInstancia() {
+		unicaInstancia.setVisible(false);
+		unicaInstancia.removeAll();
+		unicaInstancia.dispose();
+		unicaInstancia = null;
 	}
 
 	/**
@@ -219,11 +226,7 @@ public class Registro extends JFrame {
 				break;
 			case Constantes.OKAY:
 				Login.getInstancia().setVisible(true);
-				setVisible(false);
-				Texto_Usuario.setText("");
-				Texto_Contraseña.setText("");
-				Texto_Email.setText("");
-				Texto_Nombre.setText("");
+				removeInstancia();
 			}
 		});
 		panel.add(Botón_Registro);

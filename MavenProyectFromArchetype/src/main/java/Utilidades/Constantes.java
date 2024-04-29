@@ -8,6 +8,7 @@ public class Constantes {
 	public static final String ESTILO_POR_DEFECTO = "Texture";
 	public static final String[] ESTILOS_INTERFAZ = { "Texture", "HiFi", "Acryl", "Aero", "Mint", "Bernstein", "Fast",
 			"Graphite", "Luna", "McWin", "Noire", "Smart", "Devil" };
+	public static final int NUM_ESTILOS = ESTILOS_INTERFAZ.length;
 	public static final String[] ESTILOS_INTERFAZ_OSCUROS = { "Hifi", "Noire", "Devil" };
 	public static final String[] ESTILOS_INTERFAZ_CLAROS = { "Texture", "Acryl", "Aero", "Mint", "Bernstein", "Fast",
 			"Graphite", "Luna", "McWin", "Smart" };
