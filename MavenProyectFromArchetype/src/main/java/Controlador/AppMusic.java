@@ -19,6 +19,7 @@ import Utilidades.Constantes;
 import Utilidades.CargadorCanciones;
 import dominio.Cancion;
 import dominio.Playlist;
+import dominio.Reproductor;
 import dominio.CatalogoCanciones;
 import dominio.CatalogoUsuarios;
 import dominio.DatosLista;
@@ -244,12 +245,14 @@ public class AppMusic {
 		DatosTabla nuevos_datos = new DatosTabla();
 		List<Cancion> cancionesOrdenadas = catalogoCanciones.cancionesOrdenadas();
 
-		cancionesOrdenadas.stream().forEach(c -> {
-			nuevos_datos.getTitulos().add(c.getTitulo());
-			nuevos_datos.getInterpretes().add(c.getInterprete());
-			nuevos_datos.getEstilos().add(c.getEstilomusical());
-			nuevos_datos.getFavoritas().add(c.isFavorita());
-		});
+		cancionesOrdenadas.stream()
+			.limit(10)
+			.forEach(c -> {
+				nuevos_datos.getTitulos().add(c.getTitulo());
+				nuevos_datos.getInterpretes().add(c.getInterprete());
+				nuevos_datos.getEstilos().add(c.getEstilomusical());
+				nuevos_datos.getFavoritas().add(c.isFavorita());
+			});
 
 		return nuevos_datos;
 	}
@@ -453,4 +456,39 @@ public class AppMusic {
 		return catalogoCanciones.getCancion(id).getrutaFichero();
 	}
 
+	public void añadirCancion(String rutaFichero) {
+		// Extraer el nombre del archivo de la ruta del fichero
+		String nombreFichero = new java.io.File(rutaFichero).getName();
+	
+		// Dividir el nombre del archivo en el intérprete y el título
+		String[] partes = nombreFichero.split("-");
+		if (partes.length < 2) {
+			throw new IllegalArgumentException("El nombre del fichero debe estar en formato interprete-titulo");
+		}
+		String interprete = partes[0].trim();
+		String titulo = partes[1].trim();
+	
+		// Crear la nueva canción con el intérprete y el título
+		Cancion nuevaCancion = new Cancion(rutaFichero, titulo);
+		nuevaCancion.setInterprete(interprete);
+	
+		// Registrar la canción y añadirla al catálogo
+		adaptadorCancion.registrarCancion(nuevaCancion);
+		catalogoCanciones.addCancion(nuevaCancion);
+	}
+
+	public void reproducircancion(String rutaFichero) {
+		Reproductor.getUnicaInstancia().playCancionFich(rutaFichero);
+
+	}
+
+	public void reproducircancionURL(String i) {
+		Reproductor.getUnicaInstancia().playCancion(i);
+	}
+
+	public void stopCancion() {
+		Reproductor.getUnicaInstancia().stopCancion();
+	}
+
+	
 }
