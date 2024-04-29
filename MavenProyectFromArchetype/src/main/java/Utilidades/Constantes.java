@@ -3,6 +3,8 @@ package Utilidades;
 public class Constantes {
 
 	public static final String NOMBRE_APLICACION = "Singletune";
+	public static final String[] DESCUENTOS = {"Ninguno", "Fijo", "Jovenes"};
+	public static final int PRECIO_ESTANDAR = 38;
 
 	// "com.jtattoo.plaf.texture.TextureLookAndFeel"
 	public static final String ESTILO_POR_DEFECTO = "Texture";
@@ -20,11 +22,13 @@ public class Constantes {
 	public static final int ERROR_REGISTRO_CAMPOS = 1;
 	public static final int ERROR_REGISTRO_CORREO = 2;
 	public static final int ERROR_REGISTRO_FECHA = 3;
+	public static final int ERROR_REGISTRO_DESCUENTO = 4;
 
 	public static final String ERROR_INICIO_SESION_MENSAJE = "Los parámetros no son correctos";
 	public static final String ERROR_REGISTRO_CAMPOS_MENSAJE = "Hay campos por rellenar o alguno contiene valores invalidos";
 	public static final String ERROR_REGISTRO_CORREO_MENSAJE = "El correo ya está asociado a un usuario";
 	public static final String ERROR_REGISTRO_FECHA_MENSAJE = "La fecha de nacimiento es incorrecta";
+	public static final String ERROR_REGISTRO_DESCUENTO_MENSAJE = "Ha ocurrido un error asignando el descuento";
 	public static final String ERROR_BUSQUEDA_TITULO_MENSAJE = "Se debe añadir un título para crear una playlist";
 	public static final String ERROR_TABLA_VACIA_MENSAJE = "Ha ocurrido algún problema rellenando la tabla";
 	public static final String ERROR_LISTA_VACIA_MENSAJE = "Ha ocurrido algún problema rellenando la lista";
@@ -38,6 +42,7 @@ public class Constantes {
 	public static final String ERROR_STOP_MENSAJE = "Ha ocurrido algún problema mientras se detenia la canción";
 	public static final String ERROR_NEXT_MENSAJE = "Ha ocurrido algún problema buscando la siguiente canción";
 	public static final String ERROR_PREVIOUS_MENSAJE = "Ha ocurrido algún problema buscando la canción anterior";
+	public static final String ERROR_PAGO = "Ha ocurrido algún problema realizando el pago";
 
 	public static final String EXITO_CREAR_PDF_MENSAJE = "El PDF ha sido creado exitosamente";
 	public static final String EXITO_ELIMINAR_PLAYLIST_MENSAJE = "La playlist ha sido eliminada exitosamente";

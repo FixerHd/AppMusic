@@ -25,6 +25,8 @@ import dominio.CatalogoUsuarios;
 import dominio.DatosLista;
 import dominio.DatosTabla;
 import dominio.Descuento;
+import dominio.DescuentoFijo;
+import dominio.DescuentoJovenes;
 import dominio.Usuario;
 import persistencia.DAOException;
 import persistencia.FactoriaDAO;
@@ -58,6 +60,10 @@ public class AppMusic {
 	private CatalogoUsuarios catalogoUsuarios;
 	private CatalogoCanciones catalogoCanciones;
 	private Usuario usuarioActivo;
+
+	public Usuario getUsuarioActivo() {
+		return usuarioActivo;
+	}
 
 	private PlayNotificationService playService = new PlayNotificationService();
 
@@ -200,7 +206,7 @@ public class AppMusic {
 		return false;
 	}
 
-	public int registrarUsuario(String usuario, String email, String contraseña, Date fecha, String nombre_completo, Descuento desc) {
+	public int registrarUsuario(String usuario, String email, String contraseña, Date fecha, String nombre_completo, String desc) {
 		String s_fecha = fecha.toString();
 		if (usuario.isEmpty() || email.isEmpty() || contraseña.isEmpty() || s_fecha.isEmpty()
 				|| nombre_completo.isEmpty()) {
@@ -216,8 +222,16 @@ public class AppMusic {
 		if (fecha.after(new Date())) {
 			return Constantes.ERROR_REGISTRO_FECHA;
 		}
+		Descuento descuento = null;
+		if (desc == Utilidades.Constantes.DESCUENTOS[1]) {
+			descuento = new DescuentoFijo();
+		} else if (desc == Utilidades.Constantes.DESCUENTOS[2]){
+			descuento = new DescuentoJovenes();
+		} else {
+			return Constantes.ERROR_REGISTRO_DESCUENTO;
+		}
 		Usuario usuario2 = catalogoUsuarios.addUsuario(usuario, email, contraseña, s_fecha);
-		setDescuentoUsuario(usuario2, desc);
+		setDescuentoUsuario(usuario2, descuento);
 		return Constantes.OKAY;
 	}
 

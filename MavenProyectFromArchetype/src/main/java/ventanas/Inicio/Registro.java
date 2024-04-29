@@ -24,6 +24,7 @@ import ventanas.HintTextField;
 
 import java.awt.Font;
 import java.awt.Toolkit;
+import javax.swing.JComboBox;
 
 public class Registro extends JFrame {
 
@@ -48,6 +49,8 @@ public class Registro extends JFrame {
 	private HintTextField Texto_Nombre;
 	private HintTextField Texto_Contraseña;
 	private HintTextField Texto_Usuario;
+	private JLabel Descuento;
+	private JComboBox<String> Descuento_elegido;
 
 	// Singleton
 	public static Registro getInstancia() {
@@ -195,7 +198,7 @@ public class Registro extends JFrame {
 		GridBagConstraints gbc_Fecha_Nacimiento = new GridBagConstraints();
 		gbc_Fecha_Nacimiento.anchor = GridBagConstraints.EAST;
 		gbc_Fecha_Nacimiento.insets = new Insets(0, 0, 5, 5);
-		gbc_Fecha_Nacimiento.gridx = 3;
+		gbc_Fecha_Nacimiento.gridx = 1;
 		gbc_Fecha_Nacimiento.gridy = 9;
 		panel_1.add(Fecha_Nacimiento, gbc_Fecha_Nacimiento);
 
@@ -203,16 +206,36 @@ public class Registro extends JFrame {
 		GridBagConstraints gbc_Seleccionador_Fecha = new GridBagConstraints();
 		gbc_Seleccionador_Fecha.insets = new Insets(0, 0, 5, 5);
 		gbc_Seleccionador_Fecha.fill = GridBagConstraints.HORIZONTAL;
-		gbc_Seleccionador_Fecha.gridx = 4;
+		gbc_Seleccionador_Fecha.gridx = 2;
 		gbc_Seleccionador_Fecha.gridy = 9;
 		panel_1.add(Seleccionador_Fecha, gbc_Seleccionador_Fecha);
+
+		Descuento = new JLabel("Descuento:");
+		Descuento.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 14));
+		GridBagConstraints gbc_Descuento = new GridBagConstraints();
+		gbc_Descuento.anchor = GridBagConstraints.EAST;
+		gbc_Descuento.insets = new Insets(0, 0, 5, 5);
+		gbc_Descuento.gridx = 3;
+		gbc_Descuento.gridy = 9;
+		panel_1.add(Descuento, gbc_Descuento);
+
+		Descuento_elegido = new JComboBox<String>();
+		GridBagConstraints gbc_Descuento_elegido = new GridBagConstraints();
+		gbc_Descuento_elegido.insets = new Insets(0, 0, 5, 5);
+		gbc_Descuento_elegido.fill = GridBagConstraints.HORIZONTAL;
+		gbc_Descuento_elegido.gridx = 4;
+		gbc_Descuento_elegido.gridy = 9;
+		for (String s : Utilidades.Constantes.DESCUENTOS) {
+			Descuento_elegido.addItem(s);
+		}
+		panel_1.add(Descuento_elegido, gbc_Descuento_elegido);
 
 		Botón_Registro = new JButton("Registro");
 		Botón_Registro.setIcon(new ImageIcon(Registro.class.getResource("/recursos/anadir.png")));
 		Botón_Registro.addActionListener(ev -> {
 			int resultado = AppMusic.getUnicaInstancia().registrarUsuario(Texto_Usuario.getText(),
 					Texto_Email.getText(), Texto_Contraseña.getText(), Seleccionador_Fecha.getDate(),
-					Texto_Nombre.getText());
+					Texto_Nombre.getText(), (String) Descuento_elegido.getSelectedItem());
 
 			switch (resultado) {
 			case Constantes.ERROR_REGISTRO_CAMPOS:
@@ -223,6 +246,9 @@ public class Registro extends JFrame {
 				break;
 			case Constantes.ERROR_REGISTRO_FECHA:
 				AppMusic.getUnicaInstancia().showPopup(this, Constantes.ERROR_REGISTRO_FECHA_MENSAJE);
+				break;
+			case Constantes.ERROR_REGISTRO_DESCUENTO:
+				AppMusic.getUnicaInstancia().showPopup(this, Constantes.ERROR_REGISTRO_DESCUENTO_MENSAJE);
 				break;
 			case Constantes.OKAY:
 				Login.getInstancia().setVisible(true);

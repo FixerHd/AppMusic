@@ -1,5 +1,11 @@
 package dominio;
 
 public interface Descuento {
-    double calcDescuento(double precio);
+	
+	public double getPorcentaje();
+
+	double calcDescuento(double precio);
+
+	String getTipoName();
+
 }
