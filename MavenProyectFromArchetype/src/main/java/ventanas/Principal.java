@@ -273,25 +273,29 @@ public class Principal extends JFrame implements PaymentObserver {
 			}
 		});
 		Columna.add(Boton_URL, gbc_Boton_URL);
+		
+		if (!AppMusic.getUnicaInstancia().isUsuarioActivoPremium()) {
+			Premium = new JLabel("");
+			Premium.setIcon(new ImageIcon(Principal.class.getResource("/recursos/calidad-premium.png")));
+			GridBagConstraints gbc_Premium = new GridBagConstraints();
+			gbc_Premium.insets = new Insets(0, 0, 5, 5);
+			gbc_Premium.gridx = 1;
+			gbc_Premium.gridy = 11;
+			Columna.add(Premium, gbc_Premium);
 
-		Premium = new JLabel("");
-		Premium.setIcon(new ImageIcon(Principal.class.getResource("/recursos/calidad-premium.png")));
-		GridBagConstraints gbc_Premium = new GridBagConstraints();
-		gbc_Premium.insets = new Insets(0, 0, 5, 5);
-		gbc_Premium.gridx = 1;
-		gbc_Premium.gridy = 11;
-		Columna.add(Premium, gbc_Premium);
-
-		Botón_Premium = new JButton("Premium");
-		GridBagConstraints gbc_Botón_Premium = new GridBagConstraints();
-		gbc_Botón_Premium.fill = GridBagConstraints.HORIZONTAL;
-		gbc_Botón_Premium.insets = new Insets(0, 0, 5, 5);
-		gbc_Botón_Premium.gridx = 2;
-		gbc_Botón_Premium.gridy = 11;
-		Columna.add(Botón_Premium, gbc_Botón_Premium);
-		Botón_Premium.addActionListener(ev -> {
-			VentanaPago.getInstancia().setVisible(true);
-		});
+			Botón_Premium = new JButton("Premium");
+			GridBagConstraints gbc_Botón_Premium = new GridBagConstraints();
+			gbc_Botón_Premium.fill = GridBagConstraints.HORIZONTAL;
+			gbc_Botón_Premium.insets = new Insets(0, 0, 5, 5);
+			gbc_Botón_Premium.gridx = 2;
+			gbc_Botón_Premium.gridy = 11;
+			Columna.add(Botón_Premium, gbc_Botón_Premium);
+			Botón_Premium.addActionListener(ev -> {
+				VentanaPago.getInstancia().setVisible(true);
+			});
+		} else {
+			update();
+		}
 
 		JLabel Logout = new JLabel("");
 		Logout.setIcon(new ImageIcon(Principal.class.getResource("/recursos/cerrar-sesion.png")));
@@ -336,8 +340,10 @@ public class Principal extends JFrame implements PaymentObserver {
 		gbl_Columna.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
 
-		Columna.remove(Botón_Premium);
-		Columna.remove(Premium);
+		if (!AppMusic.getUnicaInstancia().isUsuarioActivoPremium()) {
+			Columna.remove(Botón_Premium);
+			Columna.remove(Premium);
+		}
 
 		JLabel PDF = new JLabel("");
 		PDF.setIcon(new ImageIcon(Principal.class.getResource("/recursos/archivo-pdf.png")));
@@ -397,6 +403,8 @@ public class Principal extends JFrame implements PaymentObserver {
 			}
 		});
 		Columna.add(Botón_Tendencias, gbc_Botón_Tendencias);
+		
+		AppMusic.getUnicaInstancia().setUsuarioActivoPremium();
 
 		Columna.revalidate();
 		Columna.repaint();

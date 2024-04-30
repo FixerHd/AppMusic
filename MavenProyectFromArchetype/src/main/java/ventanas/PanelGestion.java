@@ -142,7 +142,6 @@ public class PanelGestion extends JPanel implements NextPreviousObserver {
 
 		panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.fill = GridBagConstraints.HORIZONTAL;
 		gbc_panel.gridwidth = 5;
 		gbc_panel.insets = new Insets(0, 0, 5, 5);
 		gbc_panel.gridx = 1;

@@ -105,11 +105,9 @@ public class AppMusic {
 		if (estilo.equals(AppMusic.estilo)) {
 		} else {
 
-			// Se elimina la instancia de la ventana Principal
-			// limpiarVentanas();
-			ventanas.Principal.getInstancia().removeInstancia();
+			// Se eliminan todas las instancias de las ventanas
+			limpiarVentanas();
 
-			// Se filtran los estilos manualmente.
 			if (estilo.equals("Devil")) { // Estilos especiales
 				// TODO
 			} else { // Estilos normales
@@ -206,7 +204,8 @@ public class AppMusic {
 		return false;
 	}
 
-	public int registrarUsuario(String usuario, String email, String contraseña, Date fecha, String nombre_completo, String desc) {
+	public int registrarUsuario(String usuario, String email, String contraseña, Date fecha, String nombre_completo,
+			String desc) {
 		String s_fecha = fecha.toString();
 		if (usuario.isEmpty() || email.isEmpty() || contraseña.isEmpty() || s_fecha.isEmpty()
 				|| nombre_completo.isEmpty()) {
@@ -225,7 +224,7 @@ public class AppMusic {
 		Descuento descuento = null;
 		if (desc == Utilidades.Constantes.DESCUENTOS[1]) {
 			descuento = new DescuentoFijo();
-		} else if (desc == Utilidades.Constantes.DESCUENTOS[2]){
+		} else if (desc == Utilidades.Constantes.DESCUENTOS[2]) {
 			descuento = new DescuentoJovenes();
 		} else {
 			return Constantes.ERROR_REGISTRO_DESCUENTO;
@@ -247,10 +246,7 @@ public class AppMusic {
 			if (c.getTitulo().startsWith(titulo) && c.getInterprete().startsWith(interprete)
 					&& c.isFavorita() == favoritas) {
 				if (c.getEstilomusical().isEmpty() || c.getEstilomusical() == estilo) {
-					nuevos_datos.getTitulos().add(c.getTitulo());
-					nuevos_datos.getInterpretes().add(c.getInterprete());
-					nuevos_datos.getEstilos().add(c.getEstilomusical());
-					nuevos_datos.getFavoritas().add(c.isFavorita());
+					añadirDatosTabla(c, nuevos_datos);
 				}
 			}
 		});
@@ -261,14 +257,9 @@ public class AppMusic {
 		DatosTabla nuevos_datos = new DatosTabla();
 		List<Cancion> cancionesOrdenadas = catalogoCanciones.cancionesOrdenadas();
 
-		cancionesOrdenadas.stream()
-			.limit(10)
-			.forEach(c -> {
-				nuevos_datos.getTitulos().add(c.getTitulo());
-				nuevos_datos.getInterpretes().add(c.getInterprete());
-				nuevos_datos.getEstilos().add(c.getEstilomusical());
-				nuevos_datos.getFavoritas().add(c.isFavorita());
-			});
+		cancionesOrdenadas.stream().limit(10).forEach(c -> {
+			añadirDatosTabla(c, nuevos_datos);
+		});
 
 		return nuevos_datos;
 	}
@@ -276,10 +267,7 @@ public class AppMusic {
 	public DatosTabla buscarRecientes() {
 		DatosTabla nuevos_datos = new DatosTabla();
 		for (Cancion c : usuarioActivo.getRecientes().getCanciones()) {
-			nuevos_datos.getTitulos().add(c.getTitulo());
-			nuevos_datos.getInterpretes().add(c.getInterprete());
-			nuevos_datos.getEstilos().add(c.getEstilomusical());
-			nuevos_datos.getFavoritas().add(c.isFavorita());
+			añadirDatosTabla(c, nuevos_datos);
 		}
 		return nuevos_datos;
 	}
@@ -304,10 +292,7 @@ public class AppMusic {
 		for (Playlist p : usuarioActivo.getPlaylists()) {
 			if (p.getNombre().equals(selectedValue)) {
 				for (Cancion c : p.getCanciones()) {
-					nuevos_datos.getTitulos().add(c.getTitulo());
-					nuevos_datos.getInterpretes().add(c.getInterprete());
-					nuevos_datos.getEstilos().add(c.getEstilomusical());
-					nuevos_datos.getFavoritas().add(c.isFavorita());
+					añadirDatosTabla(c, nuevos_datos);
 				}
 				break;
 			}
@@ -442,15 +427,9 @@ public class AppMusic {
 		// recividos
 		for (Playlist p : usuarioActivo.getPlaylists()) {
 			if (p.getNombre().equals(playlist)) {
-				datos.getTitulos().clear();
-				datos.getEstilos().clear();
-				datos.getInterpretes().clear();
-				datos.getFavoritas().clear();
+				limpiarPlaylist(datos);
 				for (Cancion c : p.getCanciones()) {
-					datos.getTitulos().add(c.getTitulo());
-					datos.getInterpretes().add(c.getInterprete());
-					datos.getEstilos().add(c.getEstilomusical());
-					datos.getFavoritas().add(c.isFavorita());
+					añadirDatosTabla(c, datos);
 				}
 				break;
 			}
@@ -476,7 +455,7 @@ public class AppMusic {
 		try {
 			// Extraer el nombre del archivo de la ruta del fichero
 			String nombreFichero = new java.io.File(rutaFichero).getName();
-		
+
 			// Dividir el nombre del archivo en el intérprete y el título
 			String[] partes = nombreFichero.split("-");
 			if (partes.length < 2) {
@@ -484,11 +463,11 @@ public class AppMusic {
 			}
 			String interprete = partes[0].trim();
 			String titulo = partes[1].trim();
-		
+
 			// Crear la nueva canción con el intérprete y el título
 			Cancion nuevaCancion = new Cancion(rutaFichero, titulo);
 			nuevaCancion.setInterprete(interprete);
-		
+
 			// Registrar la canción y añadirla al catálogo
 			adaptadorCancion.registrarCancion(nuevaCancion);
 			catalogoCanciones.addCancion(nuevaCancion);
@@ -513,9 +492,45 @@ public class AppMusic {
 	public Descuento getDescuentoUsuario() {
 		return usuarioActivo.getDesc();
 	}
-	
+
 	public void setDescuentoUsuario(Usuario usuario, Descuento desc) {
 		usuario.setDesc(desc);
 	}
+
+	public boolean limpiarPlaylist(DatosTabla datos) {
+		try {
+			datos.getTitulos().clear();
+			datos.getEstilos().clear();
+			datos.getInterpretes().clear();
+			datos.getFavoritas().clear();
+			datos.getIds().clear();
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
+	}
+
+	public boolean añadirDatosTabla(Cancion c, DatosTabla datos) {
+		try {
+			datos.getTitulos().add(c.getTitulo());
+			datos.getInterpretes().add(c.getInterprete());
+			datos.getEstilos().add(c.getEstilomusical());
+			datos.getFavoritas().add(c.isFavorita());
+			datos.getIds().add(c.getId());
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
+	}
 	
+	public boolean isUsuarioActivoPremium() {
+		// Comprobar si el usuario es premium
+		return true;
+	}
+	
+	public boolean setUsuarioActivoPremium() {
+		// Hacer que el usuario sea premium para siempre
+		return true;
+	}
+
 }

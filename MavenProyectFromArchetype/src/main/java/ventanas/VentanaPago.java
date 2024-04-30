@@ -16,20 +16,12 @@ import java.awt.Insets;
 
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
-import com.toedter.calendar.JDateChooser;
 
 import Controlador.AppMusic;
-import Utilidades.Constantes;
-import ventanas.HintTextField;
 
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.text.DecimalFormat;
-import java.util.regex.Pattern;
-
-import javax.swing.JComboBox;
-import java.awt.Component;
-import javax.swing.Box;
 
 public class VentanaPago extends JFrame {
 
@@ -190,7 +182,7 @@ public class VentanaPago extends JFrame {
 
 		DecimalFormat numberFormat = new DecimalFormat("#.00");
 		String stringDescuento;
-		if(AppMusic.getUnicaInstancia().getUsuarioActivo().getDesc() == null) {
+		if (AppMusic.getUnicaInstancia().getUsuarioActivo().getDesc() == null) {
 			stringDescuento = "x 1";
 		} else {
 			double descuento = AppMusic.getUnicaInstancia().getUsuarioActivo().getDesc().getPorcentaje();
@@ -230,9 +222,9 @@ public class VentanaPago extends JFrame {
 		gbc_Total.gridy = 6;
 		panel2.add(Total, gbc_Total);
 
-		double total = Utilidades.Constantes.PRECIO_ESTANDAR
-				* AppMusic.getUnicaInstancia().getUsuarioActivo().getDesc().getPorcentaje();
-		
+		double total = AppMusic.getUnicaInstancia().getUsuarioActivo().getDesc()
+				.calcDescuento(Utilidades.Constantes.PRECIO_ESTANDAR);
+
 		Total2 = new JLabel(numberFormat.format(total));
 		GridBagConstraints gbc_Total2 = new GridBagConstraints();
 		gbc_Total2.insets = new Insets(0, 0, 5, 5);
@@ -254,6 +246,13 @@ public class VentanaPago extends JFrame {
 	}
 
 	private boolean comprobacionesPago() {
+		if (Texto_CVC.getText().matches("[0-9]{3}")) {
+			if (Texto_Caducidad.getText().matches("(0[1-9]||1[0-2])/([0-2][0-9]||3[01])")) {
+				if (Texto_Tarjeta.getText().matches("[0-9]{4} [0-9]{4} [0-9]{4} [0-9]{4}")) {
+					return true;
+				}
+			}
+		}
 		return false;
 	}
 
