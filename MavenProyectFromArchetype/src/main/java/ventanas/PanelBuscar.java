@@ -41,7 +41,7 @@ public class PanelBuscar extends JPanel {
 		GridBagLayout gbl_panelBuscar = new GridBagLayout();
 		gbl_panelBuscar.columnWidths = new int[] { 20, 10, 198, 0, 30, 50, 10, 20, 0 };
 		gbl_panelBuscar.rowHeights = new int[] { 10, 20, 10, 20, 10, 20, 10, 0, 00, 0 };
-		gbl_panelBuscar.columnWeights = new double[] { 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_panelBuscar.columnWeights = new double[] { 0.0, 0.0, 0.0, 2.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
 		gbl_panelBuscar.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		this.setLayout(gbl_panelBuscar);
 
@@ -94,12 +94,17 @@ public class PanelBuscar extends JPanel {
 		gbc_Botón_Buscar.gridx = 5;
 		gbc_Botón_Buscar.gridy = 3;
 		Botón_Buscar.addActionListener(ev -> {
-			DatosTabla datos = AppMusic.getUnicaInstancia().buscarCanciones(Texto_Titulo.getText(),
-					Texto_Interprete.getText(), Estilo.getSelectedItem(), Botón_Favoritas.isSelected());
+			String titulo = Texto_Titulo.getText();
+			if (titulo == "Titulo") titulo = "";
+			String interprete = Texto_Interprete.getText();
+			if (interprete == "Interprete") interprete = "";
+			
+			DatosTabla datos = AppMusic.getUnicaInstancia().buscarCanciones(titulo,
+					interprete, (String) Estilo.getSelectedItem(), Botón_Favoritas.isSelected());
 			if (datos != null) {
 				gbl_panelBuscar.columnWidths = new int[] { 20, 10, 198, 0, 30, 50, 10, 20, 0 };
 				gbl_panelBuscar.rowHeights = new int[] { 10, 20, 10, 20, 10, 20, 10, 0, 10, 0 };
-				gbl_panelBuscar.columnWeights = new double[] { 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0,
+				gbl_panelBuscar.columnWeights = new double[] { 0.0, 0.0, 0.0, 2.0, 0.0, 1.0, 0.0, 0.0,
 						Double.MIN_VALUE };
 				gbl_panelBuscar.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0,
 						Double.MIN_VALUE };

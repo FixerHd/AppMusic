@@ -58,13 +58,6 @@ public class PanelTendencias extends JPanel implements NextPreviousObserver {
 		panel.setLayout(new BorderLayout(0, 0));
 
 		Panel_Reproducción = new PanelReproduccionMP3(this);
-		GridBagLayout gbl_Panel_Reproducción = new GridBagLayout();
-		gbl_Panel_Reproducción.columnWidths = new int[] { 10, 32, 10, 32, 10, 32, 10, 32, 10, 0 };
-		gbl_Panel_Reproducción.rowHeights = new int[] { 32, 0 };
-		gbl_Panel_Reproducción.columnWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0,
-				Double.MIN_VALUE };
-		gbl_Panel_Reproducción.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
-		Panel_Reproducción.setLayout(gbl_Panel_Reproducción);
 		panel.add(Panel_Reproducción, BorderLayout.NORTH);
 
 		this.setVisible(true);

@@ -239,7 +239,7 @@ public class AppMusic {
 				null);
 	}
 
-	public DatosTabla buscarCanciones(String titulo, String interprete, Object estilo, boolean favoritas) {
+	public DatosTabla buscarCanciones(String titulo, String interprete, String estilo, boolean favoritas) {
 		// La idea es devolver los datos dentro de la estructura de datos
 		DatosTabla nuevos_datos = new DatosTabla();
 		catalogoCanciones.getCanciones().forEach(c -> {
@@ -522,12 +522,12 @@ public class AppMusic {
 		}
 		return true;
 	}
-	
+
 	public boolean isUsuarioActivoPremium() {
 		// Comprobar si el usuario es premium
 		return true;
 	}
-	
+
 	public boolean setUsuarioActivoPremium() {
 		// Hacer que el usuario sea premium para siempre
 		return true;
