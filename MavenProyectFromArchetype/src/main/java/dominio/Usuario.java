@@ -1,6 +1,7 @@
 package dominio;
 
 import java.util.LinkedList;
+import java.time.LocalDate;
 
 public class Usuario {
 	private int id;
@@ -21,6 +22,7 @@ public class Usuario {
 		premium = false;
 		playlists = new LinkedList<Playlist>();
 		recientes = new Playlist("Recientes");
+		desc = new DescuentoFijo();
 	}
 
 	public void realizarPago() {
