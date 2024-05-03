@@ -99,5 +99,13 @@ public class Usuario {
 	public void setDesc(Descuento desc) {
 		this.desc = desc;
 	}
+	
+	public boolean isPremium() {
+		return premium;
+	}
+	
+	public void setPremiumtrue() {
+		premium = true;
+	}
 
 }

@@ -524,12 +524,11 @@ public class AppMusic {
 	}
 
 	public boolean isUsuarioActivoPremium() {
-		// Comprobar si el usuario es premium
-		return true;
+		return usuarioActivo.isPremium();
 	}
 
 	public boolean setUsuarioActivoPremium() {
-		// Hacer que el usuario sea premium para siempre
+		usuarioActivo.setPremiumtrue();
 		return true;
 	}
 
