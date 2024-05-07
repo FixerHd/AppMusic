@@ -41,7 +41,7 @@ public class AdaptadorCancionTDS implements IAdaptadorCancionDAO {
 		eCancion = new Entidad();
 		eCancion.setNombre("Cancion");
 		eCancion.setPropiedades(new ArrayList<Propiedad>(
-				Arrays.asList(new Propiedad("titulo", Cancion.getTitulo()), new Propiedad("rutaFichero", Cancion.getrutaFichero()), new Propiedad("numReproducciones", String.valueOf(Cancion.getnumReproducciones())), new Propiedad("estilomusical", Cancion.getEstilomusical()), new Propiedad("interprete", Cancion.getInterprete()), new Propiedad("favorita", Cancion.isFavorita().toString())
+				Arrays.asList(new Propiedad("titulo", Cancion.getTitulo()), new Propiedad("rutaFichero", Cancion.getrutaFichero()), new Propiedad("numReproducciones", String.valueOf(Cancion.getnumReproducciones())), new Propiedad("estilomusical", Cancion.getEstilomusical()), new Propiedad("interprete", Cancion.getInterprete())
 						)));
 
 		// registrar entidad Cancion
@@ -75,8 +75,6 @@ public class AdaptadorCancionTDS implements IAdaptadorCancionDAO {
 				prop.setValor(String.valueOf(Cancion.getEstilomusical()));
 			}  else if (prop.getNombre().equals("interprete")) {
 				prop.setValor(String.valueOf(Cancion.getInterprete()));
-			}  else if (prop.getNombre().equals("favorita")) {
-				prop.setValor(String.valueOf(Cancion.isFavorita()));
 			} 
 			servPersistencia.modificarPropiedad(prop);
 		}
@@ -96,7 +94,6 @@ public class AdaptadorCancionTDS implements IAdaptadorCancionDAO {
 		String numReproducciones;
 		String estilomusical;
 		String interprete;
-		String favorita;
 
 		// recuperar entidad
 		eCancion = servPersistencia.recuperarEntidad(Id);
@@ -107,14 +104,12 @@ public class AdaptadorCancionTDS implements IAdaptadorCancionDAO {
 		numReproducciones = servPersistencia.recuperarPropiedadEntidad(eCancion, "numReproducciones");
 		estilomusical = servPersistencia.recuperarPropiedadEntidad(eCancion, "estilomusical");
 		interprete = servPersistencia.recuperarPropiedadEntidad(eCancion, "interprete");
-		favorita = servPersistencia.recuperarPropiedadEntidad(eCancion, "favorita");
 
 		Cancion Cancion = new Cancion(titulo, rutaFichero);
 		Cancion.setId(Id);
 		Cancion.setnumReproducciones(Integer.valueOf(numReproducciones));
 		Cancion.setEstilomusical(estilomusical);
 		Cancion.setInterprete(interprete);
-		Cancion.setFavorita(Boolean.valueOf(favorita));
 
 		// IMPORTANTE:a�adir el Cancion al pool antes de llamar a otros
 		// adaptadores

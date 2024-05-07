@@ -13,6 +13,7 @@ public class Usuario {
 	private LinkedList<Playlist> playlists;
 	private Descuento desc;
 	private Playlist recientes;
+	private Playlist favoritas;
 
 	public Usuario(String nombre, String email, String contraseña, String fechanac) {
 		this.nombre = nombre;
@@ -22,6 +23,7 @@ public class Usuario {
 		premium = false;
 		playlists = new LinkedList<Playlist>();
 		recientes = new Playlist("Recientes");
+		favoritas = new Playlist("Favoritas");
 		desc = new DescuentoFijo();
 	}
 
@@ -108,6 +110,14 @@ public class Usuario {
 	
 	public void setPremiumtrue() {
 		premium = true;
+	}
+
+	public void setFavoritas(Playlist favoritas) {
+		this.favoritas = favoritas;
+	}
+
+	public Playlist getFavoritas() {
+		return favoritas;
 	}
 
 }
