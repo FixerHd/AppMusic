@@ -239,7 +239,7 @@ public class AppMusic {
 				null);
 	}
 
-	public DatosTabla buscarCanciones(String titulo, String interprete, String estilo) {
+	public DatosTabla buscarCanciones(String titulo, String interprete, String estilo, boolean favorita) {
 		// La idea es devolver los datos dentro de la estructura de datos
 		DatosTabla nuevos_datos = new DatosTabla();
 		catalogoCanciones.getCanciones().forEach(c -> {
