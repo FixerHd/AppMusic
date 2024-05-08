@@ -53,6 +53,10 @@ public class Playlist {
 	public void setCanciones(LinkedList<Cancion> canciones) {
 		this.canciones = canciones;
 	}
+
+	public void eliminarUltimaCancion() {
+		canciones.removeLast();
+	}
     
     
 }

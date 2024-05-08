@@ -61,7 +61,7 @@ public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
 		eUsuario.setNombre("Usuario");
 		eUsuario.setPropiedades(new ArrayList<Propiedad>(
 				Arrays.asList(new Propiedad("nombre", Usuario.getNombre()), new Propiedad("email", Usuario.getEmail()), new Propiedad("password", Usuario.getPassword()), new Propiedad("fechaNacimiento", Usuario.getFechaNacimiento()), new Propiedad("premium", Usuario.getPremium()),
-						new Propiedad("playlists", obtenerIdPlaylist(Usuario.getPlaylists())), new Propiedad("recientes", obtenerIdPlaylistReciente(Usuario.getRecientes())))));
+						new Propiedad("playlists", obtenerIdPlaylist(Usuario.getPlaylists())), new Propiedad("recientes", obtenerIdPlaylistReciente(Usuario.getRecientes())), new Propiedad("favoritas", obtenerIdPlaylistReciente(Usuario.getFavoritas())))));
 
 		// registrar entidad Usuario
 		eUsuario = servPersistencia.registrarEntidad(eUsuario);
@@ -100,6 +100,9 @@ public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
 			}  else if (prop.getNombre().equals("recientes")) {
 				String re = obtenerIdPlaylistReciente(Usuario.getRecientes());
 				prop.setValor(re);
+			} else if (prop.getNombre().equals("favoritas")) {
+				String re = obtenerIdPlaylistReciente(Usuario.getFavoritas());
+				prop.setValor(re);
 			}
 			servPersistencia.modificarPropiedad(prop);
 		}
@@ -121,6 +124,7 @@ public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
 		String password;
 		String fechaNacimiento;
 		String premium;
+		Playlist favoritas = new Playlist("Favoritas");
 
 		// recuperar entidad
 		eUsuario = servPersistencia.recuperarEntidad(Id);
@@ -146,8 +150,10 @@ public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
 		Playlists = obtenerPlaylistsDesdeIds(servPersistencia.recuperarPropiedadEntidad(eUsuario, "playlists"));
 
 		recientes = obtenerPlaylistRecienteDesdeId(servPersistencia.recuperarPropiedadEntidad(eUsuario, "recientes"));
+		favoritas = obtenerPlaylistFavoritaDesdeId(servPersistencia.recuperarPropiedadEntidad(eUsuario, "favoritas"));
 
 		Usuario.setRecientes(recientes);
+		Usuario.setFavoritas(favoritas);
 
 		for (Playlist v : Playlists)
 			Usuario.addPlaylist(v);
@@ -183,6 +189,12 @@ public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
 		AdaptadorPlaylistTDS adaptadorP = AdaptadorPlaylistTDS.getUnicaInstancia();
 		if (Playlist != null) return adaptadorP.recuperarPlaylist(Integer.valueOf(Playlist));
 		else return new Playlist("Recientes");
+	}
+
+	private Playlist obtenerPlaylistFavoritaDesdeId(String Playlist) {
+		AdaptadorPlaylistTDS adaptadorP = AdaptadorPlaylistTDS.getUnicaInstancia();
+		if (Playlist != null) return adaptadorP.recuperarPlaylist(Integer.valueOf(Playlist));
+		else return new Playlist("Favoritas");
 	}
 
 	private List<Playlist> obtenerPlaylistsDesdeIds(String Playlists) {

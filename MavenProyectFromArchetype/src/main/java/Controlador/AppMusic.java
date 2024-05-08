@@ -239,12 +239,11 @@ public class AppMusic {
 				null);
 	}
 
-	public DatosTabla buscarCanciones(String titulo, String interprete, String estilo, boolean favoritas) {
+	public DatosTabla buscarCanciones(String titulo, String interprete, String estilo, boolean favorita) {
 		// La idea es devolver los datos dentro de la estructura de datos
 		DatosTabla nuevos_datos = new DatosTabla();
 		catalogoCanciones.getCanciones().forEach(c -> {
-			if (c.getTitulo().startsWith(titulo) && c.getInterprete().startsWith(interprete)
-					&& c.isFavorita() == favoritas) {
+			if (c.getTitulo().startsWith(titulo) && c.getInterprete().startsWith(interprete)) {
 				if (c.getEstilomusical().isEmpty() || c.getEstilomusical() == estilo) {
 					añadirDatosTabla(c, nuevos_datos);
 				}
@@ -515,7 +514,6 @@ public class AppMusic {
 			datos.getTitulos().add(c.getTitulo());
 			datos.getInterpretes().add(c.getInterprete());
 			datos.getEstilos().add(c.getEstilomusical());
-			datos.getFavoritas().add(c.isFavorita());
 			datos.getIds().add(c.getId());
 		} catch (Exception e) {
 			return false;

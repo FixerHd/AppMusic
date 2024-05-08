@@ -13,6 +13,7 @@ public class Usuario {
 	private LinkedList<Playlist> playlists;
 	private Descuento desc;
 	private Playlist recientes;
+	private Playlist favoritas;
 
 	public Usuario(String nombre, String email, String contraseña, String fechanac) {
 		this.nombre = nombre;
@@ -22,6 +23,7 @@ public class Usuario {
 		premium = false;
 		playlists = new LinkedList<Playlist>();
 		recientes = new Playlist("Recientes");
+		favoritas = new Playlist("Favoritas");
 		desc = new DescuentoFijo();
 	}
 
@@ -82,7 +84,9 @@ public class Usuario {
 
 	public void AnadirRecientes(Cancion c) {
 		recientes.addCancion(c);
-
+		if (recientes.getCanciones().size() > 10) {
+			recientes.eliminarUltimaCancion();
+		}
 	}
 
 	public void setRecientes(Playlist recientes) {
@@ -99,6 +103,14 @@ public class Usuario {
 
 	public void setDesc(Descuento desc) {
 		this.desc = desc;
+	}
+
+	public void setFavoritas(Playlist favoritas) {
+		this.favoritas = favoritas;
+	}
+
+	public Playlist getFavoritas() {
+		return favoritas;
 	}
 
 }
