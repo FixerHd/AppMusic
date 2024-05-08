@@ -5,6 +5,7 @@ public class Constantes {
 	public static final String NOMBRE_APLICACION = "Singletune";
 	public static final String[] DESCUENTOS = {"Ninguno", "Fijo", "Jovenes"};
 	public static final int PRECIO_ESTANDAR = 38;
+	public static final int LIMITE_PLAYLIST_ESTANDAR = 10;
 
 	// "com.jtattoo.plaf.texture.TextureLookAndFeel"
 	public static final String ESTILO_POR_DEFECTO = "Texture";

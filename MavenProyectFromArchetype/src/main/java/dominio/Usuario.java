@@ -84,7 +84,7 @@ public class Usuario {
 
 	public void AnadirRecientes(Cancion c) {
 		recientes.addCancion(c);
-		if (recientes.getCanciones().size() > 10) {
+		if (recientes.getCanciones().size() > Utilidades.Constantes.LIMITE_PLAYLIST_ESTANDAR) {
 			recientes.eliminarUltimaCancion();
 		}
 	}

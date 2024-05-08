@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -242,7 +243,13 @@ public class AppMusic {
 	public DatosTabla buscarCanciones(String titulo, String interprete, String estilo, boolean favorita) {
 		// La idea es devolver los datos dentro de la estructura de datos
 		DatosTabla nuevos_datos = new DatosTabla();
-		catalogoCanciones.getCanciones().forEach(c -> {
+		List<Cancion> canciones;
+		if (favorita) {
+			canciones = getfavoritas(usuarioActivo).getCanciones();
+		} else {
+			canciones = catalogoCanciones.getCanciones();
+		}
+		canciones.forEach(c -> {
 			if (c.getTitulo().startsWith(titulo) && c.getInterprete().startsWith(interprete)) {
 				if (c.getEstilomusical().isEmpty() || c.getEstilomusical() == estilo) {
 					añadirDatosTabla(c, nuevos_datos);
@@ -256,7 +263,7 @@ public class AppMusic {
 		DatosTabla nuevos_datos = new DatosTabla();
 		List<Cancion> cancionesOrdenadas = catalogoCanciones.cancionesOrdenadas();
 
-		cancionesOrdenadas.stream().limit(10).forEach(c -> {
+		cancionesOrdenadas.stream().limit(Utilidades.Constantes.LIMITE_PLAYLIST_ESTANDAR).forEach(c -> {
 			añadirDatosTabla(c, nuevos_datos);
 		});
 
@@ -528,6 +535,10 @@ public class AppMusic {
 	public boolean setUsuarioActivoPremium() {
 		usuarioActivo.setPremium(true);
 		return true;
+	}
+	
+	public Playlist getfavoritas(Usuario usuario) {
+		return usuario.getFavoritas();
 	}
 
 }
