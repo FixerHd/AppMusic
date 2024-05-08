@@ -528,7 +528,7 @@ public class AppMusic {
 	}
 
 	public boolean setUsuarioActivoPremium() {
-		usuarioActivo.setPremiumtrue();
+		usuarioActivo.setPremium(true);
 		return true;
 	}
 

@@ -57,11 +57,6 @@ public class Usuario {
 		return fechaNacimiento;
 	}
 
-	public String getPremium() {
-		// TODO Auto-generated method stub
-		return Boolean.toString(premium);
-	}
-
 	public int getId() {
 		return id;
 	}
@@ -69,10 +64,14 @@ public class Usuario {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	public boolean isPremium() {
+		return premium;
+	}
 
-	public void setPremium(String premium2) {
+	public void setPremium(boolean b) {
 		// TODO Auto-generated method stub
-		premium = Boolean.valueOf(premium2);
+		premium = b;
 	}
 
 	public void setPlaylists(LinkedList<Playlist> playlists2) {
@@ -100,14 +99,6 @@ public class Usuario {
 
 	public void setDesc(Descuento desc) {
 		this.desc = desc;
-	}
-	
-	public boolean isPremium() {
-		return premium;
-	}
-	
-	public void setPremiumtrue() {
-		premium = true;
 	}
 
 }
