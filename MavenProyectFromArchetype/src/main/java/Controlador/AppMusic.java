@@ -495,6 +495,14 @@ public class AppMusic {
 		return Reproductor.getUnicaInstancia().stopCancion();
 	}
 
+	public void pauseCancion() {
+		Reproductor.getUnicaInstancia().pauseCancion();
+	}
+
+	public void resumeCancion() {
+		Reproductor.getUnicaInstancia().reanudarCancion();
+	}	
+
 	public Descuento getDescuentoUsuario() {
 		return usuarioActivo.getDesc();
 	}

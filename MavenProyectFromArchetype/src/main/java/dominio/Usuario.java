@@ -113,4 +113,20 @@ public class Usuario {
 		return favoritas;
 	}
 
+	public void setPremium2(String b){
+		if(b.equals("true")) {
+			premium = true;
+		}else {
+			premium = false;
+		}
+	}
+
+	public String getPremium() {
+		if(premium) {
+			return "true";
+		}else {
+			return "false";
+		}
+	}
+
 }

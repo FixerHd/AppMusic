@@ -139,7 +139,7 @@ public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
 
 		Usuario Usuario = new Usuario(nombre, email, password, fechaNacimiento);
 		Usuario.setId(Id);
-		Usuario.setPremium(premium);
+		Usuario.setPremium2(premium);
 
 		// IMPORTANTE:a�adir el Usuario al pool antes de llamar a otros
 		// adaptadores

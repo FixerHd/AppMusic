@@ -93,4 +93,26 @@ public class Reproductor {
 		return false;
 	}
 
+	public boolean pauseCancion() {
+		try {
+			if (mediaPlayer != null)
+				mediaPlayer.pause();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public boolean reanudarCancion() {
+		try {
+			if (mediaPlayer != null)
+				mediaPlayer.play();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 }
