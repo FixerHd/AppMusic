@@ -17,9 +17,11 @@ public class Reproductor {
 	private static Reproductor instancia;
 	private MediaPlayer mediaPlayer;
 	private String tempPath;
+	private boolean reprourl;
 
 	private Reproductor() {
 		tempPath = System.getProperty("user.dir");
+		reprourl = false;
 	}
 
 	public static Reproductor getUnicaInstancia() {
@@ -48,7 +50,7 @@ public class Reproductor {
 
 			Media media = new Media(mp3.toFile().toURI().toString());
 			mediaPlayer = new MediaPlayer(media);
-
+			reprourl = true;
 			mediaPlayer.play();
 			return true;
 		} catch (MalformedURLException e1) {
@@ -67,7 +69,7 @@ public class Reproductor {
 			// Crear un objeto Media desde la ruta del fichero
 			Media media = new Media(new File(rutaFichero).toURI().toString());
 			mediaPlayer = new MediaPlayer(media);
-	
+			reprourl = false;
 			mediaPlayer.play();
 			return true;
 		} catch (Exception e) {
@@ -80,12 +82,15 @@ public class Reproductor {
 		try {
 			if (mediaPlayer != null)
 				mediaPlayer.stop();
+				if (reprourl) {
 			File directorio = new File(tempPath);
 			String[] files = directorio.list();
 			for (String archivo : files) {
 				File fichero = new File(tempPath + File.separator + archivo);
 				fichero.delete();
 			}
+		}
+			reprourl = false;
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
