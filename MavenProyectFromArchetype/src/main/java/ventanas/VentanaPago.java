@@ -221,9 +221,12 @@ public class VentanaPago extends JFrame {
 		gbc_Total.gridx = 3;
 		gbc_Total.gridy = 6;
 		panel2.add(Total, gbc_Total);
-
-		double total = AppMusic.getUnicaInstancia().getUsuarioActivo().getDesc()
-				.calcDescuento(Utilidades.Constantes.PRECIO_ESTANDAR);
+		
+		double total = Utilidades.Constantes.PRECIO_ESTANDAR;
+		if (AppMusic.getUnicaInstancia().getUsuarioActivo().getDesc() != null) {
+			total = AppMusic.getUnicaInstancia().getUsuarioActivo().getDesc()
+					.calcDescuento(total);
+		}
 
 		Total2 = new JLabel(numberFormat.format(total));
 		GridBagConstraints gbc_Total2 = new GridBagConstraints();

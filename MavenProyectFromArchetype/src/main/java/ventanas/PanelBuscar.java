@@ -95,9 +95,13 @@ public class PanelBuscar extends JPanel {
 		gbc_Botón_Buscar.gridy = 3;
 		Botón_Buscar.addActionListener(ev -> {
 			String titulo = Texto_Titulo.getText();
-			if (titulo == "Titulo") titulo = "";
+			if (titulo.equals("Titulo")) {
+				titulo = "";
+			}
 			String interprete = Texto_Interprete.getText();
-			if (interprete == "Interprete") interprete = "";
+			if (interprete.equals("Interprete")) {
+				interprete = "";
+			}
 			
 			DatosTabla datos = AppMusic.getUnicaInstancia().buscarCanciones(titulo,
 					interprete, (String) Estilo.getSelectedItem(), Botón_Favoritas.isSelected());

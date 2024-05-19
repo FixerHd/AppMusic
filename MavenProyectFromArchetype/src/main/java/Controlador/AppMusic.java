@@ -201,8 +201,7 @@ public class AppMusic {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		return false;
+		return true;
 	}
 
 	public int registrarUsuario(String usuario, String email, String contraseña, Date fecha, String nombre_completo,
@@ -248,14 +247,14 @@ public class AppMusic {
 			canciones = getfavoritas(usuarioActivo).getCanciones();
 		} else {
 			canciones = catalogoCanciones.getCanciones();
-		}
-		canciones.forEach(c -> {
-			if (c.getTitulo().startsWith(titulo) && c.getInterprete().startsWith(interprete)) {
-				if (c.getEstilomusical().isEmpty() || c.getEstilomusical() == estilo) {
-					añadirDatosTabla(c, nuevos_datos);
+			canciones.forEach(c -> {
+				if (c.getTitulo().startsWith(titulo) && c.getInterprete().startsWith(interprete)) {
+					if (c.getEstilomusical().isEmpty() || c.getEstilomusical() == estilo) {
+						añadirDatosTabla(c, nuevos_datos);
+					}
 				}
-			}
-		});
+			});
+		};
 		return nuevos_datos;
 	}
 
@@ -440,7 +439,7 @@ public class AppMusic {
 				break;
 			}
 		}
-		return false;
+		return true;
 	}
 
 	public void añadirCancionPlaylist(String playlist, Object valueAt) {
@@ -480,7 +479,7 @@ public class AppMusic {
 		} catch (Exception e) {
 			return false;
 		}
-		return false;
+		return true;
 	}
 
 	public boolean reproducircancion(String rutaFichero) {
@@ -516,7 +515,6 @@ public class AppMusic {
 			datos.getTitulos().clear();
 			datos.getEstilos().clear();
 			datos.getInterpretes().clear();
-			datos.getFavoritas().clear();
 			datos.getIds().clear();
 		} catch (Exception e) {
 			return false;
