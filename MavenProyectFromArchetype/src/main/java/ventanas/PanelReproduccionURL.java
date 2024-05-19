@@ -25,6 +25,8 @@ public class PanelReproduccionURL extends PanelReproduccion {
 			this.playService.notifyPlaylist();
 			Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/pausa.png")));
 			Play_Stop.setSelected(true);
+			revalidate();
+			repaint();
 		}
 		return resultado;
 	}
@@ -40,19 +42,8 @@ public class PanelReproduccionURL extends PanelReproduccion {
 			this.cancion = cancion;
 			Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/pausa.png")));
 			Play_Stop.setSelected(true);
-		}
-		return resultado;
-	}
-
-	public boolean stopCancion() {
-		if (cancion == null)
-			return false;
-		boolean resultado = AppMusic.getUnicaInstancia().stopCancion();
-		if (resultado == false) {
-			AppMusic.getUnicaInstancia().showPopup(this, Utilidades.Constantes.ERROR_STOP_MENSAJE);
-		} else {
-			Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/jugar.png")));
-			Play_Stop.setSelected(false);
+			revalidate();
+			repaint();
 		}
 		return resultado;
 	}

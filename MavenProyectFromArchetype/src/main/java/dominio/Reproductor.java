@@ -11,6 +11,7 @@ import java.nio.file.StandardCopyOption;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 
 public class Reproductor {
 
@@ -118,6 +119,10 @@ public class Reproductor {
 			e.printStackTrace();
 		}
 		return false;
+	}
+	
+	public boolean isCancionMidway() {
+		return mediaPlayer.getCurrentTime().equals(Duration.ZERO);
 	}
 
 }

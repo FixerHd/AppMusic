@@ -250,7 +250,7 @@ public class AppMusic {
 			canciones = catalogoCanciones.getCanciones();
 			canciones.forEach(c -> {
 				if (c.getTitulo().startsWith(titulo) && c.getInterprete().startsWith(interprete)) {
-					if (c.getEstilomusical().isEmpty() || c.getEstilomusical() == estilo) {
+					if (estilo.isEmpty() || c.getEstilomusical() == estilo) {
 						añadirDatosTabla(c, nuevos_datos);
 					}
 				}
@@ -445,13 +445,17 @@ public class AppMusic {
 		return Reproductor.getUnicaInstancia().stopCancion();
 	}
 
-	public void pauseCancion() {
-		Reproductor.getUnicaInstancia().pauseCancion();
+	public boolean pauseCancion() {
+		return Reproductor.getUnicaInstancia().pauseCancion();
 	}
 
-	public void resumeCancion() {
-		Reproductor.getUnicaInstancia().reanudarCancion();
-	}	
+	public boolean resumeCancion() {
+		return Reproductor.getUnicaInstancia().reanudarCancion();
+	}
+	
+	public boolean isCancionMidway() {
+		return Reproductor.getUnicaInstancia().isCancionMidway();
+	}
 
 	public Descuento getDescuentoUsuario() {
 		return usuarioActivo.getDesc();

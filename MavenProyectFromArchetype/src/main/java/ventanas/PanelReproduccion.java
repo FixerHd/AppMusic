@@ -11,6 +11,7 @@ import javax.swing.JToggleButton;
 import javax.swing.border.TitledBorder;
 
 import Controlador.AppMusic;
+import dominio.Reproductor;
 
 public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 
@@ -59,6 +60,9 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 		gbc_Restart.insets = new Insets(0, 0, 0, 5);
 		gbc_Restart.gridx = 4;
 		gbc_Restart.gridy = 1;
+		Restart.addActionListener(ev -> {
+			stopCancion();
+		});
 		this.add(Restart, gbc_Restart);
 
 		Play_Stop = new JToggleButton("");
@@ -70,11 +74,13 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 		gbc_Play_Stop.gridy = 1;
 		Play_Stop.addActionListener(ev -> {
 			if (!Play_Stop.isSelected()) {
-				// Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/jugar.png")));
-				stopCancion();
+				pauseCancion();
 			} else {
-				// Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/pausa.png")));
-				playCancion();
+				if (AppMusic.getUnicaInstancia().isCancionMidway()) {
+					resumeCancion();
+				} else {
+					playCancion();
+				}
 			}
 		});
 		this.add(Play_Stop, gbc_Play_Stop);
@@ -108,7 +114,51 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 
 	public abstract boolean playCancion(String cancion);
 
-	public abstract boolean stopCancion();
+	public boolean stopCancion() {
+		if (cancion == null)
+			return false;
+		boolean resultado = AppMusic.getUnicaInstancia().stopCancion();
+		if (resultado == false) {
+			AppMusic.getUnicaInstancia().showPopup(this, Utilidades.Constantes.ERROR_STOP_MENSAJE);
+		} else {
+			Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/jugar.png")));
+			Play_Stop.setSelected(false);
+			revalidate();
+			repaint();
+		}
+		return resultado;
+	}
+
+	public boolean pauseCancion() {
+		if (cancion == null)
+			return false;
+		boolean resultado = AppMusic.getUnicaInstancia().pauseCancion();
+		if (resultado == false) {
+			AppMusic.getUnicaInstancia().showPopup(this, Utilidades.Constantes.ERROR_PAUSE_MENSAJE);
+		} else {
+			Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/jugar.png")));
+			Play_Stop.setSelected(false);
+			revalidate();
+			repaint();
+		}
+		return resultado;
+	}
+
+	public boolean resumeCancion() {
+		if (cancion == null)
+			return false;
+		boolean resultado = AppMusic.getUnicaInstancia().resumeCancion();
+		if (resultado == false) {
+			AppMusic.getUnicaInstancia().showPopup(this, Utilidades.Constantes.ERROR_RESUME_MENSAJE);
+		} else {
+			Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/pausa.png")));
+			Play_Stop.setSelected(true);
+			revalidate();
+			repaint();
+		}
+		return resultado;
+
+	}
 
 	@Override
 	public void update() {
