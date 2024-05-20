@@ -23,6 +23,7 @@ public class Reproductor {
 	private Reproductor() {
 		tempPath = System.getProperty("user.dir");
 		reprourl = false;
+		mediaPlayer = new MediaPlayer(null);
 	}
 
 	public static Reproductor getUnicaInstancia() {
