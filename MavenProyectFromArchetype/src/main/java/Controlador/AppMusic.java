@@ -272,9 +272,7 @@ public class AppMusic {
 
 	public DatosTabla buscarRecientes() {
 		DatosTabla nuevos_datos = new DatosTabla();
-		for (Cancion c : usuarioActivo.getRecientes().getCanciones()) {
-			añadirDatosTabla(c, nuevos_datos);
-		}
+		añadirDatosTabla(usuarioActivo.getRecientes(), nuevos_datos);
 		return nuevos_datos;
 	}
 
@@ -297,9 +295,7 @@ public class AppMusic {
 		DatosTabla nuevos_datos = new DatosTabla();
 		for (Playlist p : usuarioActivo.getPlaylists()) {
 			if (p.getNombre().equals(selectedValue)) {
-				for (Cancion c : p.getCanciones()) {
-					añadirDatosTabla(c, nuevos_datos);
-				}
+				añadirDatosTabla(p, nuevos_datos);
 				break;
 			}
 		}
@@ -384,9 +380,7 @@ public class AppMusic {
 		for (Playlist p : usuarioActivo.getPlaylists()) {
 			if (p.getNombre().equals(playlist)) {
 				limpiarPlaylist(datos);
-				for (Cancion c : p.getCanciones()) {
-					añadirDatosTabla(c, datos);
-				}
+				añadirDatosTabla(p, datos);
 				break;
 			}
 		}
@@ -488,6 +482,16 @@ public class AppMusic {
 		}
 		return true;
 	}
+	
+	public boolean añadirDatosTabla(Playlist p, DatosTabla datos) {
+		try {
+			datos.setFavoritas(p);
+			p.getCanciones().stream().forEach(c -> añadirDatosTabla(c, datos));
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
+	}
 
 	public boolean isUsuarioActivoPremium() {
 		return usuarioActivo.isPremium();
@@ -500,6 +504,10 @@ public class AppMusic {
 	
 	public Playlist getfavoritas(Usuario usuario) {
 		return usuario.getFavoritas();
+	}
+	
+	public boolean isCancionFavourite(Integer idCancion) {
+		return usuarioActivo.isCancionFavourite(idCancion);
 	}
 
 }

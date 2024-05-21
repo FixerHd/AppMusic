@@ -2,6 +2,8 @@ package dominio;
 
 import java.util.ArrayList;
 
+import Controlador.AppMusic;
+
 public class DatosTabla {
 
 	private ArrayList<String> titulos = new ArrayList<String>();
@@ -48,5 +50,11 @@ public class DatosTabla {
 
 	public void setFavoritas(ArrayList<Boolean> favoritas) {
 		this.favoritas = favoritas;
+	}
+
+	public void setFavoritas(Playlist playlist) {
+		ArrayList<Boolean> favoritas = (ArrayList<Boolean>) playlist.getCanciones().stream()
+				.map(c -> AppMusic.getUnicaInstancia().isCancionFavourite(c.getId())).toList();
+		setFavoritas(favoritas);
 	}
 }

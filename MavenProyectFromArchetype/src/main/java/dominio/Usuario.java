@@ -66,7 +66,7 @@ public class Usuario {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	public boolean isPremium() {
 		return premium;
 	}
@@ -113,20 +113,24 @@ public class Usuario {
 		return favoritas;
 	}
 
-	public void setPremium2(String b){
-		if(b.equals("true")) {
+	public void setPremium2(String b) {
+		if (b.equals("true")) {
 			premium = true;
-		}else {
+		} else {
 			premium = false;
 		}
 	}
 
 	public String getPremium() {
-		if(premium) {
+		if (premium) {
 			return "true";
-		}else {
+		} else {
 			return "false";
 		}
+	}
+
+	public boolean isCancionFavourite(Integer idCancion) {
+		return favoritas.getCanciones().stream().anyMatch(c -> c.getId().equals(idCancion));
 	}
 
 }

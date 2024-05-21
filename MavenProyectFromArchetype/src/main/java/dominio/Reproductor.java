@@ -67,7 +67,7 @@ public class Reproductor {
 		try {
 			com.sun.javafx.application.PlatformImpl.startup(() -> {
 			});
-	
+
 			// Crear un objeto Media desde la ruta del fichero
 			Media media = new Media(new File(rutaFichero).toURI().toString());
 			mediaPlayer = new MediaPlayer(media);
@@ -84,14 +84,14 @@ public class Reproductor {
 		try {
 			if (mediaPlayer != null)
 				mediaPlayer.stop();
-				if (reprourl) {
-			File directorio = new File(tempPath);
-			String[] files = directorio.list();
-			for (String archivo : files) {
-				File fichero = new File(tempPath + File.separator + archivo);
-				fichero.delete();
+			if (reprourl) {
+				File directorio = new File(tempPath);
+				String[] files = directorio.list();
+				for (String archivo : files) {
+					File fichero = new File(tempPath + File.separator + archivo);
+					fichero.delete();
+				}
 			}
-		}
 			reprourl = false;
 			return true;
 		} catch (Exception e) {
@@ -121,7 +121,7 @@ public class Reproductor {
 		}
 		return false;
 	}
-	
+
 	public boolean isCancionMidway() {
 		return mediaPlayer.getCurrentTime().equals(Duration.ZERO);
 	}
