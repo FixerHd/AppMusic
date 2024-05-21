@@ -23,7 +23,7 @@ public class Reproductor {
 	private Reproductor() {
 		tempPath = System.getProperty("user.dir");
 		reprourl = false;
-		mediaPlayer = new MediaPlayer(null);
+		mediaPlayer = null;
 	}
 
 	public static Reproductor getUnicaInstancia() {
@@ -123,7 +123,8 @@ public class Reproductor {
 	}
 
 	public boolean isCancionMidway() {
-		return mediaPlayer.getCurrentTime().equals(Duration.ZERO);
+		if(mediaPlayer != null) return mediaPlayer.getCurrentTime().equals(Duration.ZERO);
+		else return false;
 	}
 
 }
