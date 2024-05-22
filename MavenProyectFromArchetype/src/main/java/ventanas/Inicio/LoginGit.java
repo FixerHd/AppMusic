@@ -86,8 +86,7 @@ public class LoginGit extends JFrame {
 		JButton Botón_Volver = new JButton("Volver");
 		Botón_Volver.setIcon(new ImageIcon(LoginGit.class.getResource("/recursos/flecha-hacia-atras.png")));
 		Botón_Volver.addActionListener(ev -> {
-			Selector.getInstancia().setVisible(true);
-			setVisible(false);
+			AppMusic.getUnicaInstancia().mostrarVentanaSelector(this);
 		});
 		Bottons_panel.add(Botón_Volver);
 
@@ -236,7 +235,7 @@ public class LoginGit extends JFrame {
 			if (AppMusic.getUnicaInstancia().verficarUsuarioGit(Texto_Usuario.getText(), Texto_Contraseña.getText())) {
 				AppMusic.getUnicaInstancia().mostrarVentanaPrincipal();
 			} else {
-				AppMusic.getUnicaInstancia().showPopup(this, Constantes.ERROR_INICIO_SESION_MENSAJE);
+				AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_INICIO_SESION_MENSAJE);
 			}
 		});
 		Bottons_panel.add(Botón_Login_Git);

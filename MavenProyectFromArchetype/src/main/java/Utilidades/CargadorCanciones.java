@@ -34,8 +34,8 @@ public enum CargadorCanciones {
 			return Files.walk(path).anyMatch(f -> !Files.isDirectory(f));
 		} catch (IOException e) {
 			System.err.println("Caught IOException: " + e.getMessage());
-			return false; // Manejo de errores
 		}
+		return false; // Manejo de errores
 	}
 
 	private void printCanciones(Path path) {

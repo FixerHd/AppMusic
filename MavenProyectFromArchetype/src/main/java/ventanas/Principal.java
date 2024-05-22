@@ -193,8 +193,7 @@ public class Principal extends JFrame implements PaymentObserver {
 					principal.revalidate();
 					principal.repaint();
 				} else {
-					AppMusic.getUnicaInstancia().showPopup(Principal.getInstancia(),
-							Constantes.ERROR_TABLA_VACIA_MENSAJE);
+					AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_TABLA_VACIA_MENSAJE);
 				}
 			}
 		});
@@ -228,8 +227,7 @@ public class Principal extends JFrame implements PaymentObserver {
 					principal.revalidate();
 					principal.repaint();
 				} else {
-					AppMusic.getUnicaInstancia().showPopup(Principal.getInstancia(),
-							Constantes.ERROR_LISTA_VACIA_MENSAJE);
+					AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_LISTA_VACIA_MENSAJE);
 				}
 			}
 		});
@@ -242,8 +240,7 @@ public class Principal extends JFrame implements PaymentObserver {
 		gbc_Botón_Logout.gridx = 2;
 		gbc_Botón_Logout.gridy = 16;
 		Botón_Logout.addActionListener(ev -> {
-			Selector.getInstancia().setVisible(true);
-			getInstancia().setVisible(false);
+			AppMusic.getUnicaInstancia().mostrarVentanaSelector(this);
 		});
 
 		JLabel URL = new JLabel("");
@@ -273,7 +270,7 @@ public class Principal extends JFrame implements PaymentObserver {
 			}
 		});
 		Columna.add(Boton_URL, gbc_Boton_URL);
-		
+
 		if (!AppMusic.getUnicaInstancia().isUsuarioActivoPremium()) {
 			Premium = new JLabel("");
 			Premium.setIcon(new ImageIcon(Principal.class.getResource("/recursos/calidad-premium.png")));
@@ -292,6 +289,7 @@ public class Principal extends JFrame implements PaymentObserver {
 			Columna.add(Botón_Premium, gbc_Botón_Premium);
 			Botón_Premium.addActionListener(ev -> {
 				VentanaPago.getInstancia().setVisible(true);
+				AppMusic.getUnicaInstancia().setVentanaActual(Principal.getInstancia());
 			});
 		} else {
 			update();
@@ -334,11 +332,10 @@ public class Principal extends JFrame implements PaymentObserver {
 	@Override
 	public void update() {
 		gbl_Columna.columnWidths = new int[] { 2, 32, 60, 1, 0 };
-		gbl_Columna.rowHeights = new int[] { 10, 32, 10, 32, 10, 32, 10, 32, 10, 32, 10, 32, 10, 32, 10, 0, 32, 10,
-				0 };
+		gbl_Columna.rowHeights = new int[] { 10, 32, 10, 32, 10, 32, 10, 32, 10, 32, 10, 32, 10, 32, 10, 0, 32, 10, 0 };
 		gbl_Columna.columnWeights = new double[] { 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
-		gbl_Columna.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-				0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_Columna.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+				0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
 
 		if (!AppMusic.getUnicaInstancia().isUsuarioActivoPremium()) {
 			Columna.remove(Botón_Premium);
@@ -362,9 +359,9 @@ public class Principal extends JFrame implements PaymentObserver {
 		Columna.setLayout(gbl_Columna);
 		Botón_PDF.addActionListener(ev2 -> {
 			if (AppMusic.getUnicaInstancia().crearPDF()) {
-				AppMusic.getUnicaInstancia().showPopup(this, Constantes.EXITO_CREAR_PDF_MENSAJE);
+				AppMusic.getUnicaInstancia().showPopup(Constantes.EXITO_CREAR_PDF_MENSAJE);
 			} else {
-				AppMusic.getUnicaInstancia().showPopup(this, Constantes.ERROR_CREAR_PDF_MENSAJE);
+				AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_CREAR_PDF_MENSAJE);
 			}
 		});
 		Columna.add(Botón_PDF, gbc_Botón_PDF);
@@ -398,12 +395,12 @@ public class Principal extends JFrame implements PaymentObserver {
 					principal.revalidate();
 					principal.repaint();
 				} else {
-					AppMusic.getUnicaInstancia().showPopup(principal, Constantes.ERROR_TABLA_VACIA_MENSAJE);
+					AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_TABLA_VACIA_MENSAJE);
 				}
 			}
 		});
 		Columna.add(Botón_Tendencias, gbc_Botón_Tendencias);
-		
+
 		AppMusic.getUnicaInstancia().setUsuarioActivoPremium();
 
 		Columna.revalidate();

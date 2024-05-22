@@ -187,7 +187,7 @@ public class Login extends JFrame {
 		JButton Botón_Volver = new JButton("Volver");
 		Botón_Volver.setIcon(new ImageIcon(Login.class.getResource("/recursos/flecha-hacia-atras.png")));
 		Botón_Volver.addActionListener(ev -> {
-			Selector.getInstancia().setVisible(true);
+			AppMusic.getUnicaInstancia().mostrarVentanaSelector(this);
 			setVisible(false);
 		});
 		Bottons_panel.add(Botón_Volver);
@@ -199,7 +199,7 @@ public class Login extends JFrame {
 			if (AppMusic.getUnicaInstancia().verficarUsuario(Texto_Usuario.getText(), Texto_Contraseña.getText())) {
 				AppMusic.getUnicaInstancia().mostrarVentanaPrincipal();
 			} else {
-				AppMusic.getUnicaInstancia().showPopup(this, Constantes.ERROR_INICIO_SESION_MENSAJE);
+				AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_INICIO_SESION_MENSAJE);
 			}
 		});
 		Bottons_panel.add(Botón_Login);

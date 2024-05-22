@@ -153,8 +153,9 @@ public class Selector extends JFrame {
 		gbc_btnNewButton.gridx = 1;
 		gbc_btnNewButton.gridy = 2;
 		btnNewButton.addActionListener(ev -> {
-			Login.getInstancia().setVisible(true);
 			setVisible(false);
+			Login.getInstancia().setVisible(true);
+			AppMusic.getUnicaInstancia().setVentanaActual(Login.getInstancia());
 		});
 		panel.add(btnNewButton, gbc_btnNewButton);
 
@@ -166,8 +167,9 @@ public class Selector extends JFrame {
 		gbc_btnNewButton_1.gridx = 2;
 		gbc_btnNewButton_1.gridy = 2;
 		btnNewButton_1.addActionListener(ev -> {
-			LoginGit.getInstancia().setVisible(true);
 			setVisible(false);
+			LoginGit.getInstancia().setVisible(true);
+			AppMusic.getUnicaInstancia().setVentanaActual(LoginGit.getInstancia());
 		});
 		panel.add(btnNewButton_1, gbc_btnNewButton_1);
 
@@ -194,8 +196,9 @@ public class Selector extends JFrame {
 		btnNewButton_2.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnNewButton_2.addActionListener(ev -> {
-			Registro.getInstancia().setVisible(true);
 			setVisible(false);
+			Registro.getInstancia().setVisible(true);
+			AppMusic.getUnicaInstancia().setVentanaActual(Registro.getInstancia());
 		});
 		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
 		gbc_btnNewButton_2.insets = new Insets(0, 0, 5, 5);

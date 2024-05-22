@@ -123,8 +123,10 @@ public class Reproductor {
 	}
 
 	public boolean isCancionMidway() {
-		if(mediaPlayer != null) return mediaPlayer.getCurrentTime().equals(Duration.ZERO);
-		else return false;
+		if (mediaPlayer != null)
+			return mediaPlayer.getCurrentTime().equals(Duration.ZERO);
+		else
+			return false;
 	}
 
 }

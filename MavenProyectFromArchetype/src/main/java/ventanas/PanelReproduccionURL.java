@@ -20,7 +20,7 @@ public class PanelReproduccionURL extends PanelReproduccion {
 			return false;
 		boolean resultado = AppMusic.getUnicaInstancia().reproducircancionURL(cancion);
 		if (resultado == false) {
-			AppMusic.getUnicaInstancia().showPopup(this, Utilidades.Constantes.ERROR_PLAY_URL_MENSAJE);
+			AppMusic.getUnicaInstancia().showPopup(Utilidades.Constantes.ERROR_PLAY_URL_MENSAJE);
 		} else {
 			this.playService.notifyPlaylist();
 			Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/pausa.png")));
@@ -34,7 +34,7 @@ public class PanelReproduccionURL extends PanelReproduccion {
 	public boolean playCancion(String cancion) {
 		boolean resultado = AppMusic.getUnicaInstancia().reproducircancionURL(cancion);
 		if (resultado == false) {
-			AppMusic.getUnicaInstancia().showPopup(this, Utilidades.Constantes.ERROR_PLAY_URL_MENSAJE);
+			AppMusic.getUnicaInstancia().showPopup(Utilidades.Constantes.ERROR_PLAY_URL_MENSAJE);
 		} else {
 			// Solo si se consigue reproducir la canción se establece la canción recibida
 			// como la canción a reproducir

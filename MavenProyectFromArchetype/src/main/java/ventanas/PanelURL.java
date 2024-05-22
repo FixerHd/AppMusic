@@ -108,11 +108,11 @@ public class PanelURL extends JPanel implements NextPreviousObserver {
 
 	@Override
 	public void nextUpdate() {
-		AppMusic.getUnicaInstancia().showPopup(this, Utilidades.Constantes.ERROR_NEXT_MENSAJE);
+		AppMusic.getUnicaInstancia().showPopup(Utilidades.Constantes.ERROR_NEXT_MENSAJE);
 	}
 
 	@Override
 	public void previousUpdate() {
-		AppMusic.getUnicaInstancia().showPopup(this, Utilidades.Constantes.ERROR_PREVIOUS_MENSAJE);
+		AppMusic.getUnicaInstancia().showPopup(Utilidades.Constantes.ERROR_PREVIOUS_MENSAJE);
 	}
 }

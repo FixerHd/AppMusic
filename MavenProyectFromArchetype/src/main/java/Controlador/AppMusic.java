@@ -34,6 +34,7 @@ import persistencia.DAOException;
 import persistencia.FactoriaDAO;
 import persistencia.IAdaptadorUsuarioDAO;
 import ventanas.PlayNotificationService;
+import ventanas.Inicio.Selector;
 import persistencia.IAdaptadorCancionDAO;
 import persistencia.IAdaptadorPlaylistDAO;
 
@@ -58,6 +59,7 @@ public class AppMusic {
 
 	// vestigio
 	private ArrayList<JFrame> ventanasActivas = new ArrayList<JFrame>();
+	private JFrame ventanaActual = new JFrame();
 
 	private CatalogoUsuarios catalogoUsuarios;
 	private CatalogoCanciones catalogoCanciones;
@@ -138,6 +140,13 @@ public class AppMusic {
 	public void mostrarVentanaPrincipal() {
 		limpiarVentanas();
 		ventanas.Principal.getInstancia().setVisible(true);
+		AppMusic.getUnicaInstancia().setVentanaActual(ventanas.Principal.getInstancia());
+	}
+	
+	public void mostrarVentanaSelector(Container container) {
+		container.setVisible(false);
+		ventanas.Inicio.Selector.getInstancia().setVisible(true);
+		AppMusic.getUnicaInstancia().setVentanaActual(ventanas.Inicio.Selector.getInstancia());
 	}
 
 	public void registrarCancion(Cancion Cancion) {
@@ -202,7 +211,7 @@ public class AppMusic {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return true;
+		return false;
 	}
 
 	public int registrarUsuario(String usuario, String email, String contraseña, Date fecha, String nombre_completo,
@@ -235,8 +244,8 @@ public class AppMusic {
 		return Constantes.OKAY;
 	}
 
-	public void showPopup(Container container, String mensaje) {
-		JOptionPane.showMessageDialog(container, mensaje, Constantes.NOMBRE_APLICACION, JOptionPane.INFORMATION_MESSAGE,
+	public void showPopup(String mensaje) {
+		JOptionPane.showMessageDialog(ventanaActual, mensaje, Constantes.NOMBRE_APLICACION, JOptionPane.INFORMATION_MESSAGE,
 				null);
 	}
 
@@ -249,13 +258,15 @@ public class AppMusic {
 		} else {
 			canciones = catalogoCanciones.getCanciones();
 			canciones.forEach(c -> {
-				if (c.getTitulo().startsWith(titulo) && c.getInterprete().startsWith(interprete)) {
-					if (estilo.isEmpty() || c.getEstilomusical() == estilo) {
+				if (c.getTitulo().contains(titulo) && c.getInterprete().contains(interprete)) {
+					if (estilo.isEmpty() || c.getEstilomusical().equals(estilo)) {
 						añadirDatosTabla(c, nuevos_datos);
 					}
 				}
 			});
-		};
+		}
+		;
+		nuevos_datos.setFavoritas(getListaCheckFavoritas(canciones));
 		return nuevos_datos;
 	}
 
@@ -266,13 +277,14 @@ public class AppMusic {
 		cancionesOrdenadas.stream().limit(Utilidades.Constantes.LIMITE_PLAYLIST_ESTANDAR).forEach(c -> {
 			añadirDatosTabla(c, nuevos_datos);
 		});
-
+		nuevos_datos.setFavoritas(getListaCheckFavoritas(cancionesOrdenadas));
 		return nuevos_datos;
 	}
 
 	public DatosTabla buscarRecientes() {
 		DatosTabla nuevos_datos = new DatosTabla();
 		añadirDatosTabla(usuarioActivo.getRecientes(), nuevos_datos);
+		nuevos_datos.setFavoritas(getListaCheckFavoritas(usuarioActivo.getRecientes()));
 		return nuevos_datos;
 	}
 
@@ -296,6 +308,7 @@ public class AppMusic {
 		for (Playlist p : usuarioActivo.getPlaylists()) {
 			if (p.getNombre().equals(selectedValue)) {
 				añadirDatosTabla(p, nuevos_datos);
+				nuevos_datos.setFavoritas(getListaCheckFavoritas(p));
 				break;
 			}
 		}
@@ -421,10 +434,11 @@ public class AppMusic {
 			// Registrar la canción y añadirla al catálogo
 			adaptadorCancion.registrarCancion(nuevaCancion);
 			catalogoCanciones.addCancion(nuevaCancion);
+			return true;
 		} catch (Exception e) {
-			return false;
+			e.printStackTrace();
 		}
-		return true;
+		return false;
 	}
 
 	public boolean reproducircancion(String rutaFichero) {
@@ -446,7 +460,7 @@ public class AppMusic {
 	public boolean resumeCancion() {
 		return Reproductor.getUnicaInstancia().reanudarCancion();
 	}
-	
+
 	public boolean isCancionMidway() {
 		return Reproductor.getUnicaInstancia().isCancionMidway();
 	}
@@ -465,10 +479,11 @@ public class AppMusic {
 			datos.getEstilos().clear();
 			datos.getInterpretes().clear();
 			datos.getIds().clear();
+			return true;
 		} catch (Exception e) {
-			return false;
+			e.printStackTrace();
 		}
-		return true;
+		return false;
 	}
 
 	public boolean añadirDatosTabla(Cancion c, DatosTabla datos) {
@@ -477,20 +492,22 @@ public class AppMusic {
 			datos.getInterpretes().add(c.getInterprete());
 			datos.getEstilos().add(c.getEstilomusical());
 			datos.getIds().add(c.getId());
+			return true;
 		} catch (Exception e) {
-			return false;
+			e.printStackTrace();
 		}
-		return true;
+		return false;
 	}
-	
+
 	public boolean añadirDatosTabla(Playlist p, DatosTabla datos) {
 		try {
 			datos.setFavoritas(p);
 			p.getCanciones().stream().forEach(c -> añadirDatosTabla(c, datos));
+			return true;
 		} catch (Exception e) {
-			return false;
+			e.printStackTrace();
 		}
-		return true;
+		return false;
 	}
 
 	public boolean isUsuarioActivoPremium() {
@@ -501,13 +518,32 @@ public class AppMusic {
 		usuarioActivo.setPremium(true);
 		return true;
 	}
-	
+
 	public Playlist getfavoritas(Usuario usuario) {
 		return usuario.getFavoritas();
 	}
-	
+
 	public boolean isCancionFavourite(Integer idCancion) {
 		return usuarioActivo.isCancionFavourite(idCancion);
 	}
 
+	public ArrayList<Boolean> getListaCheckFavoritas(List<Cancion> canciones) {
+		ArrayList<Boolean> favoritas = new ArrayList<Boolean>();
+		for (Cancion c : canciones) {
+			favoritas.add(AppMusic.getUnicaInstancia().isCancionFavourite(c.getId()));
+		}
+		return favoritas;
+	}
+	
+	public ArrayList<Boolean> getListaCheckFavoritas(Playlist playlist) {
+		return getListaCheckFavoritas(playlist.getCanciones());
+	}
+
+	public JFrame getVentanaActual() {
+		return ventanaActual;
+	}
+
+	public void setVentanaActual(JFrame ventanaActual) {
+		this.ventanaActual = ventanaActual;
+	}
 }

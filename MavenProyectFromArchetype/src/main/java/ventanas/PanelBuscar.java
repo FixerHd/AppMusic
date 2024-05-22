@@ -135,7 +135,7 @@ public class PanelBuscar extends JPanel {
 				this.revalidate();
 				this.repaint();
 			} else {
-				AppMusic.getUnicaInstancia().showPopup(Principal.getInstancia(), Constantes.ERROR_TABLA_VACIA_MENSAJE);
+				AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_TABLA_VACIA_MENSAJE);
 			}
 		});
 		this.add(Botón_Buscar, gbc_Botón_Buscar);

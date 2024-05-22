@@ -119,7 +119,7 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 			return false;
 		boolean resultado = AppMusic.getUnicaInstancia().stopCancion();
 		if (resultado == false) {
-			AppMusic.getUnicaInstancia().showPopup(this, Utilidades.Constantes.ERROR_STOP_MENSAJE);
+			AppMusic.getUnicaInstancia().showPopup(Utilidades.Constantes.ERROR_STOP_MENSAJE);
 		} else {
 			Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/jugar.png")));
 			Play_Stop.setSelected(false);
@@ -134,7 +134,7 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 			return false;
 		boolean resultado = AppMusic.getUnicaInstancia().pauseCancion();
 		if (resultado == false) {
-			AppMusic.getUnicaInstancia().showPopup(this, Utilidades.Constantes.ERROR_PAUSE_MENSAJE);
+			AppMusic.getUnicaInstancia().showPopup(Utilidades.Constantes.ERROR_PAUSE_MENSAJE);
 		} else {
 			Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/jugar.png")));
 			Play_Stop.setSelected(false);
@@ -149,7 +149,7 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 			return false;
 		boolean resultado = AppMusic.getUnicaInstancia().resumeCancion();
 		if (resultado == false) {
-			AppMusic.getUnicaInstancia().showPopup(this, Utilidades.Constantes.ERROR_RESUME_MENSAJE);
+			AppMusic.getUnicaInstancia().showPopup(Utilidades.Constantes.ERROR_RESUME_MENSAJE);
 		} else {
 			Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/pausa.png")));
 			Play_Stop.setSelected(true);

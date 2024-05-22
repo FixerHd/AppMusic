@@ -240,9 +240,10 @@ public class VentanaPago extends JFrame {
 		Boton_Pago.addActionListener(ev -> {
 			if (comprobacionesPago()) {
 				notificationService.notifyObserver();
+				AppMusic.getUnicaInstancia().setVentanaActual(Principal.getInstancia());
 				removeInstancia();
 			} else {
-				AppMusic.getUnicaInstancia().showPopup(this, Utilidades.Constantes.ERROR_PAGO);
+				AppMusic.getUnicaInstancia().showPopup(Utilidades.Constantes.ERROR_PAGO);
 			}
 		});
 		panel.add(Boton_Pago);

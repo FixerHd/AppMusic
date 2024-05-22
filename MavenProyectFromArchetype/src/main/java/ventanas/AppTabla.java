@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
 import dominio.DatosTabla;
@@ -56,6 +58,13 @@ public class AppTabla extends JTable {
 				return columnEditables[column];
 			}
 		};
+		model.addTableModelListener(new TableModelListener() {
+			
+			@Override
+			public void tableChanged(TableModelEvent e) {
+				// TODO
+			}
+		});
 		model.removeRow(0);
 		for (int i = 0; i < datos.getTitulos().size(); i++) {
 			model.addRow(new Object[] { datos.getTitulos().get(i), datos.getInterpretes().get(i),

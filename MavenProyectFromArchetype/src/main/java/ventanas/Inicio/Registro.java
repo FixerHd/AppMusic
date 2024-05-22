@@ -239,16 +239,16 @@ public class Registro extends JFrame {
 
 			switch (resultado) {
 			case Constantes.ERROR_REGISTRO_CAMPOS:
-				AppMusic.getUnicaInstancia().showPopup(this, Constantes.ERROR_REGISTRO_CAMPOS_MENSAJE);
+				AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_REGISTRO_CAMPOS_MENSAJE);
 				break;
 			case Constantes.ERROR_REGISTRO_CORREO:
-				AppMusic.getUnicaInstancia().showPopup(this, Constantes.ERROR_REGISTRO_CORREO_MENSAJE);
+				AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_REGISTRO_CORREO_MENSAJE);
 				break;
 			case Constantes.ERROR_REGISTRO_FECHA:
-				AppMusic.getUnicaInstancia().showPopup(this, Constantes.ERROR_REGISTRO_FECHA_MENSAJE);
+				AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_REGISTRO_FECHA_MENSAJE);
 				break;
 			case Constantes.ERROR_REGISTRO_DESCUENTO:
-				AppMusic.getUnicaInstancia().showPopup(this, Constantes.ERROR_REGISTRO_DESCUENTO_MENSAJE);
+				AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_REGISTRO_DESCUENTO_MENSAJE);
 				break;
 			case Constantes.OKAY:
 				Login.getInstancia().setVisible(true);

@@ -79,11 +79,10 @@ public class PanelGestion extends JPanel implements NextPreviousObserver {
 					this.revalidate();
 					this.repaint();
 				} else {
-					AppMusic.getUnicaInstancia().showPopup(Principal.getInstancia(),
-							Constantes.ERROR_LISTA_VACIA_MENSAJE);
+					AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_LISTA_VACIA_MENSAJE);
 				}
 			} else {
-				AppMusic.getUnicaInstancia().showPopup(Principal.getInstancia(), Constantes.ERROR_TITULO_VACIO_MENSAJE);
+				AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_TITULO_VACIO_MENSAJE);
 			}
 		});
 		add(Boton_Crear, gbc_Boton_Crear);
@@ -102,7 +101,7 @@ public class PanelGestion extends JPanel implements NextPreviousObserver {
 			this.revalidate();
 			this.repaint();
 		} else {
-			AppMusic.getUnicaInstancia().showPopup(Principal.getInstancia(), Constantes.ERROR_LISTA_VACIA_MENSAJE);
+			AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_LISTA_VACIA_MENSAJE);
 		}
 		add(panelLista, gbc_panelListas);
 
@@ -122,7 +121,7 @@ public class PanelGestion extends JPanel implements NextPreviousObserver {
 				this.revalidate();
 				this.repaint();
 			} else {
-				AppMusic.getUnicaInstancia().showPopup(Principal.getInstancia(), Constantes.ERROR_LISTA_VACIA_MENSAJE);
+				AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_LISTA_VACIA_MENSAJE);
 			}
 		});
 		add(Boton_Eliminar, gbc_Boton_Eliminar);
@@ -179,29 +178,25 @@ public class PanelGestion extends JPanel implements NextPreviousObserver {
 			datos.getFavoritas().add((boolean) table.getValueAt(i, 3));
 		}
 		if (AppMusic.getUnicaInstancia().actualizarPlaylist(panelLista.getLista().getSelectedValue(), datos)) {
-			AppMusic.getUnicaInstancia().showPopup(Principal.getInstancia(),
-					Constantes.EXITO_ACTUALIZAR_PLAYLIST_MENSAJE);
+			AppMusic.getUnicaInstancia().showPopup(Constantes.EXITO_ACTUALIZAR_PLAYLIST_MENSAJE);
 		} else {
-			AppMusic.getUnicaInstancia().showPopup(Principal.getInstancia(),
-					Constantes.ERROR_ACTUALIZAR_PLAYLIST_MENSAJE);
+			AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_ACTUALIZAR_PLAYLIST_MENSAJE);
 		}
 	}
 
 	private void añadirPlaylist(String titulo) {
 		if (AppMusic.getUnicaInstancia().añadirPlaylist(titulo)) {
-			AppMusic.getUnicaInstancia().showPopup(Principal.getInstancia(), Constantes.EXITO_CREAR_PLAYLIST_MENSAJE);
+			AppMusic.getUnicaInstancia().showPopup(Constantes.EXITO_CREAR_PLAYLIST_MENSAJE);
 		} else {
-			AppMusic.getUnicaInstancia().showPopup(Principal.getInstancia(), Constantes.ERROR_CREAR_PLAYLIST_MENSAJE);
+			AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_CREAR_PLAYLIST_MENSAJE);
 		}
 	}
 
 	private void eliminarPlaylist(String titulo) {
 		if (AppMusic.getUnicaInstancia().eliminarPlaylist(titulo)) {
-			AppMusic.getUnicaInstancia().showPopup(Principal.getInstancia(),
-					Constantes.EXITO_ELIMINAR_PLAYLIST_MENSAJE);
+			AppMusic.getUnicaInstancia().showPopup(Constantes.EXITO_ELIMINAR_PLAYLIST_MENSAJE);
 		} else {
-			AppMusic.getUnicaInstancia().showPopup(Principal.getInstancia(),
-					Constantes.ERROR_ELIMINAR_PLAYLIST_MENSAJE);
+			AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_ELIMINAR_PLAYLIST_MENSAJE);
 		}
 	}
 
