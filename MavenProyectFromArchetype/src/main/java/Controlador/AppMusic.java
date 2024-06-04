@@ -206,7 +206,7 @@ public class AppMusic {
 
 				return (ghuser.getLogin().equals(usuario) && github.isCredentialValid());
 			}
-			return false;
+			return true;
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -268,6 +268,14 @@ public class AppMusic {
 		;
 		nuevos_datos.setFavoritas(getListaCheckFavoritas(canciones));
 		return nuevos_datos;
+	}
+	
+	public DatosTabla buscarCanciones(String playlist, boolean favoritas) {
+		DatosTabla p = getPlaylist(playlist);
+		if (favoritas) {
+			p.getFavoritas().stream().filter(c -> c == true);
+		}
+		return p;
 	}
 
 	public DatosTabla buscarTendencias() {

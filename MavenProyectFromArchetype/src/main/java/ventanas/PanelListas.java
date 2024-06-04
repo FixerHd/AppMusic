@@ -3,6 +3,7 @@ package ventanas;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
+import Controlador.AppMusic;
 import dominio.DatosTabla;
 
 import javax.swing.JSplitPane;
@@ -50,6 +51,11 @@ public class PanelListas extends JPanel {
 			public String getElementAt(int index) {
 				return values[index];
 			}
+		});
+		lista.getSelectionModel().addListSelectionListener(ev -> {
+			DatosTabla datos = AppMusic.getUnicaInstancia().buscarCanciones(lista.getSelectedValue(),
+					Principal.getInstancia().getPanelLista().getBotón_Favoritas().isSelected());
+			setTable(datos);
 		});
 
 		leftScrollPane = new JScrollPane(lista);

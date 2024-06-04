@@ -44,6 +44,7 @@ public class Principal extends JFrame implements PaymentObserver {
 	private GridBagLayout gbl_Columna;
 	private JButton Botón_Premium;
 	private JLabel Premium;
+	private PanelMisListas panelLista;
 	private static JPanel Columna;
 	private static JPanel principal;
 
@@ -208,7 +209,7 @@ public class Principal extends JFrame implements PaymentObserver {
 		Columna.add(Playlists, gbc_Playlists);
 
 		JToggleButton Botón_Playlists = new JToggleButton("Mis Playlists");
-		PanelMisListas panelLista = new PanelMisListas();
+		panelLista = new PanelMisListas();
 		GridBagConstraints gbc_Botón_Playlists = new GridBagConstraints();
 		gbc_Botón_Playlists.fill = GridBagConstraints.HORIZONTAL;
 		gbc_Botón_Playlists.insets = new Insets(0, 0, 5, 5);
@@ -222,6 +223,7 @@ public class Principal extends JFrame implements PaymentObserver {
 			} else {
 				DatosLista datos = AppMusic.getUnicaInstancia().getMisPlaylists(false);
 				if (datos != null) {
+					datos.getNombres().add("Favoritas");
 					panelLista.setLista(datos.getNombres());
 					principal.add(panelLista);
 					principal.revalidate();
@@ -327,6 +329,10 @@ public class Principal extends JFrame implements PaymentObserver {
 		});
 		Layout.add(luz);
 
+	}
+
+	public PanelMisListas getPanelLista() {
+		return panelLista;
 	}
 
 	@Override
