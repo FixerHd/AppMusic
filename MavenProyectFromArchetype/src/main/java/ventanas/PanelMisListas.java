@@ -56,7 +56,7 @@ public class PanelMisListas extends JPanel implements NextPreviousObserver {
 		gbc_Botón_Favoritas.gridy = 3;
 		this.add(Botón_Favoritas, gbc_Botón_Favoritas);
 
-		panelListas = new PanelListas(this);
+		panelListas = new PanelListas();
 		GridBagConstraints gbc_listas = new GridBagConstraints();
 		gbc_listas.gridwidth = 2;
 		gbc_listas.fill = GridBagConstraints.BOTH;
