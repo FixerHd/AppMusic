@@ -16,15 +16,16 @@ public class PanelReproduccionMP3 extends PanelReproduccion {
 	}
 
 	public boolean playCancion() {
-		if (cancion == null)
+		if (rutaCancion == null)
 			return false;
-		boolean resultado = AppMusic.getUnicaInstancia().reproducircancion(cancion);
+		boolean resultado = AppMusic.getUnicaInstancia().reproducircancion(rutaCancion);
 		if (resultado == false) {
 			AppMusic.getUnicaInstancia().showPopup(Utilidades.Constantes.ERROR_PLAY_MP3_MENSAJE);
 		} else {
 			this.playService.notifyPlaylist();
 			Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/pausa.png")));
 			Play_Stop.setSelected(true);
+			AppMusic.getUnicaInstancia().addView(rutaCancion);
 			revalidate();
 			repaint();
 		}
@@ -40,8 +41,9 @@ public class PanelReproduccionMP3 extends PanelReproduccion {
 			// como la canción a reproducir
 			this.playService.notifyPlaylist();
 			Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/pausa.png")));
-			this.cancion = rutaCancionMP3;
+			this.rutaCancion = rutaCancionMP3;
 			Play_Stop.setSelected(true);
+			AppMusic.getUnicaInstancia().addView(rutaCancion);
 			revalidate();
 			repaint();
 		}

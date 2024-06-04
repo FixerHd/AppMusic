@@ -61,5 +61,15 @@ public class Cancion {
 		return estilomusical;
 	}
 
+	public boolean addView() {
+		try {
+			setnumReproducciones(numReproducciones++);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
  
 }

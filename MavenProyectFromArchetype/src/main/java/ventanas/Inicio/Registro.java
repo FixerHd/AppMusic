@@ -49,8 +49,8 @@ public class Registro extends JFrame {
 	private HintTextField Texto_Nombre;
 	private HintTextField Texto_Contraseña;
 	private HintTextField Texto_Usuario;
-	private JLabel Descuento;
-	private JComboBox<String> Descuento_elegido;
+	private JLabel Grupo;
+	private JComboBox<String> Grupo_elegido;
 
 	// Singleton
 	public static Registro getInstancia() {
@@ -210,32 +210,32 @@ public class Registro extends JFrame {
 		gbc_Seleccionador_Fecha.gridy = 9;
 		panel_1.add(Seleccionador_Fecha, gbc_Seleccionador_Fecha);
 
-		Descuento = new JLabel("Descuento:");
-		Descuento.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 14));
-		GridBagConstraints gbc_Descuento = new GridBagConstraints();
-		gbc_Descuento.anchor = GridBagConstraints.EAST;
-		gbc_Descuento.insets = new Insets(0, 0, 5, 5);
-		gbc_Descuento.gridx = 3;
-		gbc_Descuento.gridy = 9;
-		panel_1.add(Descuento, gbc_Descuento);
+		Grupo = new JLabel("Grupo:");
+		Grupo.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 14));
+		GridBagConstraints gbc_Grupo = new GridBagConstraints();
+		gbc_Grupo.anchor = GridBagConstraints.EAST;
+		gbc_Grupo.insets = new Insets(0, 0, 5, 5);
+		gbc_Grupo.gridx = 3;
+		gbc_Grupo.gridy = 9;
+		panel_1.add(Grupo, gbc_Grupo);
 
-		Descuento_elegido = new JComboBox<String>();
-		GridBagConstraints gbc_Descuento_elegido = new GridBagConstraints();
-		gbc_Descuento_elegido.insets = new Insets(0, 0, 5, 5);
-		gbc_Descuento_elegido.fill = GridBagConstraints.HORIZONTAL;
-		gbc_Descuento_elegido.gridx = 4;
-		gbc_Descuento_elegido.gridy = 9;
+		Grupo_elegido = new JComboBox<String>();
+		GridBagConstraints gbc_Grupo_elegido = new GridBagConstraints();
+		gbc_Grupo_elegido.insets = new Insets(0, 0, 5, 5);
+		gbc_Grupo_elegido.fill = GridBagConstraints.HORIZONTAL;
+		gbc_Grupo_elegido.gridx = 4;
+		gbc_Grupo_elegido.gridy = 9;
 		for (String s : Utilidades.Constantes.DESCUENTOS) {
-			Descuento_elegido.addItem(s);
+			Grupo_elegido.addItem(s);
 		}
-		panel_1.add(Descuento_elegido, gbc_Descuento_elegido);
+		panel_1.add(Grupo_elegido, gbc_Grupo_elegido);
 
 		Botón_Registro = new JButton("Registro");
 		Botón_Registro.setIcon(new ImageIcon(Registro.class.getResource("/recursos/anadir.png")));
 		Botón_Registro.addActionListener(ev -> {
 			int resultado = AppMusic.getUnicaInstancia().registrarUsuario(Texto_Usuario.getText(),
 					Texto_Email.getText(), Texto_Contraseña.getText(), Seleccionador_Fecha.getDate(),
-					Texto_Nombre.getText(), (String) Descuento_elegido.getSelectedItem());
+					Texto_Nombre.getText(), (String) Grupo_elegido.getSelectedItem());
 
 			switch (resultado) {
 			case Constantes.ERROR_REGISTRO_CAMPOS:

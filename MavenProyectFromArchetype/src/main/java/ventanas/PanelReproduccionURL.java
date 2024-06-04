@@ -16,15 +16,16 @@ public class PanelReproduccionURL extends PanelReproduccion {
 	}
 
 	public boolean playCancion() {
-		if (cancion == null)
+		if (rutaCancion == null)
 			return false;
-		boolean resultado = AppMusic.getUnicaInstancia().reproducircancionURL(cancion);
+		boolean resultado = AppMusic.getUnicaInstancia().reproducircancionURL(rutaCancion);
 		if (resultado == false) {
 			AppMusic.getUnicaInstancia().showPopup(Utilidades.Constantes.ERROR_PLAY_URL_MENSAJE);
 		} else {
 			this.playService.notifyPlaylist();
 			Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/pausa.png")));
 			Play_Stop.setSelected(true);
+			AppMusic.getUnicaInstancia().addView(rutaCancion);
 			revalidate();
 			repaint();
 		}
@@ -39,9 +40,10 @@ public class PanelReproduccionURL extends PanelReproduccion {
 			// Solo si se consigue reproducir la canción se establece la canción recibida
 			// como la canción a reproducir
 			this.playService.notifyPlaylist();
-			this.cancion = cancion;
+			this.rutaCancion = cancion;
 			Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/pausa.png")));
 			Play_Stop.setSelected(true);
+			AppMusic.getUnicaInstancia().addView(rutaCancion);
 			revalidate();
 			repaint();
 		}

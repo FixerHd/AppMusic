@@ -24,7 +24,6 @@ public class PanelMisListas extends JPanel implements NextPreviousObserver {
 	private JPanel panel;
 	private PanelReproduccionMP3 Panel_Reproducción;
 	private PanelListas panelListas;
-	private JCheckBox Botón_Favoritas;
 
 	public PanelMisListas() {
 		super();
@@ -47,14 +46,6 @@ public class PanelMisListas extends JPanel implements NextPreviousObserver {
 		gbc_panel.gridy = 3;
 		add(panel, gbc_panel);
 		panel.setLayout(new BorderLayout(0, 0));
-		
-		Botón_Favoritas = new JCheckBox("Favoritas");
-		GridBagConstraints gbc_Botón_Favoritas = new GridBagConstraints();
-		gbc_Botón_Favoritas.fill = GridBagConstraints.HORIZONTAL;
-		gbc_Botón_Favoritas.insets = new Insets(0, 0, 5, 5);
-		gbc_Botón_Favoritas.gridx = 2;
-		gbc_Botón_Favoritas.gridy = 3;
-		this.add(Botón_Favoritas, gbc_Botón_Favoritas);
 
 		panelListas = new PanelListas();
 		GridBagConstraints gbc_listas = new GridBagConstraints();
@@ -70,10 +61,6 @@ public class PanelMisListas extends JPanel implements NextPreviousObserver {
 
 		this.setVisible(true);
 
-	}
-
-	public JCheckBox getBotón_Favoritas() {
-		return Botón_Favoritas;
 	}
 
 	public JList<String> getLista() {

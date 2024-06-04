@@ -21,6 +21,7 @@ import Utilidades.CargadorCanciones;
 import dominio.Cancion;
 import dominio.Playlist;
 import dominio.Reproductor;
+import dominio.SinDescuento;
 import dominio.CatalogoCanciones;
 import dominio.CatalogoUsuarios;
 import dominio.CreadorPDF;
@@ -142,7 +143,7 @@ public class AppMusic {
 		ventanas.Principal.getInstancia().setVisible(true);
 		AppMusic.getUnicaInstancia().setVentanaActual(ventanas.Principal.getInstancia());
 	}
-	
+
 	public void mostrarVentanaSelector(Container container) {
 		container.setVisible(false);
 		ventanas.Inicio.Selector.getInstancia().setVisible(true);
@@ -232,7 +233,9 @@ public class AppMusic {
 			return Constantes.ERROR_REGISTRO_FECHA;
 		}
 		Descuento descuento = null;
-		if (desc == Utilidades.Constantes.DESCUENTOS[1]) {
+		if (desc == Utilidades.Constantes.DESCUENTOS[0]) {
+			descuento = new SinDescuento();
+		} else if (desc == Utilidades.Constantes.DESCUENTOS[1]) {
 			descuento = new DescuentoFijo();
 		} else if (desc == Utilidades.Constantes.DESCUENTOS[2]) {
 			descuento = new DescuentoJovenes();
@@ -245,8 +248,8 @@ public class AppMusic {
 	}
 
 	public void showPopup(String mensaje) {
-		JOptionPane.showMessageDialog(ventanaActual, mensaje, Constantes.NOMBRE_APLICACION, JOptionPane.INFORMATION_MESSAGE,
-				null);
+		JOptionPane.showMessageDialog(ventanaActual, mensaje, Constantes.NOMBRE_APLICACION,
+				JOptionPane.INFORMATION_MESSAGE, null);
 	}
 
 	public DatosTabla buscarCanciones(String titulo, String interprete, String estilo, boolean favorita) {
@@ -269,11 +272,14 @@ public class AppMusic {
 		nuevos_datos.setFavoritas(getListaCheckFavoritas(canciones));
 		return nuevos_datos;
 	}
-	
-	public DatosTabla buscarCanciones(String playlist, boolean favoritas) {
-		DatosTabla p = getPlaylist(playlist);
-		if (favoritas) {
-			p.getFavoritas().stream().filter(c -> c == true);
+
+	public DatosTabla buscarCanciones(String playlist) {
+		DatosTabla p = new DatosTabla();
+		if (playlist.equals(Utilidades.Constantes.FAVORITAS)) {
+			añadirDatosTabla(usuarioActivo.getFavoritas(), p);
+		}
+		else {
+			getPlaylist(playlist);
 		}
 		return p;
 	}
@@ -395,17 +401,21 @@ public class AppMusic {
 		return false;
 	}
 
-	public boolean actualizarPlaylist(String playlist, DatosTabla datos) {
-		// Se quiere actualizar la playlist del usuario activo recivida con los datos
-		// recividos
-		for (Playlist p : usuarioActivo.getPlaylists()) {
-			if (p.getNombre().equals(playlist)) {
-				limpiarPlaylist(datos);
-				añadirDatosTabla(p, datos);
-				break;
-			}
+	// TODO
+	public boolean actualizarPlaylist(List<String> playlists, List<DatosTabla> datos) {
+		// Se quiere actualizar todas las playlists del usuario actual según los datos recividos
+		try {
+		LinkedList<Playlist> nuevas_playlist = new LinkedList<Playlist>();
+		for (int i = 0; i < playlists.size(); i++){
+			Playlist p = new Playlist(playlists.get(i));
+			// Añadir los datos en datos.get(i) en p
+			// actualizar/registrar/mofificar playlist
 		}
 		return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	public void añadirCancionPlaylist(String playlist, Object valueAt) {
@@ -481,19 +491,6 @@ public class AppMusic {
 		usuario.setDesc(desc);
 	}
 
-	public boolean limpiarPlaylist(DatosTabla datos) {
-		try {
-			datos.getTitulos().clear();
-			datos.getEstilos().clear();
-			datos.getInterpretes().clear();
-			datos.getIds().clear();
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
-
 	public boolean añadirDatosTabla(Cancion c, DatosTabla datos) {
 		try {
 			datos.getTitulos().add(c.getTitulo());
@@ -542,7 +539,7 @@ public class AppMusic {
 		}
 		return favoritas;
 	}
-	
+
 	public ArrayList<Boolean> getListaCheckFavoritas(Playlist playlist) {
 		return getListaCheckFavoritas(playlist.getCanciones());
 	}
@@ -553,5 +550,13 @@ public class AppMusic {
 
 	public void setVentanaActual(JFrame ventanaActual) {
 		this.ventanaActual = ventanaActual;
+	}
+
+	public boolean addView(String ruta) {
+		return getCancion(ruta).addView();
+	}
+	public Cancion getCancion(String ruta) {
+		List<Cancion> cancion = catalogoCanciones.getCanciones().stream().filter(c -> c.getrutaFichero().equals(ruta)).toList();
+		return cancion.get(0);
 	}
 }

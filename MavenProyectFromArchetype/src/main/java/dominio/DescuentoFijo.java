@@ -14,7 +14,7 @@ public class DescuentoFijo implements Descuento {
 
 	@Override
 	public String getTipoName() {
-		return "Fijo";
+		return Utilidades.Constantes.DESCUENTOS[1];
 	}
 
 }

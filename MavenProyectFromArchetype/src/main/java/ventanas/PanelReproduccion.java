@@ -16,7 +16,7 @@ import dominio.Reproductor;
 public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 
 	private static final long serialVersionUID = 1L;
-	protected String cancion = null;
+	protected String rutaCancion = null;
 	protected JToggleButton Play_Stop;
 	protected JButton Choose_previous;
 	protected JButton Choose_next;
@@ -103,11 +103,11 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 	}
 
 	public String getCancion() {
-		return cancion;
+		return rutaCancion;
 	}
 
 	public void setCancion(String cancion) {
-		this.cancion = cancion;
+		this.rutaCancion = cancion;
 	}
 
 	public abstract boolean playCancion();
@@ -115,7 +115,7 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 	public abstract boolean playCancion(String cancion);
 
 	public boolean stopCancion() {
-		if (cancion == null)
+		if (rutaCancion == null)
 			return false;
 		boolean resultado = AppMusic.getUnicaInstancia().stopCancion();
 		if (resultado == false) {
@@ -130,7 +130,7 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 	}
 
 	public boolean pauseCancion() {
-		if (cancion == null)
+		if (rutaCancion == null)
 			return false;
 		boolean resultado = AppMusic.getUnicaInstancia().pauseCancion();
 		if (resultado == false) {
@@ -145,7 +145,7 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 	}
 
 	public boolean resumeCancion() {
-		if (cancion == null)
+		if (rutaCancion == null)
 			return false;
 		boolean resultado = AppMusic.getUnicaInstancia().resumeCancion();
 		if (resultado == false) {
@@ -158,6 +158,10 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 		}
 		return resultado;
 
+	}
+	
+	public boolean addView(String cancion) {
+		return AppMusic.getUnicaInstancia().addView(cancion);
 	}
 
 	@Override

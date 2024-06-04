@@ -1,8 +1,8 @@
 package dominio;
 
-public class DescuentoJovenes implements Descuento {
-	private double porcentaje = 0.5;
-
+public class SinDescuento implements Descuento {
+	private double porcentaje = 1.0;
+	
 	public double getPorcentaje() {
 		return porcentaje;
 	}
@@ -14,7 +14,7 @@ public class DescuentoJovenes implements Descuento {
 
 	@Override
 	public String getTipoName() {
-		return Utilidades.Constantes.DESCUENTOS[2];
+		return Utilidades.Constantes.DESCUENTOS[0];
 	}
 
 }

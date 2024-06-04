@@ -182,7 +182,7 @@ public class VentanaPago extends JFrame {
 
 		DecimalFormat numberFormat = new DecimalFormat("#.00");
 		String stringDescuento;
-		if (AppMusic.getUnicaInstancia().getUsuarioActivo().getDesc() == null) {
+		if (AppMusic.getUnicaInstancia().getUsuarioActivo().getDesc().getTipoName().equals(Utilidades.Constantes.DESCUENTOS[0])) {
 			stringDescuento = "x 1";
 		} else {
 			double descuento = AppMusic.getUnicaInstancia().getUsuarioActivo().getDesc().getPorcentaje();

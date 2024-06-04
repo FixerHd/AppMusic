@@ -223,7 +223,7 @@ public class Principal extends JFrame implements PaymentObserver {
 			} else {
 				DatosLista datos = AppMusic.getUnicaInstancia().getMisPlaylists(false);
 				if (datos != null) {
-					datos.getNombres().add("Favoritas");
+					datos.getNombres().add(Utilidades.Constantes.FAVORITAS);
 					panelLista.setLista(datos.getNombres());
 					principal.add(panelLista);
 					principal.revalidate();

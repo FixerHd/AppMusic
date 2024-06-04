@@ -3,7 +3,9 @@ package Utilidades;
 public class Constantes {
 
 	public static final String NOMBRE_APLICACION = "Singletune";
-	public static final String[] DESCUENTOS = {"Ninguno", "Fijo", "Jovenes"};
+	public static final String FAVORITAS = "Favoritas";
+	
+	public static final String[] DESCUENTOS = {"Normal", "Fijo", "Jovenes"};
 	public static final int PRECIO_ESTANDAR = 38;
 	public static final int LIMITE_PLAYLIST_ESTANDAR = 10;
 

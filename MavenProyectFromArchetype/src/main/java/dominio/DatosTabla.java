@@ -53,8 +53,10 @@ public class DatosTabla {
 	}
 
 	public void setFavoritas(Playlist playlist) {
-		ArrayList<Boolean> favoritas = (ArrayList<Boolean>) playlist.getCanciones().stream()
-				.map(c -> AppMusic.getUnicaInstancia().isCancionFavourite(c.getId())).toList();
+		ArrayList<Boolean> favoritas = new ArrayList<Boolean>();
+		for (Cancion c : playlist.getCanciones()) {
+			favoritas.add(AppMusic.getUnicaInstancia().isCancionFavourite(c.getId()));
+		}
 		setFavoritas(favoritas);
 	}
 }
