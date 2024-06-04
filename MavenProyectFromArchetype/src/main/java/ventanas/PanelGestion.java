@@ -3,7 +3,6 @@ package ventanas;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -170,11 +169,6 @@ public class PanelGestion extends JPanel implements NextPreviousObserver {
 	}
 
 	private void actualizarPlaylist() {
-		List<String> playlists = new List<String>();
-		List<DatosTabla> datos = new List<DatosTabla>();
-		for (int i = 0; i < panelLista.getLista().getModel().getSize(); i++) {
-			panelLista.getLista().getModel().getElementAt(i);
-		}
 		DatosTabla datos = new DatosTabla();
 		JTable table = panelLista.getTable();
 		for (int i = 0; i < panelLista.getTable().getRowCount(); i++) {

@@ -402,7 +402,7 @@ public class AppMusic {
 	}
 
 	// TODO
-	public boolean actualizarPlaylist(List<String> playlists, List<DatosTabla> datos) {
+	public boolean actualizarPlaylist(String playlists, DatosTabla datos) {
 		// Se quiere actualizar la playlist recivida del usuario actual según los datos recividos
 		try {
 			// Borrar los datos de la playlist
