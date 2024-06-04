@@ -403,14 +403,12 @@ public class AppMusic {
 
 	// TODO
 	public boolean actualizarPlaylist(List<String> playlists, List<DatosTabla> datos) {
-		// Se quiere actualizar todas las playlists del usuario actual según los datos recividos
+		// Se quiere actualizar la playlist recivida del usuario actual según los datos recividos
 		try {
-		LinkedList<Playlist> nuevas_playlist = new LinkedList<Playlist>();
-		for (int i = 0; i < playlists.size(); i++){
-			Playlist p = new Playlist(playlists.get(i));
-			// Añadir los datos en datos.get(i) en p
-			// actualizar/registrar/mofificar playlist
-		}
+			// Borrar los datos de la playlist
+			// Extraer datos
+			// Añadir datos extraidos a la playlist
+			// Modificar playlist
 		return true;
 		} catch (Exception e) {
 			e.printStackTrace();
