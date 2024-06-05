@@ -19,6 +19,6 @@ public class PlayNotificationService {
 	}
 
 	public void notifyPlaylist() {
-		observers.forEach(observer -> observer.update());
+		observers.forEach(observer -> observer.updateBoton());
 	}
 }

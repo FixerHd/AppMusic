@@ -2,5 +2,6 @@ package ventanas;
 
 public abstract interface PlayObserver {
 
-	public abstract void update();
+	public abstract void updateBoton();
+
 }

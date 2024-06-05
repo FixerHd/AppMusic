@@ -18,7 +18,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.border.EtchedBorder;
 
-public class PanelMisListas extends JPanel implements NextPreviousObserver {
+public class PanelMisListas extends JPanel implements NextPreviousObserver, RutaObserver {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel panel;
@@ -54,13 +54,28 @@ public class PanelMisListas extends JPanel implements NextPreviousObserver {
 		gbc_listas.insets = new Insets(0, 0, 5, 5);
 		gbc_listas.gridx = 1;
 		gbc_listas.gridy = 1;
+		panelListas.getLista().addListSelectionListener(ev -> {
+			if (panelListas.getLista().getSelectedIndex() != -1) {
+				actualizarTabla();
+			}
+		});
 		add(panelListas, gbc_listas);
 
-		Panel_Reproducción = new PanelReproduccionMP3(this);
+		Panel_Reproducción = new PanelReproduccionMP3(this, this);
 		panel.add(Panel_Reproducción, BorderLayout.NORTH);
 
 		this.setVisible(true);
 
+	}
+
+	private boolean actualizarTabla() {
+		try {
+			setTable(AppMusic.getUnicaInstancia().buscarCanciones(panelListas.getLista().getSelectedValue()));
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	public JList<String> getLista() {
@@ -89,6 +104,15 @@ public class PanelMisListas extends JPanel implements NextPreviousObserver {
 	public void previousUpdate() {
 		String ruta = AppMusic.getUnicaInstancia().buscarRutaCancion(panelListas.getTable().previousCancionId());
 		Panel_Reproducción.playCancion(ruta);
+	}
+
+	@Override
+	public String updateRuta() {
+		return getRutaCancionSeleccionada();
+	}
+	
+	public String getRutaCancionSeleccionada() {
+		return panelListas.getTable().getRutaCancionSeleccionada();
 	}
 
 }

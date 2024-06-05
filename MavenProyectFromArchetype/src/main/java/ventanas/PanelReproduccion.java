@@ -22,12 +22,19 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 	protected JButton Choose_next;
 	protected JButton Restart;
 	protected PlayNotificationService playService = AppMusic.getUnicaInstancia().getPlayService();
+	protected RutaNotificactionService rutaService;
+
+	public RutaNotificactionService getRutaService() {
+		return rutaService;
+	}
+
 	protected NextPreviousNotificationService nextPreviousService;
 
 	/**
 	 * Create the panel.
 	 */
-	public PanelReproduccion(NextPreviousObserver nextPreviousObserver) {
+	public PanelReproduccion(NextPreviousObserver nextPreviousObserver, RutaObserver rutaObserver) {
+		this.rutaService = new RutaNotificactionService(rutaObserver);
 		this.nextPreviousService = new NextPreviousNotificationService(nextPreviousObserver);
 		this.playService.subscribe(this);
 		setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -77,6 +84,7 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 				pauseCancion();
 			} else {
 				if (AppMusic.getUnicaInstancia().isCancionMidway()) {
+					System.out.println("Prueba");
 					resumeCancion();
 				} else {
 					playCancion();
@@ -106,7 +114,7 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 		return rutaCancion;
 	}
 
-	public void setCancion(String cancion) {
+	public void setRutaCancion(String cancion) {
 		this.rutaCancion = cancion;
 	}
 
@@ -165,11 +173,10 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 	}
 
 	@Override
-	public void update() {
+	public void updateBoton() {
 		Play_Stop.setSelected(false);
 		Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/jugar.png")));
 		revalidate();
 		repaint();
 	}
-
 }

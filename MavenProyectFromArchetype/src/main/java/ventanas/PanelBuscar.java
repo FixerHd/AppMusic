@@ -25,6 +25,7 @@ public class PanelBuscar extends JPanel {
 	private HintTextField Texto_Interprete;
 	private JComboBox<String> Estilo;
 	private JComboBox<String> Selección_Playlist = new JComboBox<String>();
+	private PanelResultado panelResultado;
 
 	// Singleton
 	public static PanelBuscar getInstancia() {
@@ -87,7 +88,7 @@ public class PanelBuscar extends JPanel {
 		this.add(Estilo, gbc_Estilo);
 
 		Botón_Buscar = new JButton("Buscar");
-		PanelResultado panelResultado = new PanelResultado();
+		panelResultado = new PanelResultado();
 		GridBagConstraints gbc_Botón_Buscar = new GridBagConstraints();
 		gbc_Botón_Buscar.fill = GridBagConstraints.HORIZONTAL;
 		gbc_Botón_Buscar.insets = new Insets(0, 0, 5, 5);

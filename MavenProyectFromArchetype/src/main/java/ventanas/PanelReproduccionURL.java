@@ -11,21 +11,21 @@ public class PanelReproduccionURL extends PanelReproduccion {
 	/**
 	 * Create the panel.
 	 */
-	public PanelReproduccionURL(NextPreviousObserver nextPreviousObserver) {
-		super(nextPreviousObserver);
+	public PanelReproduccionURL(NextPreviousObserver nextPreviousObserver, RutaObserver rutaObserver) {
+		super(nextPreviousObserver, rutaObserver);
 	}
 
 	public boolean playCancion() {
+		rutaCancion = this.rutaService.notifyObserver();
+		this.playService.notifyPlaylist();
 		if (rutaCancion == null)
 			return false;
 		boolean resultado = AppMusic.getUnicaInstancia().reproducircancionURL(rutaCancion);
 		if (resultado == false) {
 			AppMusic.getUnicaInstancia().showPopup(Utilidades.Constantes.ERROR_PLAY_URL_MENSAJE);
 		} else {
-			this.playService.notifyPlaylist();
 			Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/pausa.png")));
 			Play_Stop.setSelected(true);
-			AppMusic.getUnicaInstancia().addView(rutaCancion);
 			revalidate();
 			repaint();
 		}
@@ -33,17 +33,16 @@ public class PanelReproduccionURL extends PanelReproduccion {
 	}
 
 	public boolean playCancion(String cancion) {
+		this.playService.notifyPlaylist();
 		boolean resultado = AppMusic.getUnicaInstancia().reproducircancionURL(cancion);
 		if (resultado == false) {
 			AppMusic.getUnicaInstancia().showPopup(Utilidades.Constantes.ERROR_PLAY_URL_MENSAJE);
 		} else {
 			// Solo si se consigue reproducir la canción se establece la canción recibida
 			// como la canción a reproducir
-			this.playService.notifyPlaylist();
 			this.rutaCancion = cancion;
 			Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/pausa.png")));
 			Play_Stop.setSelected(true);
-			AppMusic.getUnicaInstancia().addView(rutaCancion);
 			revalidate();
 			repaint();
 		}

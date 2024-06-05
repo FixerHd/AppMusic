@@ -20,7 +20,7 @@ import dominio.DatosTabla;
 
 import java.awt.BorderLayout;
 
-public class PanelGestion extends JPanel implements NextPreviousObserver {
+public class PanelGestion extends JPanel implements NextPreviousObserver, RutaObserver {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel panel;
@@ -148,7 +148,7 @@ public class PanelGestion extends JPanel implements NextPreviousObserver {
 		add(panel, gbc_panel);
 		panel.setLayout(new BorderLayout(0, 0));
 
-		Panel_Reproducción = new PanelReproduccionMP3(this);
+		Panel_Reproducción = new PanelReproduccionMP3(this, this);
 		panel.add(Panel_Reproducción, BorderLayout.NORTH);
 
 		JButton Boton_Eliminar_Canción = new JButton("Eliminar Canción");
@@ -227,5 +227,10 @@ public class PanelGestion extends JPanel implements NextPreviousObserver {
 	public void previousUpdate() {
 		String ruta = AppMusic.getUnicaInstancia().buscarRutaCancion(panelLista.getTable().previousCancionId());
 		Panel_Reproducción.playCancion(ruta);
+	}
+
+	@Override
+	public String updateRuta() {
+		return panelLista.getTable().getRutaCancionSeleccionada();
 	}
 }

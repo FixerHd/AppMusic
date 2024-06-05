@@ -16,7 +16,7 @@ import java.awt.Color;
 
 import javax.swing.border.EtchedBorder;
 
-public class PanelResultado extends JPanel implements NextPreviousObserver {
+public class PanelResultado extends JPanel implements NextPreviousObserver, RutaObserver {
 
 	private static final long serialVersionUID = 1L;
 	private AppTabla table;
@@ -56,7 +56,7 @@ public class PanelResultado extends JPanel implements NextPreviousObserver {
 		add(panel, gbc_panel);
 		panel.setLayout(new BorderLayout(0, 0));
 
-		Panel_Reproducción = new PanelReproduccionMP3(this);
+		Panel_Reproducción = new PanelReproduccionMP3(this, this);
 		panel.add(Panel_Reproducción, BorderLayout.NORTH);
 
 		JButton Añadir_Canción = new JButton("Añadir a Lista");
@@ -107,6 +107,11 @@ public class PanelResultado extends JPanel implements NextPreviousObserver {
 	public void previousUpdate() {
 		String ruta = AppMusic.getUnicaInstancia().buscarRutaCancion(table.previousCancionId());
 		Panel_Reproducción.playCancion(ruta);
+	}
+
+	@Override
+	public String updateRuta() {
+		return table.getRutaCancionSeleccionada();
 	}
 
 }

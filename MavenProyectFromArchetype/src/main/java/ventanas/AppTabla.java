@@ -8,6 +8,7 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
+import Controlador.AppMusic;
 import dominio.DatosTabla;
 
 public class AppTabla extends JTable {
@@ -17,6 +18,8 @@ public class AppTabla extends JTable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Integer> ids = new ArrayList<Integer>();
+
+	private String rutaCancionSeleccionada;
 
 	public AppTabla() {
 		setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -58,11 +61,10 @@ public class AppTabla extends JTable {
 				return columnEditables[column];
 			}
 		};
-		model.addTableModelListener(new TableModelListener() {
-			
-			@Override
-			public void tableChanged(TableModelEvent e) {
-				// TODO
+		getSelectionModel().addListSelectionListener(ev -> {
+			int id = cancionId();
+			if (id != -1) {
+				rutaCancionSeleccionada = AppMusic.getUnicaInstancia().buscarRutaCancion(id);
 			}
 		});
 		model.removeRow(0);
@@ -75,12 +77,29 @@ public class AppTabla extends JTable {
 	}
 
 	public int nextCancionId() {
-		int index = (getSelectedRow() + 1) % getRowCount();
-		return ids.get(index);
+		if (getSelectedRow() != -1) {
+			int index = (getSelectedRow() + 1) % getRowCount();
+			return ids.get(index);
+		}
+		return -1;
 	}
 
 	public int previousCancionId() {
-		int index = (getSelectedRow() - 1) % getRowCount();
-		return ids.get(index);
+		if (getSelectedRow() != -1) {
+			int index = (getSelectedRow() - 1) % getRowCount();
+			return ids.get(index);
+		}
+		return -1;
+	}
+
+	public int cancionId() {
+		if (getSelectedRow() != -1) {
+			return ids.get(getSelectedRow());
+		}
+		return -1;
+	}
+
+	public String getRutaCancionSeleccionada() {
+		return rutaCancionSeleccionada;
 	}
 }

@@ -15,7 +15,7 @@ import java.awt.Color;
 import javax.swing.border.EtchedBorder;
 import java.awt.Font;
 
-public class PanelURL extends JPanel implements NextPreviousObserver {
+public class PanelURL extends JPanel implements NextPreviousObserver, RutaObserver {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel panel;
@@ -99,7 +99,7 @@ public class PanelURL extends JPanel implements NextPreviousObserver {
 		add(panel, gbc_panel);
 		panel.setLayout(new BorderLayout(0, 0));
 
-		Panel_Reproducción = new PanelReproduccionURL(this);
+		Panel_Reproducción = new PanelReproduccionURL(this, this);
 		panel.add(Panel_Reproducción, BorderLayout.NORTH);
 
 		this.setVisible(true);
@@ -114,5 +114,10 @@ public class PanelURL extends JPanel implements NextPreviousObserver {
 	@Override
 	public void previousUpdate() {
 		AppMusic.getUnicaInstancia().showPopup(Utilidades.Constantes.ERROR_PREVIOUS_MENSAJE);
+	}
+
+	@Override
+	public String updateRuta() {
+		return Texto_URL.getText();
 	}
 }
