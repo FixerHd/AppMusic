@@ -49,4 +49,10 @@ public class Playlist {
 		canciones.removeLast();
 	}
 
+	public void borrarCanciones() {
+		canciones.removeAll(canciones);
+	}
+
+
+
 }

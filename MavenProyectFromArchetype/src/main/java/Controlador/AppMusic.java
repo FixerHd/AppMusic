@@ -407,11 +407,21 @@ public class AppMusic {
 	public boolean actualizarPlaylist(String playlists, DatosTabla datos) {
 		// Se quiere actualizar la playlist recivida del usuario actual según los datos recividos
 		try {
+			for (Playlist p: usuarioActivo.getPlaylists()) {
+				if(p.getNombre().equals(playlists)) {
+					p.borrarCanciones();
+					ArrayList<Integer> f = datos.getIds();
+					for(int a: f) {
+						p.addCancion(adaptadorCancion.recuperarCancion(a));
+					}
+					return true;
+				}
+			}
 			// Borrar los datos de la playlist
 			// Extraer datos
 			// Añadir datos extraidos a la playlist
 			// Modificar playlist
-		return true;
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
