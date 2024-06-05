@@ -364,6 +364,7 @@ public class AppMusic {
 		Playlist nuevaPlaylist = new Playlist(titulo);
 		usuarioActivo.addPlaylist(nuevaPlaylist);
 		adaptadorPlaylist.registrarPlaylist(nuevaPlaylist);
+		adaptadorUsuario.modificarUsuario(usuarioActivo);
 		return true;
 	}
 
@@ -375,6 +376,7 @@ public class AppMusic {
 			Playlist p = iterator.next();
 			if (p.getNombre().equals(playlist)) {
 				iterator.remove();
+				adaptadorUsuario.modificarUsuario(usuarioActivo);
 				adaptadorPlaylist.borrarPlaylist(p);
 				return true;
 			}
