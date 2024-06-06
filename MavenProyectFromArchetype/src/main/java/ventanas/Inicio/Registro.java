@@ -248,7 +248,7 @@ public class Registro extends JFrame {
 				AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_REGISTRO_FECHA_MENSAJE);
 				break;
 			case Constantes.ERROR_REGISTRO_DESCUENTO:
-				AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_REGISTRO_DESCUENTO_MENSAJE);
+				AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_REGISTRO_GRUPO_MENSAJE);
 				break;
 			case Constantes.OKAY:
 				Login.getInstancia().setVisible(true);

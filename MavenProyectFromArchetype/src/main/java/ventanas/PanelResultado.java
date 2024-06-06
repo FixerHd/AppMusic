@@ -24,9 +24,12 @@ public class PanelResultado extends JPanel implements NextPreviousObserver, Ruta
 	private PanelReproduccionMP3 Panel_Reproducción;
 	private String playlist = null;
 	private JScrollPane scrollPane;
+	private JButton Añadir_Canción;
+	private PlaylistNameNotificactionService playlistNameService;
 
-	public PanelResultado() {
+	public PanelResultado(PlaylistNameObserver playlistNameObserver) {
 		super();
+		this.playlistNameService = new PlaylistNameNotificactionService(playlistNameObserver);
 
 		this.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(0, 0, 0)));
 		GridBagLayout gbl_panel_3 = new GridBagLayout();
@@ -59,17 +62,20 @@ public class PanelResultado extends JPanel implements NextPreviousObserver, Ruta
 		Panel_Reproducción = new PanelReproduccionMP3(this, this);
 		panel.add(Panel_Reproducción, BorderLayout.NORTH);
 
-		JButton Añadir_Canción = new JButton("Añadir a Lista");
+		Añadir_Canción = new JButton("Añadir a Lista");
 		GridBagConstraints gbc_Eliminar_Canción = new GridBagConstraints();
 		gbc_Eliminar_Canción.fill = GridBagConstraints.HORIZONTAL;
 		gbc_Eliminar_Canción.insets = new Insets(0, 0, 5, 5);
 		gbc_Eliminar_Canción.gridx = 5;
 		gbc_Eliminar_Canción.gridy = 3;
 		Añadir_Canción.addActionListener(ev -> {
-			playlist = (String) PanelBuscar.getInstancia().getSelección_Playlist().getSelectedItem();
+			playlist = playlistNameService.notifyObserver();
 			if (playlist != null) {
-				AppMusic.getUnicaInstancia().añadirCancionPlaylist(playlist,
-						table.getValueAt(table.getSelectedRow(), 0));
+				if(AppMusic.getUnicaInstancia().añadirCancionPlaylist(playlist, table.cancionId())) {
+					AppMusic.getUnicaInstancia().showPopup(Utilidades.Constantes.EXITO_AÑADIR_CANCION_PLAYLIST_MENSAJE);
+				} else {
+					AppMusic.getUnicaInstancia().showPopup(Utilidades.Constantes.ERROR_AÑADIR_CANCION_PLAYLIST_MENSAJE);
+				}
 				playlist = null;
 			}
 		});
@@ -85,8 +91,8 @@ public class PanelResultado extends JPanel implements NextPreviousObserver, Ruta
 	}
 
 	public void setTable(DatosTabla datos) {
-		table = new AppTabla(datos);
 		this.remove(scrollPane);
+		table = new AppTabla(datos);
 		scrollPane = new JScrollPane(table);
 		GridBagConstraints gbc_table = new GridBagConstraints();
 		gbc_table.gridwidth = 5;

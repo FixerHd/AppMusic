@@ -15,7 +15,7 @@ import Controlador.AppMusic;
 import Utilidades.Constantes;
 import dominio.DatosTabla;
 
-public class PanelBuscar extends JPanel {
+public class PanelBuscar extends JPanel implements PlaylistNameObserver{
 
 	private static final long serialVersionUID = 1L;
 	private static PanelBuscar unicaInstancia;
@@ -88,7 +88,7 @@ public class PanelBuscar extends JPanel {
 		this.add(Estilo, gbc_Estilo);
 
 		Botón_Buscar = new JButton("Buscar");
-		panelResultado = new PanelResultado();
+		panelResultado = new PanelResultado(this);
 		GridBagConstraints gbc_Botón_Buscar = new GridBagConstraints();
 		gbc_Botón_Buscar.fill = GridBagConstraints.HORIZONTAL;
 		gbc_Botón_Buscar.insets = new Insets(0, 0, 5, 5);
@@ -153,8 +153,9 @@ public class PanelBuscar extends JPanel {
 		}
 	}
 
-	public JComboBox<String> getSelección_Playlist() {
-		return Selección_Playlist;
+	@Override
+	public String updateName() {
+		return (String) Selección_Playlist.getSelectedItem();
 	}
 
 }

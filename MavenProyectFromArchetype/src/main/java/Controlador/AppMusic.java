@@ -2,6 +2,7 @@ package Controlador;
 
 import java.awt.Container;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -445,14 +446,15 @@ public class AppMusic {
 		return false;
 	}
 
-	public void añadirCancionPlaylist(String playlist, Object valueAt) {
+	public boolean añadirCancionPlaylist(String playlist, int idCancion) {
 		for (Playlist p : usuarioActivo.getPlaylists()) {
 			if (p.getNombre().equals(playlist)) {
-				p.addCancion((Cancion) valueAt);
+				p.addCancion(getCancion(idCancion));
 				adaptadorPlaylist.modificarPlaylist(p);
+				return true;
 			}
-			break;
 		}
+		return false;
 	}
 
 	public boolean añadirCancion(String rutaFichero) {

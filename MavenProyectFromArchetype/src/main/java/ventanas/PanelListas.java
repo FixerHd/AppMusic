@@ -92,8 +92,8 @@ public class PanelListas extends JPanel {
 	}
 
 	public void setTable(DatosTabla datos) {
-		table = new AppTabla(datos);
 		remove(rightScrollPane);
+		table = new AppTabla(datos);
 		rightScrollPane = new JScrollPane(table);
 		add(rightScrollPane);
 	}

@@ -205,8 +205,8 @@ public class PanelGestion extends JPanel implements NextPreviousObserver, RutaOb
 	}
 
 	public void setTable(DatosTabla datos) {
-		panelLista.setTable(datos);
 		this.remove(scrollPane);
+		panelLista.setTable(datos);
 		scrollPane = new JScrollPane(panelLista.getTable());
 		GridBagConstraints gbc_table = new GridBagConstraints();
 		gbc_table.gridwidth = 3;

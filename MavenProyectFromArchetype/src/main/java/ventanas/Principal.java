@@ -45,6 +45,12 @@ public class Principal extends JFrame implements PaymentObserver {
 	private JButton Botón_Premium;
 	private JLabel Premium;
 	private PanelMisListas panelLista;
+	private PanelBuscar panelBuscar;
+	
+	public PanelBuscar getPanelBuscar() {
+		return panelBuscar;
+	}
+
 	private static JPanel Columna;
 	private static JPanel principal;
 
@@ -119,7 +125,7 @@ public class Principal extends JFrame implements PaymentObserver {
 		Columna.add(Lupa, gbc_Lupa);
 
 		JToggleButton Botón_Buscar = new JToggleButton("Buscar");
-		PanelBuscar panelBuscar = new PanelBuscar();
+		panelBuscar = new PanelBuscar();
 		GridBagConstraints gbc_Botón_Buscar = new GridBagConstraints();
 		gbc_Botón_Buscar.fill = GridBagConstraints.HORIZONTAL;
 		gbc_Botón_Buscar.insets = new Insets(0, 0, 5, 5);

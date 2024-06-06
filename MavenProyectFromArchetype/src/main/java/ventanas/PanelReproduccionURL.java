@@ -22,6 +22,8 @@ public class PanelReproduccionURL extends PanelReproduccion {
 
 	public boolean playCancion(String cancion) {
 		boolean resultado = auxPlayCancion(cancion);
+		// Solo si se consigue reproducir la canción se establece la canción recibida
+		// como la canción a reproducir
 		if (resultado) {
 			this.rutaCancion = cancion;
 		}
