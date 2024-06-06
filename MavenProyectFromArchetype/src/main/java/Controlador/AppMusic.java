@@ -487,6 +487,7 @@ public class AppMusic {
 			for(Cancion c : CatalogoCanciones.getUnicaInstancia().getCanciones()) {
 				if(c.getrutaFichero().equals(rutaFichero)) {
 					usuarioActivo.añadirRecientes(c);
+					c.addView();
 					Reproductor.getUnicaInstancia().playCancionFich(rutaFichero);
 					return true;
 				}

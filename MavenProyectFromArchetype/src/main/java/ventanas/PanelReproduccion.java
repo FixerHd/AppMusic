@@ -165,15 +165,6 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 			repaint();
 		}
 		return resultado;
-
-	}
-	
-	public boolean addView(String rutaCancion) {
-		return AppMusic.getUnicaInstancia().addView(rutaCancion);
-	}
-	
-	public boolean addRecientes(String rutaCancion) {
-		return AppMusic.getUnicaInstancia().addRecientes(rutaCancion);
 	}
 
 	@Override

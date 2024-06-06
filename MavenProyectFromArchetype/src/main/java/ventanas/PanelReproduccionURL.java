@@ -17,30 +17,25 @@ public class PanelReproduccionURL extends PanelReproduccion {
 
 	public boolean playCancion() {
 		rutaCancion = this.rutaService.notifyObserver();
-		this.playService.notifyPlaylist();
-		if (rutaCancion == null)
-			return false;
-		boolean resultado = AppMusic.getUnicaInstancia().reproducircancionURL(rutaCancion);
-		if (resultado == false) {
-			AppMusic.getUnicaInstancia().showPopup(Utilidades.Constantes.ERROR_PLAY_URL_MENSAJE);
-		} else {
-			Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/pausa.png")));
-			Play_Stop.setSelected(true);
-			revalidate();
-			repaint();
+		return auxPlayCancion(rutaCancion);
+	}
+
+	public boolean playCancion(String cancion) {
+		boolean resultado = auxPlayCancion(cancion);
+		if (resultado) {
+			this.rutaCancion = cancion;
 		}
 		return resultado;
 	}
 
-	public boolean playCancion(String cancion) {
+	private boolean auxPlayCancion(String cancion){
 		this.playService.notifyPlaylist();
+		if (rutaCancion == null)
+			return false;
 		boolean resultado = AppMusic.getUnicaInstancia().reproducircancionURL(cancion);
 		if (resultado == false) {
 			AppMusic.getUnicaInstancia().showPopup(Utilidades.Constantes.ERROR_PLAY_URL_MENSAJE);
 		} else {
-			// Solo si se consigue reproducir la canción se establece la canción recibida
-			// como la canción a reproducir
-			this.rutaCancion = cancion;
 			Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/pausa.png")));
 			Play_Stop.setSelected(true);
 			revalidate();
@@ -48,5 +43,4 @@ public class PanelReproduccionURL extends PanelReproduccion {
 		}
 		return resultado;
 	}
-
 }
