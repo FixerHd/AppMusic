@@ -53,10 +53,7 @@ public class PanelListas extends JPanel {
 			}
 		});
 		lista.getSelectionModel().addListSelectionListener(ev -> {
-			DatosTabla datos = AppMusic.getUnicaInstancia().buscarCanciones(lista.getSelectedValue());
-			setTable(datos);
-			revalidate();
-			repaint();
+			actualizarTabla();
 		});
 
 		leftScrollPane = new JScrollPane(lista);
@@ -67,6 +64,15 @@ public class PanelListas extends JPanel {
 		splitPane.setRightComponent(rightScrollPane);
 
 		setVisible(true);
+	}
+
+	private void actualizarTabla() {
+		if(lista.getSelectedValue() != null) {
+			DatosTabla datos = AppMusic.getUnicaInstancia().buscarCanciones(lista.getSelectedValue());
+			setTable(datos);
+			revalidate();
+			repaint();
+		}
 	}
 
 	public JList<String> getLista() {

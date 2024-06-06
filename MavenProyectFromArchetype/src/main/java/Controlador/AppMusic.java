@@ -313,7 +313,7 @@ public class AppMusic {
 			añadirDatosTabla(usuarioActivo.getFavoritas(), p);
 		}
 		else {
-			getPlaylist(playlist);
+			p = getPlaylist(playlist);
 		}
 		return p;
 	}

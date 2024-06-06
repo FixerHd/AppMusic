@@ -54,11 +54,6 @@ public class PanelMisListas extends JPanel implements NextPreviousObserver, Ruta
 		gbc_listas.insets = new Insets(0, 0, 5, 5);
 		gbc_listas.gridx = 1;
 		gbc_listas.gridy = 1;
-		panelListas.getLista().addListSelectionListener(ev -> {
-			if (panelListas.getLista().getSelectedIndex() != -1) {
-				actualizarTabla();
-			}
-		});
 		add(panelListas, gbc_listas);
 
 		Panel_Reproducción = new PanelReproduccionMP3(this, this);
@@ -66,16 +61,6 @@ public class PanelMisListas extends JPanel implements NextPreviousObserver, Ruta
 
 		this.setVisible(true);
 
-	}
-
-	private boolean actualizarTabla() {
-		try {
-			setTable(AppMusic.getUnicaInstancia().buscarCanciones(panelListas.getLista().getSelectedValue()));
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
 	}
 
 	public JList<String> getLista() {
