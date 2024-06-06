@@ -69,6 +69,7 @@ public class Reproductor {
 			});
 
 			// Crear un objeto Media desde la ruta del fichero
+			System.out.println(new File(rutaFichero).toURI().toString());
 			Media media = new Media(new File(rutaFichero).toURI().toString());
 			mediaPlayer = new MediaPlayer(media);
 			reprourl = false;

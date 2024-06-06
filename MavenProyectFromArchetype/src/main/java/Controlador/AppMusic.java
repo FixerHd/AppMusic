@@ -470,7 +470,20 @@ public class AppMusic {
 	}
 
 	public boolean reproducircancion(String rutaFichero) {
-		return Reproductor.getUnicaInstancia().playCancionFich(rutaFichero);
+		try {
+			for(Cancion c : CatalogoCanciones.getUnicaInstancia().getCanciones()) {
+				if(c.getrutaFichero().equals(rutaFichero)) {
+					usuarioActivo.AnadirRecientes(c);
+					Reproductor.getUnicaInstancia().playCancionFich(rutaFichero);
+					return true;
+				}
+			}
+			return false;
+			
+		}catch(Exception e) {
+			return false;
+		}
+		
 	}
 
 	public boolean reproducircancionURL(String i) {
