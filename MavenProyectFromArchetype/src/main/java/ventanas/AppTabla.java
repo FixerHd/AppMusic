@@ -102,4 +102,18 @@ public class AppTabla extends JTable {
 	public String getRutaCancionSeleccionada() {
 		return rutaCancionSeleccionada;
 	}
+
+	public boolean changeFavorita() {
+		if (getSelectedRow() != -1) {
+			if ((boolean) getValueAt(getSelectedRow(), 3)) {
+				AppMusic.getUnicaInstancia().getUsuarioActivo().getFavoritas()
+						.addCancion(AppMusic.getUnicaInstancia().getCancion(ids.get(getSelectedRow())));
+			} else {
+				AppMusic.getUnicaInstancia().getUsuarioActivo().getFavoritas()
+						.eliminarCancion(ids.get(getSelectedRow()));
+			}
+			AppMusic.getUnicaInstancia().getUsuarioActivo().getFavoritas();
+		}
+		return false;
+	}
 }

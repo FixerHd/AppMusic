@@ -565,8 +565,24 @@ public class AppMusic {
 	public boolean addView(String ruta) {
 		return getCancion(ruta).addView();
 	}
+	
 	public Cancion getCancion(String ruta) {
 		List<Cancion> cancion = catalogoCanciones.getCanciones().stream().filter(c -> c.getrutaFichero().equals(ruta)).toList();
 		return cancion.get(0);
+	}
+	
+	public Cancion getCancion(int id) {
+		List<Cancion> cancion = catalogoCanciones.getCanciones().stream().filter(c -> c.getId() == id).toList();
+		return cancion.get(0);
+	}
+
+	public boolean addRecientes(String rutaCancion) {
+		try {
+			usuarioActivo.añadirRecientes(getCancion(rutaCancion));
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 }
