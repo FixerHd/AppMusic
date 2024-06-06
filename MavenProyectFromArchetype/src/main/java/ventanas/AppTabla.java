@@ -61,13 +61,28 @@ public class AppTabla extends JTable {
 				return columnEditables[column];
 			}
 		};
+		
+		// Listener para mantener actualizada la ruta de la cancion seleccionada
 		getSelectionModel().addListSelectionListener(ev -> {
 			int id = cancionId();
 			if (id != -1) {
 				rutaCancionSeleccionada = AppMusic.getUnicaInstancia().buscarRutaCancion(id);
 			}
 		});
+		
+		// Listener para detectar cuando ha cambiado la columna "favorita"
+		model.addTableModelListener(new TableModelListener() {
+
+            @Override
+            public void tableChanged(TableModelEvent evento) {
+            	changeFavorita();
+            }
+        });
+		
+		// Eliminar el elemento vacio inicial
 		model.removeRow(0);
+		
+		// Rellenar la tabla y recoger los ids
 		for (int i = 0; i < datos.getTitulos().size(); i++) {
 			model.addRow(new Object[] { datos.getTitulos().get(i), datos.getInterpretes().get(i),
 					datos.getEstilos().get(i), datos.getFavoritas().get(i) });
@@ -76,6 +91,10 @@ public class AppTabla extends JTable {
 		setModel(model);
 	}
 
+	/**
+	 * Devuelve el id de la siguiente cancion en la lista
+	 * @return int, id de la cancion
+	 */
 	public int nextCancionId() {
 		if (getSelectedRow() != -1) {
 			int index = (getSelectedRow() + 1) % getRowCount();
@@ -84,6 +103,10 @@ public class AppTabla extends JTable {
 		return -1;
 	}
 
+	/**
+	 * Devuelve el id de la cancion anterior en la lista
+	 * @return int, id de la cancion
+	 */
 	public int previousCancionId() {
 		if (getSelectedRow() != -1) {
 			int index = (getSelectedRow() - 1) % getRowCount();
@@ -92,6 +115,10 @@ public class AppTabla extends JTable {
 		return -1;
 	}
 
+	/**
+	 * Devuelve el id de la cancion actualmente seleccionada
+	 * @return int, id de la cancion
+	 */
 	public int cancionId() {
 		if (getSelectedRow() != -1) {
 			return ids.get(getSelectedRow());
@@ -99,18 +126,24 @@ public class AppTabla extends JTable {
 		return -1;
 	}
 
+	/**
+	 * Devuelve la ruta de la cancion actualmente seleccionada
+	 * @return String, ruta de la cancion
+	 */
 	public String getRutaCancionSeleccionada() {
 		return rutaCancionSeleccionada;
 	}
 
+	/**
+	 * Añade o elimina una cancion de la playlist "favoritas"
+	 * @return boolean, true si se ha completado exitosamente la operacion
+	 */
 	public boolean changeFavorita() {
 		if (getSelectedRow() != -1) {
 			if ((boolean) getValueAt(getSelectedRow(), 3)) {
-				AppMusic.getUnicaInstancia().getUsuarioActivo().getFavoritas()
-						.addCancion(AppMusic.getUnicaInstancia().getCancion(ids.get(getSelectedRow())));
+				AppMusic.getUnicaInstancia().addCancionFavorita(ids.get(getSelectedRow()));
 			} else {
-				AppMusic.getUnicaInstancia().getUsuarioActivo().getFavoritas()
-						.eliminarCancion(ids.get(getSelectedRow()));
+				AppMusic.getUnicaInstancia().eliminarCancionFavorita(ids.get(getSelectedRow()));
 			}
 		}
 		return false;

@@ -62,5 +62,9 @@ public class Playlist {
 		}
 		return false;
 	}
+	
+	public boolean eliminarCancion(Cancion cancion) {
+		return eliminarCancion(cancion.getId());
+	}
 
 }

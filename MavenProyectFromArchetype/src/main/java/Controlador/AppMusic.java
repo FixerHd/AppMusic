@@ -572,4 +572,13 @@ public class AppMusic {
 		}
 		return false;
 	}
+
+	public void addCancionFavorita(int id) {
+		usuarioActivo.getFavoritas().addCancion(getCancion(id));
+	}
+
+	public void eliminarCancionFavorita(int id) {
+		usuarioActivo.getFavoritas().eliminarCancion(getCancion(id));
+		
+	}
 }
