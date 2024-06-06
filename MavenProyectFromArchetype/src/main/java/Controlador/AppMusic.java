@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Iterator;
-import java.util.LinkedList;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -35,17 +34,8 @@ import persistencia.DAOException;
 import persistencia.FactoriaDAO;
 import persistencia.IAdaptadorUsuarioDAO;
 import ventanas.PlayNotificationService;
-import ventanas.Inicio.Selector;
 import persistencia.IAdaptadorCancionDAO;
 import persistencia.IAdaptadorPlaylistDAO;
-
-import java.io.FileOutputStream;
-
-import com.itextpdf.text.Document;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
 
 public class AppMusic {
 
@@ -65,13 +55,9 @@ public class AppMusic {
 	private CatalogoUsuarios catalogoUsuarios;
 	private CatalogoCanciones catalogoCanciones;
 	private Usuario usuarioActivo;
-
-	public Usuario getUsuarioActivo() {
-		return usuarioActivo;
-	}
-
+	
 	private PlayNotificationService playService = new PlayNotificationService();
-
+	
 	public AppMusic() {
 		// Debe ser la primera linea para evitar error de sincronización
 		inicializarAdaptadores();
@@ -82,9 +68,8 @@ public class AppMusic {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
-
+	
 	public static AppMusic getUnicaInstancia() {
 		if (unicaInstancia == null) {
 			unicaInstancia = new AppMusic();
@@ -92,12 +77,57 @@ public class AppMusic {
 		return unicaInstancia;
 	}
 
-	public PlayNotificationService getPlayService() {
-		return playService;
+	private void inicializarAdaptadores() {
+		FactoriaDAO factoria = null;
+		try {
+			factoria = FactoriaDAO.getInstancia(FactoriaDAO.DAO_TDS);
+		} catch (DAOException e) {
+			e.printStackTrace();
+		}
+		adaptadorUsuario = factoria.getUsuarioDAO();
+		adaptadorCancion = factoria.getCancionDAO();
+		adaptadorPlaylist = factoria.getPlaylistDAO();
+	}
+
+	private void inicializarCatalogos() {
+		catalogoUsuarios = CatalogoUsuarios.getUnicaInstancia();
+		catalogoCanciones = CatalogoCanciones.getUnicaInstancia();
+	}
+	
+	public Usuario getUsuarioActivo() {
+		return usuarioActivo;
+	}
+	
+	public JFrame getVentanaActual() {
+		return ventanaActual;
+	}
+
+	public void setVentanaActual(JFrame ventanaActual) {
+		this.ventanaActual = ventanaActual;
 	}
 
 	public ArrayList<JFrame> getVentanas() {
 		return ventanasActivas;
+	}
+	
+	public List<Cancion> getCanciones() {
+		return catalogoCanciones.getCanciones();
+	}
+
+	public List<Usuario> getUsuarios() {
+		return catalogoUsuarios.getUsuarios();
+	}
+
+	public PlayNotificationService getPlayService() {
+		return playService;
+	}
+	
+	public Descuento getDescuentoUsuario() {
+		return usuarioActivo.getDesc();
+	}
+
+	public void setDescuentoUsuario(Usuario usuario, Descuento desc) {
+		usuario.setDesc(desc);
 	}
 
 	public String getEstilo() {
@@ -128,6 +158,31 @@ public class AppMusic {
 			mostrarVentanaPrincipal();
 		}
 	}
+	
+	public Cancion getCancion(int id) {
+		List<Cancion> cancion = catalogoCanciones.getCanciones().stream().filter(c -> c.getId() == id).toList();
+		return cancion.get(0);
+	}
+	
+	public Cancion getCancion(String ruta) {
+		List<Cancion> cancion = catalogoCanciones.getCanciones().stream().filter(c -> c.getrutaFichero().equals(ruta)).toList();
+		return cancion.get(0);
+	}
+	
+	public String buscarRutaCancion(int id) {
+		return catalogoCanciones.getCancion(id).getrutaFichero();
+	}
+	
+	public void registrarCancion(Cancion Cancion) {
+		adaptadorCancion.registrarCancion(Cancion);
+
+		catalogoCanciones.addCancion(Cancion);
+	}
+
+	public void registrarPlaylist(Playlist Playlist) {
+
+		adaptadorPlaylist.registrarPlaylist(Playlist);
+	}
 
 	public void limpiarVentanas() {
 		// Se incluyen manualmente debido a problemas de herencia
@@ -148,46 +203,6 @@ public class AppMusic {
 		container.setVisible(false);
 		ventanas.Inicio.Selector.getInstancia().setVisible(true);
 		AppMusic.getUnicaInstancia().setVentanaActual(ventanas.Inicio.Selector.getInstancia());
-	}
-
-	public void registrarCancion(Cancion Cancion) {
-		adaptadorCancion.registrarCancion(Cancion);
-
-		catalogoCanciones.addCancion(Cancion);
-	}
-
-	public void registrarPlaylist(Playlist Playlist) {
-
-		adaptadorPlaylist.registrarPlaylist(Playlist);
-	}
-
-	private void inicializarAdaptadores() {
-		FactoriaDAO factoria = null;
-		try {
-			factoria = FactoriaDAO.getInstancia(FactoriaDAO.DAO_TDS);
-		} catch (DAOException e) {
-			e.printStackTrace();
-		}
-		adaptadorUsuario = factoria.getUsuarioDAO();
-		adaptadorCancion = factoria.getCancionDAO();
-		adaptadorPlaylist = factoria.getPlaylistDAO();
-	}
-
-	private void inicializarCatalogos() {
-		catalogoUsuarios = CatalogoUsuarios.getUnicaInstancia();
-		catalogoCanciones = CatalogoCanciones.getUnicaInstancia();
-	}
-
-	public boolean existeUsuario(String nombre) {
-		return CatalogoUsuarios.getUnicaInstancia().getUsuario(nombre) != null;
-	}
-
-	public List<Cancion> getCanciones() {
-		return catalogoCanciones.getCanciones();
-	}
-
-	public List<Usuario> getUsuarios() {
-		return catalogoUsuarios.getUsuarios();
 	}
 
 	public boolean verficarUsuario(String usuario, String contraseña) {
@@ -250,6 +265,25 @@ public class AppMusic {
 	public void showPopup(String mensaje) {
 		JOptionPane.showMessageDialog(ventanaActual, mensaje, Constantes.NOMBRE_APLICACION,
 				JOptionPane.INFORMATION_MESSAGE, null);
+	}
+	
+	public boolean existeUsuario(String nombre) {
+		return CatalogoUsuarios.getUnicaInstancia().getUsuario(nombre) != null;
+	}
+	
+	/**
+	 * Checks if the active user has the specified playlist.
+	 * 
+	 * @param playlist The playlist to check.
+	 * @return true if the active user has the playlist, false otherwise.
+	 */
+	public boolean existePlaylist(String playlist) {
+		for (Playlist p : usuarioActivo.getPlaylists()) {
+			if (p.getNombre().equals(playlist)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public DatosTabla buscarCanciones(String titulo, String interprete, String estilo, boolean favorita) {
@@ -339,21 +373,6 @@ public class AppMusic {
 	}
 
 	/**
-	 * Checks if the active user has the specified playlist.
-	 * 
-	 * @param playlist The playlist to check.
-	 * @return true if the active user has the playlist, false otherwise.
-	 */
-	public boolean existePlaylist(String playlist) {
-		for (Playlist p : usuarioActivo.getPlaylists()) {
-			if (p.getNombre().equals(playlist)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/**
 	 * Adds a new playlist with the specified title to the active user's playlist
 	 * list.
 	 * 
@@ -402,26 +421,24 @@ public class AppMusic {
 		}
 		return false;
 	}
-
-	// TODO
+	
 	public boolean actualizarPlaylist(String playlists, DatosTabla datos) {
 		// Se quiere actualizar la playlist recivida del usuario actual según los datos recividos
 		try {
 			for (Playlist p: usuarioActivo.getPlaylists()) {
 				if(p.getNombre().equals(playlists)) {
+					// Borrar los datos de la playlist
 					p.borrarCanciones();
+					// Extraer datos
 					ArrayList<Integer> f = datos.getIds();
+					// Añadir datos extraidos a la playlist
+					// Modificar playlist
 					for(int a: f) {
 						p.addCancion(adaptadorCancion.recuperarCancion(a));
 					}
 					return true;
 				}
 			}
-			// Borrar los datos de la playlist
-			// Extraer datos
-			// Añadir datos extraidos a la playlist
-			// Modificar playlist
-		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -436,10 +453,6 @@ public class AppMusic {
 			}
 			break;
 		}
-	}
-
-	public String buscarRutaCancion(int id) {
-		return catalogoCanciones.getCancion(id).getrutaFichero();
 	}
 
 	public boolean añadirCancion(String rutaFichero) {
@@ -491,14 +504,6 @@ public class AppMusic {
 
 	public boolean isCancionMidway() {
 		return Reproductor.getUnicaInstancia().isCancionMidway();
-	}
-
-	public Descuento getDescuentoUsuario() {
-		return usuarioActivo.getDesc();
-	}
-
-	public void setDescuentoUsuario(Usuario usuario, Descuento desc) {
-		usuario.setDesc(desc);
 	}
 
 	public boolean añadirDatosTabla(Cancion c, DatosTabla datos) {
@@ -554,26 +559,8 @@ public class AppMusic {
 		return getListaCheckFavoritas(playlist.getCanciones());
 	}
 
-	public JFrame getVentanaActual() {
-		return ventanaActual;
-	}
-
-	public void setVentanaActual(JFrame ventanaActual) {
-		this.ventanaActual = ventanaActual;
-	}
-
 	public boolean addView(String ruta) {
 		return getCancion(ruta).addView();
-	}
-	
-	public Cancion getCancion(String ruta) {
-		List<Cancion> cancion = catalogoCanciones.getCanciones().stream().filter(c -> c.getrutaFichero().equals(ruta)).toList();
-		return cancion.get(0);
-	}
-	
-	public Cancion getCancion(int id) {
-		List<Cancion> cancion = catalogoCanciones.getCanciones().stream().filter(c -> c.getId() == id).toList();
-		return cancion.get(0);
 	}
 
 	public boolean addRecientes(String rutaCancion) {

@@ -27,6 +27,7 @@ public class PanelReproduccionMP3 extends PanelReproduccion {
 			Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/pausa.png")));
 			Play_Stop.setSelected(true);
 			addView(rutaCancion);
+			addRecientes(rutaCancion);
 			revalidate();
 			repaint();
 		}

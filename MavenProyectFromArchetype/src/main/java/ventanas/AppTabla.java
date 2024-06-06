@@ -112,7 +112,6 @@ public class AppTabla extends JTable {
 				AppMusic.getUnicaInstancia().getUsuarioActivo().getFavoritas()
 						.eliminarCancion(ids.get(getSelectedRow()));
 			}
-			AppMusic.getUnicaInstancia().getUsuarioActivo().getFavoritas();
 		}
 		return false;
 	}
