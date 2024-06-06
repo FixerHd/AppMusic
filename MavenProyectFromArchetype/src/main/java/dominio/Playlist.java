@@ -53,6 +53,18 @@ public class Playlist {
 		canciones.removeAll(canciones);
 	}
 
-
+	public boolean eliminarCancion(int id) {
+		for (int i = 0; i < canciones.size(); i++) {
+			if (canciones.get(i).getId() == id) {
+				canciones.remove(i);
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean eliminarCancion(Cancion cancion) {
+		return eliminarCancion(cancion.getId());
+	}
 
 }

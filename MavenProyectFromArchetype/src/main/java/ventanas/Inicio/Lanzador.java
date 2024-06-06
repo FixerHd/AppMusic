@@ -3,10 +3,8 @@ package ventanas.Inicio;
 import javax.swing.UIManager;
 
 import Controlador.AppMusic;
-import umu.tds.maven.apps.MavenProyectFromArchetype.App;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.MalformedURLException;
 
 public class Lanzador {

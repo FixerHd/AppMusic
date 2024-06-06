@@ -26,7 +26,8 @@ public class PanelReproduccionMP3 extends PanelReproduccion {
 		} else {
 			Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/pausa.png")));
 			Play_Stop.setSelected(true);
-			AppMusic.getUnicaInstancia().addView(rutaCancion);
+			addView(rutaCancion);
+			addRecientes(rutaCancion);
 			revalidate();
 			repaint();
 		}
@@ -44,7 +45,7 @@ public class PanelReproduccionMP3 extends PanelReproduccion {
 			Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/pausa.png")));
 			this.rutaCancion = rutaCancionMP3;
 			Play_Stop.setSelected(true);
-			AppMusic.getUnicaInstancia().addView(rutaCancion);
+			addView(rutaCancion);
 			revalidate();
 			repaint();
 		}
