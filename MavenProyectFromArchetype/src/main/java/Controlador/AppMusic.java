@@ -207,7 +207,7 @@ public class AppMusic {
 		return usuarioActivo != null;
 	}
 
-	public boolean verficarUsuarioGit(String usuario, String contraseña) {
+	public boolean verficarUsuarioGit(String usuario, String contraseña, String rutaCertificado) {
 		try {
 			GitHub github = GitHubBuilder.fromEnvironment().build();
 

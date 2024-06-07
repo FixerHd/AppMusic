@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -13,11 +15,13 @@ import java.awt.Insets;
 
 import Controlador.AppMusic;
 import Utilidades.Constantes;
+import pulsador.Luz;
 import ventanas.HintTextField;
 
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JTextField;
 import java.awt.Color;
 import javax.swing.ImageIcon;
@@ -32,6 +36,7 @@ public class LoginGit extends JFrame {
 	private static final int WIDTH = 450;
 	private static final int HEIGHT = 300;
 	private JPanel contentPane;
+	private HintTextField Texto_Certificado;
 
 	// Singleton
 	public static LoginGit getInstancia() {
@@ -94,10 +99,10 @@ public class LoginGit extends JFrame {
 		Text_panel.setBorder(null);
 		contentPane.add(Text_panel, BorderLayout.WEST);
 		GridBagLayout gbl_Text_panel = new GridBagLayout();
-		gbl_Text_panel.columnWidths = new int[] { 50, 80, 15, 200, 50, 0 };
-		gbl_Text_panel.rowHeights = new int[] { 15, 35, 15, 35, 15, 0 };
-		gbl_Text_panel.columnWeights = new double[] { 1.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE };
-		gbl_Text_panel.rowWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
+		gbl_Text_panel.columnWidths = new int[] { 50, 80, 15, 200, 5, 0, 50, 0 };
+		gbl_Text_panel.rowHeights = new int[] { 15, 35, 15, 35, 0, 35, 15, 0 };
+		gbl_Text_panel.columnWeights = new double[] { 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
+		gbl_Text_panel.rowWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
 		Text_panel.setLayout(gbl_Text_panel);
 
 		JLabel Usuario_Git = new JLabel("Usuario Git:");
@@ -112,6 +117,7 @@ public class LoginGit extends JFrame {
 		JTextField Texto_Usuario = new HintTextField("Usuario");
 		Texto_Usuario.setColumns(4);
 		GridBagConstraints gbc_Texto_Usuario = new GridBagConstraints();
+		gbc_Texto_Usuario.gridwidth = 3;
 		gbc_Texto_Usuario.fill = GridBagConstraints.BOTH;
 		gbc_Texto_Usuario.insets = new Insets(0, 0, 5, 5);
 		gbc_Texto_Usuario.gridx = 3;
@@ -131,11 +137,44 @@ public class LoginGit extends JFrame {
 		Texto_Contraseña.setSelectedTextColor(Color.WHITE);
 		Texto_Contraseña.setColumns(10);
 		GridBagConstraints gbc_Texto_Contraseña = new GridBagConstraints();
+		gbc_Texto_Contraseña.gridwidth = 3;
 		gbc_Texto_Contraseña.fill = GridBagConstraints.BOTH;
 		gbc_Texto_Contraseña.insets = new Insets(0, 0, 5, 5);
 		gbc_Texto_Contraseña.gridx = 3;
 		gbc_Texto_Contraseña.gridy = 3;
 		Text_panel.add(Texto_Contraseña, gbc_Texto_Contraseña);
+		
+		JLabel Certificado = new JLabel("Certificado:");
+		Certificado.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 16));
+		GridBagConstraints gbc_Certificado = new GridBagConstraints();
+		gbc_Certificado.insets = new Insets(0, 0, 5, 5);
+		gbc_Certificado.gridx = 1;
+		gbc_Certificado.gridy = 5;
+		Text_panel.add(Certificado, gbc_Certificado);
+		
+		Texto_Certificado = new HintTextField("Ruta Certificado");
+		Texto_Certificado.setSelectedTextColor(Color.WHITE);
+		Texto_Certificado.setColumns(10);
+		GridBagConstraints gbc_Texto_Certificado = new GridBagConstraints();
+		gbc_Texto_Certificado.insets = new Insets(0, 0, 5, 5);
+		gbc_Texto_Certificado.fill = GridBagConstraints.BOTH;
+		gbc_Texto_Certificado.gridx = 3;
+		gbc_Texto_Certificado.gridy = 5;
+		Text_panel.add(Texto_Certificado, gbc_Texto_Certificado);
+		
+		Luz luz = new Luz();
+		luz.setEncendido(true);
+		luz.setColor(new Color(0, 0, 255));
+		luz.addEncendidoListener(ev -> {
+			luz.setEncendido(true);
+			extraerRuta();
+		});
+		GridBagConstraints gbc_Luz = new GridBagConstraints();
+		gbc_Luz.insets = new Insets(0, 0, 5, 5);
+		gbc_Luz.fill = GridBagConstraints.HORIZONTAL;
+		gbc_Luz.gridx = 5;
+		gbc_Luz.gridy = 5;
+		Text_panel.add(luz, gbc_Luz);
 
 		JPanel Title_panel = new JPanel();
 		Title_panel.setBorder(null);
@@ -232,13 +271,24 @@ public class LoginGit extends JFrame {
 		Botón_Login_Git.setIcon(new ImageIcon(LoginGit.class.getResource("/recursos/github.png")));
 		Botón_Login_Git.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		Botón_Login_Git.addActionListener(ev -> {
-			if (AppMusic.getUnicaInstancia().verficarUsuarioGit(Texto_Usuario.getText(), Texto_Contraseña.getText())) {
+			if (AppMusic.getUnicaInstancia().verficarUsuarioGit(Texto_Usuario.getText(), Texto_Contraseña.getText(), Texto_Certificado.getText())) {
 				AppMusic.getUnicaInstancia().mostrarVentanaPrincipal();
 			} else {
 				AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_INICIO_SESION_MENSAJE);
 			}
 		});
 		Bottons_panel.add(Botón_Login_Git);
+	}
+
+	private void extraerRuta() {
+		JFileChooser chooser = new JFileChooser();
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("properties");
+		chooser.setFileFilter(filter);
+		int returnVal = chooser.showOpenDialog(AppMusic.getUnicaInstancia().getVentanaActual());
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			String ruta = chooser.getSelectedFile().getPath();
+			Texto_Certificado.setText(ruta);
+		}
 	}
 
 }
