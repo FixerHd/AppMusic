@@ -16,8 +16,13 @@ public class Playlist {
 		return canciones;
 	}
 
-	public void addCancion(Cancion cancion) {
-		canciones.add(cancion);
+	public boolean addCancion(Cancion cancion) {
+		for (Cancion c : canciones) {
+			if(c.getId() == cancion.getId()) {
+				return false;
+			}
+		}
+		return canciones.add(cancion);
 	}
 
 	public void setCanciones(String canciones2) {
