@@ -209,16 +209,22 @@ public class AppMusic {
 
 	public boolean verficarUsuarioGit(String usuario, String contraseña, String rutaCertificado) {
 		try {
-			GitHub github = GitHubBuilder.fromEnvironment().build();
+			GitHub github = GitHubBuilder.fromPropertyFile(rutaCertificado).build();
 
 			if (github.isCredentialValid()) {
 				GHUser ghuser = github.getMyself();
 				System.out.println("Validado! " + ghuser.getLogin());
-				System.out.println("¿Login válido?: true");
-				usuarioActivo = catalogoUsuarios.addUsuario(usuario, null, contraseña, null);
-				return (ghuser.getLogin().equals(usuario) && github.isCredentialValid());
+				if(ghuser.getLogin().equals(usuario) && github.isCredentialValid()) {
+					usuarioActivo = new Usuario(usuario, null, contraseña, null);
+					CatalogoUsuarios.getUnicaInstancia().addUsuario(usuarioActivo);
+					adaptadorUsuario.registrarUsuario(usuarioActivo);
+					return usuarioActivo != null;
+				}
+
+				return false;
 			}
-			return true;
+			return false;
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
