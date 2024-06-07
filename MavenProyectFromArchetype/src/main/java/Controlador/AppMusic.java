@@ -8,9 +8,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Iterator;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.kohsuke.github.GHUser;
 import org.kohsuke.github.GitHub;
@@ -454,10 +456,10 @@ public class AppMusic {
 				return true;
 			}
 		}
-		return false;
 		}catch(Exception e) {
-		return false;
+			e.printStackTrace();
 		}
+		return false;
 	}
 
 	public boolean añadirCancion(String rutaFichero) {
@@ -597,5 +599,16 @@ public class AppMusic {
 	public void eliminarCancionFavorita(int id) {
 		usuarioActivo.getFavoritas().eliminarCancion(getCancion(id));
 		
+	}
+
+	public void añadirCancionNueva() {
+		JFileChooser chooser = new JFileChooser();
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("MP3 Audios", "mp3");
+		chooser.setFileFilter(filter);
+		int returnVal = chooser.showOpenDialog(ventanaActual);
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			String ruta = chooser.getSelectedFile().getPath();
+			AppMusic.getUnicaInstancia().añadirCancion(ruta);
+		}
 	}
 }

@@ -324,14 +324,7 @@ public class Principal extends JFrame implements PaymentObserver {
 		luz.setColor(new Color(0, 128, 0));
 		luz.addEncendidoListener(ev -> {
 			luz.setEncendido(true);
-			JFileChooser chooser = new JFileChooser();
-			FileNameExtensionFilter filter = new FileNameExtensionFilter("MP3 Audios", "mp3");
-			chooser.setFileFilter(filter);
-			int returnVal = chooser.showOpenDialog(this);
-			if (returnVal == JFileChooser.APPROVE_OPTION) {
-				String ruta = chooser.getSelectedFile().getPath();
-				AppMusic.getUnicaInstancia().añadirCancion(ruta);
-			}
+			AppMusic.getUnicaInstancia().añadirCancionNueva();
 		});
 		Layout.add(luz);
 

@@ -63,7 +63,7 @@ public class Cancion {
 
 	public boolean addView() {
 		try {
-			setnumReproducciones(numReproducciones++);
+			setnumReproducciones(++numReproducciones);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -3,6 +3,7 @@ package dominio;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputFilter.Status;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -124,7 +125,7 @@ public class Reproductor {
 
 	public boolean isCancionMidway() {
 		if (mediaPlayer != null)
-			return mediaPlayer.getCurrentTime().equals(Duration.ZERO);
+			return mediaPlayer.getStatus().equals(javafx.scene.media.MediaPlayer.Status.PAUSED);
 		else
 			return false;
 	}
