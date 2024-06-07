@@ -24,6 +24,7 @@ public class PanelListas extends JPanel {
 	private JList<String> lista;
 	private JScrollPane leftScrollPane;
 	private JScrollPane rightScrollPane;
+	private JSplitPane splitPane;
 
 	/**
 	 * Create the panel.
@@ -32,7 +33,7 @@ public class PanelListas extends JPanel {
 		setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setLayout(new BorderLayout(0, 0));
 
-		JSplitPane splitPane = new JSplitPane();
+		splitPane = new JSplitPane();
 		splitPane.setOneTouchExpandable(true);
 		add(splitPane);
 
@@ -92,10 +93,10 @@ public class PanelListas extends JPanel {
 	}
 
 	public void setTable(DatosTabla datos) {
-		remove(rightScrollPane);
+		splitPane.remove(rightScrollPane);
 		table = new AppTabla(datos);
 		rightScrollPane = new JScrollPane(table);
-		add(rightScrollPane);
+		splitPane.setRightComponent(rightScrollPane);
 	}
 
 }

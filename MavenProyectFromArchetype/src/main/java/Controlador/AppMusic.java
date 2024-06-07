@@ -2,7 +2,6 @@ package Controlador;
 
 import java.awt.Container;
 import java.io.IOException;
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -51,16 +50,15 @@ public class AppMusic {
 
 	private static String estilo = Constantes.ESTILO_POR_DEFECTO;
 
-	// vestigio
 	private ArrayList<JFrame> ventanasActivas = new ArrayList<JFrame>();
 	private JFrame ventanaActual = new JFrame();
 
 	private CatalogoUsuarios catalogoUsuarios;
 	private CatalogoCanciones catalogoCanciones;
 	private Usuario usuarioActivo;
-	
+
 	private PlayNotificationService playService = new PlayNotificationService();
-	
+
 	public AppMusic() {
 		// Debe ser la primera linea para evitar error de sincronización
 		inicializarAdaptadores();
@@ -68,11 +66,10 @@ public class AppMusic {
 		try {
 			CargadorCanciones.INSTANCE.cargarCanciones();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static AppMusic getUnicaInstancia() {
 		if (unicaInstancia == null) {
 			unicaInstancia = new AppMusic();
@@ -96,11 +93,11 @@ public class AppMusic {
 		catalogoUsuarios = CatalogoUsuarios.getUnicaInstancia();
 		catalogoCanciones = CatalogoCanciones.getUnicaInstancia();
 	}
-	
+
 	public Usuario getUsuarioActivo() {
 		return usuarioActivo;
 	}
-	
+
 	public JFrame getVentanaActual() {
 		return ventanaActual;
 	}
@@ -112,7 +109,7 @@ public class AppMusic {
 	public ArrayList<JFrame> getVentanas() {
 		return ventanasActivas;
 	}
-	
+
 	public List<Cancion> getCanciones() {
 		return catalogoCanciones.getCanciones();
 	}
@@ -124,7 +121,7 @@ public class AppMusic {
 	public PlayNotificationService getPlayService() {
 		return playService;
 	}
-	
+
 	public Descuento getDescuentoUsuario() {
 		return usuarioActivo.getDesc();
 	}
@@ -142,7 +139,6 @@ public class AppMusic {
 		// Si el estilo eslegido es el acutal, no hacer nada
 		if (estilo.equals(AppMusic.estilo)) {
 		} else {
-
 			// Se eliminan todas las instancias de las ventanas
 			limpiarVentanas();
 
@@ -161,28 +157,27 @@ public class AppMusic {
 			mostrarVentanaPrincipal();
 		}
 	}
-	
+
 	public Cancion getCancion(int id) {
 		return adaptadorCancion.recuperarCancion(id);
 	}
-	
+
 	public Cancion getCancion(String ruta) {
-		List<Cancion> cancion = catalogoCanciones.getCanciones().stream().filter(c -> c.getrutaFichero().equals(ruta)).toList();
+		List<Cancion> cancion = catalogoCanciones.getCanciones().stream().filter(c -> c.getrutaFichero().equals(ruta))
+				.toList();
 		return cancion.get(0);
 	}
-	
+
 	public String buscarRutaCancion(int id) {
 		return catalogoCanciones.getCancion(id).getrutaFichero();
 	}
-	
+
 	public void registrarCancion(Cancion Cancion) {
 		adaptadorCancion.registrarCancion(Cancion);
-
 		catalogoCanciones.addCancion(Cancion);
 	}
 
 	public void registrarPlaylist(Playlist Playlist) {
-
 		adaptadorPlaylist.registrarPlaylist(Playlist);
 	}
 
@@ -221,11 +216,9 @@ public class AppMusic {
 				System.out.println("Validado! " + ghuser.getLogin());
 				System.out.println("¿Login válido?: true");
 				usuarioActivo = catalogoUsuarios.addUsuario(usuario, null, contraseña, null);
-
 				return (ghuser.getLogin().equals(usuario) && github.isCredentialValid());
 			}
 			return true;
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -268,11 +261,11 @@ public class AppMusic {
 		JOptionPane.showMessageDialog(ventanaActual, mensaje, Constantes.NOMBRE_APLICACION,
 				JOptionPane.INFORMATION_MESSAGE, null);
 	}
-	
+
 	public boolean existeUsuario(String nombre) {
 		return CatalogoUsuarios.getUnicaInstancia().getUsuario(nombre) != null;
 	}
-	
+
 	/**
 	 * Checks if the active user has the specified playlist.
 	 * 
@@ -313,8 +306,7 @@ public class AppMusic {
 		DatosTabla p = new DatosTabla();
 		if (playlist.equals(Utilidades.Constantes.FAVORITAS)) {
 			añadirDatosTabla(usuarioActivo.getFavoritas(), p);
-		}
-		else {
+		} else {
 			p = getPlaylist(playlist);
 		}
 		return p;
@@ -323,7 +315,6 @@ public class AppMusic {
 	public DatosTabla buscarTendencias() {
 		DatosTabla nuevos_datos = new DatosTabla();
 		List<Cancion> cancionesOrdenadas = catalogoCanciones.cancionesOrdenadas();
-
 		cancionesOrdenadas.stream().limit(Utilidades.Constantes.LIMITE_PLAYLIST_ESTANDAR).forEach(c -> {
 			añadirDatosTabla(c, nuevos_datos);
 		});
@@ -423,19 +414,20 @@ public class AppMusic {
 		}
 		return false;
 	}
-	
+
 	public boolean actualizarPlaylist(String playlists, DatosTabla datos) {
-		// Se quiere actualizar la playlist recivida del usuario actual según los datos recividos
+		// Se quiere actualizar la playlist recivida del usuario actual según los datos
+		// recividos
 		try {
-			for (Playlist p: usuarioActivo.getPlaylists()) {
-				if(p.getNombre().equals(playlists)) {
+			for (Playlist p : usuarioActivo.getPlaylists()) {
+				if (p.getNombre().equals(playlists)) {
 					// Borrar los datos de la playlist
 					p.borrarCanciones();
 					// Extraer datos
 					ArrayList<Integer> f = datos.getIds();
 					// Añadir datos extraidos a la playlist
 					// Modificar playlist
-					for(int a: f) {
+					for (int a : f) {
 						p.addCancion(adaptadorCancion.recuperarCancion(a));
 					}
 					return true;
@@ -449,14 +441,14 @@ public class AppMusic {
 
 	public boolean añadirCancionPlaylist(String playlist, int idCancion) {
 		try {
-		for (Playlist p : usuarioActivo.getPlaylists()) {
-			if (p.getNombre().equals(playlist)) {
-				p.addCancion(getCancion(idCancion));
-				adaptadorPlaylist.modificarPlaylist(p);
-				return true;
+			for (Playlist p : usuarioActivo.getPlaylists()) {
+				if (p.getNombre().equals(playlist)) {
+					p.addCancion(getCancion(idCancion));
+					adaptadorPlaylist.modificarPlaylist(p);
+					return true;
+				}
 			}
-		}
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return false;
@@ -491,19 +483,18 @@ public class AppMusic {
 
 	public boolean reproducircancion(String rutaFichero) {
 		try {
-			for(Cancion c : CatalogoCanciones.getUnicaInstancia().getCanciones()) {
-				if(c.getrutaFichero().equals(rutaFichero)) {
+			for (Cancion c : CatalogoCanciones.getUnicaInstancia().getCanciones()) {
+				if (c.getrutaFichero().equals(rutaFichero)) {
 					usuarioActivo.añadirRecientes(c);
 					c.addView();
-					System.out.println(rutaFichero);
-					Reproductor.getUnicaInstancia().playCancionFich("./resources/canciones/"+rutaFichero);
+					//Reproductor.getUnicaInstancia().playCancionFich("./resources/canciones/"+rutaFichero);
 					return true;
 				}
 			}
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	return false;
+		return false;
 	}
 
 	public boolean reproducircancionURL(String i) {
@@ -599,7 +590,6 @@ public class AppMusic {
 
 	public void eliminarCancionFavorita(int id) {
 		usuarioActivo.getFavoritas().eliminarCancion(getCancion(id));
-		
 	}
 
 	public void añadirCancionNueva() {

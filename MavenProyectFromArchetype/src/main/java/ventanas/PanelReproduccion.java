@@ -84,7 +84,6 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 				pauseCancion();
 			} else {
 				if (AppMusic.getUnicaInstancia().isCancionMidway()) {
-					System.out.println("Prueba");
 					resumeCancion();
 				} else {
 					playCancion();

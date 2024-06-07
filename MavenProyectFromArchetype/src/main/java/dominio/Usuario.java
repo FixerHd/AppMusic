@@ -114,11 +114,7 @@ public class Usuario {
 	}
 
 	public void setPremium2(String b) {
-		if (b.equals("true")) {
-			premium = true;
-		} else {
-			premium = false;
-		}
+		premium = b.equals("true");
 	}
 
 	public String getPremium() {
