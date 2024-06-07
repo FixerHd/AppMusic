@@ -82,4 +82,19 @@ public class CatalogoCanciones {
 	
 	}
 	
+	public void actualizarAdaptador() {
+		for(Cancion c: Canciones.values()) {
+			adaptadorCancion.registrarCancion(c);
+		}
+		
+		List<Cancion> y = adaptadorCancion.recuperarTodosCanciones();
+		
+		for(Cancion c: y) {
+			if(!Canciones.values().contains(c)) {
+				adaptadorCancion.borrarCancion(c);
+			}
+		}
+		
+	}
+	
 }
