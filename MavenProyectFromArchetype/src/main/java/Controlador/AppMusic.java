@@ -161,8 +161,7 @@ public class AppMusic {
 	}
 	
 	public Cancion getCancion(int id) {
-		List<Cancion> cancion = catalogoCanciones.getCanciones().stream().filter(c -> c.getId() == id).toList();
-		return cancion.get(0);
+		return adaptadorCancion.recuperarCancion(id);
 	}
 	
 	public Cancion getCancion(String ruta) {
@@ -447,6 +446,7 @@ public class AppMusic {
 	}
 
 	public boolean añadirCancionPlaylist(String playlist, int idCancion) {
+		try {
 		for (Playlist p : usuarioActivo.getPlaylists()) {
 			if (p.getNombre().equals(playlist)) {
 				p.addCancion(getCancion(idCancion));
@@ -455,6 +455,9 @@ public class AppMusic {
 			}
 		}
 		return false;
+		}catch(Exception e) {
+		return false;
+		}
 	}
 
 	public boolean añadirCancion(String rutaFichero) {
