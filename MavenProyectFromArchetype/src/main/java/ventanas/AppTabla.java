@@ -78,6 +78,9 @@ public class AppTabla extends JTable {
 				changeFavorita();
 			}
 		});
+		
+		// Eliminar el elemento vacio inicial
+		model.removeRow(0);
 
 		// Rellenar la tabla y recoger los ids
 		for (int i = 0; i < datos.getTitulos().size(); i++) {

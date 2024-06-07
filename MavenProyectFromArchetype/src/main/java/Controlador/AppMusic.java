@@ -490,16 +490,14 @@ public class AppMusic {
 				if(c.getrutaFichero().equals(rutaFichero)) {
 					usuarioActivo.añadirRecientes(c);
 					c.addView();
-					Reproductor.getUnicaInstancia().playCancionFich(rutaFichero);
+					//Reproductor.getUnicaInstancia().playCancionFich(rutaFichero);
 					return true;
 				}
 			}
-			return false;
-			
 		}catch(Exception e) {
-			return false;
+			e.printStackTrace();
 		}
-		
+	return false;
 	}
 
 	public boolean reproducircancionURL(String i) {
@@ -559,7 +557,7 @@ public class AppMusic {
 		return usuario.getFavoritas();
 	}
 
-	public boolean isCancionFavourite(Integer idCancion) {
+	public boolean isCancionFavourite(int idCancion) {
 		return usuarioActivo.isCancionFavourite(idCancion);
 	}
 
