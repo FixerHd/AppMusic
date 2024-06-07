@@ -91,9 +91,9 @@ public class Login extends JFrame {
 		contentPane.add(Text_panel, BorderLayout.WEST);
 		GridBagLayout gbl_Text_panel = new GridBagLayout();
 		gbl_Text_panel.columnWidths = new int[] { 50, 80, 15, 200, 50, 0 };
-		gbl_Text_panel.rowHeights = new int[] { 15, 35, 15, 35, 15, 0 };
+		gbl_Text_panel.rowHeights = new int[] { 0, 10, 35, 15, 35, 10, 0, 0 };
 		gbl_Text_panel.columnWeights = new double[] { 1.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE };
-		gbl_Text_panel.rowWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
+		gbl_Text_panel.rowWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
 		Text_panel.setLayout(gbl_Text_panel);
 
 		JLabel Usuario = new JLabel("Usuario:");
@@ -102,7 +102,7 @@ public class Login extends JFrame {
 		gbc_Usuario.anchor = GridBagConstraints.EAST;
 		gbc_Usuario.insets = new Insets(0, 0, 5, 5);
 		gbc_Usuario.gridx = 1;
-		gbc_Usuario.gridy = 1;
+		gbc_Usuario.gridy = 2;
 		Text_panel.add(Usuario, gbc_Usuario);
 
 		JTextField Texto_Usuario = new HintTextField("Usuario");
@@ -111,7 +111,7 @@ public class Login extends JFrame {
 		gbc_Texto_Usuario.fill = GridBagConstraints.BOTH;
 		gbc_Texto_Usuario.insets = new Insets(0, 0, 5, 5);
 		gbc_Texto_Usuario.gridx = 3;
-		gbc_Texto_Usuario.gridy = 1;
+		gbc_Texto_Usuario.gridy = 2;
 		Text_panel.add(Texto_Usuario, gbc_Texto_Usuario);
 
 		JLabel Contraseña = new JLabel("Contraseña:");
@@ -120,7 +120,7 @@ public class Login extends JFrame {
 		gbc_Contraseña.anchor = GridBagConstraints.EAST;
 		gbc_Contraseña.insets = new Insets(0, 0, 5, 5);
 		gbc_Contraseña.gridx = 1;
-		gbc_Contraseña.gridy = 3;
+		gbc_Contraseña.gridy = 4;
 		Text_panel.add(Contraseña, gbc_Contraseña);
 
 		JTextField Texto_Contraseña = new HintTextField("Contraseña");
@@ -130,7 +130,7 @@ public class Login extends JFrame {
 		gbc_Texto_Contraseña.fill = GridBagConstraints.BOTH;
 		gbc_Texto_Contraseña.insets = new Insets(0, 0, 5, 5);
 		gbc_Texto_Contraseña.gridx = 3;
-		gbc_Texto_Contraseña.gridy = 3;
+		gbc_Texto_Contraseña.gridy = 4;
 		Text_panel.add(Texto_Contraseña, gbc_Texto_Contraseña);
 
 		JPanel Title_panel = new JPanel();
