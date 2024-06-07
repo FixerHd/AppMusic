@@ -22,7 +22,7 @@ public enum CargadorCanciones {
 		Path path = Paths.get(resourceURL.toURI());
 
 		if (hayCanciones(path)) {
-			printCanciones(path);
+			//printCanciones(path);
 			crearObjetosCancion(path);
 			return true;
 		} else
@@ -38,6 +38,7 @@ public enum CargadorCanciones {
 		return false; // Manejo de errores
 	}
 
+	/*
 	private void printCanciones(Path path) {
 		try {
 			List<Path> dirs = Files.list(path).collect(toList());
@@ -51,6 +52,7 @@ public enum CargadorCanciones {
 			System.err.println("Caught IOException: " + e.getMessage());
 		}
 	}
+	*/
 
 	private void crearObjetosCancion(Path path) {
 		// se crea objeto Categoria, esto no serÃ­a necesario en el caso prÃ¡ctico
@@ -73,6 +75,7 @@ public enum CargadorCanciones {
 					CatalogoCanciones.getUnicaInstancia().addCancion(cancion);
 				}
 			}
+			CatalogoCanciones.getUnicaInstancia().actualizarAdaptador();
 		} catch (IOException e) {
 			System.err.println("Caught IOException: " + e.getMessage());
 		}
