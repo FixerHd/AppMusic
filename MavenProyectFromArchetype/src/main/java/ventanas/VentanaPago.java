@@ -251,7 +251,7 @@ public class VentanaPago extends JFrame {
 
 	private boolean comprobacionesPago() {
 		if (Texto_CVC.getText().matches("[0-9]{3}")) {
-			if (Texto_Caducidad.getText().matches("(0[1-9]||1[0-2])/([0-2][0-9]||3[01])")) {
+			if (Texto_Caducidad.getText().matches("(0[1-9]||1[0-2])/((2[4-9])||[0-9]{2})")) {
 				if (Texto_Tarjeta.getText().matches("[0-9]{4} [0-9]{4} [0-9]{4} [0-9]{4}")) {
 					return true;
 				}
