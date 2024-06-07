@@ -608,4 +608,8 @@ public class AppMusic {
 			AppMusic.getUnicaInstancia().añadirCancion(ruta);
 		}
 	}
+	
+	public void comprobarGitProperties(String ruta) {
+		// TODO
+	}
 }
