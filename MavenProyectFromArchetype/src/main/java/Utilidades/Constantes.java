@@ -19,7 +19,7 @@ public class Constantes {
 			"Graphite", "Luna", "McWin", "Smart" };
 
 	public static final String[] ESTILOS_MUSICALES = { "CANTAUTOR", "CLASICA", "FLAMENCO", "JAZZ", "OPERA", "POP",
-			"ROCK", "ROMANTICA" };
+			"ROCK", "ROMANTICA", "OTRO" };
 
 	public static final int OKAY = 0;
 	public static final int ERROR_REGISTRO_CAMPOS = 1;
