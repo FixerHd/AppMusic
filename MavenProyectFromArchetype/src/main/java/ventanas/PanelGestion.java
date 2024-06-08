@@ -27,6 +27,7 @@ public class PanelGestion extends JPanel implements NextPreviousObserver, RutaOb
 	private JScrollPane scrollPane;
 	private PanelListas panelLista;
 	private PanelReproduccionMP3 Panel_Reproducción;
+	private HintTextField Texto_Título;
 
 	public PanelGestion() {
 		super();
@@ -39,26 +40,15 @@ public class PanelGestion extends JPanel implements NextPreviousObserver, RutaOb
 		gbl_panel_3.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		this.setLayout(gbl_panel_3);
 
-		JTextField Texto_Título = new HintTextField("Título");
+		Texto_Título = new HintTextField("Título");
 		GridBagConstraints gbc_Texto_Título = new GridBagConstraints();
-		gbc_Texto_Título.gridwidth = 5;
+		gbc_Texto_Título.gridwidth = 7;
 		gbc_Texto_Título.insets = new Insets(0, 0, 5, 5);
 		gbc_Texto_Título.fill = GridBagConstraints.HORIZONTAL;
 		gbc_Texto_Título.gridx = 1;
 		gbc_Texto_Título.gridy = 1;
 		this.add(Texto_Título, gbc_Texto_Título);
 		Texto_Título.setColumns(10);
-
-		JCheckBox Boton_Favoritas = new JCheckBox("Favoritas");
-		GridBagConstraints gbc_Boton_Favoritas = new GridBagConstraints();
-		gbc_Boton_Favoritas.anchor = GridBagConstraints.WEST;
-		gbc_Boton_Favoritas.insets = new Insets(0, 0, 5, 5);
-		gbc_Boton_Favoritas.gridx = 7;
-		gbc_Boton_Favoritas.gridy = 1;
-		Boton_Favoritas.addActionListener(ev -> {
-
-		});
-		add(Boton_Favoritas, gbc_Boton_Favoritas);
 
 		JButton Boton_Crear = new JButton("Crear");
 		Boton_Crear.setToolTipText(
@@ -70,20 +60,7 @@ public class PanelGestion extends JPanel implements NextPreviousObserver, RutaOb
 		gbc_Boton_Crear.gridx = 1;
 		gbc_Boton_Crear.gridy = 3;
 		Boton_Crear.addActionListener(ev -> {
-			String titulo = Texto_Título.getText();
-			if (!titulo.isEmpty()) {
-				añadirPlaylist(titulo);
-				DatosLista datos = AppMusic.getUnicaInstancia().getMisPlaylists(false);
-				if (datos != null) {
-					panelLista.setLista(datos.getNombres());
-					this.revalidate();
-					this.repaint();
-				} else {
-					AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_LISTA_VACIA_MENSAJE);
-				}
-			} else {
-				AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_TITULO_VACIO_MENSAJE);
-			}
+			crearPlaylist();
 		});
 		add(Boton_Crear, gbc_Boton_Crear);
 
@@ -94,15 +71,7 @@ public class PanelGestion extends JPanel implements NextPreviousObserver, RutaOb
 		gbc_panelListas.fill = GridBagConstraints.BOTH;
 		gbc_panelListas.gridx = 1;
 		gbc_panelListas.gridy = 5;
-		DatosLista datos = AppMusic.getUnicaInstancia().getMisPlaylists(Boton_Favoritas.isSelected());
-		if (datos != null) {
-			panelLista.setLista(datos.getNombres());
-			this.add(panelLista);
-			this.revalidate();
-			this.repaint();
-		} else {
-			AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_LISTA_VACIA_MENSAJE);
-		}
+		fillLista();
 		add(panelLista, gbc_panelListas);
 
 		JButton Boton_Eliminar = new JButton("Eliminar");
@@ -115,14 +84,6 @@ public class PanelGestion extends JPanel implements NextPreviousObserver, RutaOb
 		gbc_Boton_Eliminar.gridy = 3;
 		Boton_Eliminar.addActionListener(ev -> {
 			eliminarPlaylist(panelLista.getLista().getSelectedValue());
-			DatosLista datos2 = AppMusic.getUnicaInstancia().getMisPlaylists(Boton_Favoritas.isSelected());
-			if (datos2 != null) {
-				panelLista.setLista(datos2.getNombres());
-				this.revalidate();
-				this.repaint();
-			} else {
-				AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_LISTA_VACIA_MENSAJE);
-			}
 		});
 		add(Boton_Eliminar, gbc_Boton_Eliminar);
 
@@ -168,6 +129,34 @@ public class PanelGestion extends JPanel implements NextPreviousObserver, RutaOb
 
 	}
 
+	private void fillLista() {
+		DatosLista datos = AppMusic.getUnicaInstancia().getMisPlaylists();
+		if (datos != null) {
+			panelLista.setLista(datos.getNombres());
+			this.revalidate();
+			this.repaint();
+		} else {
+			AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_LISTA_VACIA_MENSAJE);
+		}
+	}
+
+	private void crearPlaylist() {
+		String titulo = Texto_Título.getText();
+		if (!titulo.isEmpty()) {
+			añadirPlaylist(titulo);
+			DatosLista datos = AppMusic.getUnicaInstancia().getMisPlaylists();
+			if (datos != null) {
+				panelLista.setLista(datos.getNombres());
+				this.revalidate();
+				this.repaint();
+			} else {
+				AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_LISTA_VACIA_MENSAJE);
+			}
+		} else {
+			AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_TITULO_VACIO_MENSAJE);
+		}
+	}
+
 	private void actualizarPlaylist() {
 		DatosTabla datos = new DatosTabla();
 		JTable table = panelLista.getTable();
@@ -194,6 +183,15 @@ public class PanelGestion extends JPanel implements NextPreviousObserver, RutaOb
 
 	private void eliminarPlaylist(String titulo) {
 		if (AppMusic.getUnicaInstancia().eliminarPlaylist(titulo)) {
+			DatosLista datos = AppMusic.getUnicaInstancia().getMisPlaylists();
+			if (datos != null) {
+				panelLista.setLista(datos.getNombres());
+				panelLista.setTable(new DatosTabla());
+				this.revalidate();
+				this.repaint();
+			} else {
+				AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_LISTA_VACIA_MENSAJE);
+			}
 			AppMusic.getUnicaInstancia().showPopup(Constantes.EXITO_ELIMINAR_PLAYLIST_MENSAJE);
 		} else {
 			AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_ELIMINAR_PLAYLIST_MENSAJE);

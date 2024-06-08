@@ -105,8 +105,7 @@ public class Registro extends JFrame {
 		Botón_Volver = new JButton("Volver");
 		Botón_Volver.setIcon(new ImageIcon(Registro.class.getResource("/recursos/flecha-hacia-atras.png")));
 		Botón_Volver.addActionListener(ev -> {
-			Selector.getInstancia().setVisible(true);
-			setVisible(false);
+			AppMusic.getUnicaInstancia().mostrarVentanaSelector(Botón_Registro);
 		});
 		panel.add(Botón_Volver);
 
@@ -233,29 +232,34 @@ public class Registro extends JFrame {
 		Botón_Registro = new JButton("Registro");
 		Botón_Registro.setIcon(new ImageIcon(Registro.class.getResource("/recursos/anadir.png")));
 		Botón_Registro.addActionListener(ev -> {
-			int resultado = AppMusic.getUnicaInstancia().registrarUsuario(Texto_Usuario.getText(),
-					Texto_Email.getText(), Texto_Contraseña.getText(), Seleccionador_Fecha.getDate(),
-					Texto_Nombre.getText(), (String) Grupo_elegido.getSelectedItem());
-
-			switch (resultado) {
-			case Constantes.ERROR_REGISTRO_CAMPOS:
-				AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_REGISTRO_CAMPOS_MENSAJE);
-				break;
-			case Constantes.ERROR_REGISTRO_CORREO:
-				AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_REGISTRO_CORREO_MENSAJE);
-				break;
-			case Constantes.ERROR_REGISTRO_FECHA:
-				AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_REGISTRO_FECHA_MENSAJE);
-				break;
-			case Constantes.ERROR_REGISTRO_DESCUENTO:
-				AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_REGISTRO_GRUPO_MENSAJE);
-				break;
-			case Constantes.OKAY:
-				Login.getInstancia().setVisible(true);
-				removeInstancia();
-			}
+			register();
 		});
 		panel.add(Botón_Registro);
+	}
+
+	private void register() {
+		int resultado = AppMusic.getUnicaInstancia().registrarUsuario(Texto_Usuario.getText(), Texto_Email.getText(),
+				Texto_Contraseña.getText(), Seleccionador_Fecha.getDate(), Texto_Nombre.getText(),
+				(String) Grupo_elegido.getSelectedItem());
+
+		switch (resultado) {
+		case Constantes.ERROR_REGISTRO_CAMPOS:
+			AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_REGISTRO_CAMPOS_MENSAJE);
+			break;
+		case Constantes.ERROR_REGISTRO_CORREO:
+			AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_REGISTRO_CORREO_MENSAJE);
+			break;
+		case Constantes.ERROR_REGISTRO_FECHA:
+			AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_REGISTRO_FECHA_MENSAJE);
+			break;
+		case Constantes.ERROR_REGISTRO_DESCUENTO:
+			AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_REGISTRO_GRUPO_MENSAJE);
+			break;
+		case Constantes.OKAY:
+			Login.getInstancia().setVisible(true);
+			AppMusic.getUnicaInstancia().setVentanaActual(Login.getInstancia());
+			removeInstancia();
+		}
 	}
 
 }

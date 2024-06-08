@@ -37,6 +37,19 @@ public class PanelListas extends JPanel {
 		splitPane.setOneTouchExpandable(true);
 		add(splitPane);
 
+		crearLista();
+
+		leftScrollPane = new JScrollPane(lista);
+		splitPane.setLeftComponent(leftScrollPane);
+
+		table = new AppTabla();
+		rightScrollPane = new JScrollPane(table);
+		splitPane.setRightComponent(rightScrollPane);
+
+		setVisible(true);
+	}
+
+	private void crearLista() {
 		lista = new JList<String>();
 		lista.setValueIsAdjusting(true);
 		lista.setVisibleRowCount(4);
@@ -53,22 +66,14 @@ public class PanelListas extends JPanel {
 				return values[index];
 			}
 		});
+
 		lista.getSelectionModel().addListSelectionListener(ev -> {
 			actualizarTabla();
 		});
-
-		leftScrollPane = new JScrollPane(lista);
-		splitPane.setLeftComponent(leftScrollPane);
-
-		table = new AppTabla();
-		rightScrollPane = new JScrollPane(table);
-		splitPane.setRightComponent(rightScrollPane);
-
-		setVisible(true);
 	}
 
 	private void actualizarTabla() {
-		if(lista.getSelectedValue() != null) {
+		if (lista.getSelectedValue() != null) {
 			DatosTabla datos = AppMusic.getUnicaInstancia().buscarCanciones(lista.getSelectedValue());
 			setTable(datos);
 			revalidate();

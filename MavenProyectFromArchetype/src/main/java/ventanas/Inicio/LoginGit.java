@@ -143,7 +143,7 @@ public class LoginGit extends JFrame {
 		gbc_Texto_Contraseña.gridx = 3;
 		gbc_Texto_Contraseña.gridy = 4;
 		Text_panel.add(Texto_Contraseña, gbc_Texto_Contraseña);
-		
+
 		JLabel Certificado = new JLabel("Certificado:");
 		Certificado.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 16));
 		GridBagConstraints gbc_Certificado = new GridBagConstraints();
@@ -151,7 +151,7 @@ public class LoginGit extends JFrame {
 		gbc_Certificado.gridx = 1;
 		gbc_Certificado.gridy = 6;
 		Text_panel.add(Certificado, gbc_Certificado);
-		
+
 		Texto_Certificado = new HintTextField("Ruta Certificado");
 		Texto_Certificado.setSelectedTextColor(Color.WHITE);
 		Texto_Certificado.setColumns(10);
@@ -161,7 +161,7 @@ public class LoginGit extends JFrame {
 		gbc_Texto_Certificado.gridx = 3;
 		gbc_Texto_Certificado.gridy = 6;
 		Text_panel.add(Texto_Certificado, gbc_Texto_Certificado);
-		
+
 		Luz luz = new Luz();
 		luz.setEncendido(true);
 		luz.setColor(new Color(0, 0, 255));
@@ -271,13 +271,18 @@ public class LoginGit extends JFrame {
 		Botón_Login_Git.setIcon(new ImageIcon(LoginGit.class.getResource("/recursos/github.png")));
 		Botón_Login_Git.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		Botón_Login_Git.addActionListener(ev -> {
-			if (AppMusic.getUnicaInstancia().verficarUsuarioGit(Texto_Usuario.getText(), Texto_Contraseña.getText(), Texto_Certificado.getText())) {
-				AppMusic.getUnicaInstancia().mostrarVentanaPrincipal();
-			} else {
-				AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_INICIO_SESION_MENSAJE);
-			}
+			login(Texto_Usuario, Texto_Contraseña);
 		});
 		Bottons_panel.add(Botón_Login_Git);
+	}
+
+	private void login(JTextField Texto_Usuario, JTextField Texto_Contraseña) {
+		if (AppMusic.getUnicaInstancia().verficarUsuarioGit(Texto_Usuario.getText(), Texto_Contraseña.getText(),
+				Texto_Certificado.getText())) {
+			AppMusic.getUnicaInstancia().mostrarVentanaPrincipal();
+		} else {
+			AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_INICIO_SESION_MENSAJE);
+		}
 	}
 
 	private void extraerRuta() {

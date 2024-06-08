@@ -69,17 +69,21 @@ public class PanelResultado extends JPanel implements NextPreviousObserver, Ruta
 		gbc_Eliminar_Canción.gridx = 5;
 		gbc_Eliminar_Canción.gridy = 3;
 		Añadir_Canción.addActionListener(ev -> {
-			playlist = playlistNameService.notifyObserver();
-			if (playlist != null) {
-				if(AppMusic.getUnicaInstancia().añadirCancionPlaylist(playlist, table.cancionId())) {
-					AppMusic.getUnicaInstancia().showPopup(Utilidades.Constantes.EXITO_AÑADIR_CANCION_PLAYLIST_MENSAJE);
-				} else {
-					AppMusic.getUnicaInstancia().showPopup(Utilidades.Constantes.ERROR_AÑADIR_CANCION_PLAYLIST_MENSAJE);
-				}
-				playlist = null;
-			}
+			añadirCancion();
 		});
 		this.add(Añadir_Canción, gbc_Eliminar_Canción);
+	}
+
+	private void añadirCancion() {
+		playlist = playlistNameService.notifyObserver();
+		if (playlist != null) {
+			if (AppMusic.getUnicaInstancia().añadirCancionPlaylist(playlist, table.cancionId())) {
+				AppMusic.getUnicaInstancia().showPopup(Utilidades.Constantes.EXITO_AÑADIR_CANCION_PLAYLIST_MENSAJE);
+			} else {
+				AppMusic.getUnicaInstancia().showPopup(Utilidades.Constantes.ERROR_AÑADIR_CANCION_PLAYLIST_MENSAJE);
+			}
+			playlist = null;
+		}
 	}
 
 	public void setPlaylist(String playlist) {

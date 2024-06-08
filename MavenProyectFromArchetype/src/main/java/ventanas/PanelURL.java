@@ -72,10 +72,7 @@ public class PanelURL extends JPanel implements NextPreviousObserver, RutaObserv
 		gbc_Boton_Buscar.gridx = 2;
 		gbc_Boton_Buscar.gridy = 5;
 		Boton_Buscar.addActionListener(ev -> {
-			if (Panel_Reproducción.playCancion(Texto_URL.getText())) {
-				Nombre.setText(Texto_URL.getText());
-			}
-			;
+			playCancion();
 		});
 		add(Boton_Buscar, gbc_Boton_Buscar);
 
@@ -104,6 +101,12 @@ public class PanelURL extends JPanel implements NextPreviousObserver, RutaObserv
 
 		this.setVisible(true);
 
+	}
+
+	private void playCancion() {
+		if (Panel_Reproducción.playCancion(Texto_URL.getText())) {
+			Nombre.setText(Texto_URL.getText());
+		}
 	}
 
 	@Override

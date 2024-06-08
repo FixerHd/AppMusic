@@ -162,7 +162,7 @@ public class AppMusic {
 	}
 
 	public Cancion getCancion(int id) {
-		//return adaptadorCancion.recuperarCancion(id);
+		// return adaptadorCancion.recuperarCancion(id);
 		return CatalogoCanciones.getUnicaInstancia().getCancion(id);
 	}
 
@@ -218,7 +218,7 @@ public class AppMusic {
 			if (github.isCredentialValid()) {
 				GHUser ghuser = github.getMyself();
 				System.out.println("Validado! " + ghuser.getLogin());
-				if(ghuser.getLogin().equals(usuario) && github.isCredentialValid()) {
+				if (ghuser.getLogin().equals(usuario) && github.isCredentialValid()) {
 					usuarioActivo = new Usuario(usuario, null, contraseña, null);
 					CatalogoUsuarios.getUnicaInstancia().addUsuario(usuarioActivo);
 					adaptadorUsuario.registrarUsuario(usuarioActivo);
@@ -349,7 +349,7 @@ public class AppMusic {
 	 * @param favoritas
 	 * @return
 	 */
-	public DatosLista getMisPlaylists(boolean favoritas) {
+	public DatosLista getMisPlaylists() {
 		// La idea es devolver los nombres y los identificadores
 		DatosLista nuevos_datos = new DatosLista();
 		for (Playlist p : usuarioActivo.getPlaylists()) {
@@ -486,7 +486,7 @@ public class AppMusic {
 		}
 		return false;
 	}
-	
+
 	public Reproductor getReproductor() {
 		return Reproductor.getUnicaInstancia();
 	}
@@ -615,33 +615,32 @@ public class AppMusic {
 			String ruta = chooser.getSelectedFile().getPath();
 			String nombreFichero = new java.io.File(ruta).getName();
 			String[] parte = nombreFichero.split("/");
-			
+
 			int f = parte.length;
-			
-			String nombreFichero2 = parte[f-1];
+
+			String nombreFichero2 = parte[f - 1];
 
 			String[] partes = nombreFichero2.split("-");
 			if (partes.length < 2) {
-					throw new IllegalArgumentException("El nombre del fichero debe estar en formato interprete-titulo");
+				throw new IllegalArgumentException("El nombre del fichero debe estar en formato interprete-titulo");
 			}
 			String interprete = partes[0].trim();
 			String titulo = partes[1].trim();
 			Path origenPath = Paths.get(ruta);
-			Path destinoPath = Paths.get("./resources/canciones/OTRO/"+interprete+" - "+titulo);
+			Path destinoPath = Paths.get("./resources/canciones/OTRO/" + interprete + " - " + titulo);
 			try {
 				Files.copy(origenPath, destinoPath);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			AppMusic.getUnicaInstancia().añadirCancion("OTRO/"+interprete+" - "+titulo, interprete, titulo);
+			AppMusic.getUnicaInstancia().añadirCancion("OTRO/" + interprete + " - " + titulo, interprete, titulo);
 			System.out.println(interprete);
 		}
 	}
 
-
 	public void actualizarUsuario(Usuario u) {
 		adaptadorUsuario.modificarUsuario(u);
-		
+
 	}
 }

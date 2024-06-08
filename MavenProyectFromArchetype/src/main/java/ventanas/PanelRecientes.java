@@ -55,9 +55,6 @@ public class PanelRecientes extends JPanel implements NextPreviousObserver, Ruta
 
 		Panel_Reproducción = new PanelReproduccionMP3(this, this);
 		panel.add(Panel_Reproducción, BorderLayout.NORTH);
-
-		this.setVisible(true);
-
 	}
 
 	public JTable getTable() {

@@ -11,8 +11,6 @@ import javax.swing.JToggleButton;
 import javax.swing.border.TitledBorder;
 
 import Controlador.AppMusic;
-import dominio.Reproductor;
-import javafx.scene.media.MediaPlayer;
 
 public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 
@@ -36,9 +34,7 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 	 * Create the panel.
 	 */
 	public PanelReproduccion(NextPreviousObserver nextPreviousObserver, RutaObserver rutaObserver) {
-		this.rutaService = new RutaNotificactionService(rutaObserver);
-		this.nextPreviousService = new NextPreviousNotificationService(nextPreviousObserver);
-		this.playService.subscribe(this);
+		inicializarServicios(nextPreviousObserver, rutaObserver);
 		setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 
 		GridBagLayout gbl_Panel_Reproducción = new GridBagLayout();
@@ -82,15 +78,7 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 		gbc_Play_Stop.gridx = 6;
 		gbc_Play_Stop.gridy = 1;
 		Play_Stop.addActionListener(ev -> {
-			if (!Play_Stop.isSelected()) {
-				pauseCancion();
-			} else {
-				if (AppMusic.getUnicaInstancia().isCancionMidway()) {
-					resumeCancion();
-				} else {
-					playCancion();
-				}
-			}
+			updateBotonPlayStop();
 		});
 		this.add(Play_Stop, gbc_Play_Stop);
 
@@ -105,6 +93,24 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 			nextPreviousService.notifyNext();
 		});
 		this.add(Choose_next, gbc_Choose_next);
+	}
+
+	private void updateBotonPlayStop() {
+		if (!Play_Stop.isSelected()) {
+			pauseCancion();
+		} else {
+			if (AppMusic.getUnicaInstancia().isCancionMidway()) {
+				resumeCancion();
+			} else {
+				playCancion();
+			}
+		}
+	}
+
+	private void inicializarServicios(NextPreviousObserver nextPreviousObserver, RutaObserver rutaObserver) {
+		this.rutaService = new RutaNotificactionService(rutaObserver);
+		this.nextPreviousService = new NextPreviousNotificationService(nextPreviousObserver);
+		this.playService.subscribe(this);
 	}
 
 	public JToggleButton getPlay_Stop() {

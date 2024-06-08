@@ -15,7 +15,7 @@ import Controlador.AppMusic;
 import Utilidades.Constantes;
 import dominio.DatosTabla;
 
-public class PanelBuscar extends JPanel implements PlaylistNameObserver{
+public class PanelBuscar extends JPanel implements PlaylistNameObserver {
 
 	private static final long serialVersionUID = 1L;
 	private static PanelBuscar unicaInstancia;
@@ -81,10 +81,7 @@ public class PanelBuscar extends JPanel implements PlaylistNameObserver{
 		gbc_Estilo.fill = GridBagConstraints.HORIZONTAL;
 		gbc_Estilo.gridx = 2;
 		gbc_Estilo.gridy = 5;
-		Estilo.addItem("");
-		for (String s : Constantes.ESTILOS_MUSICALES) {
-			Estilo.addItem(s);
-		}
+		añadirEstilos();
 		this.add(Estilo, gbc_Estilo);
 
 		Botón_Buscar = new JButton("Buscar");
@@ -95,58 +92,64 @@ public class PanelBuscar extends JPanel implements PlaylistNameObserver{
 		gbc_Botón_Buscar.gridx = 5;
 		gbc_Botón_Buscar.gridy = 3;
 		Botón_Buscar.addActionListener(ev -> {
-			String titulo = Texto_Titulo.getText();
-			if (titulo.equals("Titulo")) {
-				titulo = "";
-			}
-			String interprete = Texto_Interprete.getText();
-			if (interprete.equals("Interprete")) {
-				interprete = "";
-			}
-			
-			DatosTabla datos = AppMusic.getUnicaInstancia().buscarCanciones(titulo,
-					interprete, (String) Estilo.getSelectedItem(), Botón_Favoritas.isSelected());
-			if (datos != null) {
-				gbl_panelBuscar.columnWidths = new int[] { 20, 10, 198, 0, 30, 50, 10, 20, 0 };
-				gbl_panelBuscar.rowHeights = new int[] { 10, 20, 10, 20, 10, 20, 10, 0, 10, 0 };
-				gbl_panelBuscar.columnWeights = new double[] { 0.0, 0.0, 0.0, 2.0, 0.0, 1.0, 0.0, 0.0,
-						Double.MIN_VALUE };
-				gbl_panelBuscar.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0,
-						Double.MIN_VALUE };
-				GridBagConstraints gbc_panelResultado = new GridBagConstraints();
-				gbc_panelResultado.fill = GridBagConstraints.BOTH;
-				gbc_panelResultado.gridx = 1;
-				gbc_panelResultado.gridy = 7;
-				gbc_panelResultado.gridwidth = 6;
-				panelResultado.setTable(datos);
-				this.setLayout(gbl_panelBuscar);
-				this.add(panelResultado, gbc_panelResultado);
-				panelResultado.setVisible(true);
-
-				// Recuperamos los nombres de las playlists del usuario y las añadimos al
-				// comboBox
-				updateSelector();
-				GridBagConstraints gbc_Selección_Playlist = new GridBagConstraints();
-				gbc_Selección_Playlist.fill = GridBagConstraints.HORIZONTAL;
-				gbc_Selección_Playlist.insets = new Insets(0, 0, 5, 5);
-				gbc_Selección_Playlist.gridx = 5;
-				gbc_Selección_Playlist.gridy = 5;
-				this.add(Selección_Playlist, gbc_Selección_Playlist);
-
-				this.revalidate();
-				this.repaint();
-			} else {
-				AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_TABLA_VACIA_MENSAJE);
-			}
+			buscarCanciones(gbl_panelBuscar);
 		});
 		this.add(Botón_Buscar, gbc_Botón_Buscar);
+	}
 
-		this.setVisible(true);
+	private void buscarCanciones(GridBagLayout gbl_panelBuscar) {
+		String titulo = Texto_Titulo.getText();
+		if (titulo.equals("Titulo")) {
+			titulo = "";
+		}
+		String interprete = Texto_Interprete.getText();
+		if (interprete.equals("Interprete")) {
+			interprete = "";
+		}
 
+		DatosTabla datos = AppMusic.getUnicaInstancia().buscarCanciones(titulo, interprete,
+				(String) Estilo.getSelectedItem(), Botón_Favoritas.isSelected());
+		if (datos != null) {
+			gbl_panelBuscar.columnWidths = new int[] { 20, 10, 198, 0, 30, 50, 10, 20, 0 };
+			gbl_panelBuscar.rowHeights = new int[] { 10, 20, 10, 20, 10, 20, 10, 0, 10, 0 };
+			gbl_panelBuscar.columnWeights = new double[] { 0.0, 0.0, 0.0, 2.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
+			gbl_panelBuscar.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE };
+			GridBagConstraints gbc_panelResultado = new GridBagConstraints();
+			gbc_panelResultado.fill = GridBagConstraints.BOTH;
+			gbc_panelResultado.gridx = 1;
+			gbc_panelResultado.gridy = 7;
+			gbc_panelResultado.gridwidth = 6;
+			panelResultado.setTable(datos);
+			this.setLayout(gbl_panelBuscar);
+			this.add(panelResultado, gbc_panelResultado);
+			panelResultado.setVisible(true);
+
+			// Recuperamos los nombres de las playlists del usuario y las añadimos al
+			// comboBox
+			updateSelector();
+			GridBagConstraints gbc_Selección_Playlist = new GridBagConstraints();
+			gbc_Selección_Playlist.fill = GridBagConstraints.HORIZONTAL;
+			gbc_Selección_Playlist.insets = new Insets(0, 0, 5, 5);
+			gbc_Selección_Playlist.gridx = 5;
+			gbc_Selección_Playlist.gridy = 5;
+			this.add(Selección_Playlist, gbc_Selección_Playlist);
+
+			this.revalidate();
+			this.repaint();
+		} else {
+			AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_TABLA_VACIA_MENSAJE);
+		}
+	}
+
+	private void añadirEstilos() {
+		Estilo.addItem("");
+		for (String s : Constantes.ESTILOS_MUSICALES) {
+			Estilo.addItem(s);
+		}
 	}
 
 	public void updateSelector() {
-		List<String> new_values = AppMusic.getUnicaInstancia().getMisPlaylists(false).getNombres();
+		List<String> new_values = AppMusic.getUnicaInstancia().getMisPlaylists().getNombres();
 		Selección_Playlist.removeAllItems();
 		for (String s : new_values) {
 			Selección_Playlist.addItem(s);

@@ -91,7 +91,7 @@ public class PanelTendencias extends JPanel implements NextPreviousObserver, Rut
 		String ruta = AppMusic.getUnicaInstancia().buscarRutaCancion(table.previousCancionId());
 		Panel_Reproducción.playCancion(ruta);
 	}
-	
+
 	@Override
 	public String updateRuta() {
 		return table.getRutaCancionSeleccionada();

@@ -58,9 +58,6 @@ public class PanelMisListas extends JPanel implements NextPreviousObserver, Ruta
 
 		Panel_Reproducción = new PanelReproduccionMP3(this, this);
 		panel.add(Panel_Reproducción, BorderLayout.NORTH);
-
-		this.setVisible(true);
-
 	}
 
 	public JList<String> getLista() {
@@ -95,7 +92,7 @@ public class PanelMisListas extends JPanel implements NextPreviousObserver, Ruta
 	public String updateRuta() {
 		return getRutaCancionSeleccionada();
 	}
-	
+
 	public String getRutaCancionSeleccionada() {
 		return panelListas.getTable().getRutaCancionSeleccionada();
 	}

@@ -46,7 +46,7 @@ public class Principal extends JFrame implements PaymentObserver {
 	private JLabel Premium;
 	private PanelMisListas panelLista;
 	private PanelBuscar panelBuscar;
-	
+
 	public PanelBuscar getPanelBuscar() {
 		return panelBuscar;
 	}
@@ -132,16 +132,7 @@ public class Principal extends JFrame implements PaymentObserver {
 		gbc_Botón_Buscar.gridx = 2;
 		gbc_Botón_Buscar.gridy = 1;
 		Botón_Buscar.addActionListener(ev -> {
-			if (!Botón_Buscar.isSelected()) {
-				principal.remove(panelBuscar);
-				principal.revalidate();
-				principal.repaint();
-			} else {
-				panelBuscar.updateSelector();
-				principal.add(panelBuscar);
-				principal.revalidate();
-				principal.repaint();
-			}
+			updatePanelBuscar(Botón_Buscar);
 		});
 		Columna.add(Botón_Buscar, gbc_Botón_Buscar);
 
@@ -160,15 +151,7 @@ public class Principal extends JFrame implements PaymentObserver {
 		gbc_Botón_Gestión.gridx = 2;
 		gbc_Botón_Gestión.gridy = 3;
 		Botón_Gestión.addActionListener(ev -> {
-			if (!Botón_Gestión.isSelected()) {
-				principal.remove(panelGestion);
-				principal.revalidate();
-				principal.repaint();
-			} else {
-				principal.add(panelGestion, BorderLayout.NORTH);
-				principal.revalidate();
-				principal.repaint();
-			}
+			updatePanelGestion(panelGestion, Botón_Gestión);
 		});
 		Columna.add(Botón_Gestión, gbc_Botón_Gestión);
 
@@ -188,21 +171,7 @@ public class Principal extends JFrame implements PaymentObserver {
 		gbc_Botón_Recientes.gridx = 2;
 		gbc_Botón_Recientes.gridy = 5;
 		Botón_Recientes.addActionListener(ev -> {
-			if (!Botón_Recientes.isSelected()) {
-				principal.remove(panelRecientes);
-				principal.revalidate();
-				principal.repaint();
-			} else {
-				DatosTabla datos = AppMusic.getUnicaInstancia().buscarRecientes();
-				if (datos != null) {
-					panelRecientes.setTable(datos);
-					principal.add(panelRecientes);
-					principal.revalidate();
-					principal.repaint();
-				} else {
-					AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_TABLA_VACIA_MENSAJE);
-				}
-			}
+			updatePanelRecientes(Botón_Recientes, panelRecientes);
 		});
 		Columna.add(Botón_Recientes, gbc_Botón_Recientes);
 
@@ -222,22 +191,7 @@ public class Principal extends JFrame implements PaymentObserver {
 		gbc_Botón_Playlists.gridx = 2;
 		gbc_Botón_Playlists.gridy = 7;
 		Botón_Playlists.addActionListener(ev -> {
-			if (!Botón_Playlists.isSelected()) {
-				principal.remove(panelLista);
-				principal.revalidate();
-				principal.repaint();
-			} else {
-				DatosLista datos = AppMusic.getUnicaInstancia().getMisPlaylists(false);
-				if (datos != null) {
-					datos.getNombres().add(Utilidades.Constantes.FAVORITAS);
-					panelLista.setLista(datos.getNombres());
-					principal.add(panelLista);
-					principal.revalidate();
-					principal.repaint();
-				} else {
-					AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_LISTA_VACIA_MENSAJE);
-				}
-			}
+			updatePanelPlaylists(Botón_Playlists);
 		});
 		Columna.add(Botón_Playlists, gbc_Botón_Playlists);
 
@@ -267,41 +221,11 @@ public class Principal extends JFrame implements PaymentObserver {
 		gbc_Boton_URL.gridy = 9;
 		PanelURL panelURL = new PanelURL();
 		Boton_URL.addActionListener(e -> {
-			if (!Boton_URL.isSelected()) {
-				principal.remove(panelURL);
-				principal.revalidate();
-				principal.repaint();
-			} else {
-				principal.add(panelURL);
-				principal.revalidate();
-				principal.repaint();
-			}
+			updatePanelURL(Boton_URL, panelURL);
 		});
 		Columna.add(Boton_URL, gbc_Boton_URL);
 
-		if (!AppMusic.getUnicaInstancia().isUsuarioActivoPremium()) {
-			Premium = new JLabel("");
-			Premium.setIcon(new ImageIcon(Principal.class.getResource("/recursos/calidad-premium.png")));
-			GridBagConstraints gbc_Premium = new GridBagConstraints();
-			gbc_Premium.insets = new Insets(0, 0, 5, 5);
-			gbc_Premium.gridx = 1;
-			gbc_Premium.gridy = 11;
-			Columna.add(Premium, gbc_Premium);
-
-			Botón_Premium = new JButton("Premium");
-			GridBagConstraints gbc_Botón_Premium = new GridBagConstraints();
-			gbc_Botón_Premium.fill = GridBagConstraints.HORIZONTAL;
-			gbc_Botón_Premium.insets = new Insets(0, 0, 5, 5);
-			gbc_Botón_Premium.gridx = 2;
-			gbc_Botón_Premium.gridy = 11;
-			Columna.add(Botón_Premium, gbc_Botón_Premium);
-			Botón_Premium.addActionListener(ev -> {
-				VentanaPago.getInstancia().setVisible(true);
-				AppMusic.getUnicaInstancia().setVentanaActual(Principal.getInstancia());
-			});
-		} else {
-			update();
-		}
+		comprobarPremium();
 
 		JLabel Logout = new JLabel("");
 		Logout.setIcon(new ImageIcon(Principal.class.getResource("/recursos/cerrar-sesion.png")));
@@ -330,12 +254,112 @@ public class Principal extends JFrame implements PaymentObserver {
 
 	}
 
-	public PanelMisListas getPanelLista() {
-		return panelLista;
+	private void comprobarPremium() {
+		if (!AppMusic.getUnicaInstancia().isUsuarioActivoPremium()) {
+			añadirBotonPremium();
+		} else {
+			updatePremium();
+		}
+	}
+
+	private void añadirBotonPremium() {
+		Premium = new JLabel("");
+		Premium.setIcon(new ImageIcon(Principal.class.getResource("/recursos/calidad-premium.png")));
+		GridBagConstraints gbc_Premium = new GridBagConstraints();
+		gbc_Premium.insets = new Insets(0, 0, 5, 5);
+		gbc_Premium.gridx = 1;
+		gbc_Premium.gridy = 11;
+		Columna.add(Premium, gbc_Premium);
+
+		Botón_Premium = new JButton("Premium");
+		GridBagConstraints gbc_Botón_Premium = new GridBagConstraints();
+		gbc_Botón_Premium.fill = GridBagConstraints.HORIZONTAL;
+		gbc_Botón_Premium.insets = new Insets(0, 0, 5, 5);
+		gbc_Botón_Premium.gridx = 2;
+		gbc_Botón_Premium.gridy = 11;
+		Columna.add(Botón_Premium, gbc_Botón_Premium);
+		Botón_Premium.addActionListener(ev -> {
+			VentanaPago.getInstancia().setVisible(true);
+			AppMusic.getUnicaInstancia().setVentanaActual(Principal.getInstancia());
+		});
+	}
+
+	private void updatePanelURL(JToggleButton Boton_URL, PanelURL panelURL) {
+		if (!Boton_URL.isSelected()) {
+			principal.remove(panelURL);
+			principal.revalidate();
+			principal.repaint();
+		} else {
+			principal.add(panelURL);
+			principal.revalidate();
+			principal.repaint();
+		}
+	}
+
+	private void updatePanelPlaylists(JToggleButton Botón_Playlists) {
+		if (!Botón_Playlists.isSelected()) {
+			principal.remove(panelLista);
+			principal.revalidate();
+			principal.repaint();
+		} else {
+			DatosLista datos = AppMusic.getUnicaInstancia().getMisPlaylists();
+			if (datos != null) {
+				datos.getNombres().add(Utilidades.Constantes.FAVORITAS);
+				panelLista.setLista(datos.getNombres());
+				principal.add(panelLista);
+				principal.revalidate();
+				principal.repaint();
+			} else {
+				AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_LISTA_VACIA_MENSAJE);
+			}
+		}
+	}
+
+	private void updatePanelRecientes(JToggleButton Botón_Recientes, PanelRecientes panelRecientes) {
+		if (!Botón_Recientes.isSelected()) {
+			principal.remove(panelRecientes);
+			principal.revalidate();
+			principal.repaint();
+		} else {
+			DatosTabla datos = AppMusic.getUnicaInstancia().buscarRecientes();
+			if (datos != null) {
+				panelRecientes.setTable(datos);
+				principal.add(panelRecientes);
+				principal.revalidate();
+				principal.repaint();
+			} else {
+				AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_TABLA_VACIA_MENSAJE);
+			}
+		}
+	}
+
+	private void updatePanelGestion(PanelGestion panelGestion, JToggleButton Botón_Gestión) {
+		if (!Botón_Gestión.isSelected()) {
+			principal.remove(panelGestion);
+			principal.revalidate();
+			principal.repaint();
+		} else {
+			principal.add(panelGestion, BorderLayout.NORTH);
+			principal.revalidate();
+			principal.repaint();
+		}
+	}
+
+	private void updatePanelBuscar(JToggleButton Botón_Buscar) {
+		if (!Botón_Buscar.isSelected()) {
+			principal.remove(panelBuscar);
+			principal.revalidate();
+			principal.repaint();
+		} else {
+			panelBuscar.updateSelector();
+			principal.add(panelBuscar);
+			principal.revalidate();
+			principal.repaint();
+		}
 	}
 
 	@Override
-	public void update() {
+	public void updatePremium() {
 		gbl_Columna.columnWidths = new int[] { 2, 32, 60, 1, 0 };
 		gbl_Columna.rowHeights = new int[] { 10, 32, 10, 32, 10, 32, 10, 32, 10, 32, 10, 32, 10, 32, 10, 0, 32, 10, 0 };
 		gbl_Columna.columnWeights = new double[] { 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
@@ -363,11 +387,7 @@ public class Principal extends JFrame implements PaymentObserver {
 		gbc_Botón_PDF.gridwidth = 1;
 		Columna.setLayout(gbl_Columna);
 		Botón_PDF.addActionListener(ev2 -> {
-			if (AppMusic.getUnicaInstancia().crearPDF()) {
-				AppMusic.getUnicaInstancia().showPopup(Constantes.EXITO_CREAR_PDF_MENSAJE);
-			} else {
-				AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_CREAR_PDF_MENSAJE);
-			}
+			crearPDF();
 		});
 		Columna.add(Botón_PDF, gbc_Botón_PDF);
 
@@ -388,21 +408,7 @@ public class Principal extends JFrame implements PaymentObserver {
 		gbc_Botón_Tendencias.gridwidth = 1;
 		Columna.setLayout(gbl_Columna);
 		Botón_Tendencias.addActionListener(ev2 -> {
-			if (!Botón_Tendencias.isSelected()) {
-				principal.remove(panelTendencias);
-				principal.revalidate();
-				principal.repaint();
-			} else {
-				DatosTabla datos = AppMusic.getUnicaInstancia().buscarTendencias();
-				if (datos != null) {
-					panelTendencias.setTable(datos);
-					principal.add(panelTendencias);
-					principal.revalidate();
-					principal.repaint();
-				} else {
-					AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_TABLA_VACIA_MENSAJE);
-				}
-			}
+			updatePanelTendencias(Botón_Tendencias, panelTendencias);
 		});
 		Columna.add(Botón_Tendencias, gbc_Botón_Tendencias);
 
@@ -410,6 +416,36 @@ public class Principal extends JFrame implements PaymentObserver {
 
 		Columna.revalidate();
 		Columna.repaint();
+	}
+
+	private void updatePanelTendencias(JToggleButton Botón_Tendencias, PanelTendencias panelTendencias) {
+		if (!Botón_Tendencias.isSelected()) {
+			principal.remove(panelTendencias);
+			principal.revalidate();
+			principal.repaint();
+		} else {
+			DatosTabla datos = AppMusic.getUnicaInstancia().buscarTendencias();
+			if (datos != null) {
+				panelTendencias.setTable(datos);
+				principal.add(panelTendencias);
+				principal.revalidate();
+				principal.repaint();
+			} else {
+				AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_TABLA_VACIA_MENSAJE);
+			}
+		}
+	}
+
+	private void crearPDF() {
+		if (AppMusic.getUnicaInstancia().crearPDF()) {
+			AppMusic.getUnicaInstancia().showPopup(Constantes.EXITO_CREAR_PDF_MENSAJE);
+		} else {
+			AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_CREAR_PDF_MENSAJE);
+		}
+	}
+
+	public PanelMisListas getPanelLista() {
+		return panelLista;
 	}
 
 }

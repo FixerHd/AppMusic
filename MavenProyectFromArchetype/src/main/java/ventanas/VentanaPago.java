@@ -180,21 +180,7 @@ public class VentanaPago extends JFrame {
 		gbc_Descuento.gridy = 5;
 		panel2.add(Descuento, gbc_Descuento);
 
-		DecimalFormat numberFormat = new DecimalFormat("#.00");
-		String stringDescuento;
-		if (AppMusic.getUnicaInstancia().getUsuarioActivo().getDesc().getTipoName().equals(Utilidades.Constantes.DESCUENTOS[0])) {
-			stringDescuento = "x 1";
-		} else {
-			double descuento = AppMusic.getUnicaInstancia().getUsuarioActivo().getDesc().getPorcentaje();
-			stringDescuento = "x 0" + numberFormat.format(descuento);
-		}
-
-		Descuento2 = new JLabel(stringDescuento);
-		GridBagConstraints gbc_Descuento2 = new GridBagConstraints();
-		gbc_Descuento2.insets = new Insets(0, 0, 5, 5);
-		gbc_Descuento2.gridx = 4;
-		gbc_Descuento2.gridy = 5;
-		panel2.add(Descuento2, gbc_Descuento2);
+		DecimalFormat numberFormat = mostrarReduccionDescuento();
 
 		CVC = new JLabel("CVC:");
 		CVC.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 14));
@@ -221,12 +207,8 @@ public class VentanaPago extends JFrame {
 		gbc_Total.gridx = 3;
 		gbc_Total.gridy = 6;
 		panel2.add(Total, gbc_Total);
-		
-		double total = Utilidades.Constantes.PRECIO_ESTANDAR;
-		if (AppMusic.getUnicaInstancia().getUsuarioActivo().getDesc() != null) {
-			total = AppMusic.getUnicaInstancia().getUsuarioActivo().getDesc()
-					.calcDescuento(total);
-		}
+
+		double total = calcularTotal();
 
 		Total2 = new JLabel(numberFormat.format(total));
 		GridBagConstraints gbc_Total2 = new GridBagConstraints();
@@ -238,15 +220,47 @@ public class VentanaPago extends JFrame {
 		Boton_Pago = new JButton("Realizar Pago");
 		Boton_Pago.setIcon(new ImageIcon(VentanaPago.class.getResource("/recursos/signo-de-dolar.png")));
 		Boton_Pago.addActionListener(ev -> {
-			if (comprobacionesPago()) {
-				notificationService.notifyObserver();
-				AppMusic.getUnicaInstancia().setVentanaActual(Principal.getInstancia());
-				removeInstancia();
-			} else {
-				AppMusic.getUnicaInstancia().showPopup(Utilidades.Constantes.ERROR_PAGO);
-			}
+			realizarPago();
 		});
 		panel.add(Boton_Pago);
+	}
+
+	private void realizarPago() {
+		if (comprobacionesPago()) {
+			notificationService.notifyObserver();
+			AppMusic.getUnicaInstancia().setVentanaActual(Principal.getInstancia());
+			removeInstancia();
+		} else {
+			AppMusic.getUnicaInstancia().showPopup(Utilidades.Constantes.ERROR_PAGO);
+		}
+	}
+
+	private double calcularTotal() {
+		double total = Utilidades.Constantes.PRECIO_ESTANDAR;
+		if (AppMusic.getUnicaInstancia().getUsuarioActivo().getDesc() != null) {
+			total = AppMusic.getUnicaInstancia().getUsuarioActivo().getDesc().calcDescuento(total);
+		}
+		return total;
+	}
+
+	private DecimalFormat mostrarReduccionDescuento() {
+		DecimalFormat numberFormat = new DecimalFormat("#.00");
+		String stringDescuento;
+		if (AppMusic.getUnicaInstancia().getUsuarioActivo().getDesc().getTipoName()
+				.equals(Utilidades.Constantes.DESCUENTOS[0])) {
+			stringDescuento = "x 1";
+		} else {
+			double descuento = AppMusic.getUnicaInstancia().getUsuarioActivo().getDesc().getPorcentaje();
+			stringDescuento = "x 0" + numberFormat.format(descuento);
+		}
+
+		Descuento2 = new JLabel(stringDescuento);
+		GridBagConstraints gbc_Descuento2 = new GridBagConstraints();
+		gbc_Descuento2.insets = new Insets(0, 0, 5, 5);
+		gbc_Descuento2.gridx = 4;
+		gbc_Descuento2.gridy = 5;
+		panel2.add(Descuento2, gbc_Descuento2);
+		return numberFormat;
 	}
 
 	private boolean comprobacionesPago() {

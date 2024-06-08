@@ -188,7 +188,6 @@ public class Login extends JFrame {
 		Botón_Volver.setIcon(new ImageIcon(Login.class.getResource("/recursos/flecha-hacia-atras.png")));
 		Botón_Volver.addActionListener(ev -> {
 			AppMusic.getUnicaInstancia().mostrarVentanaSelector(this);
-			setVisible(false);
 		});
 		Bottons_panel.add(Botón_Volver);
 
@@ -196,14 +195,18 @@ public class Login extends JFrame {
 		Botón_Login.setIcon(new ImageIcon(Login.class.getResource("/recursos/usuario.png")));
 		Botón_Login.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		Botón_Login.addActionListener(ev -> {
-			if (AppMusic.getUnicaInstancia().verficarUsuario(Texto_Usuario.getText(), Texto_Contraseña.getText())) {
-				AppMusic.getUnicaInstancia().mostrarVentanaPrincipal();
-			} else {
-				AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_INICIO_SESION_MENSAJE);
-			}
+			login(Texto_Usuario, Texto_Contraseña);
 		});
 		Bottons_panel.add(Botón_Login);
 
+	}
+
+	private void login(JTextField Texto_Usuario, JTextField Texto_Contraseña) {
+		if (AppMusic.getUnicaInstancia().verficarUsuario(Texto_Usuario.getText(), Texto_Contraseña.getText())) {
+			AppMusic.getUnicaInstancia().mostrarVentanaPrincipal();
+		} else {
+			AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_INICIO_SESION_MENSAJE);
+		}
 	}
 
 }
