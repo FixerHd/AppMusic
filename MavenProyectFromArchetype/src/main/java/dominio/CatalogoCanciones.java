@@ -63,9 +63,11 @@ public class CatalogoCanciones {
 	
 	public void addCancion(Cancion pro) {
 		Canciones.put(pro.getTitulo(),pro);
+		adaptadorCancion.registrarCancion(pro);
 	}
 	public void removeCancion(Cancion pro) {
 		Canciones.remove(pro.getTitulo());
+		adaptadorCancion.borrarCancion(pro);
 	}
 	
 	/*Recupera todos los Canciones para trabajar con ellos en memoria*/
@@ -83,10 +85,6 @@ public class CatalogoCanciones {
 	}
 	
 	public void actualizarAdaptador() {
-		for(Cancion c: Canciones.values()) {
-			adaptadorCancion.registrarCancion(c);
-		}
-		
 		List<Cancion> y = adaptadorCancion.recuperarTodosCanciones();
 		
 		for(Cancion c: y) {

@@ -10,6 +10,7 @@ import tds.driver.ServicioPersistencia;
 import beans.Entidad;
 import beans.Propiedad;
 
+import dominio.Playlist;
 import dominio.Cancion;
 
 //Usa un pool para evitar problemas doble referencia con Cancions
@@ -82,10 +83,11 @@ public class AdaptadorCancionTDS implements IAdaptadorCancionDAO {
 	}
 
 	public Cancion recuperarCancion(int Id) {
-
+/*
 		// Si la entidad est� en el pool la devuelve directamente
 		if (PoolDAO.getUnicaInstancia().contiene(Id))
 			return (Cancion) PoolDAO.getUnicaInstancia().getObjeto(Id);
+*/
 
 		// si no, la recupera de la base de datos
 		Entidad eCancion;
@@ -107,6 +109,8 @@ public class AdaptadorCancionTDS implements IAdaptadorCancionDAO {
 
 		Cancion Cancion = new Cancion(titulo, rutaFichero);
 		Cancion.setId(Id);
+		System.out.println(titulo);
+		System.out.println(Id);
 		Cancion.setnumReproducciones(Integer.valueOf(numReproducciones));
 		Cancion.setEstilomusical(estilomusical);
 		Cancion.setInterprete(interprete);

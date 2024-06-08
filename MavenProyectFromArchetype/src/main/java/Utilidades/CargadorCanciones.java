@@ -63,6 +63,7 @@ public enum CargadorCanciones {
 				String nombreCategoria = dir.toFile().getName();
 				String categoria = nombreCategoria;
 				for (Path file : Files.list(dir).collect(toList())) {
+					boolean b = false;
 					String nombreFichero = file.toFile().getName();
 					String rutaFichero = nombreCategoria + "/" + nombreFichero;
 					String[] partesNombre = nombreFichero.split("-");
@@ -72,7 +73,12 @@ public enum CargadorCanciones {
 					Cancion cancion = new Cancion(titulo, rutaFichero);
 					cancion.setEstilomusical(categoria);
 					cancion.setInterprete(interprete);
-					CatalogoCanciones.getUnicaInstancia().addCancion(cancion);
+					for (Cancion c : CatalogoCanciones.getUnicaInstancia().getCanciones()) {
+						if(cancion.getTitulo().equals(c.getTitulo()) && cancion.getInterprete().equals(c.getInterprete())) {
+							b = true;
+						}
+					}
+					if (!b) CatalogoCanciones.getUnicaInstancia().addCancion(cancion);
 				}
 			}
 			CatalogoCanciones.getUnicaInstancia().actualizarAdaptador();

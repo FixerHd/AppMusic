@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Iterator;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -159,7 +162,8 @@ public class AppMusic {
 	}
 
 	public Cancion getCancion(int id) {
-		return adaptadorCancion.recuperarCancion(id);
+		//return adaptadorCancion.recuperarCancion(id);
+		return CatalogoCanciones.getUnicaInstancia().getCancion(id);
 	}
 
 	public Cancion getCancion(String ruta) {
@@ -388,7 +392,7 @@ public class AppMusic {
 		Playlist nuevaPlaylist = new Playlist(titulo);
 		usuarioActivo.addPlaylist(nuevaPlaylist);
 		adaptadorPlaylist.registrarPlaylist(nuevaPlaylist);
-		adaptadorUsuario.modificarUsuario(usuarioActivo);
+		actualizarUsuario(usuarioActivo);
 		return true;
 	}
 
@@ -400,7 +404,7 @@ public class AppMusic {
 			Playlist p = iterator.next();
 			if (p.getNombre().equals(playlist)) {
 				iterator.remove();
-				adaptadorUsuario.modificarUsuario(usuarioActivo);
+				actualizarUsuario(usuarioActivo);
 				adaptadorPlaylist.borrarPlaylist(p);
 				return true;
 			}
@@ -428,8 +432,6 @@ public class AppMusic {
 	}
 
 	public boolean actualizarPlaylist(String playlists, DatosTabla datos) {
-		// Se quiere actualizar la playlist recivida del usuario actual según los datos
-		// recividos
 		try {
 			for (Playlist p : usuarioActivo.getPlaylists()) {
 				if (p.getNombre().equals(playlists)) {
@@ -442,6 +444,7 @@ public class AppMusic {
 					for (int a : f) {
 						p.addCancion(adaptadorCancion.recuperarCancion(a));
 					}
+					adaptadorPlaylist.modificarPlaylist(p);
 					return true;
 				}
 			}
@@ -466,22 +469,13 @@ public class AppMusic {
 		return false;
 	}
 
-	public boolean añadirCancion(String rutaFichero) {
+	public boolean añadirCancion(String rutaFichero, String interprete, String titulo) {
 		try {
-			// Extraer el nombre del archivo de la ruta del fichero
-			String nombreFichero = new java.io.File(rutaFichero).getName();
-
-			// Dividir el nombre del archivo en el intérprete y el título
-			String[] partes = nombreFichero.split("-");
-			if (partes.length < 2) {
-				throw new IllegalArgumentException("El nombre del fichero debe estar en formato interprete-titulo");
-			}
-			String interprete = partes[0].trim();
-			String titulo = partes[1].trim();
 
 			// Crear la nueva canción con el intérprete y el título
-			Cancion nuevaCancion = new Cancion(rutaFichero, titulo);
+			Cancion nuevaCancion = new Cancion(titulo, rutaFichero);
 			nuevaCancion.setInterprete(interprete);
+			nuevaCancion.setEstilomusical("OTRO");
 
 			// Registrar la canción y añadirla al catálogo
 			adaptadorCancion.registrarCancion(nuevaCancion);
@@ -559,6 +553,7 @@ public class AppMusic {
 
 	public boolean setUsuarioActivoPremium() {
 		usuarioActivo.setPremium(true);
+		actualizarUsuario(usuarioActivo);
 		return true;
 	}
 
@@ -589,6 +584,7 @@ public class AppMusic {
 	public boolean addRecientes(String rutaCancion) {
 		try {
 			usuarioActivo.añadirRecientes(getCancion(rutaCancion));
+			actualizarUsuario(usuarioActivo);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -598,10 +594,12 @@ public class AppMusic {
 
 	public void addCancionFavorita(int id) {
 		usuarioActivo.getFavoritas().addCancion(getCancion(id));
+		actualizarUsuario(usuarioActivo);
 	}
 
 	public void eliminarCancionFavorita(int id) {
 		usuarioActivo.getFavoritas().eliminarCancion(getCancion(id));
+		actualizarUsuario(usuarioActivo);
 	}
 
 	public void añadirCancionNueva() {
@@ -611,11 +609,35 @@ public class AppMusic {
 		int returnVal = chooser.showOpenDialog(ventanaActual);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			String ruta = chooser.getSelectedFile().getPath();
-			AppMusic.getUnicaInstancia().añadirCancion(ruta);
+			String nombreFichero = new java.io.File(ruta).getName();
+			String[] parte = nombreFichero.split("/");
+			
+			int f = parte.length;
+			
+			String nombreFichero2 = parte[f-1];
+
+			String[] partes = nombreFichero2.split("-");
+			if (partes.length < 2) {
+					throw new IllegalArgumentException("El nombre del fichero debe estar en formato interprete-titulo");
+			}
+			String interprete = partes[0].trim();
+			String titulo = partes[1].trim();
+			Path origenPath = Paths.get(ruta);
+			Path destinoPath = Paths.get("./resources/canciones/OTRO/"+interprete+" - "+titulo);
+			try {
+				Files.copy(origenPath, destinoPath);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			AppMusic.getUnicaInstancia().añadirCancion("OTRO/"+interprete+" - "+titulo, interprete, titulo);
+			System.out.println(interprete);
 		}
 	}
-	
-	public void comprobarGitProperties(String ruta) {
-		// TODO
+
+
+	public void actualizarUsuario(Usuario u) {
+		adaptadorUsuario.modificarUsuario(u);
+		
 	}
 }

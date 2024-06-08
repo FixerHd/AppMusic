@@ -74,7 +74,7 @@ public class AdaptadorPlaylistTDS implements IAdaptadorPlaylistDAO {
 				prop.setValor(String.valueOf(Playlist.getId()));
 			} else if (prop.getNombre().equals("nombre")) {
 				prop.setValor(Playlist.getNombre());
-			} else if (prop.getNombre().equals("Cancions")) {
+			} else if (prop.getNombre().equals("Canciones")) {
 				String Canciones = obtenerIdCancion(Playlist.getCanciones());
 				prop.setValor(Canciones);
 			}
