@@ -2,6 +2,8 @@ package dominio;
 
 import java.util.LinkedList;
 
+import Controlador.AppMusic;
+
 public class Playlist {
 	private String nombre;
 	private int id;
@@ -17,17 +19,10 @@ public class Playlist {
 	}
 
 	public boolean addCancion(Cancion cancion) {
-		for (Cancion c : canciones) {
-			if(c.getId() == cancion.getId()) {
-				return false;
-			}
+		if (contains(cancion)) {
+			return false;
 		}
 		return canciones.add(cancion);
-	}
-
-	public void setCanciones(String canciones2) {
-		// TODO Auto-generated method stub
-
 	}
 
 	public String getNombre() {
@@ -67,9 +62,17 @@ public class Playlist {
 		}
 		return false;
 	}
-	
+
 	public boolean eliminarCancion(Cancion cancion) {
 		return eliminarCancion(cancion.getId());
+	}
+
+	public boolean contains(Cancion cancion) {
+		return canciones.stream().anyMatch(c -> c.equals(cancion));
+	}
+
+	public boolean contains(int idCancion) {
+		return contains(AppMusic.getUnicaInstancia().getCancion(idCancion));
 	}
 
 }

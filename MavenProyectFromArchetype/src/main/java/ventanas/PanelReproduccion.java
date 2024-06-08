@@ -12,11 +12,13 @@ import javax.swing.border.TitledBorder;
 
 import Controlador.AppMusic;
 import dominio.Reproductor;
+import javafx.scene.media.MediaPlayer;
 
 public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 
 	private static final long serialVersionUID = 1L;
-	protected String rutaCancion = null;
+	protected String rutaCancionActual = null;
+	protected String rutaCancionReproduciendo = null;
 	protected JToggleButton Play_Stop;
 	protected JButton Choose_previous;
 	protected JButton Choose_next;
@@ -109,12 +111,12 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 		return Play_Stop;
 	}
 
-	public String getCancion() {
-		return rutaCancion;
+	public String getRutaCancionActual() {
+		return rutaCancionActual;
 	}
 
 	public void setRutaCancion(String cancion) {
-		this.rutaCancion = cancion;
+		this.rutaCancionActual = cancion;
 	}
 
 	public abstract boolean playCancion();
@@ -122,8 +124,6 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 	public abstract boolean playCancion(String cancion);
 
 	public boolean stopCancion() {
-		if (rutaCancion == null)
-			return false;
 		boolean resultado = AppMusic.getUnicaInstancia().stopCancion();
 		if (resultado == false) {
 			AppMusic.getUnicaInstancia().showPopup(Utilidades.Constantes.ERROR_STOP_MENSAJE);
@@ -137,8 +137,6 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 	}
 
 	public boolean pauseCancion() {
-		if (rutaCancion == null)
-			return false;
 		boolean resultado = AppMusic.getUnicaInstancia().pauseCancion();
 		if (resultado == false) {
 			AppMusic.getUnicaInstancia().showPopup(Utilidades.Constantes.ERROR_PAUSE_MENSAJE);
@@ -152,9 +150,13 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 	}
 
 	public boolean resumeCancion() {
-		if (rutaCancion == null)
-			return false;
-		boolean resultado = AppMusic.getUnicaInstancia().resumeCancion();
+		rutaCancionActual = rutaService.notifyObserver();
+		boolean resultado;
+		if (rutaCancionActual == rutaCancionReproduciendo) {
+			resultado = AppMusic.getUnicaInstancia().resumeCancion();
+		} else {
+			resultado = playCancion(rutaCancionActual);
+		}
 		if (resultado == false) {
 			AppMusic.getUnicaInstancia().showPopup(Utilidades.Constantes.ERROR_RESUME_MENSAJE);
 		} else {
@@ -168,9 +170,6 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 
 	@Override
 	public void updateBoton() {
-		Play_Stop.setSelected(false);
-		Play_Stop.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/jugar.png")));
-		revalidate();
-		repaint();
+		stopCancion();
 	}
 }

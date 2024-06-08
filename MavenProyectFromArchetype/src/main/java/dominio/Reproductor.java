@@ -18,7 +18,6 @@ public class Reproductor {
 
 	private static Reproductor instancia;
 	private MediaPlayer mediaPlayer;
-	// private String rutaCancionActual; Implementar
 	private String tempPath;
 	private boolean reprourl;
 

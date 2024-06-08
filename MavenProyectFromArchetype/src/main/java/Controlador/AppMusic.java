@@ -486,6 +486,10 @@ public class AppMusic {
 		}
 		return false;
 	}
+	
+	public Reproductor getReproductor() {
+		return Reproductor.getUnicaInstancia();
+	}
 
 	public boolean reproducircancion(String rutaFichero) {
 		try {

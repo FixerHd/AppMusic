@@ -129,7 +129,11 @@ public class Usuario {
 	}
 
 	public boolean isCancionFavourite(int idCancion) {
-		return favoritas.getCanciones().stream().anyMatch(c -> c.getId() == idCancion);
+		return favoritas.contains(idCancion);
+	}
+	
+	public boolean isCancionFavourite(Cancion cancion) {
+		return favoritas.contains(cancion);
 	}
 
 }
