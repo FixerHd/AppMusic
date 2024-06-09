@@ -3,7 +3,8 @@ package Utilidades;
 public class Constantes {
 
 	public static final String NOMBRE_APLICACION = "Singletune";
-	public static final String FAVORITAS = "Favoritas";
+	public static final String NOMBRE_FAVORITAS = "Favoritas";
+	public static final String NOMBRE_RECIENTES = "Recientes";
 
 	public static final String[] DESCUENTOS = { "Normal", "Fijo", "Jovenes" };
 	public static final int PRECIO_ESTANDAR = 38;

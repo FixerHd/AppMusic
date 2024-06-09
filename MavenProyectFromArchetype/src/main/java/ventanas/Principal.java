@@ -17,9 +17,9 @@ import java.awt.Insets;
 import javax.swing.ImageIcon;
 
 import Controlador.AppMusic;
+import Controlador.DatosLista;
+import Controlador.DatosTabla;
 import Utilidades.Constantes;
-import dominio.DatosLista;
-import dominio.DatosTabla;
 
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
@@ -296,7 +296,7 @@ public class Principal extends JFrame implements PaymentObserver {
 		} else {
 			DatosLista datos = AppMusic.getUnicaInstancia().getMisPlaylists();
 			if (datos != null) {
-				datos.getNombres().add(Utilidades.Constantes.FAVORITAS);
+				datos.getNombres().add(Utilidades.Constantes.NOMBRE_FAVORITAS);
 				panelLista.setLista(datos.getNombres());
 				principal.add(panelLista);
 				principal.revalidate();

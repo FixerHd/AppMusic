@@ -12,8 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 import Controlador.AppMusic;
+import Controlador.DatosTabla;
 import Utilidades.Constantes;
-import dominio.DatosTabla;
 import ventanas.services.PlaylistNameObserver;
 
 public class PanelBuscar extends JPanel implements PlaylistNameObserver {

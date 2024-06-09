@@ -10,7 +10,7 @@ import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 
 import Controlador.AppMusic;
-import dominio.DatosTabla;
+import Controlador.DatosTabla;
 import ventanas.services.NextPreviousObserver;
 import ventanas.services.RutaObserver;
 

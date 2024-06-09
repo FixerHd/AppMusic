@@ -29,8 +29,6 @@ import dominio.SinDescuento;
 import dominio.CatalogoCanciones;
 import dominio.CatalogoUsuarios;
 import dominio.CreadorPDF;
-import dominio.DatosLista;
-import dominio.DatosTabla;
 import dominio.Descuento;
 import dominio.DescuentoFijo;
 import dominio.DescuentoJovenes;
@@ -320,7 +318,7 @@ public class AppMusic {
 
 	public DatosTabla buscarCanciones(String playlist) {
 		DatosTabla p = new DatosTabla();
-		if (playlist.equals(Utilidades.Constantes.FAVORITAS)) {
+		if (playlist.equals(Utilidades.Constantes.NOMBRE_FAVORITAS)) {
 			añadirDatosTabla(usuarioActivo.getFavoritas(), p);
 		} else {
 			p = getPlaylist(playlist);

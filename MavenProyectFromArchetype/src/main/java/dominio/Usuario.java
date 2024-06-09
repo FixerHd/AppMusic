@@ -21,8 +21,8 @@ public class Usuario {
 		this.fechaNacimiento = fechanac;
 		premium = false;
 		playlists = new LinkedList<Playlist>();
-		recientes = new Playlist("Recientes");
-		favoritas = new Playlist("Favoritas");
+		recientes = new Playlist(Utilidades.Constantes.NOMBRE_RECIENTES);
+		favoritas = new Playlist(Utilidades.Constantes.NOMBRE_FAVORITAS);
 		desc = new DescuentoFijo();
 	}
 
@@ -35,17 +35,14 @@ public class Usuario {
 	}
 
 	public String getNombre() {
-		// TODO Auto-generated method stub
 		return nombre;
 	}
 
 	public String getEmail() {
-		// TODO Auto-generated method stub
 		return email;
 	}
 
 	public String getPassword() {
-		// TODO Auto-generated method stub
 		return password;
 	}
 
@@ -54,7 +51,6 @@ public class Usuario {
 	}
 
 	public String getFechaNacimiento() {
-		// TODO Auto-generated method stub
 		return fechaNacimiento;
 	}
 
@@ -71,12 +67,10 @@ public class Usuario {
 	}
 
 	public void setPremium(boolean b) {
-		// TODO Auto-generated method stub
 		premium = b;
 	}
 
 	public void setPlaylists(LinkedList<Playlist> playlists2) {
-		// TODO Auto-generated method stub
 		playlists = playlists2;
 		recientes = playlists.get(0);
 	}
@@ -127,7 +121,7 @@ public class Usuario {
 	public boolean isCancionFavourite(int idCancion) {
 		return favoritas.contains(idCancion);
 	}
-	
+
 	public boolean isCancionFavourite(Cancion cancion) {
 		return favoritas.contains(cancion);
 	}

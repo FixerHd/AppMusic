@@ -1,4 +1,4 @@
-package dominio;
+package Controlador;
 
 import java.util.ArrayList;
 

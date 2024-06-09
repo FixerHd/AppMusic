@@ -9,7 +9,7 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
 import Controlador.AppMusic;
-import dominio.DatosTabla;
+import Controlador.DatosTabla;
 
 public class AppTabla extends JTable {
 

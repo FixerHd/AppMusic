@@ -1,8 +1,9 @@
-package dominio;
+package Controlador;
 
 import java.util.ArrayList;
 
-import Controlador.AppMusic;
+import dominio.Cancion;
+import dominio.Playlist;
 
 public class DatosTabla {
 

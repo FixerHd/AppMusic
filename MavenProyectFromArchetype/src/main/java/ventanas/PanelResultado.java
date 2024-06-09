@@ -9,7 +9,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import Controlador.AppMusic;
-import dominio.DatosTabla;
+import Controlador.DatosTabla;
 import ventanas.services.NextPreviousObserver;
 import ventanas.services.PlaylistNameNotificactionService;
 import ventanas.services.PlaylistNameObserver;

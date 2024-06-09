@@ -4,7 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 import Controlador.AppMusic;
-import dominio.DatosTabla;
+import Controlador.DatosTabla;
 
 import javax.swing.JSplitPane;
 import javax.swing.ListSelectionModel;

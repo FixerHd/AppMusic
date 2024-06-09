@@ -12,9 +12,9 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import Controlador.AppMusic;
+import Controlador.DatosLista;
+import Controlador.DatosTabla;
 import Utilidades.Constantes;
-import dominio.DatosLista;
-import dominio.DatosTabla;
 import ventanas.services.NextPreviousObserver;
 import ventanas.services.RutaObserver;
 
