@@ -149,9 +149,6 @@ public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
 		Usuario.setRecientes(recientes);
 		Usuario.setFavoritas(favoritas);
 
-		for (Playlist v : Playlists)
-			Usuario.addPlaylist(v);
-
 		return Usuario;
 	}
 
@@ -169,17 +166,23 @@ public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
 	// -------------------Funciones auxiliares-----------------------------
 	private String obtenerIdPlaylist(List<Playlist> listaPlaylist) {
 		String aux = "";
+		AdaptadorPlaylistTDS adaptadorP = AdaptadorPlaylistTDS.getUnicaInstancia();
 		for (Playlist p : listaPlaylist) {
+			adaptadorP.registrarPlaylist(p);
 			aux += p.getId() + " ";
 		}
 		return aux.trim();
 	}
 
 	private String obtenerIdPlaylistReciente(Playlist p) {
+		AdaptadorPlaylistTDS adaptadorP = AdaptadorPlaylistTDS.getUnicaInstancia();
+		adaptadorP.registrarPlaylist(p);
 		return Integer.toString(p.getId());
 	}
 
 	private String obtenerIdPlaylistFavorita(Playlist p) {
+		AdaptadorPlaylistTDS adaptadorP = AdaptadorPlaylistTDS.getUnicaInstancia();
+		adaptadorP.registrarPlaylist(p);
 		return Integer.toString(p.getId());
 	}
 

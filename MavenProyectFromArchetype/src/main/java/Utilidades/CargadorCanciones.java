@@ -81,7 +81,6 @@ public enum CargadorCanciones {
 					if (!b) CatalogoCanciones.getUnicaInstancia().addCancion(cancion);
 				}
 			}
-			CatalogoCanciones.getUnicaInstancia().actualizarAdaptador();
 		} catch (IOException e) {
 			System.err.println("Caught IOException: " + e.getMessage());
 		}

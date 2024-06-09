@@ -84,15 +84,5 @@ public class CatalogoCanciones {
 	
 	}
 	
-	public void actualizarAdaptador() {
-		List<Cancion> y = adaptadorCancion.recuperarTodosCanciones();
-		
-		for(Cancion c: y) {
-			if(!Canciones.values().contains(c)) {
-				adaptadorCancion.borrarCancion(c);
-			}
-		}
-		
-	}
 	
 }
