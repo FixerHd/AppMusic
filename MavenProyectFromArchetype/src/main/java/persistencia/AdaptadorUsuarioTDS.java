@@ -55,7 +55,7 @@ public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
 				new Propiedad("premium", Usuario.getPremium()),
 				new Propiedad("playlists", obtenerIdPlaylist(Usuario.getPlaylists())),
 				new Propiedad("recientes", obtenerIdPlaylistReciente(Usuario.getRecientes())),
-				new Propiedad("favoritas", obtenerIdPlaylistReciente(Usuario.getFavoritas())))));
+				new Propiedad("favoritas", obtenerIdPlaylistFavorita(Usuario.getFavoritas())))));
 
 		// registrar entidad Usuario
 		eUsuario = servPersistencia.registrarEntidad(eUsuario);
@@ -112,13 +112,13 @@ public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
 		// si no, la recupera de la base de datos
 		Entidad eUsuario;
 		List<Playlist> Playlists = new LinkedList<Playlist>();
-		Playlist recientes = new Playlist("Recientes");
+		Playlist recientes = new Playlist(Utilidades.Constantes.NOMBRE_RECIENTES);
 		String nombre;
 		String email;
 		String password;
 		String fechaNacimiento;
 		String premium;
-		Playlist favoritas = new Playlist("Favoritas");
+		Playlist favoritas = new Playlist(Utilidades.Constantes.NOMBRE_FAVORITAS);
 
 		// recuperar entidad
 		eUsuario = servPersistencia.recuperarEntidad(Id);
@@ -144,7 +144,8 @@ public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
 
 		recientes = obtenerPlaylistRecienteDesdeId(servPersistencia.recuperarPropiedadEntidad(eUsuario, "recientes"));
 		favoritas = obtenerPlaylistFavoritaDesdeId(servPersistencia.recuperarPropiedadEntidad(eUsuario, "favoritas"));
-
+		
+		Usuario.setPlaylists(Playlists);
 		Usuario.setRecientes(recientes);
 		Usuario.setFavoritas(favoritas);
 

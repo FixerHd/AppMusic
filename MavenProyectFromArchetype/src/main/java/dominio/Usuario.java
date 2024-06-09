@@ -1,6 +1,7 @@
 package dominio;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class Usuario {
 	private int id;
@@ -70,9 +71,8 @@ public class Usuario {
 		premium = b;
 	}
 
-	public void setPlaylists(LinkedList<Playlist> playlists2) {
-		playlists = playlists2;
-		recientes = playlists.get(0);
+	public void setPlaylists(List<Playlist> playlists2) {
+		playlists = (LinkedList<Playlist>) playlists2;
 	}
 
 	public void añadirRecientes(Cancion c) {
