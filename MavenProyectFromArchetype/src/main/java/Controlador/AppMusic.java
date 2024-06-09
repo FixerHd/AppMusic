@@ -51,7 +51,6 @@ public class AppMusic {
 
 	private static String estilo = Constantes.ESTILO_POR_DEFECTO;
 
-	private ArrayList<JFrame> ventanasActivas = new ArrayList<JFrame>();
 	private JFrame ventanaActual = new JFrame();
 
 	private CatalogoUsuarios catalogoUsuarios;
@@ -105,10 +104,6 @@ public class AppMusic {
 
 	public void setVentanaActual(JFrame ventanaActual) {
 		this.ventanaActual = ventanaActual;
-	}
-
-	public ArrayList<JFrame> getVentanas() {
-		return ventanasActivas;
 	}
 
 	public List<Cancion> getCanciones() {
@@ -492,8 +487,8 @@ public class AppMusic {
 		try {
 			for (Cancion c : CatalogoCanciones.getUnicaInstancia().getCanciones()) {
 				if (c.getrutaFichero().equals(rutaFichero)) {
-					usuarioActivo.añadirRecientes(c);
 					c.addView();
+					addRecientes(c);
 					Reproductor.getUnicaInstancia().playCancionFich("./resources/canciones/" + rutaFichero);
 					return true;
 				}
@@ -581,16 +576,20 @@ public class AppMusic {
 	public boolean addView(String ruta) {
 		return getCancion(ruta).addView();
 	}
-
-	public boolean addRecientes(String rutaCancion) {
+	
+	public boolean addRecientes(Cancion cancion) {
 		try {
-			usuarioActivo.añadirRecientes(getCancion(rutaCancion));
+			usuarioActivo.añadirRecientes(cancion);
 			actualizarUsuario(usuarioActivo);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	public boolean addRecientes(String rutaCancion) {
+		return addRecientes(getCancion(rutaCancion));
 	}
 
 	public void addCancionFavorita(int id) {
