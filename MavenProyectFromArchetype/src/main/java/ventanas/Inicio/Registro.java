@@ -34,22 +34,11 @@ public class Registro extends JFrame {
 	private static final int Y = 100;
 	private static final int WIDTH = 550;
 	private static final int HEIGHT = 275;
-	private JPanel contentPane;
-	private JPanel panel;
-	private JButton Botón_Registro;
-	private JPanel panel_1;
-	private JLabel Fecha_Nacimiento;
-	private JButton Botón_Volver;
-	private JLabel Usuario;
-	private JLabel Nombre;
-	private JLabel Contraseña;
 	private JDateChooser Seleccionador_Fecha;
-	private JLabel Email;
 	private HintTextField Texto_Email;
 	private HintTextField Texto_Nombre;
 	private HintTextField Texto_Contraseña;
 	private HintTextField Texto_Usuario;
-	private JLabel Grupo;
 	private JComboBox<String> Grupo_elegido;
 
 	// Singleton
@@ -93,23 +82,30 @@ public class Registro extends JFrame {
 		setTitle("Registro");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(X, Y, WIDTH, HEIGHT);
-		contentPane = new JPanel();
+		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 
-		panel = new JPanel();
+		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.SOUTH);
+		
+		JButton Botón_Registro = new JButton("Registro");
+		Botón_Registro.setIcon(new ImageIcon(Registro.class.getResource("/recursos/anadir.png")));
+		Botón_Registro.addActionListener(ev -> {
+			register();
+		});
+		panel.add(Botón_Registro);
 
-		Botón_Volver = new JButton("Volver");
+		JButton Botón_Volver = new JButton("Volver");
 		Botón_Volver.setIcon(new ImageIcon(Registro.class.getResource("/recursos/flecha-hacia-atras.png")));
 		Botón_Volver.addActionListener(ev -> {
 			AppMusic.getUnicaInstancia().mostrarVentanaSelector(Botón_Registro);
 		});
 		panel.add(Botón_Volver);
 
-		panel_1 = new JPanel();
+		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.CENTER);
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
 		gbl_panel_1.columnWidths = new int[] { 15, 100, 100, 100, 100, 15, 0 };
@@ -119,7 +115,7 @@ public class Registro extends JFrame {
 				Double.MIN_VALUE };
 		panel_1.setLayout(gbl_panel_1);
 
-		Usuario = new JLabel("Usuario:");
+		JLabel Usuario = new JLabel("Usuario:");
 		Usuario.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 14));
 		GridBagConstraints gbc_Usuario = new GridBagConstraints();
 		gbc_Usuario.insets = new Insets(0, 0, 5, 5);
@@ -137,7 +133,7 @@ public class Registro extends JFrame {
 		panel_1.add(Texto_Usuario, gbc_Texto_Usuario);
 		Texto_Usuario.setColumns(10);
 
-		Contraseña = new JLabel("Contraseña:");
+		JLabel Contraseña = new JLabel("Contraseña:");
 		Contraseña.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 14));
 		GridBagConstraints gbc_Contraseña = new GridBagConstraints();
 		gbc_Contraseña.insets = new Insets(0, 0, 5, 5);
@@ -154,7 +150,7 @@ public class Registro extends JFrame {
 		gbc_Texto_Contraseña.gridy = 2;
 		panel_1.add(Texto_Contraseña, gbc_Texto_Contraseña);
 
-		Nombre = new JLabel("Nombre:");
+		JLabel Nombre = new JLabel("Nombre:");
 		Nombre.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 14));
 		GridBagConstraints gbc_Nombre = new GridBagConstraints();
 		gbc_Nombre.insets = new Insets(0, 0, 5, 5);
@@ -174,7 +170,7 @@ public class Registro extends JFrame {
 		panel_1.add(Texto_Nombre, gbc_Texto_Nombre);
 		Texto_Nombre.setColumns(10);
 
-		Email = new JLabel("Email:");
+		JLabel Email = new JLabel("Email:");
 		Email.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 14));
 		GridBagConstraints gbc_Email = new GridBagConstraints();
 		gbc_Email.anchor = GridBagConstraints.EAST;
@@ -192,7 +188,7 @@ public class Registro extends JFrame {
 		gbc_Texto_Email.gridy = 7;
 		panel_1.add(Texto_Email, gbc_Texto_Email);
 
-		Fecha_Nacimiento = new JLabel("Fecha Nacimiento:");
+		JLabel Fecha_Nacimiento = new JLabel("Fecha Nacimiento:");
 		Fecha_Nacimiento.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 14));
 		GridBagConstraints gbc_Fecha_Nacimiento = new GridBagConstraints();
 		gbc_Fecha_Nacimiento.anchor = GridBagConstraints.EAST;
@@ -209,7 +205,7 @@ public class Registro extends JFrame {
 		gbc_Seleccionador_Fecha.gridy = 9;
 		panel_1.add(Seleccionador_Fecha, gbc_Seleccionador_Fecha);
 
-		Grupo = new JLabel("Grupo:");
+		JLabel Grupo = new JLabel("Grupo:");
 		Grupo.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 14));
 		GridBagConstraints gbc_Grupo = new GridBagConstraints();
 		gbc_Grupo.anchor = GridBagConstraints.EAST;
@@ -228,13 +224,6 @@ public class Registro extends JFrame {
 			Grupo_elegido.addItem(s);
 		}
 		panel_1.add(Grupo_elegido, gbc_Grupo_elegido);
-
-		Botón_Registro = new JButton("Registro");
-		Botón_Registro.setIcon(new ImageIcon(Registro.class.getResource("/recursos/anadir.png")));
-		Botón_Registro.addActionListener(ev -> {
-			register();
-		});
-		panel.add(Botón_Registro);
 	}
 
 	private void register() {

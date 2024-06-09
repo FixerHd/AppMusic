@@ -38,17 +38,11 @@ public class Principal extends JFrame implements PaymentObserver {
 	private static final int Y = 100;
 	private static final int WIDTH = 600;
 	private static final int HEIGHT = 450;
-	private JPanel contentPane;
 	private GridBagLayout gbl_Columna;
 	private JButton Botón_Premium;
 	private JLabel Premium;
 	private PanelMisListas panelLista;
 	private PanelBuscar panelBuscar;
-
-	public PanelBuscar getPanelBuscar() {
-		return panelBuscar;
-	}
-
 	private static JPanel Columna;
 	private static JPanel principal;
 
@@ -93,7 +87,7 @@ public class Principal extends JFrame implements PaymentObserver {
 		setTitle("Single Tune");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(X, Y, WIDTH, HEIGHT);
-		contentPane = new JPanel();
+		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);

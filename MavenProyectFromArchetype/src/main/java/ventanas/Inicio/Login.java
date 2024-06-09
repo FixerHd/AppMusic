@@ -34,7 +34,6 @@ public class Login extends JFrame {
 	private static final int Y = 100;
 	private static final int WIDTH = 450;
 	private static final int HEIGHT = 300;
-	private JPanel contentPane;
 
 	// Singleton
 	public static Login getInstancia() {
@@ -77,7 +76,7 @@ public class Login extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/recursos/Singletune_16.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(X, Y, WIDTH, HEIGHT);
-		contentPane = new JPanel();
+		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);

@@ -26,7 +26,6 @@ public class Selector extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	protected static Selector unicaInstancia = null;
-	private JPanel contentPane;
 
 	// Singleton
 	public static Selector getInstancia() {
@@ -70,7 +69,7 @@ public class Selector extends JFrame {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 400, 350);
-		contentPane = new JPanel();
+		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);

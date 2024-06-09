@@ -35,8 +35,6 @@ public class LoginGit extends JFrame {
 	private static final int Y = 100;
 	private static final int WIDTH = 450;
 	private static final int HEIGHT = 300;
-	private JPanel contentPane;
-	private HintTextField Texto_Certificado;
 
 	// Singleton
 	public static LoginGit getInstancia() {
@@ -79,7 +77,7 @@ public class LoginGit extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginGit.class.getResource("/recursos/Singletune_16.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(X, Y, WIDTH, HEIGHT);
-		contentPane = new JPanel();
+		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
@@ -152,7 +150,7 @@ public class LoginGit extends JFrame {
 		gbc_Certificado.gridy = 6;
 		Text_panel.add(Certificado, gbc_Certificado);
 
-		Texto_Certificado = new HintTextField("Ruta Certificado");
+		HintTextField Texto_Certificado = new HintTextField("Ruta Certificado");
 		Texto_Certificado.setSelectedTextColor(Color.WHITE);
 		Texto_Certificado.setColumns(10);
 		GridBagConstraints gbc_Texto_Certificado = new GridBagConstraints();
@@ -167,7 +165,7 @@ public class LoginGit extends JFrame {
 		luz.setColor(new Color(0, 0, 255));
 		luz.addEncendidoListener(ev -> {
 			luz.setEncendido(true);
-			extraerRuta();
+			extraerRuta(Texto_Certificado);
 		});
 		GridBagConstraints gbc_Luz = new GridBagConstraints();
 		gbc_Luz.insets = new Insets(0, 0, 5, 5);
@@ -271,12 +269,12 @@ public class LoginGit extends JFrame {
 		Botón_Login_Git.setIcon(new ImageIcon(LoginGit.class.getResource("/recursos/github.png")));
 		Botón_Login_Git.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		Botón_Login_Git.addActionListener(ev -> {
-			login(Texto_Usuario, Texto_Contraseña);
+			login(Texto_Usuario, Texto_Contraseña, Texto_Certificado);
 		});
 		Bottons_panel.add(Botón_Login_Git);
 	}
 
-	private void login(JTextField Texto_Usuario, JTextField Texto_Contraseña) {
+	private void login(JTextField Texto_Usuario, JTextField Texto_Contraseña, JTextField Texto_Certificado) {
 		if (AppMusic.getUnicaInstancia().verficarUsuarioGit(Texto_Usuario.getText(), Texto_Contraseña.getText(),
 				Texto_Certificado.getText())) {
 			AppMusic.getUnicaInstancia().mostrarVentanaPrincipal();
@@ -285,7 +283,7 @@ public class LoginGit extends JFrame {
 		}
 	}
 
-	private void extraerRuta() {
+	private void extraerRuta(JTextField Texto_Certificado) {
 		JFileChooser chooser = new JFileChooser();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("Github Properties", "properties");
 		chooser.setFileFilter(filter);

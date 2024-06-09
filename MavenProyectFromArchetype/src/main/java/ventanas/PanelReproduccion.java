@@ -24,16 +24,8 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 	protected String rutaCancionActual = null;
 	protected String rutaCancionReproduciendo = null;
 	protected JToggleButton Play_Stop;
-	protected JButton Choose_previous;
-	protected JButton Choose_next;
-	protected JButton Restart;
 	protected PlayNotificationService playService = AppMusic.getUnicaInstancia().getPlayService();
 	protected RutaNotificactionService rutaService;
-
-	public RutaNotificactionService getRutaService() {
-		return rutaService;
-	}
-
 	protected NextPreviousNotificationService nextPreviousService;
 
 	/**
@@ -51,7 +43,7 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 		gbl_Panel_Reproducción.rowWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
 		this.setLayout(gbl_Panel_Reproducción);
 
-		Choose_previous = new JButton("");
+		JButton Choose_previous = new JButton("");
 		Choose_previous.setIcon(new ImageIcon(PanelResultado.class.getResource("/recursos/anterior.png")));
 		GridBagConstraints gbc_Choose_previous = new GridBagConstraints();
 		gbc_Choose_previous.anchor = GridBagConstraints.NORTHWEST;
@@ -63,7 +55,7 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 		});
 		this.add(Choose_previous, gbc_Choose_previous);
 
-		Restart = new JButton("");
+		JButton Restart = new JButton("");
 		Restart.setIcon(
 				new ImageIcon(PanelResultado.class.getResource("/recursos/forma-cuadrada-negra-redondeada.png")));
 		GridBagConstraints gbc_Restart = new GridBagConstraints();
@@ -88,7 +80,7 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 		});
 		this.add(Play_Stop, gbc_Play_Stop);
 
-		Choose_next = new JButton("");
+		JButton Choose_next = new JButton("");
 		Choose_next.setIcon(new ImageIcon(PanelRecientes.class.getResource("/recursos/proximo.png")));
 		GridBagConstraints gbc_Choose_next = new GridBagConstraints();
 		gbc_Choose_next.anchor = GridBagConstraints.NORTHWEST;
@@ -117,18 +109,6 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 		this.rutaService = new RutaNotificactionService(rutaObserver);
 		this.nextPreviousService = new NextPreviousNotificationService(nextPreviousObserver);
 		this.playService.subscribe(this);
-	}
-
-	public JToggleButton getPlay_Stop() {
-		return Play_Stop;
-	}
-
-	public String getRutaCancionActual() {
-		return rutaCancionActual;
-	}
-
-	public void setRutaCancion(String cancion) {
-		this.rutaCancionActual = cancion;
 	}
 
 	public abstract boolean playCancion();
