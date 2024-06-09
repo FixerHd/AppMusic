@@ -1,4 +1,4 @@
-package ventanas;
+package ventanas.services;
 
 public class RutaNotificactionService {
 	private final RutaObserver observers;

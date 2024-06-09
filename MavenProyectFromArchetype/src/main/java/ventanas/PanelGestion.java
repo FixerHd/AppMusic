@@ -15,6 +15,8 @@ import Controlador.AppMusic;
 import Utilidades.Constantes;
 import dominio.DatosLista;
 import dominio.DatosTabla;
+import ventanas.services.NextPreviousObserver;
+import ventanas.services.RutaObserver;
 
 import java.awt.BorderLayout;
 

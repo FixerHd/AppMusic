@@ -1,4 +1,4 @@
-package ventanas;
+package ventanas.services;
 
 import java.util.ArrayList;
 import java.util.List;

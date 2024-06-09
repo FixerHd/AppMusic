@@ -11,6 +11,12 @@ import javax.swing.JToggleButton;
 import javax.swing.border.TitledBorder;
 
 import Controlador.AppMusic;
+import ventanas.services.NextPreviousNotificationService;
+import ventanas.services.NextPreviousObserver;
+import ventanas.services.PlayNotificationService;
+import ventanas.services.PlayObserver;
+import ventanas.services.RutaNotificactionService;
+import ventanas.services.RutaObserver;
 
 public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 

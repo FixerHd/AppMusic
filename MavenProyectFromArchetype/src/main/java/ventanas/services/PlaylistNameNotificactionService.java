@@ -1,4 +1,4 @@
-package ventanas;
+package ventanas.services;
 
 public class PlaylistNameNotificactionService {
 	private final PlaylistNameObserver observers;

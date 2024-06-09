@@ -26,6 +26,7 @@ import java.awt.Toolkit;
 
 import javax.swing.JToggleButton;
 import pulsador.Luz;
+import ventanas.services.PaymentObserver;
 
 import javax.swing.border.TitledBorder;
 

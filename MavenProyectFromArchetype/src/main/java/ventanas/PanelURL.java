@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 import Controlador.AppMusic;
+import ventanas.services.NextPreviousObserver;
+import ventanas.services.RutaObserver;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

@@ -10,6 +10,10 @@ import javax.swing.JTable;
 
 import Controlador.AppMusic;
 import dominio.DatosTabla;
+import ventanas.services.NextPreviousObserver;
+import ventanas.services.PlaylistNameNotificactionService;
+import ventanas.services.PlaylistNameObserver;
+import ventanas.services.RutaObserver;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

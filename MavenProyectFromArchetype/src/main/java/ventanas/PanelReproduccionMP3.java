@@ -3,6 +3,8 @@ package ventanas;
 import javax.swing.ImageIcon;
 
 import Controlador.AppMusic;
+import ventanas.services.NextPreviousObserver;
+import ventanas.services.RutaObserver;
 
 public class PanelReproduccionMP3 extends PanelReproduccion {
 
