@@ -97,6 +97,14 @@ public class Usuario {
 	public void setDesc(Descuento desc) {
 		this.desc = desc;
 	}
+	
+	public void añadirFavorita(Cancion c) {
+		this.favoritas.addCancion(c);
+	}
+	
+	public void eliminarFavorita(Cancion c) {
+		this.favoritas.eliminarCancion(c);
+	}
 
 	public void setFavoritas(Playlist favoritas) {
 		this.favoritas = favoritas;

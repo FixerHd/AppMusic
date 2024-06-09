@@ -303,15 +303,14 @@ public class AppMusic {
 			canciones = getfavoritas(usuarioActivo).getCanciones();
 		} else {
 			canciones = catalogoCanciones.getCanciones();
-			canciones.forEach(c -> {
-				if (c.getTitulo().contains(titulo) && c.getInterprete().contains(interprete)) {
-					if (estilo.isEmpty() || c.getEstilomusical().equals(estilo)) {
-						añadirDatosTabla(c, nuevos_datos);
-					}
-				}
-			});
 		}
-		;
+		canciones.forEach(c -> {
+			if (c.getTitulo().contains(titulo) && c.getInterprete().contains(interprete)) {
+				if (estilo.isEmpty() || c.getEstilomusical().equals(estilo)) {
+					añadirDatosTabla(c, nuevos_datos);
+				}
+			}
+		});
 		nuevos_datos.setFavoritas(getListaCheckFavoritas(canciones));
 		return nuevos_datos;
 	}
@@ -595,12 +594,12 @@ public class AppMusic {
 	}
 
 	public void addCancionFavorita(int id) {
-		usuarioActivo.getFavoritas().addCancion(getCancion(id));
+		usuarioActivo.añadirFavorita(getCancion(id));
 		actualizarUsuario(usuarioActivo);
 	}
 
 	public void eliminarCancionFavorita(int id) {
-		usuarioActivo.getFavoritas().eliminarCancion(getCancion(id));
+		usuarioActivo.eliminarFavorita(getCancion(id));
 		actualizarUsuario(usuarioActivo);
 	}
 

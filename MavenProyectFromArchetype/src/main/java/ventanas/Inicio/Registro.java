@@ -64,7 +64,7 @@ public class Registro extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
+					UIManager.setLookAndFeel("com.jtattoo.plaf.texture.TextureLookAndFeel");
 					Registro frame = new Registro();
 					frame.setVisible(true);
 				} catch (Exception e) {

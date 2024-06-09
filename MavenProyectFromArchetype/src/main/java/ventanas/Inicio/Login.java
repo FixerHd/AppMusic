@@ -58,7 +58,7 @@ public class Login extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
+					UIManager.setLookAndFeel("com.jtattoo.plaf.texture.TextureLookAndFeel");
 					Login frame = new Login();
 					frame.setVisible(true);
 				} catch (Exception e) {
