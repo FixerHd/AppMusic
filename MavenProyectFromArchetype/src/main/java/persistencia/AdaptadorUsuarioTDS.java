@@ -14,17 +14,6 @@ import beans.Propiedad;
 
 import dominio.Usuario;
 import dominio.Playlist;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.StringTokenizer;
-import tds.driver.FactoriaServicioPersistencia;
-import tds.driver.ServicioPersistencia;
-import beans.Entidad;
-import beans.Propiedad;
-import dominio.Usuario;
-import dominio.Playlist;
 
 //Usa un pool para evitar problemas doble referencia con Playlists
 public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {

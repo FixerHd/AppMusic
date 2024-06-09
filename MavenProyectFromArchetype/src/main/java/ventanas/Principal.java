@@ -10,7 +10,6 @@ import javax.swing.BoxLayout;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -27,10 +26,8 @@ import java.awt.Toolkit;
 
 import javax.swing.JToggleButton;
 import pulsador.Luz;
-import ventanas.Inicio.Selector;
 
 import javax.swing.border.TitledBorder;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Principal extends JFrame implements PaymentObserver {
 

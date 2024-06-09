@@ -2,8 +2,6 @@ package dominio;
 
 import java.util.ArrayList;
 
-import Controlador.AppMusic;
-
 public class DatosLista {
 
 	private ArrayList<String> nombres = new ArrayList<String>();

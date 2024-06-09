@@ -2,10 +2,6 @@ package dominio;
 
 import java.util.LinkedList;
 
-import Controlador.AppMusic;
-
-import java.time.LocalDate;
-
 public class Usuario {
 	private int id;
 	private String nombre;
