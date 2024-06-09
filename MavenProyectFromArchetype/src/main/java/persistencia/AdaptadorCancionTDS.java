@@ -49,6 +49,9 @@ public class AdaptadorCancionTDS implements IAdaptadorCancionDAO {
 		// asignar identificador unico
 		// Se aprovecha el que genera el servicio de persistencia
 		Cancion.setId(eCancion.getId());
+		
+		System.out.println(eCancion.getNombre()+ " fart");
+		System.out.println(eCancion.getId());
 	}
 
 	public void borrarCancion(Cancion Cancion) {
