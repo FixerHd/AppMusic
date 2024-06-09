@@ -389,7 +389,7 @@ public class AppMusic {
 		Playlist nuevaPlaylist = new Playlist(titulo);
 		usuarioActivo.addPlaylist(nuevaPlaylist);
 		adaptadorPlaylist.registrarPlaylist(nuevaPlaylist);
-		actualizarUsuario(usuarioActivo);
+		adaptadorUsuario.modificarUsuario(usuarioActivo);
 		return true;
 	}
 
@@ -401,7 +401,7 @@ public class AppMusic {
 			Playlist p = iterator.next();
 			if (p.getNombre().equals(playlist)) {
 				iterator.remove();
-				actualizarUsuario(usuarioActivo);
+				adaptadorUsuario.modificarUsuario(usuarioActivo);
 				adaptadorPlaylist.borrarPlaylist(p);
 				return true;
 			}
@@ -554,7 +554,7 @@ public class AppMusic {
 
 	public boolean setUsuarioActivoPremium() {
 		usuarioActivo.setPremium(true);
-		actualizarUsuario(usuarioActivo);
+		adaptadorUsuario.modificarUsuario(usuarioActivo);
 		return true;
 	}
 
@@ -585,7 +585,7 @@ public class AppMusic {
 	public boolean addRecientes(String rutaCancion) {
 		try {
 			usuarioActivo.añadirRecientes(getCancion(rutaCancion));
-			actualizarUsuario(usuarioActivo);
+			adaptadorUsuario.modificarUsuario(usuarioActivo);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -595,12 +595,12 @@ public class AppMusic {
 
 	public void addCancionFavorita(int id) {
 		usuarioActivo.añadirFavorita(getCancion(id));
-		actualizarUsuario(usuarioActivo);
+		adaptadorUsuario.modificarUsuario(usuarioActivo);
 	}
 
 	public void eliminarCancionFavorita(int id) {
 		usuarioActivo.eliminarFavorita(getCancion(id));
-		actualizarUsuario(usuarioActivo);
+		adaptadorUsuario.modificarUsuario(usuarioActivo);
 	}
 
 	public void añadirCancionNueva() {
@@ -636,8 +636,4 @@ public class AppMusic {
 		}
 	}
 
-	public void actualizarUsuario(Usuario u) {
-		adaptadorUsuario.modificarUsuario(u);
-
-	}
 }
