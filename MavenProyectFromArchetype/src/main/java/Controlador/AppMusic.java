@@ -494,6 +494,7 @@ public class AppMusic {
 				if (c.getrutaFichero().equals(rutaFichero)) {
 					usuarioActivo.añadirRecientes(c);
 					c.addView();
+					adaptadorUsuario.modificarUsuario(usuarioActivo);
 					Reproductor.getUnicaInstancia().playCancionFich("./resources/canciones/" + rutaFichero);
 					return true;
 				}

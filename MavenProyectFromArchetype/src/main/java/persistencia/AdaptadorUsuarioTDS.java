@@ -83,20 +83,18 @@ public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
 			} else if (prop.getNombre().equals("email")) {
 				prop.setValor(Usuario.getEmail());
 			} else if (prop.getNombre().equals("password")) {
-				prop.setValor(Usuario.getEmail());
+				prop.setValor(Usuario.getPassword());
 			} else if (prop.getNombre().equals("fechaNacimiento")) {
 				prop.setValor(Usuario.getFechaNacimiento());
 			} else if (prop.getNombre().equals("premium")) {
-				prop.setValor(Usuario.getEmail());
+				prop.setValor(Usuario.getPremium());
 			} else if (prop.getNombre().equals("playlists")) {
 				String Playlists = obtenerIdPlaylist(Usuario.getPlaylists());
 				prop.setValor(Playlists);
 			} else if (prop.getNombre().equals("recientes")) {
-				String re = obtenerIdPlaylistReciente(Usuario.getRecientes());
-				prop.setValor(re);
+				AdaptadorPlaylistTDS.getUnicaInstancia().modificarPlaylist(Usuario.getRecientes());
 			} else if (prop.getNombre().equals("favoritas")) {
-				String fav = obtenerIdPlaylistFavorita(Usuario.getFavoritas());
-				prop.setValor(fav);
+				AdaptadorPlaylistTDS.getUnicaInstancia().modificarPlaylist(Usuario.getFavoritas());
 			}
 			servPersistencia.modificarPropiedad(prop);
 		}
@@ -191,7 +189,7 @@ public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
 		if (Playlist != null)
 			return adaptadorP.recuperarPlaylist(Integer.valueOf(Playlist));
 		else
-			return new Playlist("Recientes");
+			return new Playlist(Utilidades.Constantes.NOMBRE_RECIENTES);
 	}
 
 	private Playlist obtenerPlaylistFavoritaDesdeId(String Playlist) {
@@ -199,7 +197,7 @@ public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
 		if (Playlist != null)
 			return adaptadorP.recuperarPlaylist(Integer.valueOf(Playlist));
 		else
-			return new Playlist("Favoritas");
+			return new Playlist(Utilidades.Constantes.NOMBRE_FAVORITAS);
 	}
 
 	private List<Playlist> obtenerPlaylistsDesdeIds(String Playlists) {
