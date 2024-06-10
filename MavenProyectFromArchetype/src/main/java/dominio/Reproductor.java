@@ -73,7 +73,7 @@ public class Reproductor {
 				return playCancion(rutaFichero);
 			}
 			// Crear un objeto Media desde la ruta del fichero
-			Media media = new Media(new File(rutaFichero).toURI().toString());
+			Media media = new Media(new File(ruta1+rutaFichero).toURI().toString());
 			mediaPlayer = new MediaPlayer(media);
 			reproduciendoURL = false;
 			mediaPlayer.play();
