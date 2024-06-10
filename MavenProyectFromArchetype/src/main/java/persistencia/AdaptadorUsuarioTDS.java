@@ -62,6 +62,8 @@ public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
 		// asignar identificador unico
 		// Se aprovecha el que genera el servicio de persistencia
 		Usuario.setId(eUsuario.getId());
+
+		
 	}
 
 	public void borrarUsuario(Usuario Usuario) {

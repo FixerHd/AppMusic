@@ -3,6 +3,7 @@ package Controlador;
 import java.awt.Container;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Iterator;
@@ -323,9 +324,12 @@ public class AppMusic {
 	public DatosTabla buscarTendencias() {
 		DatosTabla nuevos_datos = new DatosTabla();
 		List<Cancion> cancionesOrdenadas = catalogoCanciones.cancionesOrdenadas();
-		cancionesOrdenadas.stream().limit(Utilidades.Constantes.LIMITE_PLAYLIST_ESTANDAR).forEach(c -> {
-			añadirDatosTabla(c, nuevos_datos);
-		});
+		cancionesOrdenadas.stream()
+			//.sorted(Comparator.comparingInt(c -> c.getReproducciones()).reversed())
+			.limit(Utilidades.Constantes.LIMITE_PLAYLIST_ESTANDAR)
+			.forEach(c -> {
+				añadirDatosTabla(c, nuevos_datos);
+			});
 		nuevos_datos.setFavoritas(getListaCheckFavoritas(cancionesOrdenadas));
 		return nuevos_datos;
 	}
