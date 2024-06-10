@@ -40,7 +40,6 @@ public class LoginGit extends JFrame {
 	public static LoginGit getInstancia() {
 		if (unicaInstancia == null) {
 			unicaInstancia = new LoginGit();
-			AppMusic.getUnicaInstancia().getVentanas().add(unicaInstancia);
 		}
 		return unicaInstancia;
 	}

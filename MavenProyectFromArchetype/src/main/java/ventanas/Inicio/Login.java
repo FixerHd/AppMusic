@@ -39,7 +39,6 @@ public class Login extends JFrame {
 	public static Login getInstancia() {
 		if (unicaInstancia == null) {
 			unicaInstancia = new Login();
-			AppMusic.getUnicaInstancia().getVentanas().add(unicaInstancia);
 		}
 		return unicaInstancia;
 	}

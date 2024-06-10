@@ -583,17 +583,6 @@ public class AppMusic {
 		return getCancion(ruta).addView();
 	}
 
-	public boolean addRecientes(String rutaCancion) {
-		try {
-			usuarioActivo.añadirRecientes(getCancion(rutaCancion));
-			adaptadorUsuario.modificarUsuario(usuarioActivo);
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
-
 	public void addCancionFavorita(int id) {
 		usuarioActivo.añadirFavorita(getCancion(id));
 		adaptadorUsuario.modificarUsuario(usuarioActivo);

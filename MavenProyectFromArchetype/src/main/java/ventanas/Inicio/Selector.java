@@ -31,7 +31,6 @@ public class Selector extends JFrame {
 	public static Selector getInstancia() {
 		if (unicaInstancia == null) {
 			unicaInstancia = new Selector();
-			AppMusic.getUnicaInstancia().getVentanas().add(unicaInstancia);
 		}
 		return unicaInstancia;
 	}

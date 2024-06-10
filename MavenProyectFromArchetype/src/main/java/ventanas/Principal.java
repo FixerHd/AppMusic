@@ -50,7 +50,6 @@ public class Principal extends JFrame implements PaymentObserver {
 	public static Principal getInstancia() {
 		if (unicaInstancia == null) {
 			unicaInstancia = new Principal();
-			AppMusic.getUnicaInstancia().getVentanas().add(unicaInstancia);
 		}
 		return unicaInstancia;
 	}

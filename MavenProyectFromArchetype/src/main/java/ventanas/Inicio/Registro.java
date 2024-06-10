@@ -45,7 +45,6 @@ public class Registro extends JFrame {
 	public static Registro getInstancia() {
 		if (unicaInstancia == null) {
 			unicaInstancia = new Registro();
-			AppMusic.getUnicaInstancia().getVentanas().add(unicaInstancia);
 		}
 		return unicaInstancia;
 	}
@@ -101,7 +100,7 @@ public class Registro extends JFrame {
 		JButton Botón_Volver = new JButton("Volver");
 		Botón_Volver.setIcon(new ImageIcon(Registro.class.getResource("/recursos/flecha-hacia-atras.png")));
 		Botón_Volver.addActionListener(ev -> {
-			AppMusic.getUnicaInstancia().mostrarVentanaSelector(Botón_Registro);
+			AppMusic.getUnicaInstancia().mostrarVentanaSelector(this);
 		});
 		panel.add(Botón_Volver);
 

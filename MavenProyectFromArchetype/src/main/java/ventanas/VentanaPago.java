@@ -55,7 +55,6 @@ public class VentanaPago extends JFrame {
 	public static VentanaPago getInstancia() {
 		if (unicaInstancia == null) {
 			unicaInstancia = new VentanaPago();
-			AppMusic.getUnicaInstancia().getVentanas().add(unicaInstancia);
 		}
 		return unicaInstancia;
 	}
