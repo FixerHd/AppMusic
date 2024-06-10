@@ -79,13 +79,17 @@ public class PanelMisListas extends JPanel implements NextPreviousObserver, Ruta
 
 	@Override
 	public void nextUpdate() {
-		String ruta = AppMusic.getUnicaInstancia().buscarRutaCancion(panelListas.getTable().nextCancionId());
+		String ruta = Panel_Reproducción.getRutaCancionReproduciendo();
+		int id = panelListas.getTable().nextCancionId(AppMusic.getUnicaInstancia().getCancion(ruta).getId());
+		ruta = AppMusic.getUnicaInstancia().buscarRutaCancion(id);
 		Panel_Reproducción.playCancion(ruta);
 	}
 
 	@Override
 	public void previousUpdate() {
-		String ruta = AppMusic.getUnicaInstancia().buscarRutaCancion(panelListas.getTable().previousCancionId());
+		String ruta = Panel_Reproducción.getRutaCancionReproduciendo();
+		int id = panelListas.getTable().previousCancionId(AppMusic.getUnicaInstancia().getCancion(ruta).getId());
+		ruta = AppMusic.getUnicaInstancia().buscarRutaCancion(id);
 		Panel_Reproducción.playCancion(ruta);
 	}
 

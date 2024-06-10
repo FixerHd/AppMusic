@@ -27,6 +27,10 @@ public abstract class PanelReproduccion extends JPanel implements PlayObserver {
 	protected PlayNotificationService playService = AppMusic.getUnicaInstancia().getPlayService();
 	protected RutaNotificactionService rutaService;
 	protected NextPreviousNotificationService nextPreviousService;
+	
+	public String getRutaCancionReproduciendo() {
+		return rutaCancionReproduciendo;
+	}
 
 	/**
 	 * Create the panel.

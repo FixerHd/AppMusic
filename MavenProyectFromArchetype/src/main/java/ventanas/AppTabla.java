@@ -153,4 +153,22 @@ public class AppTabla extends JTable {
 		}
 		return false;
 	}
+
+	public int nextCancionId(Integer id) {
+		for (int i = 0; i < ids.size(); i++) {
+			if (ids.get(i) == id) {
+				return ids.get((i + 1) % getRowCount());
+			}
+		}
+		return -1;
+	}
+	
+	public int previousCancionId(Integer id) {
+		for (int i = 0; i < ids.size(); i++) {
+			if (ids.get(i) == id) {
+				return ids.get((i - 1) % getRowCount());
+			}
+		}
+		return -1;
+	}
 }
