@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
+import Utilidades.URLValidator;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -63,11 +64,14 @@ public class Reproductor {
 		return false;
 	}
 
-	public boolean playCancionFich(String rutaFichero) {
+	public boolean playCancionFich(String ruta1, String rutaFichero) {
 		try {
 			com.sun.javafx.application.PlatformImpl.startup(() -> {
 			});
-
+			
+			if (URLValidator.isValidURL(rutaFichero)) {
+				return playCancion(rutaFichero);
+			}
 			// Crear un objeto Media desde la ruta del fichero
 			Media media = new Media(new File(rutaFichero).toURI().toString());
 			mediaPlayer = new MediaPlayer(media);

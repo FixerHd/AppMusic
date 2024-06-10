@@ -493,7 +493,7 @@ public class AppMusic {
 				if (c.getrutaFichero().equals(rutaFichero)) {
 					c.addView();
 					addRecientes(c);
-					Reproductor.getUnicaInstancia().playCancionFich("./resources/canciones/" + rutaFichero);
+					Reproductor.getUnicaInstancia().playCancionFich("./resources/canciones/",rutaFichero);
 					return true;
 				}
 			}

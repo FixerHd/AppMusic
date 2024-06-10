@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import umu.tds.componente.*;
 
 import dominio.Cancion;
 import dominio.CatalogoCanciones;
@@ -81,6 +82,20 @@ public enum CargadorCanciones {
 					if (!b) CatalogoCanciones.getUnicaInstancia().addCancion(cancion);
 				}
 			}
+			Canciones c2 = MapperCancionesXMLtoJava.cargarCanciones("canciones.xml");
+			for(umu.tds.componente.Cancion c3 : c2.getCancion()) {
+				boolean b = false;
+				Cancion cancion = new Cancion(c3.getTitulo(), c3.getURL());
+				cancion.setEstilomusical(c3.getEstilo());
+				cancion.setInterprete(c3.getInterprete());
+				for (Cancion c : CatalogoCanciones.getUnicaInstancia().getCanciones()) {
+					if(cancion.getTitulo().equals(c.getTitulo()) && cancion.getInterprete().equals(c.getInterprete())) {
+						b = true;
+					}
+				}
+				if (!b) CatalogoCanciones.getUnicaInstancia().addCancion(cancion);
+			}
+			
 		} catch (IOException e) {
 			System.err.println("Caught IOException: " + e.getMessage());
 		}
