@@ -42,7 +42,7 @@ public class Cancion {
 		return rutaFichero;
 	}
 
-	public int getnumReproducciones() {
+	public Integer getnumReproducciones() {
 		return numReproducciones;
 	}
 

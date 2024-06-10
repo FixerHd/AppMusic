@@ -325,7 +325,7 @@ public class AppMusic {
 		DatosTabla nuevos_datos = new DatosTabla();
 		List<Cancion> cancionesOrdenadas = catalogoCanciones.cancionesOrdenadas();
 		cancionesOrdenadas.stream()
-			//.sorted(Comparator.comparingInt(c -> c.getReproducciones()).reversed())
+			.sorted(Comparator.comparingInt(c -> ((Cancion) c).getnumReproducciones()).reversed())
 			.limit(Utilidades.Constantes.LIMITE_PLAYLIST_ESTANDAR)
 			.forEach(c -> {
 				añadirDatosTabla(c, nuevos_datos);
