@@ -156,7 +156,7 @@ public class AppTabla extends JTable {
 
 	public int nextCancionId(Integer id) {
 		for (int i = 0; i < ids.size(); i++) {
-			if (ids.get(i) == id) {
+			if (ids.get(i).intValue() == id.intValue()) {
 				return ids.get((i + 1) % getRowCount());
 			}
 		}
@@ -165,7 +165,7 @@ public class AppTabla extends JTable {
 	
 	public int previousCancionId(Integer id) {
 		for (int i = 0; i < ids.size(); i++) {
-			if (ids.get(i) == id) {
+			if (ids.get(i).intValue() == id.intValue()) {
 				return ids.get((i - 1) % getRowCount());
 			}
 		}

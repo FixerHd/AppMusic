@@ -10,6 +10,7 @@ import javax.swing.JTable;
 
 import Controlador.AppMusic;
 import Controlador.DatosTabla;
+import Utilidades.Constantes;
 import ventanas.services.NextPreviousObserver;
 import ventanas.services.PlaylistNameNotificactionService;
 import ventanas.services.PlaylistNameObserver;
@@ -115,16 +116,24 @@ public class PanelResultado extends JPanel implements NextPreviousObserver, Ruta
 	public void nextUpdate() {
 		String ruta = Panel_Reproducción.getRutaCancionReproduciendo();
 		int id = table.nextCancionId(AppMusic.getUnicaInstancia().getCancion(ruta).getId());
-		ruta = AppMusic.getUnicaInstancia().buscarRutaCancion(id);
-		Panel_Reproducción.playCancion(ruta);
+		if (id != -1) {
+			ruta = AppMusic.getUnicaInstancia().buscarRutaCancion(id);
+			Panel_Reproducción.playCancion(ruta);
+		} else {
+			AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_NEXT_MENSAJE);
+		}
 	}
 
 	@Override
 	public void previousUpdate() {
 		String ruta = Panel_Reproducción.getRutaCancionReproduciendo();
 		int id = table.previousCancionId(AppMusic.getUnicaInstancia().getCancion(ruta).getId());
-		ruta = AppMusic.getUnicaInstancia().buscarRutaCancion(id);
-		Panel_Reproducción.playCancion(ruta);
+		if (id != -1) {
+			ruta = AppMusic.getUnicaInstancia().buscarRutaCancion(id);
+			Panel_Reproducción.playCancion(ruta);
+		} else {
+			AppMusic.getUnicaInstancia().showPopup(Constantes.ERROR_PREVIOUS_MENSAJE);
+		}
 	}
 
 	@Override
