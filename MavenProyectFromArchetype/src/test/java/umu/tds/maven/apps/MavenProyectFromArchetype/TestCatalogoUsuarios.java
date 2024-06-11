@@ -13,54 +13,81 @@ import dominio.*;
 
 public class TestCatalogoUsuarios {
 
-	 private CatalogoCanciones catalogo;
-	    private Cancion cancion1;
-	    private Cancion cancion2;
+	 private CatalogoUsuarios catalogo;
+	    private Usuario usuario1;
+	    private Usuario usuario2;
 
 	    @Before
 	    public void setUp() {
+	        catalogo = CatalogoUsuarios.getUnicaInstancia();
+	        
+	        limpiarCatalogo();
 
+	        usuario1 = new Usuario("User1", "user1@example.com", "password1", "2000-01-01");
+	        usuario1.setId(1);
+	        usuario2 = new Usuario("User2", "user2@example.com", "password2", "2000-01-02");
+	        usuario2.setId(2);
 
-	        catalogo = CatalogoCanciones.getUnicaInstancia();
+	        catalogo.addUsuario(usuario1);
+	        catalogo.addUsuario(usuario2);
+	    }
 
-	        cancion1 = new Cancion("Song1", "ruta/ruta");
-	        cancion2 = new Cancion("Song2", "ruta/ruta");
-
-	        catalogo.addCancion(cancion1);
-	        catalogo.addCancion(cancion2);
+	    private void limpiarCatalogo() {
+	        List<Usuario> usuarios = catalogo.getUsuarios();
+	        for (Usuario usuario : usuarios) {
+	            catalogo.removeUsuario(usuario);
+	        }
 	    }
 
 	    @Test
 	    public void testGetUnicaInstancia() {
-	        CatalogoCanciones catalogo2 = CatalogoCanciones.getUnicaInstancia();
+	        CatalogoUsuarios catalogo2 = CatalogoUsuarios.getUnicaInstancia();
 	        assertSame(catalogo, catalogo2);
 	    }
 
 	    @Test
-	    public void testGetCanciones() {
-	        List<Cancion> canciones = catalogo.getCanciones();
-	        assertTrue(canciones.contains(cancion1));
-	        assertTrue(canciones.contains(cancion2));
-	    }
-
-
-	    @Test
-	    public void testGetCancionByNombre() {
-	        assertEquals(cancion1, catalogo.getCancion("Song1"));
-	        assertEquals(cancion2, catalogo.getCancion("Song2"));
+	    public void testGetUsuarios() {
+	        List<Usuario> usuarios = catalogo.getUsuarios();
+	        assertTrue(usuarios.contains(usuario1));
+	        assertTrue(usuarios.contains(usuario2));
 	    }
 
 	    @Test
-	    public void testAddCancion(){
-	        Cancion cancion3 = new Cancion("Song3", "ruta/ruta");
-	        catalogo.addCancion(cancion3);
-	        assertEquals(cancion3, catalogo.getCancion("Song3"));
+	    public void testGetUsuarioById() {
+	        assertEquals(usuario1, catalogo.getUsuario(1));
+	        assertEquals(usuario2, catalogo.getUsuario(2));
 	    }
 
 	    @Test
-	    public void testRemoveCancion() {
-	        catalogo.removeCancion(cancion1);
-	        assertNull(catalogo.getCancion("Song1"));
+	    public void testGetUsuarioByNombre() {
+	        assertEquals(usuario1, catalogo.getUsuario("User1"));
+	        assertEquals(usuario2, catalogo.getUsuario("User2"));
+	    }
+
+	    @Test
+	    public void testAddUsuario() {
+	        Usuario usuario3 = new Usuario("User3", "user3@example.com", "password3", "2000-01-03");
+	        usuario3.setId(3);
+	        catalogo.addUsuario(usuario3);
+	        assertEquals(usuario3, catalogo.getUsuario("User3"));
+	    }
+
+	    @Test
+	    public void testRemoveUsuario() {
+	        catalogo.removeUsuario(usuario1);
+	        assertNull(catalogo.getUsuario("User1"));
+	    }
+
+	    @Test
+	    public void testAddUsuarioFull() {
+	        Usuario usuario3 = catalogo.addUsuario("User3", "user3@example.com", "password3", "2000-01-03");
+	        assertEquals(usuario3, catalogo.getUsuario("User3"));
+	    }
+
+	    @Test
+	    public void testEmailEnUso() {
+	        assertTrue(catalogo.emailEnUso("user1@example.com"));
+	        assertFalse(catalogo.emailEnUso("nonexistent@example.com"));
 	    }
 
 }
