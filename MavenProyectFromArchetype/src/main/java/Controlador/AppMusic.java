@@ -493,7 +493,7 @@ public class AppMusic {
 				if (c.getrutaFichero().equals(rutaFichero)) {
 					c.addView();
 					addRecientes(c);
-					Reproductor.getUnicaInstancia().playCancionFich("./resources/canciones/",rutaFichero);
+					Reproductor.getUnicaInstancia().playCancionFich("./src/main/resources/canciones/",rutaFichero);
 					return true;
 				}
 			}
@@ -623,7 +623,7 @@ public class AppMusic {
 			String interprete = partes[0].trim();
 			String titulo = partes[1].trim();
 			Path origenPath = Paths.get(ruta);
-			Path destinoPath = Paths.get("./resources/canciones/OTRO/" + interprete + " - " + titulo);
+			Path destinoPath = Paths.get("./src/main/resources/canciones/OTRO/" + interprete + " - " + titulo);
 			try {
 				Files.copy(origenPath, destinoPath);
 			} catch (IOException e) {
